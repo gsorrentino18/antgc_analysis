@@ -1,0 +1,6 @@
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/GJetsHT200To400TuneCP513TeVmadgraphMLMpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/GJetsHT400To600TuneCP513TeVmadgraphMLMpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2.txt

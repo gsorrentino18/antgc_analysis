@@ -1,0 +1,10 @@
+*.d
+*.pcm
+*.pyc
+*.model
+*.pkl
+*.so
+*.root
+test/
+#out/
+test_files/
