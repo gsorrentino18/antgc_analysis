@@ -1,0 +1,27 @@
+000 (5742.000.000) 08/06 22:53:04 Job submitted from host: <128.101.221.176:9618?addrs=128.101.221.176-9618&noUDP&sock=11541_65e5_3>
+...
+001 (5742.000.000) 08/06 22:53:10 Job executing on host: <128.101.221.171:9618?addrs=128.101.221.171-9618&noUDP&sock=11629_6b57_4>
+...
+006 (5742.000.000) 08/06 22:53:20 Image size of job updated: 298724
+	213  -  MemoryUsage of job (MB)
+	217240  -  ResidentSetSize of job (KB)
+...
+006 (5742.000.000) 08/06 22:58:20 Image size of job updated: 421800
+	321  -  MemoryUsage of job (MB)
+	328320  -  ResidentSetSize of job (KB)
+...
+005 (5742.000.000) 08/06 23:01:21 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:51, Sys 0 00:00:26  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:51, Sys 0 00:00:26  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	21863  -  Run Bytes Sent By Job
+	567  -  Run Bytes Received By Job
+	21863  -  Total Bytes Sent By Job
+	567  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :       33  1024000   1815804
+	   Memory (MB)          :      321     2000      2000
+...

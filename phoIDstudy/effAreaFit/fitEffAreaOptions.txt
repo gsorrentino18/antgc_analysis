@@ -1,0 +1,119 @@
+isoVar 									==		phoPFClusEcalIso
+etaBins 								==		0.,0.5
+percentiles 							==		95,dd3497
+
+isoVar 									==		phoPFChIsoRaw, phoPFChWorstIsoRaw, phoPFNeuIsoRaw, phoPFPhoIsoRaw
+isoVar 									==		phoPFClusEcalIso, phoPFClusHcalIso, phoTrkSumPtSolidConeDR04, phoTrkSumPtHollowConeDR04, phoTrkSumPtSolidConeDR03, phoTrkSumPtHollowConeDR03
+etaBins 								==		0.,0.5; 0.5,1.; 1.,1.2; 1.2,1.479; 0.,1.; 1.,1.479
+percentiles 							==		95,dd3497;  90,313695; 85,ff7f00; 80,984ea3; 75,e41a1c; 70,ffff99
+
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/effAreaFit/effAreaFitPlots/
+fileDir									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_08_07/promptDR0p01DPt0p1/merged
+samples									==		GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2,  GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2,  GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8
+inTreeName 								==		fullEB/fullEB_Tree
+cutFlowHist 							==		fullEB/fullEB_cutFlowGenWeight
+prettNamesFile 							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/varPrettyNames.txt
+xSectionMap 							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv
+2dNcontours 							== 		1000
+colorPalette 							== 		57
+
+fitIntervalContent 						==		0.954499736103642
+fitIntervalInfo 						==		(fit 2#sigma min interval)
+
+fitIntervalContent 						==		0.682689492137086
+fitIntervalInfo 						==		(1#sigma fit range)
+
+fitOpt 									== 		0ERS
+fitLnWidth 								== 		3.
+fitLnStl 								== 		1
+pcWidth 								==		1.5
+pcMkrSz 								==		1.5
+pcMkrStl 								==		20
+slopePrecision							== 		4
+interceptPrecision						== 		3
+chi2precision 							== 		1
+
+canvasX									==		2600
+canvasY									==		2400
+
+pad0x1									==		0.
+pad0x2									==		0.96
+pad0y1									==		0.
+pad0y2									==		0.89
+pad0marginL								==		0.14
+pad0marginR								==		0.19
+pad0marginB								==		0.096
+pad0marginT								==		0.002
+pad0axisLabelSize						==		0.05
+pad0ZaxisLabelSize 						==		0.02
+pad0axisTitleSize						==		0.048
+pad0XtitleOffset						==		0.92
+pad0YtitleOffset						==		1.5
+pad0ZtitleOffset 						==		0.
+
+projYcol								==		969696
+padRwingx1								==		0.862
+padRwingx2								==		1.
+padRwingy1								==		0.
+padRwingy2								==		0.89
+padRwingaxislabelsize					==		0.07
+padRwingaxislabeloffset					==		-0.02
+padRwingmarginL							==		0.05
+padRwingmarginR							==		0.02
+padRwingmarginB							==		0.096
+padRwingmarginT							==		0.01
+padRwingLogY 							==		0
+
+projXcol								==		969696
+padUwingx1								==		0.
+padUwingx2								==		0.96
+padUwingy1								==		0.89
+padUwingy2								==		1.
+padUwingaxislabelsize					==		0.09
+padUwingaxislabeloffset					==		0.0
+padUwingmarginL							==		0.14
+padUwingmarginR							==		0.19
+padUwingmarginB							==		0.002
+padUwingmarginT							==		0.01
+
+pad0xNdivs								==		510
+pad0yNdivs								==		510
+padUwingyNdivs							==		510
+padRwingyNdivs							==		510
+padRwingxNdivs							==		0
+
+legx1									==		0.2
+legx2									==		0.805
+legy1									==		0.8
+legy2									==		0.992
+legTextSize								==		0.02
+legNcols								==		1
+legFillStyle 							== 		1000
+legFillColor 							== 		d9d9d9
+legFillColorAlpha 						== 		0.95
+legBorderWidth 							== 		0.
+
+autoZrange 								== 		1
+zMaxRatio 								== 		5.
+zMinRatio 								== 		1.
+
+
+fitRangeLineStyle 						== 		1
+fitRangeLineColor 						== 		b10026
+fitRangeLineWidth 						== 		3
+fitRangeArrowElevation 					== 		0.1
+fitRangeArrowSize 						== 		0.02
+fitRangeInfoTextSize					==		0.16
+fitRangeInfoElevation					==		0.3
+fitRangeInfoDisplacement				==		0.5
+fitRangeInfoTextColor					==		b10026
+
+fitRangeLineWidth0 						== 		4.
+fitRangeLineStyle0 						== 		9
+
+categoryInfoTextSize					==		0.035
+categoryInfoX							==		0.782
+categoryInfoY							==		0.92
+categoryInfoTextColor					==		b10026
+
+yMaxRatio 								== 		1.3

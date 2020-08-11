@@ -874,20 +874,20 @@ struct effectiveAreaMap{
 
 	effectiveAreaMap(){};
 
-	effectiveAreaMap(std::string mapFile, Bool_t _verbose=1){
-		init(mapFile, _verbose);
+	effectiveAreaMap(std::string mapFile, Bool_t _verbose=1, std::string _delimiter="        ", Int_t _firstLine = 2){
+		init(mapFile, _verbose, _delimiter, _firstLine);
 	};
 
-	void init(std::string mapFile, Bool_t _verbose=1){
+	void init(std::string mapFile, Bool_t _verbose=1, std::string _delimiter="        ", Int_t _firstLine = 2){
 		if(!file_exists(mapFile)){
 			std::cout<<"\tError! File does not exist! "<<mapFile<<std::endl;
 			exit(EXIT_FAILURE);
 		}
 
-		CSVReader readFile(mapFile, "        ");
+		CSVReader readFile(mapFile, _delimiter);
 		std::vector<std::vector<std::string>> effAreaData 		= 	readFile.getData();
 
-		for(UInt_t iRow = 2; iRow < effAreaData.size(); iRow++){
+		for(UInt_t iRow = _firstLine; iRow < effAreaData.size(); iRow++){
 			Float_t uBound 										= 	std::stof(effAreaData[iRow][1]);
 			Float_t effArea 									= 	std::stof(effAreaData[iRow][2]);
 			effectiveAreas[uBound] 								= 	effArea;

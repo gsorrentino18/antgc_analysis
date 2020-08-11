@@ -28,15 +28,12 @@ const Double_t ECAL_EB_ABS_ETA_BINS[8] = {0., 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, BETR
 
 ////////////////////////////////////////////////// Container for categories //////////////////////////////////////////////////////////////////////////////////////
 struct eventType{
-
 	TTree *                             tree = nullptr;
 
-	/////////////////////////////////////////////// Cut efficiency tracking ////////////////////////////////////////////////
+	// Cut efficiency tracking
 	Float_t                             lastCutStep = 0.;
 	TH1F *                              cutFlowCount = nullptr;
-	TH1F *                              cutFlowFullWeight = nullptr;
 	TH1F *                              cutFlowGenWeight = nullptr;
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -49,6 +46,7 @@ public:
 
 	~genPhoMatcher(){
 		std::cout<<"END @ "<<getCurrentTime()<<std::endl;
+		std::cout<<"*************************************************************************************************************************************************"<<std::endl;
 	};
 
 private:
@@ -64,8 +62,9 @@ private:
 	void                analyze();
 	Bool_t              selectEvent();
 
-	Short_t				photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax = 0.2, Float_t _relDeltaPtMax = 0.5);
+	Short_t				photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
 	Bool_t				photonIsFake(Short_t _phoIndex, Float_t _deltaRmax = 0.3);
+	Short_t matchWithRecoPho(Short_t _genIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
 
 	TFile *             outFile = nullptr;
 
@@ -164,11 +163,12 @@ private:
 
 	Float_t             genWeight_ = 1.;
 	Float_t             puWeight_ = 1.;
-	UChar_t				puTrue_ = 0;
-	UShort_t			genStatusFlag_ = 0;
-	Short_t				genStatus_ = 0;
-	Float_t 			deltaRgenPho_ = 0;
-	Float_t 			relDeltaPtGenPho_ = 0;
+	UChar_t				puTrue_;
+	UShort_t			genStatusFlag_;
+	Short_t				genStatus_;
+	Float_t 			deltaRgenPho_;
+	Float_t 			relDeltaPtGenPho_;
+	Float_t 			deltaRPt_;
 	Int_t				genPDGid_ = 0;
 
 	Float_t 			phoPt_;
@@ -176,9 +176,17 @@ private:
 	Float_t 			phoPhi_;
 	Float_t 			phoSeedTime_;
 	
-	UChar_t				phoQualityBits_
+	UChar_t				phoQualityBits_;
 	Float_t 			phoR9Full5x5_;
 	Float_t 			phoS4Full5x5_;
+
+	Float_t 			phoS1Full5x5_;
+	Float_t 			phoS2ndFull5x5_;
+	Float_t 			phoU21Full5x5_;
+	Float_t 			phoS1x3Full5x5_;
+	Float_t 			phoS2x5Full5x5_;
+	Float_t 			phoS25Full5x5_;
+
 	Float_t 			phoSigmaIEtaIEta_;
 	Float_t 			phoSigmaIPhiIPhi_;
 	Float_t 			phoSigmaIEtaIPhi_;
@@ -213,15 +221,15 @@ private:
 	UChar_t             phoIDbit_;
 	Float_t 			phoMIP_;	
 
-	Float_t 			phoRelTightPFChIso_;
-	Float_t 			phoRelTightPFPhoIso_;
-	Float_t 			phoRelTightPFNeuIso_;
-	Float_t 			phoRelMedPFChIso_;
-	Float_t 			phoRelMedPFPhoIso_;
-	Float_t 			phoRelMedPFNeuIso_;
-	Float_t 			phoRelLoosePFChIso_;
-	Float_t 			phoRelLoosePFPhoIso_;
-	Float_t 			phoRelLoosePFNeuIso_;
+	Float_t 			phoRelTightPFChIsoCorr_;
+	Float_t 			phoRelTightPFPhoIsoCorr_;
+	Float_t 			phoRelTightPFNeuIsoCorr_;
+	Float_t 			phoRelMedPFChIsoCorr_;
+	Float_t 			phoRelMedPFPhoIsoCorr_;
+	Float_t 			phoRelMedPFNeuIsoCorr_;
+	Float_t 			phoRelLoosePFChIsoCorr_;
+	Float_t 			phoRelLoosePFPhoIsoCorr_;
+	Float_t 			phoRelLoosePFNeuIsoCorr_;
 
 	Float_t 			phoSCet_;
 	Float_t 			phoSCrawet_;
@@ -235,6 +243,7 @@ private:
 
 	/////////////////////////////////////////Buffer variables///////////////////////////////////////////////////////////////
 	Short_t matchedGenPhoIndex;
+	UChar_t nPromptPho_;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////Categories////////////////////////////////////////////////////////////////
@@ -257,7 +266,7 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 	std::cout<<"*************************************************************************************************************************************************"<<std::endl<<
 	getCurrentTime()<<std::endl<<
 	"Running genPhoMatcher"<<std::endl<<
-	"\tInput parameters:"<<std::endl<<
+	"\n\nInput parameters:"<<std::endl<<
 	"\t\tFile list = "<<FILELIST<<std::endl<<
 	"\t\tOutput file = "<<OUTFILE<<std::endl<<
 	"\t\tCross section = "<<XSECTION<<std::endl<<
@@ -265,21 +274,21 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 	"\t\tData pileup histogram = "<<DATAPILEUPHIST<<std::endl<<
 	"\t\tCharged Hadronic Effective Areas = "<<CHARGED_HADRONIC_EFFECTIVE_AREAS<<std::endl<<
 	"\t\tPhotonic Effective Areas = "<<PHOTONIC_EFFECTIVE_AREAS<<std::endl<<
-	"\t\tNeutral Hadronic Effective Areas = "<<NEUTRAL_HADRONIC_EFFECTIVE_AREAS<<std::endl<<
-	"*************************************************************************************************************************************************"<<std::endl;
+	"\t\tNeutral Hadronic Effective Areas = "<<NEUTRAL_HADRONIC_EFFECTIVE_AREAS<<std::endl;
+	
 
 	xSec = XSECTION;
 	if(XSECTION > 0.) isMC = true;
 	if(isMC && file_exists(MCPILEUPHIST) && file_exists(DATAPILEUPHIST)) doPUreweight = true;
 
-	std::cout<<"Sample is simulation = "<<std::boolalpha<<isMC<<std::endl<<
-	"Do pileup reweight = "<<doPUreweight<<std::endl;
+	std::cout<<"\t\tSample is simulation = "<<std::boolalpha<<isMC<<std::endl<<
+	"\t\tDo pileup reweight = "<<doPUreweight<<"\n\n"<<std::endl;
 
 	// doPUreweight = 0;
 
 	if(doPUreweight) {
 		std::cout<<"Pileup reweighting:"<<std::endl;
-		puReweighter.init(MCPILEUPHIST, DATAPILEUPHIST, "hPUTrue", "pileup");
+		puReweighter.init(MCPILEUPHIST, DATAPILEUPHIST, "hPUTruew", "pileup");
 	}
 
 	if(file_exists(CHARGED_HADRONIC_EFFECTIVE_AREAS)) {
@@ -314,14 +323,16 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 
 	closeTChain(inputTree);
 
-	std::cout<<"\tOutput written to file\t"<<OUTFILE <<std::endl<<"Complete!"<<std::endl<<getCurrentTime()<<std::endl;
+	std::cout<<"\n\nOutput written to file\t"<<OUTFILE <<std::endl<<"Complete!"<<std::endl<<getCurrentTime()<<std::endl;
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Short_t	genPhoMatcher::photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax, Float_t _relDeltaPtMax){
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Short_t	genPhoMatcher::photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax){
 
 	Short_t matchedPromptGenPho = -999;
-	Float_t minDeltaRRelDeltaE = 999.;
+	Float_t minDeltaR = 999.;
 
 	for(UShort_t iGenP=0; iGenP < _nMC; iGenP++){
 		if(_mcPID[iGenP] != 22) continue;
@@ -332,24 +343,58 @@ Short_t	genPhoMatcher::photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax, Flo
 		Float_t dRiGenPho = deltaR(_phoEta[_phoIndex], _phoPhi[_phoIndex], _mcEta[iGenP], _mcPhi[iGenP]);
 		if(dRiGenPho > _deltaRmax) continue;
 
-		Float_t relDeltaPtiGenPho = std::abs(_mcPt[iGenP] - _phoCalibEt[_phoIndex])/_mcPt[_phoIndex];
-		if(relDeltaPtiGenPho > _relDeltaPtMax) continue;
+		// Float_t relDeltaPtiGenPho = std::abs(_mcPt[iGenP] - _phoCalibEt[_phoIndex])/_mcPt[iGenP];
+		// if(relDeltaPtiGenPho > _relDeltaPtMax) continue;
+		// if(relDeltaPtiGenPho < _relDeltaPtMin) continue;
 
-		Float_t relDeltaEiXdRiGenPho = dRiGenPho*relDeltaPtiGenPho;
-		if(minDeltaRRelDeltaE > relDeltaEiXdRiGenPho){
-			minDeltaRRelDeltaE = relDeltaEiXdRiGenPho;
+		if(dRiGenPho < minDeltaR){
+			minDeltaR = dRiGenPho;
 			matchedPromptGenPho = iGenP;
 		}
 	}
 
 	return matchedPromptGenPho;
 };
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Short_t	genPhoMatcher::matchWithRecoPho(Short_t _genIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax){
 
+	Short_t matchedRecoPho = -999;
+	Float_t minDeltaRPt = 999.;
+
+	for(UShort_t iPho = 0; iPho < _nPho; iPho++){
+
+		UChar_t iPhoFidReg = _phoFiducialRegion[iPho];
+		if(!getBit(iPhoFidReg, 0)) continue; 			// skip if not EB (0 = EB, 1 = EE, 2 = EB-EE gap)
+
+		// if(_phoCalibEt[iPho] < 200.) continue;
+		
+		Float_t relDeltaPtiGenPho = (_phoCalibEt[iPho] - _mcPt[_genIndex])/_mcPt[_genIndex];
+		if(relDeltaPtiGenPho > _relDeltaPtMax) continue;
+		if(relDeltaPtiGenPho < _relDeltaPtMin) continue;
+
+		Float_t dRiGenPho = deltaR(_phoEta[iPho], _phoPhi[iPho], _mcEta[_genIndex], _mcPhi[_genIndex]);
+		if(dRiGenPho > _deltaRmax) continue;
+
+		// Float_t iPhoGenDeltaRPt = std::sqrt(relDeltaPtiGenPho*relDeltaPtiGenPho + dRiGenPho*dRiGenPho);
+		Float_t iPhoGenDeltaRPt = dRiGenPho;
+
+		if(iPhoGenDeltaRPt < minDeltaRPt){
+			matchedRecoPho = iPho;
+			minDeltaRPt = iPhoGenDeltaRPt;
+		}
+	}
+
+	return matchedRecoPho;
+};
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool_t genPhoMatcher::photonIsFake(Short_t _phoIndex, Float_t _deltaRmax){
 	// Checks for the existence of a prompt gen photon within a given deltaR cone
-
 	Bool_t photonIsFake = 1;
 	Float_t photonEta = _phoEta[_phoIndex];
 	Float_t photonPhi = _phoPhi[_phoIndex];
@@ -370,13 +415,13 @@ Bool_t genPhoMatcher::photonIsFake(Short_t _phoIndex, Float_t _deltaRmax){
 
 	return photonIsFake;
 };
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool_t genPhoMatcher::selectEvent(){
 	//// reset event cut flow
 	fullEB.lastCutStep = 0.;
-
 	registerAllCutFlow();
 
 	/////////////////////////////////////////////////Global Event Cuts /////////////////////////////////////////////////////
@@ -384,52 +429,56 @@ Bool_t genPhoMatcher::selectEvent(){
 	// if(!getBit(HLTPho, 9))      return 0;           //// 200 GeV photon trigger
 	// registerAllCutFlow();
 
-	
-	///////////////////////////////////////////// Count photons ////////////////////////////////////////////////////////////
-	std::vector<Short_t> candPhos;
-	for(Short_t iPho = 0; iPho < _nPho; iPho++){
-		if(_phoCalibEt[iPho] > 200.) candPhos.push_back(iPho);
-	}
-	if(candPhos.size() > 1) return 0;
-	registerAllCutFlow();
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	///////////////////////////////////////////// Select highest pT photon /////////////////////////////////////////////////
-	Short_t highetsPtIndex 	= -9999;
-	Float_t highestPtPhoPt 	= -999.;
-	Bool_t passedEtaCut 	= 0;
-	Bool_t passedPixelCut 	= 0;
+	Short_t highetsPtGenIndex 	= -9999;
+	Float_t highestPt 			= -999.;
+	Bool_t	passedPrompt		= 0;
+	Bool_t 	passedGenFidCut		= 0;
+	Bool_t 	passedGenPtCut 		= 0;
+	Bool_t 	passedRecoMatch		= 0;
+	Short_t matchedRecoPhoton 	= -999;
 	
-	for(Short_t iPho : candPhos){
+	nPromptPho_ = 0;
 
-		Float_t iPhoAbsEta = std::abs(_ecalSCeta[_phoDirectEcalSCindex[iPho]]);
-		if((iPhoAbsEta >= BETRetaMin) && (iPhoAbsEta <= BETRetaMax)) continue;               	//// Exclude EB-EE transition region
-		if(iPhoAbsEta >3.) continue;
-		passedEtaCut = 1;
+	for(UShort_t iGenP=0; iGenP<_nMC; iGenP++){
+		if(_mcPID[iGenP] != 22) continue;
 
-		UChar_t tmpphoQualityBits = _phoQualityBits[iPho];
-		if(getBit(tmpphoQualityBits,0)) continue;                               				//// 0=has pixel seed, 1=electron veto
-		passedPixelCut = 1;
+		UShort_t iGenPStFl = _mcStatusFlag[iGenP];
+		if(!getBit(iGenPStFl,1)) continue;
+		passedPrompt = 1;
 
-		if(_phoCalibEt[iPho] > highestPtPhoPt){
-			highestPtPhoPt = _phoCalibEt[iPho];
-			highetsPtIndex = iPho;
+		nPromptPho_++;
+
+		if(std::abs(_mcEta[iGenP]) > 1.4442) continue;
+		passedGenFidCut = 1;
+
+		if(std::abs(_mcPt[iGenP]) < 200.) continue;
+		passedGenPtCut = 1;
+
+		Short_t iGenRecoMatch = matchWithRecoPho(iGenP, 0.05, -0.1, 0.1);
+		if(iGenRecoMatch < 0) continue;
+		passedRecoMatch = 1;
+
+		if(_mcPt[iGenP] > highestPt){
+			highetsPtGenIndex = iGenP;
+			highestPt = _mcPt[iGenP];
+			matchedRecoPhoton = iGenRecoMatch;
 		}
 	}
+	
+	if(passedPrompt) registerAllCutFlow();
+	if(passedGenFidCut) registerAllCutFlow();
+	if(passedGenPtCut) registerAllCutFlow();
+	if(passedRecoMatch) registerAllCutFlow();
 
-	if(passedEtaCut) registerAllCutFlow();
-	if(passedPixelCut) registerAllCutFlow();
+	if(highetsPtGenIndex < 0) return 0;
 
-	if(highetsPtIndex<0) return 0;
+	matchedGenPhoIndex = highetsPtGenIndex;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if(highetsPtIndex < 0) return 0;
 
-	fillPhoVars(highetsPtIndex);
-
-	Float_t selectedPhoAbsEta = std::abs(_ecalSCeta[_phoDirectEcalSCindex[highetsPtIndex]]);
-
-	if(selectedPhoAbsEta < 1.4442) 										fillEventType(fullEB);
+	fillPhoVars(matchedRecoPhoton);
+	fillEventType(fullEB);
 
 	return 1;
 };
@@ -446,7 +495,7 @@ Bool_t genPhoMatcher::initEventTypes(){
 	nvtxPreweight.SetDirectory(outFile->GetDirectory(""));
 	nvtxPostweight.SetDirectory(outFile->GetDirectory(""));
 
-	initEventType(fullEB, "fullEB", " |#eta| < 1.4442");
+	initEventType(fullEB, "fullEB", "Full ECAL Barrel");
 	return 1;
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -457,10 +506,9 @@ void genPhoMatcher::analyze(){
 	std::cout<<"--------------------------------------------------------------------------------------------------"<<std::endl<<
 	getCurrentTime()<<std::endl<<
 	"Analyzing events.."<<std::endl;
-
+	ULong64_t current_entry =0;
 	while(inputTTreeReader.Next()){
 
-		ULong64_t current_entry = inputTTreeReader.GetCurrentEntry();
 		if(current_entry % REPORT_EVERY == 0){
 			std::cout<<"\t"<< getCurrentTime()<<"\tAnalyzing entry\t"<<current_entry<<
 			",\t\tevent\t"<<(_event)<<"\t\tFile " <<inputTree->GetCurrentFile()->GetName() <<std::endl;
@@ -484,7 +532,9 @@ void genPhoMatcher::analyze(){
 			pileupPreweight.Fill(_puTrue, genWeight_);
 		}
 
-		selectEvent();  
+		selectEvent();
+
+		current_entry++; 
 	};
 
 	std::cout<<"Done analyzing!"<<std::endl<<
@@ -497,9 +547,9 @@ void genPhoMatcher::analyze(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 
-	run 					= _run;
-	event 					= _event;
-	lumis 					= _lumis;
+	run_ 					= _run;
+	event_ 					= _event;
+	lumis_ 					= _lumis;
 	rho_ 					= _rho;
 	nVtx_					= _nVtx;
 
@@ -508,19 +558,19 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 
 		Short_t iPhoGenIndex = matchedGenPhoIndex; //photonIsPrompt(_phoIndex, 0.3, 0.5);
 		if(iPhoGenIndex > -1) {
-			genStatusFlag 			= 	_mcStatusFlag[iPhoGenIndex];
-			genPromptStatusType 	= 	_mcPromptStatusType[iPhoGenIndex];
-			genStatus 				=	_mcStatus[iPhoGenIndex];
-			deltaRgenPho 			=	deltaR(_mcEta[iPhoGenIndex], _mcPhi[iPhoGenIndex], _phoEta[_phoIndex], _phoPhi[_phoIndex]);
-			relDeltaPtGenPho 		=	(_phoCalibEt[_phoIndex] - _mcPt[iPhoGenIndex])/_mcPt[_phoIndex];
-			phoPDGid_ 				= 	_mcPID[iPhoGenIndex];
+			genStatusFlag_ 			= 	_mcStatusFlag[iPhoGenIndex];
+			genStatus_ 				=	_mcStatus[iPhoGenIndex];
+			deltaRgenPho_ 			=	deltaR(_mcEta[iPhoGenIndex], _mcPhi[iPhoGenIndex], _phoEta[_phoIndex], _phoPhi[_phoIndex]);
+			relDeltaPtGenPho_ 		=	(_phoCalibEt[_phoIndex] - _mcPt[iPhoGenIndex])/_mcPt[iPhoGenIndex];
+			deltaRPt_ 				= std::sqrt(deltaRgenPho_*deltaRgenPho_ + relDeltaPtGenPho_*relDeltaPtGenPho_);
+			genPDGid_ 				= 	_mcPID[iPhoGenIndex];
 		} else {
-			phoPDGid_ 				= 	-9999;
-			genStatusFlag 			= 	9999;
-			genPromptStatusType 	= 	-99;
-			genStatus 				= 	-9999;
-			deltaRgenPho 			=	-9999;
-			relDeltaPtGenPho 		=	-9999;
+			genStatusFlag_ 			= 	9999;
+			genStatus_ 				= 	-9999;
+			deltaRgenPho_ 			=	-9999;
+			relDeltaPtGenPho_ 		=	-9999;
+			deltaRPt_ 				= 	-9999;
+			genPDGid_				= -9999;
 		}
 	}
 
@@ -535,6 +585,13 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	phoQualityBits_			= _phoQualityBits[_phoIndex];
 	phoR9Full5x5_ 			= _phoR9Full5x5[_phoIndex];
 	phoS4Full5x5_			= _phoE2x2Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoS1Full5x5_ 			= _phoMaxEnergyXtal[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoS2ndFull5x5_ 		= _phoE2ndFull5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoU21Full5x5_ 			= _phoE2ndFull5x5[_phoIndex]/_phoMaxEnergyXtal[_phoIndex];
+	phoS1x3Full5x5_ 		= _phoE1x3Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoS2x5Full5x5_ 		= _phoE2x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoS25Full5x5_ 			= _phoE5x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+
 	phoSigmaIEtaIEta_ 		= _phoSigmaIEtaIEtaFull5x5[_phoIndex];
 	phoSigmaIEtaIPhi_ 		= _phoSigmaIEtaIPhiFull5x5[_phoIndex];
 	phoSigmaIPhiIPhi_ 		= _phoSigmaIPhiIPhiFull5x5[_phoIndex];	
@@ -566,7 +623,7 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	phoPFPhoIsoCorr_ 		= std::max(_phoPFPhoIso[_phoIndex] - _rho * PhoEffAreas.getEffectiveArea(phoAbsSCEta), (Float_t)0.);
 	phoPFNeuIsoCorr_ 		= std::max(_phoPFNeuIso[_phoIndex] - _rho * NeuHadEffAreas.getEffectiveArea(phoAbsSCEta), (Float_t)0.);
 	phoIDMVA_ 				= _phoIDMVA[_phoIndex];
-	phoIDbit 				= _phoIDbit[_phoIndex];
+	phoIDbit_ 				= _phoIDbit[_phoIndex];
 	phoMIP_ 				= _phoMIPTotEnergy[_phoIndex];
 
 	phoRelTightPFChIsoCorr_		= phoPFChIsoCorr_/0.65;
@@ -583,10 +640,10 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	phoSCrawet_				= (_ecalSCRawEn[phoSCindex]) / std::cosh(phoSCeta_);
 	phoSCeta_ 				= _ecalSCeta[phoSCindex];
 	phoSCphi_ 				= _ecalSCphi[phoSCindex];
-	ecalSCEn_ 				= _ecalSCEn[phoSCindex];
-	ecalSCRawEn_			= _ecalSCRawEn[phoSCindex];
-	ecalSCetaWidth_ 		= _ecalSCetaWidth[phoSCindex];
-	ecalSCphiWidth_ 		= _ecalSCphiWidth[phoSCindex];
+	phoSCEn_ 				= _ecalSCEn[phoSCindex];
+	phoSCRawEn_			= _ecalSCRawEn[phoSCindex];
+	phoSCetaWidth_ 		= _ecalSCetaWidth[phoSCindex];
+	phoSCphiWidth_ 		= _ecalSCphiWidth[phoSCindex];
 
 	return 1;
 }
@@ -616,7 +673,7 @@ Bool_t genPhoMatcher::initNtuples(std::string FILELIST){
 		_genWeight.set(inputTTreeReader, "genWeight");
 		_nMC.set(inputTTreeReader, "nMC");
 		_mcPID.set(inputTTreeReader, "mcPID");
-		_mcPt.set(inputTTreeReader, "_mcPt");
+		_mcPt.set(inputTTreeReader, "mcPt");
 		_mcEta.set(inputTTreeReader, "mcEta");
 		_mcPhi.set(inputTTreeReader, "mcPhi");
 		_mcStatusFlag.set(inputTTreeReader, "mcStatusFlag");
@@ -684,10 +741,8 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	mkTFileDir(outFile, typeName);
 
 	evType.cutFlowCount = new TH1F((typeName+"_cutFlowCount").c_str(), "Cut Flow (Unweighted)", CUTFLOWSTEPS, 0., (Float_t)CUTFLOWSTEPS);
-	evType.cutFlowFullWeight = new TH1F((typeName+"_cutFlowFullWeight").c_str(), "Cut Flow (PU & Gen Weighted)", CUTFLOWSTEPS, 0., (Float_t)CUTFLOWSTEPS);
 	evType.cutFlowGenWeight = new TH1F((typeName+"_cutFlowGenWeight").c_str(), "Cut Flow (Gen Weighted)", CUTFLOWSTEPS, 0., (Float_t)CUTFLOWSTEPS);
 	evType.cutFlowCount->SetDirectory(outFile->GetDirectory(typeName.c_str()));
-	evType.cutFlowFullWeight->SetDirectory(outFile->GetDirectory(typeName.c_str()));
 	evType.cutFlowGenWeight->SetDirectory(outFile->GetDirectory(typeName.c_str()));
 
 	//////// initialize tree
@@ -707,7 +762,9 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("genStatus", &genStatus_);
 	evType.tree->Branch("deltaRgenPho", &deltaRgenPho_);
 	evType.tree->Branch("relDeltaPtGenPho", &relDeltaPtGenPho_);
-	evType.tree->Branch("phoPDGid", &phoPDGid_);
+	evType.tree->Branch("deltaRPt", &deltaRPt_);
+	evType.tree->Branch("genPDGid", &genPDGid_);
+	evType.tree->Branch("nPromptPho", &nPromptPho_);	
 
 	evType.tree->Branch("phoPt", &phoPt_);
 	evType.tree->Branch("phoEta", &phoEta_);
@@ -717,6 +774,14 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoQualityBits", &phoQualityBits_);
 	evType.tree->Branch("phoR9Full5x5", &phoR9Full5x5_);
 	evType.tree->Branch("phoS4Full5x5", &phoS4Full5x5_);
+
+	evType.tree->Branch("phoS1Full5x5", &phoS1Full5x5_);
+	evType.tree->Branch("phoS2ndFull5x5", &phoS2ndFull5x5_);
+	evType.tree->Branch("phoU21Full5x5", &phoU21Full5x5_);	
+	evType.tree->Branch("phoS1x3Full5x5", &phoS1x3Full5x5_);
+	evType.tree->Branch("phoS2x5Full5x5", &phoS2x5Full5x5_);
+	evType.tree->Branch("phoS25Full5x5", &phoS25Full5x5_);
+
 	evType.tree->Branch("phoSigmaIEtaIEta", &phoSigmaIEtaIEta_);
 	evType.tree->Branch("phoSigmaIEtaIPhi", &phoSigmaIEtaIPhi_);
 	evType.tree->Branch("phoSigmaIPhiIPhi", &phoSigmaIPhiIPhi_);
@@ -765,10 +830,10 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoSCrawet", &phoSCrawet_);
 	evType.tree->Branch("phoSCeta", &phoSCeta_);
 	evType.tree->Branch("phoSCphi", &phoSCphi_);
-	evType.tree->Branch("ecalSCEn", &ecalSCEn_);
-	evType.tree->Branch("ecalSCRawEn", &ecalSCRawEn_);
-	evType.tree->Branch("ecalSCetaWidth", &ecalSCetaWidth_);
-	evType.tree->Branch("ecalSCphiWidth", &ecalSCphiWidth_);	
+	evType.tree->Branch("phoSCEn", &phoSCEn_);
+	evType.tree->Branch("phoSCRawEn", &phoSCRawEn_);
+	evType.tree->Branch("phoSCetaWidth", &phoSCetaWidth_);
+	evType.tree->Branch("phoSCphiWidth", &phoSCphiWidth_);	
 	
 	std::cout<<"Created output tree:\t"<<typeName<<"\t"<<typeTitle<<std::endl;
 	// evType.tree->Print();
@@ -796,8 +861,7 @@ void genPhoMatcher::registerAllCutFlow(){
 // Reset lastCutStep before each event
 void genPhoMatcher::registerCutFlow(eventType & evType){
 	evType.cutFlowCount->Fill(evType.lastCutStep);
-	evType.cutFlowFullWeight->Fill(evType.lastCutStep, eventWeight);
-	evType.cutFlowGenWeight->Fill(evType.lastCutStep, genWeight);
+	evType.cutFlowGenWeight->Fill(evType.lastCutStep, genWeight_);
 	evType.lastCutStep = evType.lastCutStep + 1.;
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

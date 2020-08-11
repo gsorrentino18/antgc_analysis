@@ -1,0 +1,3 @@
+GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2
+GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2
+GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8
