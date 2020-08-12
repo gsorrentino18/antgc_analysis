@@ -26,6 +26,7 @@ TH2F*															get2DHistogram(std::string _isoVar, Float_t _etaMin, Float_t
 	TH2F* 										histIsoVsRho								=	new TH2F(histName.c_str(), histTitle.c_str(), std::stoi(varPlotInfo["rho"][1]), std::stof(varPlotInfo["rho"][2]), std::stof(varPlotInfo["rho"][3]),
 		std::stoi(varPlotInfo[_isoVar][1]), std::stof(varPlotInfo[_isoVar][2]), std::stof(varPlotInfo[_isoVar][3]));
 	histIsoVsRho->SetContour(options.getInt("2dNcontours"));
+	histIsoVsRho->Sumw2();
 
 	for(std::string iSample : samples){
 		std::string 							iSamplePath 								=	options.get("fileDir") + "/" + iSample + ".root" ;

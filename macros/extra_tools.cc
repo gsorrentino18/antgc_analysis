@@ -201,6 +201,8 @@ void remove_intersection(std::vector<T>& a, std::vector<T>& b);
 TH1* getSqrtHist(TH1* _hist);
 void removeNegativeBins(TH1* _hist);
 Float_t foldedPhi(Float_t _phi);
+bool isInteger(const std::string & s);
+Char_t RGB2ColPlt(std::string _CSVFile, Int_t _firstCol);
 
 Float_t foldedPhi(Float_t _phi){
 	if(std::abs(_phi) <= TMath::PiOver2()) return _phi;
@@ -3185,9 +3187,39 @@ TH1* getSqrtHist(TH1* _hist){
 
 
 void removeNegativeBins(TH1* _hist){
-	for(UInt_t iBin = 1; iBin < _hist->GetNbinsX() +1; iBin++){
+	for(Int_t iBin = 1; iBin < _hist->GetNbinsX() +1; iBin++){
 		if(_hist->GetBinContent(iBin) < 0.) _hist->SetBinContent(iBin, 0.);
 	}
+};
+
+
+bool isInteger(const std::string & s) {
+	if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+	char * p;
+	strtol(s.c_str(), &p, 10);
+	return (*p == 0);
+}
+
+
+Char_t RGB2ColPlt(std::string _CSVFile, Int_t _firstCol=0){
+	CSVReader csvFile(_CSVFile, ",");
+	std::vector<std::vector<std::string> > csvDat = csvFile.getData();
+
+	std::vector<Int_t> palette;
+
+	for(UInt_t iRow = 0; iRow < csvDat.size(); iRow++){
+		if(!stringIsNumber(csvDat[iRow][_firstCol+0]) || !stringIsNumber(csvDat[iRow][_firstCol+1]) || !stringIsNumber(csvDat[iRow][_firstCol+2])) continue;
+
+		// std::cout<<__LINE__<<std::endl;
+		if(isInteger(csvDat[iRow][_firstCol+0]) && isInteger(csvDat[iRow][_firstCol+1]) && isInteger(csvDat[iRow][_firstCol+2])) palette.push_back(TColor::GetColor(std::stoi(csvDat[iRow][_firstCol+0]), std::stoi(csvDat[iRow][_firstCol+1]), std::stoi(csvDat[iRow][_firstCol+2])));
+		else palette.push_back(TColor::GetColor(std::stof(csvDat[iRow][_firstCol+0]), std::stof(csvDat[iRow][_firstCol+1]), std::stof(csvDat[iRow][_firstCol+2])));
+	}
+
+	gStyle->SetPalette(palette.size(), palette.data());
+	
+	std::cout<<"Loaded color palette from file "<<_CSVFile<<"\t\tN = "<<palette.size()<<std::endl;
+
+	return 0;
 };
 // void redrawBorder(){
 //    gPad->Update();

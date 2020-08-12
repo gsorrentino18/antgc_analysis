@@ -26,7 +26,8 @@ TH2F*															get2DHistogram(std::string _isoVar, Float_t _etaMin, Float_t
 	TH2F* 										histIsoVsPt								=	new TH2F(histName.c_str(), histTitle.c_str(), pTbinning.size()-1, pTbinning.data(),
 		std::stoi(varPlotInfo[_isoVar][1]), std::stof(varPlotInfo[_isoVar][2]), std::stof(varPlotInfo[_isoVar][3]));
 	histIsoVsPt->SetContour(options.getInt("2dNcontours"));
-
+	histIsoVsPt->Sumw2();
+	
 	for(std::string iSample : samples){
 		std::string 							iSamplePath 								=	options.get("fileDir") + "/" + iSample + ".root" ;
 		TChain*									tChain 										=	openTChain((std::vector<std::string>){iSamplePath}, options.get("inTreeName"));

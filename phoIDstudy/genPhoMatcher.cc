@@ -6,6 +6,10 @@
 
 #include "/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/macros/extra_tools.cc"
 
+R__LOAD_LIBRARY(/cvmfs/cms.cern.ch/slc7_amd64_gcc820/external/py2-xgboost/0.82/lib/python3.6/site-packages/xgboost/lib/libxgboost.so)
+
+#include <xgboost/c_api.h>
+
 #ifndef GENPHOMATCHER
 #define GENPHOMATCHER
 
@@ -37,14 +41,15 @@ struct eventType{
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class genPhoMatcher{
 public:
 	genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t XSECTION=-1., std::string MCPILEUPHIST="", std::string DATAPILEUPHIST="",
-		std::string CHARGED_HADRONIC_EFFECTIVE_AREAS="", std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS="", std::string PHOTONIC_EFFECTIVE_AREAS="", std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS="");
+		std::string CHARGED_HADRONIC_EFFECTIVE_AREAS="", std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS="", std::string PHOTONIC_EFFECTIVE_AREAS="", std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS="",
+		std::string BDT_PATH="/local/cms/user/wadud/aNTGCmet/antgcpreselector/macros/photonIDmva/BDT/data/GJets_Central_NewPromptDef/resultsKDE/tuned/removeExtras/trained/aNTGC_photon_BDT.model");
 
 	~genPhoMatcher(){
+		XGBoosterFree(phoBDT_h);
 		std::cout<<"END @ "<<getCurrentTime()<<std::endl;
 		std::cout<<"*************************************************************************************************************************************************"<<std::endl;
 	};
@@ -219,6 +224,7 @@ private:
 	Float_t 			phoPFNeuIsoCorr_;	
 	Float_t 			phoIDMVA_;
 	UChar_t             phoIDbit_;
+	Float_t 			phoBDTprediction_;
 	Float_t 			phoMIP_;	
 
 	Float_t 			phoRelTightPFChIsoCorr_;
@@ -241,12 +247,17 @@ private:
 	Float_t 			phoSCphiWidth_;	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/////////////////////////////////////////Buffer variables///////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////Buffer variables///////////////////////////////////////////////////////
 	Short_t matchedGenPhoIndex;
 	UChar_t nPromptPho_;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////Categories////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////// XGBoost ////////////////////////////////////////////////////////////
+	BoosterHandle phoBDT_h;
+	Bool_t predictBDT = 0;
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////Categories////////////////////////////////////////////////////////////
 	Bool_t          initEventTypes();
 	void            initEventType(eventType & evType, std::string typeName, std::string typeTitle);
 	void            fillEventType(eventType & evType);
@@ -261,7 +272,7 @@ private:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t XSECTION, std::string MCPILEUPHIST, std::string DATAPILEUPHIST,
-	std::string CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string PHOTONIC_EFFECTIVE_AREAS, std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS){
+	std::string CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string PHOTONIC_EFFECTIVE_AREAS, std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS, std::string BDT_PATH){
 
 	std::cout<<"*************************************************************************************************************************************************"<<std::endl<<
 	getCurrentTime()<<std::endl<<
@@ -308,6 +319,18 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 	if(file_exists(NEUTRAL_HADRONIC_EFFECTIVE_AREAS)){
 		std::cout<<"Neutral hadronic effective area:"<<std::endl;
 		NeuHadEffAreas.init(NEUTRAL_HADRONIC_EFFECTIVE_AREAS);
+	}
+
+	if(file_exists(BDT_PATH)){
+		std::cout<<"Loading BDT model from "<<BDT_PATH <<std::endl;
+		XGBoosterCreate(NULL, 0, &phoBDT_h);
+		XGBoosterSetParam(phoBDT_h, "seed", "0");
+		Int_t mLdSuccess = XGBoosterLoadModel(phoBDT_h, BDT_PATH.c_str());
+		// XGBoosterSetParam(phoBDT_h, "nthread", "1");
+		if(mLdSuccess == 0) predictBDT=1;
+		else{
+			std::cout<<"Failed to load BDT model!"<<std::endl;
+		}
 	}
 
 	initNtuples(FILELIST);
@@ -514,6 +537,7 @@ void genPhoMatcher::analyze(){
 			",\t\tevent\t"<<(_event)<<"\t\tFile " <<inputTree->GetCurrentFile()->GetName() <<std::endl;
 		}
 
+		// if(current_entry > 1000) break;
 		rhoPreweight.Fill(_rho, genWeight_);
 		nvtxPreweight.Fill(_nVtx, genWeight_);
 
@@ -644,6 +668,28 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	phoSCRawEn_			= _ecalSCRawEn[phoSCindex];
 	phoSCetaWidth_ 		= _ecalSCetaWidth[phoSCindex];
 	phoSCphiWidth_ 		= _ecalSCphiWidth[phoSCindex];
+	
+	// BDT prediction
+	// Features in order:	'ecalSCetaWidth', 'ecalSCphiWidth', 'phoHoverE', 'phoR9Full5x5', 'phoS4realFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi'
+	if(predictBDT){
+		float feats[1][8];
+		feats[0][0] = phoSCetaWidth_;
+		feats[0][1] = phoSCphiWidth_;
+		feats[0][2] = phoHoverE_;
+		feats[0][3] = phoR9Full5x5_;
+		feats[0][4] = phoS4Full5x5_;
+		feats[0][5] = phoSigmaIEtaIEta_;
+		feats[0][6] = phoSigmaIEtaIPhi_;
+		feats[0][7] = phoSigmaIPhiIPhi_;
+		DMatrixHandle dTest;
+		XGDMatrixCreateFromMat((float*)feats, 1, 8, -1, &dTest);
+		bst_ulong out_len;
+		const float *prediction;
+		XGBoosterPredict(phoBDT_h, dTest, 0, 0, &out_len, &prediction);
+		assert(out_len == 1);
+		XGDMatrixFree(dTest);
+		phoBDTprediction_ = prediction[0];
+	}
 
 	return 1;
 }
@@ -813,6 +859,7 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoPFPhoIsoCorr", &phoPFPhoIsoCorr_);
 	evType.tree->Branch("phoPFNeuIsoCorr", &phoPFNeuIsoCorr_);
 	evType.tree->Branch("phoEGMidMVA", &phoIDMVA_);
+	if(predictBDT) evType.tree->Branch("phoBDTprediction", &phoBDTprediction_);
 	evType.tree->Branch("phoIDbit", &phoIDbit_);
 	evType.tree->Branch("phoMIP", &phoMIP_);
 	
