@@ -18,11 +18,13 @@ std::vector<Double_t>											pTbinning;
 TH2F*															get2DHistogram(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, effectiveAreaMap* _EAmap);
 void 															initialize();
 void 															getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofstream* _pTscalingOutFile, effectiveAreaMap* _EAmap);
+Bool_t 															applyEAcorr;
+Bool_t 															truncateCorr;
 
 TH2F*															get2DHistogram(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, effectiveAreaMap* _EAmap){
 
 	std::string 								histName 									=	_isoVar + "Corr_vs_pT_eta" + findAndReplaceAll(std::to_string(_etaMin) + "to" + std::to_string(_etaMax), ".", "p");
-	std::string 								histTitle 									=	";"	+ varPlotInfo["phoPt"][0] + ";" + findAndReplaceAll(varPlotInfo[_isoVar][0], "(", " - #rhoA_{eff}^{" + options.get("percentile")+ "%} (");
+	std::string 								histTitle 									=	";"	+ varPlotInfo["phoPt"][0] + ";" + (applyEAcorr ? (findAndReplaceAll(varPlotInfo[_isoVar][0], "(", " - #rhoA_{eff}^{" + options.get("percentile")+ "%} (")) : varPlotInfo[_isoVar][0]) ;
 	TH2F* 										histIsoVsPt								=	new TH2F(histName.c_str(), histTitle.c_str(), pTbinning.size()-1, pTbinning.data(),
 		std::stoi(varPlotInfo[_isoVar][1]), std::stof(varPlotInfo[_isoVar][2]), std::stof(varPlotInfo[_isoVar][3]));
 	histIsoVsPt->SetContour(options.getInt("2dNcontours"));
@@ -49,9 +51,8 @@ TH2F*															get2DHistogram(std::string _isoVar, Float_t _etaMin, Float_t
 			if (absSCEta <= _etaMin) continue;
 			if (absSCEta > _etaMax) continue;
 			Double_t 							weight 										=  	genWeight_ * puWeight_ * xSection * 1000000./sumGenWeight;
-			// Float_t 							EAcorrectedIso 								= 	std::max((Float_t)0., isolation_ - rho_ * _EAmap->getEffectiveArea(absSCEta));
-			// Float_t 							EAcorrectedIso 								= 	isolation_ - rho_ * _EAmap->getEffectiveArea(absSCEta);
-			Float_t 							EAcorrectedIso 								= 	isolation_;
+			Float_t 							untruncatedEACorrectedIso					=	applyEAcorr ? (isolation_ - rho_ * _EAmap->getEffectiveArea(absSCEta)) : isolation_;
+			Float_t 							EAcorrectedIso 								= 	truncateCorr ? std::max((Float_t)0., untruncatedEACorrectedIso) : untruncatedEACorrectedIso;
 			histIsoVsPt->Fill(phoPt_, EAcorrectedIso, weight);
 		}
 		closeTChain(tChain);
@@ -100,8 +101,8 @@ void 															initialize(){
 	
 	std::vector<std::string> 					isoVars 									=	options.getList("isoVar", ",");
 	std::vector<std::string> 					etaBins 									=	options.getList("etaBins", ";");
-	pTbinning																				= options.getDoubleList("pTbinning");
-
+	pTbinning																				= 	options.getDoubleList("pTbinning");
+	applyEAcorr																				= 	options.getInt("applyEAcorr");
 	for(std::string isoVar : isoVars){
 
 		if(!options.keyExists(isoVar+"EA")){
@@ -113,7 +114,7 @@ void 															initialize(){
 		
 		ofstream* 								pTScalingOutFile							=	new ofstream(pTScalingOutFilePath, std::ofstream::out);
 		
-		effectiveAreaMap*						isoEA 										=	new effectiveAreaMap(options.get(isoVar+"EA"), 1, ",", 0);
+		effectiveAreaMap*						isoEA 										=	applyEAcorr ? new effectiveAreaMap(options.get(isoVar+"EA"), 1, ",", 0) : nullptr;
 		
 		for(std::string iEtaBinStr : etaBins){
 			
@@ -203,7 +204,7 @@ void getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofs
 	isoProj->SetFillStyle(1001);
 	isoProj->SetFillColor(options.getTColFromHex ("projYcol"));
 	isoProj->SetLineWidth(0.);
-	isoProj->SetMinimum(0.);
+	isoProj->SetMinimum(-2.);
 	isoProj->GetXaxis()->SetTitle("");
 	isoProj->GetYaxis()->SetTitle("");
 	isoProj->GetXaxis()->SetLabelSize(0);
@@ -241,6 +242,7 @@ void getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofs
 	legend.SetFillColorAlpha(options.getTColFromHex("legFillColor"), options.getFloat("legFillColorAlpha"));
 	legend.SetLineColor(options.getTColFromHex("legFillColor"));
 	legend.SetBorderSize(options.getInt("legBorderWidth"));
+	legend.SetMargin(options.getFloat("legMargin"));
 
 	if(options.getInt("autoZrange")) histIsoVsPt->GetZaxis()->SetRangeUser(histIsoVsPt->GetMinimum(std::numeric_limits<Double_t>::min()) / options.getFloat("zMinRatio"), histIsoVsPt->GetMaximum() * options.getFloat("zMaxRatio"));
 
@@ -262,8 +264,8 @@ void getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofs
 	+ to_string_with_precision(linFitLine->GetParameter(1), options.getInt("slopePrecision")) + "#pm" 
 	+ to_string_with_precision(linFitLine->GetParError(1), options.getInt("slopePrecision")) + ")p_{T}+("
 	+ to_string_with_precision(linFitLine->GetParameter(0), options.getInt("interceptPrecision")) + "#pm"
-	+ to_string_with_precision(linFitLine->GetParError(0), options.getInt("interceptPrecision")) + ")"
-	+ " [#chi^{2}/ndf=" + to_string_with_precision(linFitResult->Chi2 (), options.getInt("chi2precision")) + "/" + std::to_string(linFitResult->Ndf()) + "]";
+	+ to_string_with_precision(linFitLine->GetParError(0), options.getInt("interceptPrecision")) + ")";
+	// + " [#chi^{2}/ndf=" + to_string_with_precision(linFitResult->Chi2 (), options.getInt("chi2precision")) + "/" + std::to_string(linFitResult->Ndf()) + "]";
 
 	std::string 							linFitDef 									=	to_string_with_precision(linFitLine->GetParameter(1), 10) + "*x + " + to_string_with_precision(linFitLine->GetParameter(0), 10);
 	TF1* 									linFitCopy 									=  new TF1((plotName+"_fitLinearCopy").c_str(), linFitDef.c_str(), histIsoVsPt->GetXaxis()->GetXmin(), histIsoVsPt->GetXaxis()->GetXmax());
@@ -284,8 +286,8 @@ void getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofs
 	+ to_string_with_precision(quadFitLine->GetParameter(1), options.getInt("c1Precision")) + "#pm"
 	+ to_string_with_precision(quadFitLine->GetParError(1), options.getInt("c1Precision")) + ")p_{T}+("
 	+ to_string_with_precision(quadFitLine->GetParameter(0), options.getInt("c0Precision")) + "#pm"
-	+ to_string_with_precision(quadFitLine->GetParError(0), options.getInt("c0Precision")) + ")"
-	+ " [#chi^{2}/ndf=" + to_string_with_precision(quadFitResult->Chi2 (), options.getInt("chi2precision")) + "/" + std::to_string(quadFitResult->Ndf()) + "]";
+	+ to_string_with_precision(quadFitLine->GetParError(0), options.getInt("c0Precision")) + ")";
+	// + " [#chi^{2}/ndf=" + to_string_with_precision(quadFitResult->Chi2 (), options.getInt("chi2precision")) + "/" + std::to_string(quadFitResult->Ndf()) + "]";
 	
 	std::string 							quadFitDef 									=	to_string_with_precision(quadFitLine->GetParameter(2), 10) + "*x*x +" + to_string_with_precision(quadFitLine->GetParameter(1), 10) + "*x + " + to_string_with_precision(quadFitLine->GetParameter(0), 10);
 	TF1* 									quadFitCopy 									=  new TF1((plotName+"_fitQuadCopy").c_str(), quadFitDef.c_str(), histIsoVsPt->GetXaxis()->GetXmin(), histIsoVsPt->GetXaxis()->GetXmax());
@@ -307,8 +309,8 @@ void getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofs
 
 	Float_t yMax = std::max(linFitLine->Eval(histIsoVsPt->GetXaxis()->GetBinUpEdge(histIsoVsPt->GetNbinsX())), quadFitLine->Eval(histIsoVsPt->GetXaxis()->GetBinUpEdge(histIsoVsPt->GetNbinsX())));
 
-	histIsoVsPt->GetYaxis()->SetRangeUser(0., options.getFloat("yMaxRatio")*yMax);
-	isoProj->GetXaxis()->SetRangeUser(0., options.getFloat("yMaxRatio")*yMax);
+	histIsoVsPt->GetYaxis()->SetRangeUser(options.getFloat("yMin"), options.getFloat("yMaxRatio")*yMax);
+	isoProj->GetXaxis()->SetRangeUser(options.getFloat("yMin"), options.getFloat("yMaxRatio")*yMax);
 	pad0.cd();
 
 	legend.Draw();

@@ -8,7 +8,7 @@ function listNtuples(){
 	outfile=$(basename ${SearchPath})
 	outfile=${writeDir}/${outfile}.txt
 	echo $outfile
-	find ${SearchPath} -name "*.root" -type f | tee ${outfile}
+	find ${SearchPath} -name "*.root" -type f | sort | tee ${outfile}
 	echo -e "\n\n\n"
 }
 

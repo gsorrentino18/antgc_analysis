@@ -130,7 +130,7 @@ Char_t isDirectory(std::string filePath, Bool_t _verbose=0);
 void addPointToGraph(TGraph & _graph, Double_t _x, Double_t _y);
 void graphStats(TGraphAsymmErrors* graph, Double_t &mean, Double_t &stdev);
 TH1D* graph2hist(TGraphAsymmErrors* graph, UInt_t ndivs, Double_t ylow, Double_t yhigh);
-Int_t writeToFile(TObject *_object, std::string _filePath, std::string _mode = "RECREATE");
+Int_t writeToFile(TObject *_object, std::string _filePath, std::string _mode = "RECREATE", Bool_t _verbose=1);
 std::string findAndReplaceAll(std::string data, std::string toSearch, std::string replaceStr);
 TChain *openTChain(std::string _chainListFile, std::string _treeName="");
 TChain *openTChain(std::vector<std::string> _chainList, std::string _treeName="");
@@ -243,6 +243,8 @@ struct Profile2D;
 struct parseOptions;
 struct bitBar2D;
 struct effectiveAreaMap;
+struct linearPtScalingMap;
+struct quadPtScalingMap;
 struct coronaCorrections;
 struct BGset;
 template <typename anytype>
@@ -915,6 +917,15 @@ struct effectiveAreaMap{
 	};
 };
 
+
+struct linearPtScalingMap{
+
+};
+
+
+struct quadPtScalingMap{
+
+};
 
 struct coronaCorrections{
 	std::vector<std::vector<Float_t>>							percentiles;
@@ -1987,7 +1998,7 @@ TH1D* graph2hist(TGraphAsymmErrors* graph, UInt_t ndivs, Double_t ylow, Double_t
 };
 
 
-Int_t writeToFile(TObject *_object, std::string _filePath, std::string _mode){
+Int_t writeToFile(TObject *_object, std::string _filePath, std::string _mode, Bool_t _verbose){
 
 	TFile _outfile(_filePath.c_str(), _mode.c_str());
 
@@ -1999,7 +2010,7 @@ Int_t writeToFile(TObject *_object, std::string _filePath, std::string _mode){
 	_outfile.cd();
 	_object->Write(_object->GetName());
 	_outfile.Close();
-	std::cout<<"\t\tWritten "<< _object->GetName()<<" to file "<<_filePath<<std::endl;
+	if(_verbose) std::cout<<"\t\tWritten "<< _object->GetName()<<" to file "<<_filePath<<std::endl;
 	return 0;
 };
 

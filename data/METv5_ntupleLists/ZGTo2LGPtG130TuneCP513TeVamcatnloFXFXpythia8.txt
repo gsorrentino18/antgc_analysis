@@ -1,0 +1,3 @@
+/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8/ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8_000.root
+/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8/ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8_001.root
+/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8/ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8_002.root

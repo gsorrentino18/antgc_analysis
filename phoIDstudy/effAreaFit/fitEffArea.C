@@ -270,7 +270,7 @@ void getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofs
 		to_string_with_precision(iFitLine->GetParameter(0), options.getInt("slopePrecision")) + "#pm" 
 		+ to_string_with_precision(iFitLine->GetParError(0), options.getInt("slopePrecision")) + ")#rho + ("
 		+ to_string_with_precision(iFitLine->GetParameter(1), options.getInt("interceptPrecision")) + "#pm"
-		+ to_string_with_precision(iFitLine->GetParError(1), options.getInt("interceptPrecision")) + ")"
+		+ to_string_with_precision(iFitLine->GetParError(1), options.getInt("interceptPrecision")) + ")";
 		+ " [#chi^{2}/ndf=" + to_string_with_precision(iFitResult->Chi2 (), options.getInt("chi2precision")) + "/" + std::to_string(iFitResult->Ndf()) + "]";
 		
 		std::string 							iLineDef 									=	to_string_with_precision(iFitLine->GetParameter(0), 10) + "*x + " + to_string_with_precision(iFitLine->GetParameter(1), 10);
@@ -284,7 +284,7 @@ void getEffectiveArea(std::string _isoVar, Float_t _etaMin, Float_t _etaMax, ofs
 		iPcVSrho->Draw("A SAME PE");
 		iLineCopy->Draw("A SAME L");
 
-		std::string outFileString = split_string(iPcStr, ",")[0] + ", " + removeTrailingZeros(_etaMin) + ", " + removeTrailingZeros(_etaMax) + ", " + removeTrailingZeros(iFitLine->GetParameter(0)) + ", " + removeTrailingZeros(iFitLine->GetParError(0));
+		std::string outFileString = split_string(iPcStr, ",")[0] + ", " + removeTrailingZeros(_etaMin) + ", " + removeTrailingZeros(_etaMax) + ", " + removeTrailingZeros(iFitLine->GetParameter(0));
 
 		(*effAreaOutFile) << outFileString << endl;
 		

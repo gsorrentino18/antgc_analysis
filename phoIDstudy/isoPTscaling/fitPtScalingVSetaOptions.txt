@@ -1,0 +1,127 @@
+isoVar 									==		phoTrkSumPtHollowConeDR03,0
+etaBins 								==		0.,0.5,d53e4f; 0.5,1.,2166ac; 1.,1.2,c51b7d; 1.2,1.479,8c510a
+etaBins 								==		0.,0.5,d53e4f
+etaBins 								==		0.,0.5,d53e4f; 0.5,1,2166ac; 1.,1.2,238b45; 1.2,1.4442,762a83
+etaBins 								==		0.,0.2,005824; 0.2,0.5,6e016b; 0.5,1,990000; 1.,1.4442,08589e; 1.2,1.4442,8c510a
+
+isoVar 									==		phoPFClusEcalIso,1; phoPFClusHcalIso,2; phoTrkSumPtHollowConeDR04,0; phoTrkSumPtHollowConeDR03,0; phoPFChIsoRaw,0; phoPFChWorstIsoRaw,0; phoPFNeuIsoRaw,2; phoPFPhoIsoRaw,1
+etaBins 								==		0,0.5,d53e4f; 0.5,1,2166ac; 1,1.4442,238b45
+
+pTbinning 								==		200, 220, 250, 300, 350, 400, 500, 600, 800, 1200
+
+truncateCorr 							== 		0
+
+applyEAcorr 							==		1
+
+percentile 								==		90
+phoPFChIsoRawEA							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFChIsoRaw.txt
+phoPFChWorstIsoRawEA					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFChWorstIsoRaw.txt
+phoPFClusEcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFClusEcalIso.txt
+phoPFClusHcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFClusHcalIso.txt
+phoPFNeuIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFNeuIsoRaw.txt
+phoPFPhoIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFPhoIsoRaw.txt
+phoTrkSumPtHollowConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoTrkSumPtHollowConeDR03.txt
+phoTrkSumPtHollowConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoTrkSumPtHollowConeDR04.txt
+phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoTrkSumPtSolidConeDR03.txt
+phoTrkSumPtSolidConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoTrkSumPtSolidConeDR04.txt
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/scalingVSeta90pc/
+
+
+percentile 								==		70
+phoPFChIsoRawEA							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFChIsoRaw.txt
+phoPFChWorstIsoRawEA					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFChWorstIsoRaw.txt
+phoPFClusEcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFClusEcalIso.txt
+phoPFClusHcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFClusHcalIso.txt
+phoPFNeuIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFNeuIsoRaw.txt
+phoPFPhoIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFPhoIsoRaw.txt
+phoTrkSumPtHollowConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoTrkSumPtHollowConeDR03.txt
+phoTrkSumPtHollowConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoTrkSumPtHollowConeDR04.txt
+phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoTrkSumPtSolidConeDR03.txt
+phoTrkSumPtSolidConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoTrkSumPtSolidConeDR04.txt
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/scalingVSeta70pc/
+
+percentile 								==		80
+phoPFChIsoRawEA							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFChIsoRaw.txt
+phoPFChWorstIsoRawEA					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFChWorstIsoRaw.txt
+phoPFClusEcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFClusEcalIso.txt
+phoPFClusHcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFClusHcalIso.txt
+phoPFNeuIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFNeuIsoRaw.txt
+phoPFPhoIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFPhoIsoRaw.txt
+phoTrkSumPtHollowConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtHollowConeDR03.txt
+phoTrkSumPtHollowConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtHollowConeDR04.txt
+phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtSolidConeDR03.txt
+phoTrkSumPtSolidConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtSolidConeDR04.txt
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/scalingVSeta80pc/
+
+applyEAcorr 							==		0
+percentile 								==		80
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/scalingVSetaNoEAcorrection80pc/
+
+percentile 								==		70
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/scalingVSetaNoEAcorrection70pc/
+percentile 								==		90
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/scalingVSetaNoEAcorrection90pc/
+
+fileDir									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_08_07/promptDR0p01DPt0p1/merged/
+samples									==		GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2,  GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2,  GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8
+inTreeName 								==		fullEB/fullEB_Tree
+cutFlowHist 							==		fullEB/fullEB_cutFlowGenWeight
+prettNamesFile 							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/varPrettyNames.txt
+xSectionMap 							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv
+
+fitOpt 									== 		0ERS
+fitLnWidth 								== 		3.
+fitLnStl 								== 		1
+pcWidth 								==		3.
+pcMkrSz 								==		2.
+pcMkrStl 								==		20
+constantPrecision						== 		3
+slopePrecision							== 		4
+interceptPrecision						== 		3
+chi2precision 							== 		1
+c0Precision								== 		3
+c1Precision								== 		4
+c2Precision								== 		8
+
+canvasX									==		2800
+canvasY									==		2400
+
+pad0x1									==		0.
+pad0x2									==		1.
+pad0y1									==		0.
+pad0y2									==		1.
+pad0marginL								==		0.14
+pad0marginR								==		0.05
+pad0marginB								==		0.12
+pad0marginT								==		0.01
+pad0axisLabelSize						==		0.05
+pad0ZaxisLabelSize 						==		0.02
+pad0axisTitleSize						==		0.048
+pad0XtitleOffset						==		1.1
+pad0YtitleOffset						==		1.3
+
+pad0xNdivs								==		505
+pad0yNdivs								==		510
+padUwingyNdivs							==		510
+padRwingyNdivs							==		510
+padRwingxNdivs							==		0
+
+legx1									==		0.145
+legx2									==		0.945
+legy1									==		0.78
+legy2									==		0.985
+legTextSize								==		0.027
+legNcols								==		1
+legFillStyle 							== 		1000
+legFillColor 							== 		d9d9d9
+legFillColorAlpha 						== 		0.95
+legBorderWidth 							== 		0.
+legMargin 								==		0.04
+
+categoryInfoTextSize					==		0.05
+categoryInfoX							==		0.25
+categoryInfoY							==		0.6
+categoryInfoTextColor					==		b10026
+
+yMaxRatio0 								== 		2.01
+yMaxRatio12 							== 		1.4

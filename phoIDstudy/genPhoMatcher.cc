@@ -185,19 +185,25 @@ private:
 	Float_t 			phoR9Full5x5_;
 	Float_t 			phoS4Full5x5_;
 
-	Float_t 			phoS1Full5x5_;
-	Float_t 			phoS2ndFull5x5_;
-	Float_t 			phoU21Full5x5_;
-	Float_t 			phoS1x3Full5x5_;
-	Float_t 			phoS2x5Full5x5_;
-	Float_t 			phoS25Full5x5_;
+	Float_t 			phoEmaxOESCrFull5x5_;
+	Float_t 			phoE2ndOESCrFull5x5_;
+	Float_t 			phoE2ndOEmaxFull5x5_;
+	Float_t 			phoE1x3OESCrFull5x5_;
+	Float_t 			phoE2x5OESCrFull5x5_;
+	Float_t 			phoE5x5OESCrFull5x5_;
+
+	Float_t 			phoEmaxOE3x3Full5x5_;
+	Float_t 			phoE2ndOE3x3Full5x5_;
+	Float_t 			phoSieieOSipipFull5x5_;
+	Float_t				phoEtaWOPhiWFull5x5_;
 
 	Float_t 			phoSigmaIEtaIEta_;
 	Float_t 			phoSigmaIPhiIPhi_;
 	Float_t 			phoSigmaIEtaIPhi_;
-	Float_t 			phoE2x2Full5x5_;
-	Float_t 			phoE5x5Full5x5_;
 
+	Float_t 			phoE2x2Full5x5_;
+	Float_t 			phoE3x3Full5x5_;
+	Float_t 			phoE5x5Full5x5_;
 	Float_t				phoMaxEnergyXtal_;
 	Float_t				phoE2ndFull5x5_;
 	Float_t				phoE1x3Full5x5_;
@@ -243,36 +249,37 @@ private:
 	Float_t 			phoSCphi_;
 	Float_t 			phoSCEn_;
 	Float_t 			phoSCRawEn_;
-	Float_t 			phoSCetaWidth_;
-	Float_t 			phoSCphiWidth_;	
+	Float_t 			phoEtaWidth_;
+	Float_t 			phoPhiWidth_;	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////Buffer variables///////////////////////////////////////////////////////
-	Short_t matchedGenPhoIndex;
-	UChar_t nPromptPho_;
+	Short_t 			matchedGenPhoIndex;
+	UChar_t 			nPromptPho_;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////// XGBoost ////////////////////////////////////////////////////////////
-	BoosterHandle phoBDT_h;
-	Bool_t predictBDT = 0;
+	BoosterHandle 		phoBDT_h;
+	DMatrixHandle 		dTest;
+	Bool_t 				predictBDT = 0;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////Categories////////////////////////////////////////////////////////////
-	Bool_t          initEventTypes();
-	void            initEventType(eventType & evType, std::string typeName, std::string typeTitle);
-	void            fillEventType(eventType & evType);
-	void            registerCutFlow(eventType & evType);
-	void            registerAllCutFlow();
-
-	eventType 		fullEB;
+	Bool_t          	initEventTypes();
+	void            	initEventType(eventType & evType, std::string typeName, std::string typeTitle);
+	void            	fillEventType(eventType & evType);
+	void            	registerCutFlow(eventType & evType);
+	void            	registerAllCutFlow();
+	eventType 			fullEB;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t XSECTION, std::string MCPILEUPHIST, std::string DATAPILEUPHIST,
-	std::string CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string PHOTONIC_EFFECTIVE_AREAS, std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS, std::string BDT_PATH){
+genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t XSECTION=, std::string MCPILEUPHIST, std::string DATAPILEUPHIST,
+	std::string CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string PHOTONIC_EFFECTIVE_AREAS, std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS,
+	std::string BDT_PATH){
 
 	std::cout<<"*************************************************************************************************************************************************"<<std::endl<<
 	getCurrentTime()<<std::endl<<
@@ -322,7 +329,7 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 	}
 
 	if(file_exists(BDT_PATH)){
-		std::cout<<"Loading BDT model from "<<BDT_PATH <<std::endl;
+		std::cout<<"\nLoading BDT model from "<<BDT_PATH <<std::endl;
 		XGBoosterCreate(NULL, 0, &phoBDT_h);
 		XGBoosterSetParam(phoBDT_h, "seed", "0");
 		Int_t mLdSuccess = XGBoosterLoadModel(phoBDT_h, BDT_PATH.c_str());
@@ -333,6 +340,7 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 		}
 	}
 
+	std::cout<<"\nCreating TChain... "<<BDT_PATH <<std::endl;
 	initNtuples(FILELIST);
 
 	outFile = new TFile(OUTFILE.c_str(), "RECREATE");
@@ -366,9 +374,9 @@ Short_t	genPhoMatcher::photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax, Flo
 		Float_t dRiGenPho = deltaR(_phoEta[_phoIndex], _phoPhi[_phoIndex], _mcEta[iGenP], _mcPhi[iGenP]);
 		if(dRiGenPho > _deltaRmax) continue;
 
-		// Float_t relDeltaPtiGenPho = std::abs(_mcPt[iGenP] - _phoCalibEt[_phoIndex])/_mcPt[iGenP];
-		// if(relDeltaPtiGenPho > _relDeltaPtMax) continue;
-		// if(relDeltaPtiGenPho < _relDeltaPtMin) continue;
+		Float_t relDeltaPtiGenPho = std::abs(_mcPt[iGenP] - _phoCalibEt[_phoIndex])/_mcPt[iGenP];
+		if(relDeltaPtiGenPho > _relDeltaPtMax) continue;
+		if(relDeltaPtiGenPho < _relDeltaPtMin) continue;
 
 		if(dRiGenPho < minDeltaR){
 			minDeltaR = dRiGenPho;
@@ -609,24 +617,30 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	phoQualityBits_			= _phoQualityBits[_phoIndex];
 	phoR9Full5x5_ 			= _phoR9Full5x5[_phoIndex];
 	phoS4Full5x5_			= _phoE2x2Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
-	phoS1Full5x5_ 			= _phoMaxEnergyXtal[_phoIndex]/_ecalSCRawEn[phoSCindex];
-	phoS2ndFull5x5_ 		= _phoE2ndFull5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
-	phoU21Full5x5_ 			= _phoE2ndFull5x5[_phoIndex]/_phoMaxEnergyXtal[_phoIndex];
-	phoS1x3Full5x5_ 		= _phoE1x3Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
-	phoS2x5Full5x5_ 		= _phoE2x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
-	phoS25Full5x5_ 			= _phoE5x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoEmaxOESCrFull5x5_ 	= _phoMaxEnergyXtal[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoE2ndOESCrFull5x5_ 	= _phoE2ndFull5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoE2ndOEmaxFull5x5_ 	= _phoE2ndFull5x5[_phoIndex]/_phoMaxEnergyXtal[_phoIndex];
+	phoE1x3OESCrFull5x5_ 	= _phoE1x3Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoE2x5OESCrFull5x5_ 	= _phoE2x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+	phoE5x5OESCrFull5x5_ 	= _phoE5x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+
 
 	phoSigmaIEtaIEta_ 		= _phoSigmaIEtaIEtaFull5x5[_phoIndex];
 	phoSigmaIEtaIPhi_ 		= _phoSigmaIEtaIPhiFull5x5[_phoIndex];
-	phoSigmaIPhiIPhi_ 		= _phoSigmaIPhiIPhiFull5x5[_phoIndex];	
-	phoE2x2Full5x5_			= _phoE2x2Full5x5[_phoIndex];
-	phoE5x5Full5x5_			= _phoE5x5Full5x5[_phoIndex];
+	phoSigmaIPhiIPhi_ 		= _phoSigmaIPhiIPhiFull5x5[_phoIndex];
 
+	phoE2x2Full5x5_			= _phoE2x2Full5x5[_phoIndex];
+	phoE3x3Full5x5_			= phoR9Full5x5_ * _ecalSCRawEn[phoSCindex];
+	phoE5x5Full5x5_			= _phoE5x5Full5x5[_phoIndex];
 	phoMaxEnergyXtal_		= _phoMaxEnergyXtal[_phoIndex];
 	phoE2ndFull5x5_			= _phoE2x2Full5x5[_phoIndex];
 	phoE1x3Full5x5_			= _phoE1x3Full5x5[_phoIndex];
 	phoE1x5Full5x5_			= _phoE1x5Full5x5[_phoIndex];
 	phoE2x5Full5x5_			= _phoE2x2Full5x5[_phoIndex];
+
+	phoEmaxOE3x3Full5x5_ 	= phoMaxEnergyXtal_/phoE3x3Full5x5_;
+	phoE2ndOE3x3Full5x5_	= phoE2ndFull5x5_/phoE3x3Full5x5_;
+	phoSieieOSipipFull5x5_	= phoSigmaIEtaIEta_/phoSigmaIPhiIPhi_;
 
 	phoPFClusEcalIso_		= _phoPFClusEcalIso[_phoIndex];
 	phoPFClusHcalIso_ 		= _phoPFClusHcalIso[_phoIndex];
@@ -665,23 +679,24 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	phoSCeta_ 				= _ecalSCeta[phoSCindex];
 	phoSCphi_ 				= _ecalSCphi[phoSCindex];
 	phoSCEn_ 				= _ecalSCEn[phoSCindex];
-	phoSCRawEn_			= _ecalSCRawEn[phoSCindex];
-	phoSCetaWidth_ 		= _ecalSCetaWidth[phoSCindex];
-	phoSCphiWidth_ 		= _ecalSCphiWidth[phoSCindex];
+	phoSCRawEn_				= _ecalSCRawEn[phoSCindex];
+	phoEtaWidth_ 			= _ecalSCetaWidth[phoSCindex];
+	phoPhiWidth_ 			= _ecalSCphiWidth[phoSCindex];
+
+	phoEtaWOPhiWFull5x5_	= phoEtaWidth_/phoPhiWidth_;
 	
 	// BDT prediction
 	// Features in order:	'ecalSCetaWidth', 'ecalSCphiWidth', 'phoHoverE', 'phoR9Full5x5', 'phoS4realFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi'
 	if(predictBDT){
 		float feats[1][8];
-		feats[0][0] = phoSCetaWidth_;
-		feats[0][1] = phoSCphiWidth_;
+		feats[0][0] = phoEtaWidth_;
+		feats[0][1] = phoPhiWidth_;
 		feats[0][2] = phoHoverE_;
 		feats[0][3] = phoR9Full5x5_;
 		feats[0][4] = phoS4Full5x5_;
 		feats[0][5] = phoSigmaIEtaIEta_;
 		feats[0][6] = phoSigmaIEtaIPhi_;
 		feats[0][7] = phoSigmaIPhiIPhi_;
-		DMatrixHandle dTest;
 		XGDMatrixCreateFromMat((float*)feats, 1, 8, -1, &dTest);
 		bst_ulong out_len;
 		const float *prediction;
@@ -818,24 +833,30 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoSeedTime", &phoSeedTime_);
 
 	evType.tree->Branch("phoQualityBits", &phoQualityBits_);
+
 	evType.tree->Branch("phoR9Full5x5", &phoR9Full5x5_);
 	evType.tree->Branch("phoS4Full5x5", &phoS4Full5x5_);
-
-	evType.tree->Branch("phoS1Full5x5", &phoS1Full5x5_);
-	evType.tree->Branch("phoS2ndFull5x5", &phoS2ndFull5x5_);
-	evType.tree->Branch("phoU21Full5x5", &phoU21Full5x5_);	
-	evType.tree->Branch("phoS1x3Full5x5", &phoS1x3Full5x5_);
-	evType.tree->Branch("phoS2x5Full5x5", &phoS2x5Full5x5_);
-	evType.tree->Branch("phoS25Full5x5", &phoS25Full5x5_);
-
+	evType.tree->Branch("phoEmaxOESCrFull5x5", &phoEmaxOESCrFull5x5_);
+	evType.tree->Branch("phoE2ndOESCrFull5x5", &phoE2ndOESCrFull5x5_);
+	evType.tree->Branch("phoE2ndOEmaxFull5x5", &phoE2ndOEmaxFull5x5_);	
+	evType.tree->Branch("phoE1x3OESCrFull5x5", &phoE1x3OESCrFull5x5_);
+	evType.tree->Branch("phoE2x5OESCrFull5x5", &phoE2x5OESCrFull5x5_);
+	evType.tree->Branch("phoE5x5OESCrFull5x5", &phoE5x5OESCrFull5x5_);
+	evType.tree->Branch("phoEmaxOE3x3Full5x5", &phoEmaxOE3x3Full5x5_);
+	evType.tree->Branch("phoE2ndOE3x3Full5x5", &phoE2ndOE3x3Full5x5_);
 	evType.tree->Branch("phoSigmaIEtaIEta", &phoSigmaIEtaIEta_);
 	evType.tree->Branch("phoSigmaIEtaIPhi", &phoSigmaIEtaIPhi_);
 	evType.tree->Branch("phoSigmaIPhiIPhi", &phoSigmaIPhiIPhi_);
-	evType.tree->Branch("phoE2x2Full5x5", &phoE2x2Full5x5_);
-	evType.tree->Branch("phoE5x5Full5x5", &phoE5x5Full5x5_);
+	evType.tree->Branch("phoSieieOSipipFull5x5", &phoSieieOSipipFull5x5_);
+	evType.tree->Branch("phoEtaWidth", &phoEtaWidth_);
+	evType.tree->Branch("phoPhiWidth", &phoPhiWidth_);
+	evType.tree->Branch("phoEtaWOPhiWFull5x5", &phoEtaWOPhiWFull5x5_);
 
 	evType.tree->Branch("phoMaxEnergyXtal", &phoMaxEnergyXtal_);
 	evType.tree->Branch("phoE2ndFull5x5", &phoE2ndFull5x5_);
+	evType.tree->Branch("phoE2x2Full5x5", &phoE2x2Full5x5_);
+	evType.tree->Branch("phoE3x3Full5x5", &phoE3x3Full5x5_);
+	evType.tree->Branch("phoE5x5Full5x5", &phoE5x5Full5x5_);
 	evType.tree->Branch("phoE1x3Full5x5", &phoE1x3Full5x5_);
 	evType.tree->Branch("phoE1x5Full5x5", &phoE1x5Full5x5_);
 	evType.tree->Branch("phoE2x5Full5x5", &phoE2x5Full5x5_);
@@ -859,7 +880,7 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoPFPhoIsoCorr", &phoPFPhoIsoCorr_);
 	evType.tree->Branch("phoPFNeuIsoCorr", &phoPFNeuIsoCorr_);
 	evType.tree->Branch("phoEGMidMVA", &phoIDMVA_);
-	if(predictBDT) evType.tree->Branch("phoBDTprediction", &phoBDTprediction_);
+	evType.tree->Branch("phoBDTprediction", &phoBDTprediction_);
 	evType.tree->Branch("phoIDbit", &phoIDbit_);
 	evType.tree->Branch("phoMIP", &phoMIP_);
 	
@@ -878,9 +899,7 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoSCeta", &phoSCeta_);
 	evType.tree->Branch("phoSCphi", &phoSCphi_);
 	evType.tree->Branch("phoSCEn", &phoSCEn_);
-	evType.tree->Branch("phoSCRawEn", &phoSCRawEn_);
-	evType.tree->Branch("phoSCetaWidth", &phoSCetaWidth_);
-	evType.tree->Branch("phoSCphiWidth", &phoSCphiWidth_);	
+	evType.tree->Branch("phoSCRawEn", &phoSCRawEn_);	
 	
 	std::cout<<"Created output tree:\t"<<typeName<<"\t"<<typeTitle<<std::endl;
 	// evType.tree->Print();
