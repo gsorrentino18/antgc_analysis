@@ -1,5 +1,5 @@
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_000.root
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_001.root
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_002.root
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_003.root
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_004.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_000.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_001.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_002.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_003.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WWTuneCP513TeVpythia8/WWTuneCP513TeVpythia8_004.root

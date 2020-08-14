@@ -7,11 +7,11 @@ cmsswDir=/local/cms/user/wadud/aNTGCmet/CMSSW_10_2_23/src/ggAnalysis/ggNtuplizer
 workDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"/
 
 sampleSheet=/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv
-jobListFile=$1
-jobListFile=$(readlink -m ${jobListFile})
-writeDir=$2
+jobListFile=/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/batch/jobList.txt
+# jobListFile=$(readlink -m ${jobListFile})
+writeDir=$1
 writeDir=$(readlink -m ${writeDir})/
-jobsDir=$3
+jobsDir=$2
 jobsDir=$(readlink -m ${jobsDir})/
 
 # espresso     = 20 minutes
@@ -22,12 +22,14 @@ jobsDir=$(readlink -m ${jobsDir})/
 # testmatch    = 3 days
 # nextweek     = 1 week
 jobflavor=workday
-splitfiles=2
+splitfiles=3
 
 
 className="genPhoMatcher"
 ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcher.cc"
 
+# className="fakePhoFinder"
+# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinder.cc"
 
 macroTemplate=${workDir}/macroTemplate.C
 runScriptTemplate=${workDir}/run_script.sh
@@ -35,10 +37,10 @@ condorCFGtemplate=${workDir}/condor_job.sh
 
 
 dataPUfile="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_pileup/pileup_2017_data.root"
-CHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/effAreaPhotons_cone03_pfChargedHadrons_90percentBased_V2.txt",
-WCHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/effAreaPhotons_cone03_pfWorstChargedHadrons_70percentBased.txt",
-PhoEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/effAreaPhotons_cone03_pfPhotons_90percentBased_V2.txt",
-NHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/effAreaPhotons_cone03_pfNeutralHadrons_90percentBased_V2.txt"
+CHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfChargedHadrons_90percentBased_V2.txt",
+WCHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfWorstChargedHadrons_70percentBased.txt"
+PhoEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfPhotons_90percentBased_V2.txt"
+NHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfNeutralHadrons_90percentBased_V2.txt"
 ############################################################################
 
 current_date_time=$(date +%Y-%m-%d_%H-%M-%S)
@@ -152,7 +154,7 @@ readarray -t jobList < $jobListFile
 
 {
 	read
-	while IFS=, read -r shortName dataset xSec xSecUnc singleJobFileList mcPUfile nEvts lumi
+	while IFS=, read -r shortName dataset xSec xSecUnc singleJobFileList mcPUfile Nevents SumW SumW2 Neff lumi
 	do
 		if [[ ! " ${jobList[@]} " =~ " ${shortName} " ]]; then
 			continue
@@ -185,13 +187,19 @@ readarray -t jobList < $jobListFile
 		for subJobList in $(find "${jobDir}" -name "${jobBaseName}_*");
 		do
 
-		jobName=$(basename ${subJobList})
-		jobName="${jobName%.*}"
+			jobName=$(basename ${subJobList})
+			jobName="${jobName%.*}"
 
-		ccfilecopy=${jobOutDir}/$(basename $ccfilepath)
-		cp $ccfilepath $ccfilecopy
+			ccfilecopy=${writeDir}/$(basename $ccfilepath)
 
-		preSelectDataset ${subJobList} ${jobName} ${jobDir} ${jobOutDir} ${xSec} ${mcPUfile} ${ccfilecopy}
+			if [ -f $ccfilecopy ]; then
+				echo -e "\tUsing existing cc file: "$ccfilecopy
+			else
+				echo -e "\tCopied CC file "$ccfilepath "to" $ccfilecopy
+				cp $ccfilepath $ccfilecopy
+			fi
+
+			preSelectDataset ${subJobList} ${jobName} ${jobDir} ${jobOutDir} ${xSec} ${mcPUfile} ${ccfilecopy}
 
 		done
 		

@@ -1,0 +1,4 @@
+# Based on J. Buchanan's thesis (Table 5.2)
+# |eta| min   |eta| max   effective area
+0.0000         1.0000        0.01064   
+1.0000         1.4790        0.1026

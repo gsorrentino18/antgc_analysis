@@ -1,1 +1,1 @@
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/WToTauNuM100TuneCP513TeVpythia8tauola/WToTauNuM100TuneCP513TeVpythia8tauola_000.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WToTauNuM100TuneCP513TeVpythia8tauola/WToTauNuM100TuneCP513TeVpythia8tauola_000.root

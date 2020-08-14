@@ -108,3 +108,17 @@ void batchExtractPU(std::string _inLists, std::string _outDir, std::string _hist
 		extractPU(it, outFile, _histName);
 	}
 };
+
+void readEntries(std::string _inFileList, std::string _treeName=TREENAME, Bool_t _verbose=0){
+	TChain *tChain = openTChain(_inFileList, _treeName);
+	tChain->SetBranchStatus("*",0);
+	// TTreeReader                             tReader(tChain);
+	// // TTreeReaderAnyValue<Int_t>			run_										(tReader, "run");
+	ULong64_t								Nevts=tChain->GetEntries();
+	// while(tReader.Next()){
+	// 	Nevts++;
+	// }
+	closeTChain(tChain);
+
+	std::cout<<getFileName(_inFileList)<<","<<Nevts<<std::endl;
+};

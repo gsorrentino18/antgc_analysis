@@ -1,2 +1,2 @@
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8_000.root
-/data/cmszfs1/user/wadud/aNTGCmet/jobsMETv5/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8_001.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8_000.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8_001.root

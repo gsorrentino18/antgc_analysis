@@ -6,6 +6,7 @@
 /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8.txt
 /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/QCDHT1000to1500TuneCP513TeVmadgraphpythia8.txt
 /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/QCDHT1500to2000TuneCP513TeVmadgraphpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/QCDHT200to300TuneCP513TeVmadgraphpythia8.txt
 /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/QCDHT2000toInfTuneCP513TeVmadgraphpythia8.txt
 /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/QCDHT300to500TuneCP513TeVmadgraphpythia8.txt
 /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/QCDHT500to700TuneCP513TeVmadgraphpythia8.txt

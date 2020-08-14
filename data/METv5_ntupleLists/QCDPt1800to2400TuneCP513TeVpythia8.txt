@@ -1,6 +1,6 @@
-/data/cmszfs1/user/wadud/aNTGCmet/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_000.root
-/data/cmszfs1/user/wadud/aNTGCmet/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_001.root
-/data/cmszfs1/user/wadud/aNTGCmet/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_002.root
-/data/cmszfs1/user/wadud/aNTGCmet/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_003.root
-/data/cmszfs1/user/wadud/aNTGCmet/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_004.root
-/data/cmszfs1/user/wadud/aNTGCmet/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_005.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_000.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_001.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_002.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_003.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_004.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt1800to2400TuneCP513TeVpythia8/QCDPt1800to2400TuneCP513TeVpythia8_005.root

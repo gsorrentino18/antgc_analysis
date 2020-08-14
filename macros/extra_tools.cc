@@ -2033,6 +2033,10 @@ std::string findAndReplaceAll(std::string data, std::string toSearch, std::strin
 
 
 TChain *openTChain(std::string _chainListFile, std::string _treeName){
+	if(!file_exists(_chainListFile)){
+		std::cout<<"Error! Chain list file does not exist:"<<_chainListFile<<std::endl;
+		exit(EXIT_FAILURE);
+	}
 	std::cout<<"\tMaking TChain with root files listed in "<<_chainListFile<<std::endl;
 	std::vector<std::string> _ntuples = getNonemptyLines(_chainListFile);
 	if(_ntuples.size() == 0){

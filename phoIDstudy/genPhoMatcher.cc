@@ -6,9 +6,15 @@
 
 #include "/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/macros/extra_tools.cc"
 
-R__LOAD_LIBRARY(/cvmfs/cms.cern.ch/slc7_amd64_gcc820/external/py2-xgboost/0.82/lib/python3.6/site-packages/xgboost/lib/libxgboost.so)
+// R__LOAD_LIBRARY(/cvmfs/cms.cern.ch/slc7_amd64_gcc820/external/py2-xgboost/0.82/lib/python3.6/site-packages/xgboost/lib/libxgboost.so)
 
-#include <xgboost/c_api.h>
+R__ADD_LIBRARY_PATH(/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python3.6/site-packages/xgboost/include/xgboost/)
+R__ADD_LIBRARY_PATH(/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python3.6/site-packages/xgboost/rabit/include/rabit/)
+R__ADD_LIBRARY_PATH(/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python3.6/site-packages/xgboost/rabit/include/dmlc/)
+R__LOAD_LIBRARY(/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python3.6/site-packages/xgboost/lib/libxgboost.so)
+#include </cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python3.6/site-packages/xgboost/include/xgboost/c_api.h>
+
+// #include <xgboost/c_api.h>
 
 #ifndef GENPHOMATCHER
 #define GENPHOMATCHER
@@ -69,7 +75,7 @@ private:
 
 	Short_t				photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
 	Bool_t				photonIsFake(Short_t _phoIndex, Float_t _deltaRmax = 0.3);
-	Short_t matchWithRecoPho(Short_t _genIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
+	Short_t 			matchWithRecoPho(Short_t _genIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
 
 	TFile *             outFile = nullptr;
 
@@ -230,7 +236,7 @@ private:
 	Float_t 			phoPFNeuIsoCorr_;	
 	Float_t 			phoIDMVA_;
 	UChar_t             phoIDbit_;
-	Float_t 			phoBDTprediction_;
+	Float_t 			phoBDTpredictionHoE_;
 	Float_t 			phoMIP_;	
 
 	Float_t 			phoRelTightPFChIsoCorr_;
@@ -277,7 +283,7 @@ private:
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t XSECTION=, std::string MCPILEUPHIST, std::string DATAPILEUPHIST,
+genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t XSECTION, std::string MCPILEUPHIST, std::string DATAPILEUPHIST,
 	std::string CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string PHOTONIC_EFFECTIVE_AREAS, std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS,
 	std::string BDT_PATH){
 
@@ -340,7 +346,7 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 		}
 	}
 
-	std::cout<<"\nCreating TChain... "<<BDT_PATH <<std::endl;
+	std::cout<<"\nCreating TChain... "<<std::endl;
 	initNtuples(FILELIST);
 
 	outFile = new TFile(OUTFILE.c_str(), "RECREATE");
@@ -455,11 +461,6 @@ Bool_t genPhoMatcher::selectEvent(){
 	fullEB.lastCutStep = 0.;
 	registerAllCutFlow();
 
-	/////////////////////////////////////////////////Global Event Cuts /////////////////////////////////////////////////////
-	// ULong64_t HLTPho    = (_HLTPho);                //// 9 = HLT_Photon200_v, 11 = HLT_Photon300_NoHE_v, 19 = HLT_Photon135_PFMET100_v, no trigger on 2016 MC
-	// if(!getBit(HLTPho, 9))      return 0;           //// 200 GeV photon trigger
-	// registerAllCutFlow();
-
 	///////////////////////////////////////////// Select highest pT photon /////////////////////////////////////////////////
 	Short_t highetsPtGenIndex 	= -9999;
 	Float_t highestPt 			= -999.;
@@ -467,6 +468,7 @@ Bool_t genPhoMatcher::selectEvent(){
 	Bool_t 	passedGenFidCut		= 0;
 	Bool_t 	passedGenPtCut 		= 0;
 	Bool_t 	passedRecoMatch		= 0;
+	Bool_t 	passedRecoFidCut	= 0;
 	Short_t matchedRecoPhoton 	= -999;
 	
 	nPromptPho_ = 0;
@@ -480,15 +482,19 @@ Bool_t genPhoMatcher::selectEvent(){
 
 		nPromptPho_++;
 
-		if(std::abs(_mcEta[iGenP]) > 1.4442) continue;
+		if(std::abs(_mcEta[iGenP]) > 1.566) continue;
 		passedGenFidCut = 1;
 
-		if(std::abs(_mcPt[iGenP]) < 200.) continue;
+		if(std::abs(_mcPt[iGenP]) < 190.) continue;
 		passedGenPtCut = 1;
 
 		Short_t iGenRecoMatch = matchWithRecoPho(iGenP, 0.05, -0.1, 0.1);
 		if(iGenRecoMatch < 0) continue;
 		passedRecoMatch = 1;
+
+		UChar_t iRecoFidReg = _phoFiducialRegion[iGenRecoMatch];
+		if(!getBit(iRecoFidReg, 0) || getBit(iRecoFidReg, 2)) continue; 			// skip if not EB or in EB-EE gap (0 = EB, 1 = EE, 2 = EB-EE gap)
+		passedRecoFidCut = 1;
 
 		if(_mcPt[iGenP] > highestPt){
 			highetsPtGenIndex = iGenP;
@@ -501,6 +507,7 @@ Bool_t genPhoMatcher::selectEvent(){
 	if(passedGenFidCut) registerAllCutFlow();
 	if(passedGenPtCut) registerAllCutFlow();
 	if(passedRecoMatch) registerAllCutFlow();
+	if(passedRecoFidCut) registerAllCutFlow();
 
 	if(highetsPtGenIndex < 0) return 0;
 
@@ -703,7 +710,7 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 		XGBoosterPredict(phoBDT_h, dTest, 0, 0, &out_len, &prediction);
 		assert(out_len == 1);
 		XGDMatrixFree(dTest);
-		phoBDTprediction_ = prediction[0];
+		phoBDTpredictionHoE_ = prediction[0];
 	}
 
 	return 1;
@@ -880,7 +887,7 @@ void genPhoMatcher::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoPFPhoIsoCorr", &phoPFPhoIsoCorr_);
 	evType.tree->Branch("phoPFNeuIsoCorr", &phoPFNeuIsoCorr_);
 	evType.tree->Branch("phoEGMidMVA", &phoIDMVA_);
-	evType.tree->Branch("phoBDTprediction", &phoBDTprediction_);
+	evType.tree->Branch("phoBDTpredictionHoE", &phoBDTpredictionHoE_);
 	evType.tree->Branch("phoIDbit", &phoIDbit_);
 	evType.tree->Branch("phoMIP", &phoMIP_);
 	
