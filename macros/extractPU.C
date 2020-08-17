@@ -59,7 +59,7 @@ void extractPU(std::string _inFileList, std::string _outFile, std::string _histN
 };
 
 void extractEffEntries(std::string _inFileList, std::string _treeName, Bool_t _verbose){
-	TChain *tChain = openTChain(_inFileList, _treeName);
+	TChain *tChain = openTChain(_inFileList, _treeName, 0);
 	TTreeReader                             tReader(tChain);
 	TTreeReaderAnyValue<Float_t>			genWeight_										(tReader, "genWeight");
 
@@ -110,7 +110,7 @@ void batchExtractPU(std::string _inLists, std::string _outDir, std::string _hist
 };
 
 void readEntries(std::string _inFileList, std::string _treeName=TREENAME, Bool_t _verbose=0){
-	TChain *tChain = openTChain(_inFileList, _treeName);
+	TChain *tChain = openTChain(_inFileList, _treeName, 0);
 	tChain->SetBranchStatus("*",0);
 	// TTreeReader                             tReader(tChain);
 	// // TTreeReaderAnyValue<Int_t>			run_										(tReader, "run");

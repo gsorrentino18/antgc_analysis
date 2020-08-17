@@ -22,14 +22,17 @@ jobsDir=$(readlink -m ${jobsDir})/
 # testmatch    = 3 days
 # nextweek     = 1 week
 jobflavor=workday
-splitfiles=3
+splitfiles=2
 
 
-className="genPhoMatcher"
-ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcher.cc"
+# className="genPhoMatcher"
+# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcher.cc"
 
 # className="fakePhoFinder"
 # ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinder.cc"
+
+className="fakePhoFinderNo22"
+ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinderNo22.cc"
 
 macroTemplate=${workDir}/macroTemplate.C
 runScriptTemplate=${workDir}/run_script.sh

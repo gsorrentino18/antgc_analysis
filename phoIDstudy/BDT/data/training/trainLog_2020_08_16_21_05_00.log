@@ -1,0 +1,312 @@
+************************************************************************************************************************************************
+
+2020-08-16 21:05:00
+Starting photon ID training BDT
+
+inFilePath	=	/hdfs/cms/user/wadud/anTGC/BDTdata/mergedSamplesShuffled.root
+saveDir		=	/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/training/
+inTreeName	=	fullEB_Tree
+testSize	=	0.2
+validSize	=	0.25
+logFile		=	/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/training//trainLog_2020_08_16_21_05_00.log
+
+BDT input features (17) :
+['phoE1x3OESCrFull5x5', 'phoE2ndOE3x3Full5x5', 'phoE2ndOESCrFull5x5', 'phoE2ndOEmaxFull5x5', 'phoE2x5OESCrFull5x5', 'phoE5x5OESCrFull5x5', 'phoEmaxOE3x3Full5x5', 'phoEmaxOESCrFull5x5', 'phoEtaWOPhiWFull5x5', 'phoEtaWidth', 'phoPhiWidth', 'phoR9Full5x5', 'phoS4Full5x5', 'phoSieieOSipipFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi']
+
+
+
+
+Total data:
+Total Events	=	500000 (B/S= 418034 / 81966 = 5.10)
+BackgroundSumW/SignalSumW 	=	29513126.000000 / 239603.046875	=	123.175087
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	29489438.000000 / 239603.046875	=	123.076225
+
+Training data:
+Total Events	=	205028 (B/S= 171431 / 33597 = 5.10)
+BackgroundSumW/SignalSumW 	=	12150458.000000 / 98740.343750	=	123.054642
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	12146728.000000 / 98740.343750	=	123.016869
+
+Validation data:
+Total Events	=	144723 (B/S= 120953 / 23770 = 5.09)
+BackgroundSumW/SignalSumW 	=	8487593.000000 / 68058.875000	=	124.709572
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	8489764.000000 / 68058.875000	=	124.741470
+
+
+2020-08-16 21:05:23
+Launching tuning module... 
+
+
+  0%|          | 0/10 [00:00<?, ?it/s, best loss: ?]                                                    
+
+Training with params : {'colsample_bytree': 0.8, 'eval_metric': 'auc', 'verbosity': 1, 'nthread': -1, 'min_child_weight': 1.8, 'max_depth': 22, 'subsample': 1.0, 'eta': 0.02, 'sampling_method': 'uniform', 'objective': 'binary:logistic', 'alpha': 0.0, 'tree_method': 'exact', 'predictor': 'cpu_predictor', 'gamma': 0.05, 'booster': 'gbtree'}
+  0%|          | 0/10 [00:00<?, ?it/s, best loss: ?]                                                    [0]	val-auc:0.989043
+
+  0%|          | 0/10 [00:02<?, ?it/s, best loss: ?]                                                    Will train until val-auc hasn't improved in 10 rounds.
+
+  0%|          | 0/10 [00:02<?, ?it/s, best loss: ?]                                                    [1]	val-auc:0.994829
+
+  0%|          | 0/10 [00:04<?, ?it/s, best loss: ?]                                                    [2]	val-auc:0.995425
+
+  0%|          | 0/10 [00:06<?, ?it/s, best loss: ?]                                                    [3]	val-auc:0.995519
+
+  0%|          | 0/10 [00:08<?, ?it/s, best loss: ?]                                                    [4]	val-auc:0.995741
+
+  0%|          | 0/10 [00:10<?, ?it/s, best loss: ?]                                                    [5]	val-auc:0.99569
+
+  0%|          | 0/10 [00:12<?, ?it/s, best loss: ?]                                                    [6]	val-auc:0.995727
+
+  0%|          | 0/10 [00:14<?, ?it/s, best loss: ?]                                                    [7]	val-auc:0.995768
+
+  0%|          | 0/10 [00:16<?, ?it/s, best loss: ?]                                                    [8]	val-auc:0.995821
+
+  0%|          | 0/10 [00:18<?, ?it/s, best loss: ?]                                                    [9]	val-auc:0.995839
+
+  0%|          | 0/10 [00:20<?, ?it/s, best loss: ?]                                                    [10]	val-auc:0.995847
+
+  0%|          | 0/10 [00:22<?, ?it/s, best loss: ?]                                                    [11]	val-auc:0.995914
+
+  0%|          | 0/10 [00:24<?, ?it/s, best loss: ?]                                                    [12]	val-auc:0.995985
+
+  0%|          | 0/10 [00:26<?, ?it/s, best loss: ?]                                                    [13]	val-auc:0.996042
+
+  0%|          | 0/10 [00:28<?, ?it/s, best loss: ?]                                                    [14]	val-auc:0.9966
+
+  0%|          | 0/10 [00:30<?, ?it/s, best loss: ?]                                                    [15]	val-auc:0.996619
+
+  0%|          | 0/10 [00:32<?, ?it/s, best loss: ?]                                                    [16]	val-auc:0.996628
+
+  0%|          | 0/10 [00:34<?, ?it/s, best loss: ?]                                                    [17]	val-auc:0.996653
+
+  0%|          | 0/10 [00:36<?, ?it/s, best loss: ?]                                                    [18]	val-auc:0.996674
+
+  0%|          | 0/10 [00:38<?, ?it/s, best loss: ?]                                                    [19]	val-auc:0.996667
+
+  0%|          | 0/10 [00:40<?, ?it/s, best loss: ?]                                                    [20]	val-auc:0.996675
+
+  0%|          | 0/10 [00:42<?, ?it/s, best loss: ?]                                                    [21]	val-auc:0.996649
+
+  0%|          | 0/10 [00:44<?, ?it/s, best loss: ?]                                                    [22]	val-auc:0.996653
+
+  0%|          | 0/10 [00:47<?, ?it/s, best loss: ?]                                                    [23]	val-auc:0.99668
+
+  0%|          | 0/10 [00:48<?, ?it/s, best loss: ?]                                                    [24]	val-auc:0.996724
+
+  0%|          | 0/10 [00:50<?, ?it/s, best loss: ?]                                                    [25]	val-auc:0.996731
+
+  0%|          | 0/10 [00:52<?, ?it/s, best loss: ?]                                                    [26]	val-auc:0.996709
+
+  0%|          | 0/10 [00:55<?, ?it/s, best loss: ?]                                                    [27]	val-auc:0.996704
+
+  0%|          | 0/10 [00:57<?, ?it/s, best loss: ?]                                                    [28]	val-auc:0.996712
+
+  0%|          | 0/10 [00:59<?, ?it/s, best loss: ?]                                                    [29]	val-auc:0.99674
+
+  0%|          | 0/10 [01:00<?, ?it/s, best loss: ?]                                                    [30]	val-auc:0.996752
+
+  0%|          | 0/10 [01:02<?, ?it/s, best loss: ?]                                                    [31]	val-auc:0.996746
+
+  0%|          | 0/10 [01:04<?, ?it/s, best loss: ?]                                                    [32]	val-auc:0.996738
+
+  0%|          | 0/10 [01:07<?, ?it/s, best loss: ?]                                                    [33]	val-auc:0.996758
+
+  0%|          | 0/10 [01:08<?, ?it/s, best loss: ?]                                                    [34]	val-auc:0.996738
+
+  0%|          | 0/10 [01:11<?, ?it/s, best loss: ?]                                                    [35]	val-auc:0.996736
+
+  0%|          | 0/10 [01:13<?, ?it/s, best loss: ?]                                                    [36]	val-auc:0.996747
+
+  0%|          | 0/10 [01:15<?, ?it/s, best loss: ?]                                                    [37]	val-auc:0.996742
+
+  0%|          | 0/10 [01:17<?, ?it/s, best loss: ?]                                                    [38]	val-auc:0.996754
+
+  0%|          | 0/10 [01:19<?, ?it/s, best loss: ?]                                                    [39]	val-auc:0.996752
+
+  0%|          | 0/10 [01:21<?, ?it/s, best loss: ?]                                                    [40]	val-auc:0.996754
+
+  0%|          | 0/10 [01:23<?, ?it/s, best loss: ?]                                                    [41]	val-auc:0.996757
+
+  0%|          | 0/10 [01:25<?, ?it/s, best loss: ?]                                                    [42]	val-auc:0.996773
+
+  0%|          | 0/10 [01:27<?, ?it/s, best loss: ?]                                                    [43]	val-auc:0.996782
+
+  0%|          | 0/10 [01:29<?, ?it/s, best loss: ?]                                                    [44]	val-auc:0.996778
+
+  0%|          | 0/10 [01:31<?, ?it/s, best loss: ?]                                                    [45]	val-auc:0.996772
+
+  0%|          | 0/10 [01:33<?, ?it/s, best loss: ?]                                                    [46]	val-auc:0.996768
+
+  0%|          | 0/10 [01:35<?, ?it/s, best loss: ?]                                                    [47]	val-auc:0.996756
+
+  0%|          | 0/10 [01:37<?, ?it/s, best loss: ?]                                                    [48]	val-auc:0.996755
+
+  0%|          | 0/10 [01:39<?, ?it/s, best loss: ?]                                                    [49]	val-auc:0.996749
+
+  0%|          | 0/10 [01:41<?, ?it/s, best loss: ?]                                                    [50]	val-auc:0.996732
+
+  0%|          | 0/10 [01:43<?, ?it/s, best loss: ?]                                                    [51]	val-auc:0.996714
+
+  0%|          | 0/10 [01:45<?, ?it/s, best loss: ?]                                                    [52]	val-auc:0.996721
+
+  0%|          | 0/10 [01:48<?, ?it/s, best loss: ?]                                                    [53]	val-auc:0.996739
+
+  0%|          | 0/10 [01:49<?, ?it/s, best loss: ?]                                                    Stopping. Best iteration:
+[43]	val-auc:0.996782
+
+
+  0%|          | 0/10 [01:49<?, ?it/s, best loss: ?]                                                    	bestValScore: 0.996782
+  0%|          | 0/10 [01:51<?, ?it/s, best loss: ?]                                                    	bestNtreeLimit: 44
+  0%|          | 0/10 [01:51<?, ?it/s, best loss: ?]                                                    	trainScore : 0.9999824238589582
+  0%|          | 0/10 [01:51<?, ?it/s, best loss: ?]                                                    	theScore : 1.0298963978127808e-05
+  0%|          | 0/10 [01:51<?, ?it/s, best loss: ?] 10%|#         | 1/10 [01:51<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             
+
+Training with params : {'colsample_bytree': 0.8, 'eval_metric': 'auc', 'verbosity': 1, 'nthread': -1, 'min_child_weight': 1.8, 'max_depth': 22, 'subsample': 1.0, 'eta': 0.01, 'sampling_method': 'uniform', 'objective': 'binary:logistic', 'alpha': 0.0, 'tree_method': 'exact', 'predictor': 'cpu_predictor', 'gamma': 0.05, 'booster': 'gbtree'}
+ 10%|#         | 1/10 [01:51<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [0]	val-auc:0.989043
+
+ 10%|#         | 1/10 [01:53<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             Will train until val-auc hasn't improved in 10 rounds.
+
+ 10%|#         | 1/10 [01:53<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [1]	val-auc:0.995237
+
+ 10%|#         | 1/10 [01:55<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [2]	val-auc:0.995532
+
+ 10%|#         | 1/10 [01:57<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [3]	val-auc:0.995605
+
+ 10%|#         | 1/10 [01:59<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [4]	val-auc:0.995827
+
+ 10%|#         | 1/10 [02:01<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [5]	val-auc:0.995854
+
+ 10%|#         | 1/10 [02:03<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [6]	val-auc:0.995889
+
+ 10%|#         | 1/10 [02:05<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [7]	val-auc:0.996003
+
+ 10%|#         | 1/10 [02:07<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [8]	val-auc:0.996006
+
+ 10%|#         | 1/10 [02:09<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [9]	val-auc:0.995974
+
+ 10%|#         | 1/10 [02:11<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [10]	val-auc:0.99602
+
+ 10%|#         | 1/10 [02:13<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [11]	val-auc:0.99606
+
+ 10%|#         | 1/10 [02:15<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [12]	val-auc:0.996097
+
+ 10%|#         | 1/10 [02:17<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [13]	val-auc:0.996164
+
+ 10%|#         | 1/10 [02:19<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [14]	val-auc:0.996371
+
+ 10%|#         | 1/10 [02:21<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [15]	val-auc:0.996407
+
+ 10%|#         | 1/10 [02:23<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [16]	val-auc:0.996387
+
+ 10%|#         | 1/10 [02:25<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [17]	val-auc:0.996419
+
+ 10%|#         | 1/10 [02:27<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [18]	val-auc:0.996414
+
+ 10%|#         | 1/10 [02:29<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [19]	val-auc:0.996411
+
+ 10%|#         | 1/10 [02:31<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [20]	val-auc:0.996439
+
+ 10%|#         | 1/10 [02:33<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [21]	val-auc:0.99641
+
+ 10%|#         | 1/10 [02:35<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [22]	val-auc:0.996591
+
+ 10%|#         | 1/10 [02:37<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [23]	val-auc:0.996622
+
+ 10%|#         | 1/10 [02:39<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [24]	val-auc:0.996661
+
+ 10%|#         | 1/10 [02:41<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [25]	val-auc:0.996667
+
+ 10%|#         | 1/10 [02:43<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [26]	val-auc:0.996658
+
+ 10%|#         | 1/10 [02:45<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [27]	val-auc:0.996656
+
+ 10%|#         | 1/10 [02:47<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [28]	val-auc:0.996669
+
+ 10%|#         | 1/10 [02:49<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [29]	val-auc:0.996671
+
+ 10%|#         | 1/10 [02:51<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [30]	val-auc:0.996691
+
+ 10%|#         | 1/10 [02:53<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [31]	val-auc:0.996687
+
+ 10%|#         | 1/10 [02:55<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [32]	val-auc:0.996693
+
+ 10%|#         | 1/10 [02:57<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [33]	val-auc:0.996724
+
+ 10%|#         | 1/10 [02:59<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [34]	val-auc:0.996711
+
+ 10%|#         | 1/10 [03:01<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [35]	val-auc:0.996708
+
+ 10%|#         | 1/10 [03:03<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [36]	val-auc:0.996709
+
+ 10%|#         | 1/10 [03:05<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [37]	val-auc:0.996702
+
+ 10%|#         | 1/10 [03:07<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [38]	val-auc:0.996706
+
+ 10%|#         | 1/10 [03:09<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [39]	val-auc:0.996702
+
+ 10%|#         | 1/10 [03:11<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [40]	val-auc:0.996714
+
+ 10%|#         | 1/10 [03:13<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [41]	val-auc:0.996693
+
+ 10%|#         | 1/10 [03:15<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [42]	val-auc:0.99671
+
+ 10%|#         | 1/10 [03:17<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [43]	val-auc:0.996731
+
+ 10%|#         | 1/10 [03:19<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [44]	val-auc:0.996731
+
+ 10%|#         | 1/10 [03:21<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [45]	val-auc:0.996726
+
+ 10%|#         | 1/10 [03:23<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [46]	val-auc:0.996725
+
+ 10%|#         | 1/10 [03:25<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [47]	val-auc:0.996713
+
+ 10%|#         | 1/10 [03:27<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [48]	val-auc:0.996717
+
+ 10%|#         | 1/10 [03:29<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [49]	val-auc:0.996714
+
+ 10%|#         | 1/10 [03:31<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [50]	val-auc:0.996699
+
+ 10%|#         | 1/10 [03:33<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [51]	val-auc:0.9967
+
+ 10%|#         | 1/10 [03:35<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [52]	val-auc:0.996703
+
+ 10%|#         | 1/10 [03:37<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             [53]	val-auc:0.996725
+
+ 10%|#         | 1/10 [03:39<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             Stopping. Best iteration:
+[43]	val-auc:0.996731
+
+
+ 10%|#         | 1/10 [03:39<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             	bestValScore: 0.996731
+ 10%|#         | 1/10 [03:41<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             	bestNtreeLimit: 44
+ 10%|#         | 1/10 [03:41<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             	trainScore : 0.9999617847418909
+ 10%|#         | 1/10 [03:41<16:45, 111.74s/it, best loss: 1.02989639781e-05]                                                                             	theScore : 1.0561435321241141e-05
+ 10%|#         | 1/10 [03:41<16:45, 111.74s/it, best loss: 1.02989639781e-05] 20%|##        | 2/10 [03:41<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             
+
+Training with params : {'colsample_bytree': 0.8, 'eval_metric': 'auc', 'verbosity': 1, 'nthread': -1, 'min_child_weight': 1.8, 'max_depth': 22, 'subsample': 1.0, 'eta': 0.01, 'sampling_method': 'uniform', 'objective': 'binary:logistic', 'alpha': 0.0, 'tree_method': 'exact', 'predictor': 'cpu_predictor', 'gamma': 0.05, 'booster': 'gbtree'}
+ 20%|##        | 2/10 [03:41<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [0]	val-auc:0.989043
+
+ 20%|##        | 2/10 [03:43<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             Will train until val-auc hasn't improved in 10 rounds.
+
+ 20%|##        | 2/10 [03:43<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [1]	val-auc:0.995237
+
+ 20%|##        | 2/10 [03:45<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [2]	val-auc:0.995532
+
+ 20%|##        | 2/10 [03:47<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [3]	val-auc:0.995605
+
+ 20%|##        | 2/10 [03:48<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [4]	val-auc:0.995827
+
+ 20%|##        | 2/10 [03:50<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [5]	val-auc:0.995854
+
+ 20%|##        | 2/10 [03:52<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [6]	val-auc:0.995889
+
+ 20%|##        | 2/10 [03:54<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [7]	val-auc:0.996003
+
+ 20%|##        | 2/10 [03:56<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [8]	val-auc:0.996006
+
+ 20%|##        | 2/10 [03:58<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [9]	val-auc:0.995974
+
+ 20%|##        | 2/10 [04:00<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [10]	val-auc:0.99602
+
+ 20%|##        | 2/10 [04:02<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [11]	val-auc:0.99606
+
+ 20%|##        | 2/10 [04:04<14:48, 111.01s/it, best loss: 1.02989639781e-05]                                                                             [12]	val-auc:0.996097
+
+ 20%|##        | 2/10 [04:06<14:48, 111.01s/it, best loss: 1.02989639781e-05]   

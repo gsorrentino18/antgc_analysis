@@ -1,0 +1,19 @@
+
+outDir 						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/
+
+signalInDir					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_08_13_Prompt/merged/
+signalSamples				== 		GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root, WGToLNuG01J5fPtG290TuneCP513TeVamcatnloFXFXpythia8.root, WGToLNuG01J5fPtG490TuneCP513TeVamcatnloFXFXpythia8.root, ZNuNuGJetsMonoPhotonPtG130TuneCP513TeVmadgraph.root
+
+
+backgroundInDir				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_08_13_Fakes/merged/
+bgSamples					== 		GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root, QCDPt1400to1800TuneCP513TeVpythia8.root, QCDPt1800to2400TuneCP513TeVpythia8.root, QCDPt300to470TuneCP513TeVpythia8.root,  QCDPt470to600TuneCP513TeVpythia8.root, QCDPt800to1000TuneCP513TeVpythia8.root, QCDPt1000to1400TuneCP513TeVpythia8.root, QCDPt170to300TuneCP513TeVpythia8.root, QCDPt2400to3200TuneCP513TeVpythia8.root, QCDPt3200toInfTuneCP513TeVpythia8.root, QCDPt600to800TuneCP513TeVpythia8.root
+
+inTreeName 					==		fullEB/fullEB_Tree
+
+etaBinning 					==		0, 0.2, 0.4, 0.6, 0.8, 1., 1.2, 1.4442
+
+ptBinning 					==		200,220.,250.,300.,350.,400.,500.,600.,800.,1200.,10000.
+
+xSectionMap 				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv
+
+sampleMapFile 				==		sampleMap.txt

@@ -99,7 +99,7 @@ std::string getDirPath(std::string _somePath);
 std::vector<std::string> getNonemptyLines(std::string filepath);
 std::vector<std::string> getNonemptyLinesWithFilenameKeyword(std::string filepath, std::string keyword, std::string exclude="");
 std::vector<std::string> getLinesRegex(std::string _filepath, std::string _regexStr);
-TH1* getHistFromFile(std::string _histName, std::string _filename, Bool_t _verbose=1);
+TH1* getHistFromFile(std::string _histName, std::string _filename, Bool_t _verbose=1, TDirectory *_dir = nullptr);
 TObject *getObjectFromFile(std::string _objectName, std::string _filename);
 TH1* rebinNHist(TH1* _hist, Int_t _N);
 TH1* rebinHist(TH1* _hist, std::vector<Double_t> _newBins);
@@ -132,8 +132,8 @@ void graphStats(TGraphAsymmErrors* graph, Double_t &mean, Double_t &stdev);
 TH1D* graph2hist(TGraphAsymmErrors* graph, UInt_t ndivs, Double_t ylow, Double_t yhigh);
 Int_t writeToFile(TObject *_object, std::string _filePath, std::string _mode = "RECREATE", Bool_t _verbose=1);
 std::string findAndReplaceAll(std::string data, std::string toSearch, std::string replaceStr);
-TChain *openTChain(std::string _chainListFile, std::string _treeName="");
-TChain *openTChain(std::vector<std::string> _chainList, std::string _treeName="");
+TChain *openTChain(std::string _chainListFile, std::string _treeName="", Bool_t _verbose = 1);
+TChain *openTChain(std::vector<std::string> _chainList, std::string _treeName="", Bool_t _verbose = 1);
 TChain *openTChainWithFilesInDir(std::string _dirPath, std::string _treeName="");
 std::vector<std::pair<std::string, std::string>> getBranchList(std::string _treePath, std::string _treeName="", Bool_t _verbose=1);
 std::vector<std::string> listFilesInDir(std::string _dirPath, std::string _regexStr="", Bool_t _verb=0);
@@ -1611,7 +1611,7 @@ std::vector<std::string> getLinesRegex(std::string _filepath, std::string _regex
 };
 
 
-TH1* getHistFromFile(std::string _histName, std::string _filename, Bool_t _verbose){
+TH1* getHistFromFile(std::string _histName, std::string _filename, Bool_t _verbose, TDirectory *_dir){
 
 	TFile _file(_filename.c_str(), "READ");
 	if(!objectExists(&_file, _histName)){
@@ -1621,7 +1621,8 @@ TH1* getHistFromFile(std::string _histName, std::string _filename, Bool_t _verbo
 	}
 
 	TH1* _hist = (TH1*) _file.Get(_histName.c_str());
-	_hist->SetDirectory(0);
+	if(!_dir)_hist->SetDirectory(0);
+	else _hist->SetDirectory(_dir);
 	_file.Close();
 	if(_verbose)std::cout<<"\t\tLoaded histogram "<<_histName<<" (N="<<_hist->GetEntries() <<") from file "<<_filename<<std::endl;
 	if(!_hist) std::cout<<"Error! Histogram "<< _histName<<" not found in file "<<_filename<<std::endl;
@@ -2032,23 +2033,23 @@ std::string findAndReplaceAll(std::string data, std::string toSearch, std::strin
 };
 
 
-TChain *openTChain(std::string _chainListFile, std::string _treeName){
+TChain *openTChain(std::string _chainListFile, std::string _treeName, Bool_t _verbose){
 	if(!file_exists(_chainListFile)){
 		std::cout<<"Error! Chain list file does not exist:"<<_chainListFile<<std::endl;
 		exit(EXIT_FAILURE);
 	}
-	std::cout<<"\tMaking TChain with root files listed in "<<_chainListFile<<std::endl;
+	if(_verbose) std::cout<<"\tMaking TChain with root files listed in "<<_chainListFile<<std::endl;
 	std::vector<std::string> _ntuples = getNonemptyLines(_chainListFile);
 	if(_ntuples.size() == 0){
 		std::cout<<"Error! File list "<<_chainListFile<<" is invalid!"<<std::endl;
 		return nullptr;
 	}
 
-	return openTChain(_ntuples, _treeName);
+	return openTChain(_ntuples, _treeName, _verbose);
 };
 
 
-TChain *openTChain(std::vector<std::string> _chainList, std::string _treeName){
+TChain *openTChain(std::vector<std::string> _chainList, std::string _treeName, Bool_t _verbose){
 	if(_treeName.empty()){
 		TFile _testF(_chainList[0].c_str(), "READ");
 		if (!_testF.GetListOfKeys()){
@@ -2077,7 +2078,7 @@ TChain *openTChain(std::vector<std::string> _chainList, std::string _treeName){
 	}
 
 	TChain *_bChain = new TChain(_treeName.c_str());
-	std::cout<<"\tMaking TChain from trees "<<_treeName<<std::endl;
+	if(_verbose) std::cout<<"\tMaking TChain from trees "<<_treeName<<std::endl;
 	for(auto & _ntuple : _chainList){
 		if(_ntuple.find("root:") != std::string::npos){
 		} else if(!file_exists(_ntuple)){
@@ -2086,9 +2087,9 @@ TChain *openTChain(std::vector<std::string> _chainList, std::string _treeName){
 			return nullptr;
 		};
 		_bChain->Add(_ntuple.c_str());
-		std::cout << "\tAdded file "<< _ntuple <<std::endl;
+		if(_verbose) std::cout << "\tAdded file "<< _ntuple <<std::endl;
 	}
-	std::cout<<"\tBuilt TChain!"<<std::endl;
+	if(_verbose) std::cout<<"\tBuilt TChain!"<<std::endl;
 
 	return _bChain;
 };
@@ -3112,12 +3113,12 @@ std::vector<std::string> prefixVecString(std::vector<std::string> _vecStr, std::
 
 
 void normalizeHist(TH1* _hist, Double_t _norm){
-	_hist->Scale(_norm/_hist->Integral(1, _hist->GetNbinsX()));
+	_hist->Scale(_norm/_hist->Integral());
 };
 
 
 void normalizeHist(TH1& _hist, Double_t _norm){
-	_hist.Scale(_norm/_hist.Integral(1, _hist.GetNbinsX()));
+	_hist.Scale(_norm/_hist.Integral());
 };
 
 
