@@ -13,11 +13,11 @@ parser = ArgumentParser(
 	description='Photon ID BDT Training for CMS aNTGC search in Z(->nu nu) + gamma channel')
 parser.add_argument('--inFilePath', type=str, help='Input root file',
 					default='/hdfs/cms/user/wadud/anTGC/BDTdata/mergedSamplesShuffled.root', action='store')
-parser.add_argument('--saveDir', type=str, default='/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/training/',
+parser.add_argument('--saveDir', type=str, default='/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/training100MEta0p1Alpha0/',
 					help='Save directory', action='store')
 parser.add_argument('--inTreeName', type=str, default='fullEB_Tree',
 					help='Input tree name', action='store')
-parser.add_argument('--chunksize', default=10000,
+parser.add_argument('--chunksize', default=100000000,
 					type=int, help='Chunk size', action='store')
 parser.add_argument('--outTreeName', default='fullEB_BDT_Tree',
 					type=str, help='Out tree name', action='store')
@@ -36,6 +36,12 @@ else:
 import datetime
 now = datetime.datetime.now()
 logFileName = args.saveDir + '/trainWithTune_' + now.strftime("%Y_%m_%d_%H_%M_%S") + ".log"
+
+validationProgressFilename = args.saveDir + '/validationProgress.log'
+validationProgressFile = open("%s" % validationProgressFilename,"wb")
+
+testProgressFilename = args.saveDir + '/testProgress.log'
+testProgressFile = open("%s" % testProgressFilename,"wb")
 
 
 import sys
@@ -65,13 +71,12 @@ print("Starting photon ID training BDT\n")
 print("inFilePath\t=\t" + args.inFilePath)
 print("saveDir\t\t=\t" + args.saveDir)
 print("inTreeName\t=\t" + args.inTreeName)
-print("splitFile\t=\t" + args.splitFile)
 print("chunksize\t=\t" + str(args.chunksize))
 print("logFile\t\t=\t" + logFileName)
 
 
 # using root_pandas - thanks to https://github.com/scikit-hep/root_pandas
-from root_pandas_build.readwrite import read_root, to_root
+from root_pandas.readwrite import read_root, to_root
 import pandas as pd
 from random import shuffle
 import xgboost as xg
@@ -85,10 +90,15 @@ from matplotlib import rc
 import matplotlib.pyplot as plt
 from custom_auc import aucW, sampleStats
 from progressbar import ProgressBar
+import json
+
 
 BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "phoE2ndOEmaxFull5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
 			"phoEmaxOE3x3Full5x5", "phoE2ndOE3x3Full5x5", "phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
 BDTfeats.sort()
+print("\nBDT input features (" + str(len(BDTfeats)) + ") :")
+print(BDTfeats)
+print("\n")
 
 params = {
 			'objective': 'binary:logistic',
@@ -100,15 +110,16 @@ params = {
 			'gamma': 0.05,
 			'max_depth': 22,
 			'min_child_weight': 1.8,
-			'subsample': 1.0,
-			'colsample_bytree': 0.8,
+			'subsample': 0.5,
+			'colsample_bytree': 0.5,
 			'alpha' : 0.0,
 			'sampling_method': 'uniform',
 			'tree_method': 'exact',
 			'predictor': 'cpu_predictor'
 		  }
 
-print("Training with params:" + str(params))
+print("\nTraining with params:\n" + str(params))
+print '\n\n'
 
 phoModelIterated = None
 
@@ -117,7 +128,6 @@ pbar = ProgressBar()
 iChunk = int(0)
 
 for totalData in  pbar(read_root(paths=args.inFilePath, key=args.inTreeName, columns=(BDTfeats + ['PtEtaRwBG', 'xSecW', 'isSignal', 'isTrain', 'isValidation']), chunksize=chunksize)):
-	print(str(len(totalData.index)) + "    " + len(dfSplit.index))
 
 	print("\nTotal data:")
 	totalData['bdtWeight'] = totalData['xSecW'] * totalData['PtEtaRwBG']
@@ -135,29 +145,37 @@ for totalData in  pbar(read_root(paths=args.inFilePath, key=args.inTreeName, col
 	testDF = totalData[(totalData.isTrain == 0)]
 	sampleStats(testDF)
 
+	print('\n')
+
 	trainPho = xg.DMatrix(trainDF[BDTfeats].values, label=trainDF['isSignal'].values, weight=trainDF['bdtWeight'].values, feature_names=BDTfeats, nthread=-1)
 	validationPho = xg.DMatrix(validationDF[BDTfeats].values, label=validationDF['isSignal'].values, weight=validationDF['bdtWeight'].values, feature_names=BDTfeats, nthread=-1)
-
-	evallist = [(validationPho, 'validation'), (trainPho, 'train'), (testPho, 'test')]
-
-	phoModel = xg.train(params, dtrain=trainPho, evals=[(validationPho, "validation")], evals_result=evallist, early_stopping_rounds=10, verbose_eval=True, num_boost_round=100000, xgb_model=phoModelIterated)
+	testPho = xg.DMatrix(testDF[BDTfeats].values, label=testDF['isSignal'].values, weight=testDF['bdtWeight'].values, feature_names=BDTfeats, nthread=-1)
+	watchlist = [(trainPho, 'train'), (testPho, 'test'), (validationPho, "validation")]
+	accuracyProgress = dict()
+	phoModel = xg.train(params, dtrain=trainPho, evals=watchlist, evals_result=accuracyProgress, early_stopping_rounds=10, verbose_eval=True, num_boost_round=100000, xgb_model=phoModelIterated)
 
 	del trainDF
 	del validationDF
 	del trainPho
 	del validationPho
 
+	print "\nValidation progress:\n"
+	print(json.dumps(accuracyProgress, indent=4, sort_keys=True))
+	validationProgressFile.write(json.dumps(accuracyProgress, indent=4, sort_keys=True))
+	print '\n\n'
+
 	trainDF = totalData[(totalData.isTrain == 1)]
 	trainPho = xg.DMatrix(trainDF[BDTfeats].values, label=trainDF['isSignal'].values, weight=trainDF['bdtWeight'].values, feature_names=BDTfeats, nthread=-1)
+	accuracyProgress = dict()
+	watchlist = [(trainPho, 'train'), (testPho, 'test')]
+	phoModelIterated = xg.train(params, dtrain=trainPho, evals=watchlist, evals_result=accuracyProgress, num_boost_round=phoModel.best_iteration + 1, xgb_model=phoModelIterated)
 
-	evallist = [(trainPho, 'train'), (testPho, 'test')]
+	print "\nPost-validation progress:\n"
+	print(json.dumps(accuracyProgress, indent=4, sort_keys=True))
+	testProgressFile.write(json.dumps(accuracyProgress, indent=4, sort_keys=True))
+	print '\n\n'
 
-	phoModelIterated = xg.train(params, dtrain=trainPho, evals_result=evallist,	num_boost_round=phoModel.best_iteration + 1, xgb_model=phoModelIterated)
-
-	print('Chunk ' + str(iChunk) + 'processed!')
-
-	if(iChunk == 1):
-		break
+	print('Chunk ' + str(iChunk) + ' processed!\n')
 
 	iChunk+=1
 
@@ -169,12 +187,15 @@ pickle.dump(phoModelIterated, open('%s/aNTGC_photon_BDT.pkl' % args.saveDir, "wb
 phoModelIterated.save_model('%s/aNTGC_photon_BDT.model' % args.saveDir)
 phoModelIterated.dump_model(fout='%s/modelDump.txt' % args.saveDir)
 
-print now.strftime("%Y-%m-%d %H:%M:%S") + '\nModel saved as %s/aNTGC_photon_BDT.(pkl/model/txt)' % args.saveDir
+validationProgressFile.close()
+testProgressFile.close()
 
-print "\nFeature importances (" + str(len(phoModel.get_fscore())) + " features) :"
-# print phoModel.get_fscore().iteritems()
+print now.strftime("%Y-%m-%d %H:%M:%S") + '\nModel saved as %s/aNTGC_photon_BDT.(pkl/model/txt)' % args.saveDir
+print '\nValidation and test progress saved in %s/validatiobProgress.log and testProgress.log/' % args.saveDir
+
+print "\nFeature importances (" + str(len(phoModelIterated.get_fscore())) + " features) :"
 featImpDumpFile = open("%s/featImps.txt" % args.saveDir, "w")
-fScoreList = phoModel.get_fscore()
+fScoreList = phoModelIterated.get_fscore()
 fScoreList = sorted(fScoreList.items(), key=lambda item: item[1], reverse=True)
 usedFeatures = list()
 
@@ -201,7 +222,6 @@ print('\nGetting predictions @ ' + now.strftime("%Y-%m-%d %H:%M:%S") + "\n")
 iChunk = int(0)
 
 for totalData in  pbar(read_root(paths=args.inFilePath, key=args.inTreeName, columns=(BDTfeats + ['PtEtaRwBG', 'xSecW', 'isSignal', 'isTrain', 'isValidation', 'splitRand']), chunksize=chunksize)):
-	print(str(len(totalData.index)) + "    " + len(dfSplit.index))
 
 	print("\nTotal data:")
 	totalData['bdtWeight'] = totalData['xSecW'] * totalData['PtEtaRwBG']
@@ -209,20 +229,16 @@ for totalData in  pbar(read_root(paths=args.inFilePath, key=args.inTreeName, col
 
 	allPho = xg.DMatrix(totalData[BDTfeats].values, label=totalData['isSignal'].values, weight=totalData['bdtWeight'].values, feature_names=BDTfeats, nthread=-1)
 
-	saveDF = pd.DataFrame()
-	saveDF['bdtScore'] = = phoModel.predict(allPho)
+	saveDF = totalData[['isSignal', 'isTrain', 'isValidation', 'splitRand']].copy()
+	saveDF.columns = ['isSignalF', 'isTrainF', 'isValidationF', 'splitRandF']
+	saveDF['bdtScore'] = phoModelIterated.predict(allPho)
 
-	saveDF['isSignalF'] = totalData['isSignal']
-	saveDF['isTrainF'] = totalData['isTrain']
-	saveDF['isValidationF'] = totalData['isValidation']
-	saveDF['splitRand'] = totalData['splitRand']
 
 	outFileName = args.saveDir + '/' + 'BDTresults_' + str(iChunk) + '.root'
-	totalData.to_root('%s' % outFileName, key=args.outTreeName)
+	saveDF.to_root('%s' % outFileName, key=args.outTreeName)
 	print ('Data frame saved in %s)' % outFileName)
 
-	if(iChunk == 1):
-		break
+	print('Chunk ' + str(iChunk) + ' processed!\n')
 
 	iChunk+=1
 

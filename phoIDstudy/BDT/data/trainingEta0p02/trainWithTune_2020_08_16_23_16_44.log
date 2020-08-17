@@ -1,0 +1,4327 @@
+************************************************************************************************************************************************
+
+2020-08-16 23:16:44
+Starting photon ID training BDT
+
+inFilePath	=	/hdfs/cms/user/wadud/anTGC/BDTdata/mergedSamplesShuffled.root
+saveDir		=	/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/trainingEta0p02/
+inTreeName	=	fullEB_Tree
+chunksize	=	2000000
+logFile		=	/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/trainingEta0p02//trainWithTune_2020_08_16_23_16_44.log
+
+BDT input features (17) :
+['phoE1x3OESCrFull5x5', 'phoE2ndOE3x3Full5x5', 'phoE2ndOESCrFull5x5', 'phoE2ndOEmaxFull5x5', 'phoE2x5OESCrFull5x5', 'phoE5x5OESCrFull5x5', 'phoEmaxOE3x3Full5x5', 'phoEmaxOESCrFull5x5', 'phoEtaWOPhiWFull5x5', 'phoEtaWidth', 'phoPhiWidth', 'phoR9Full5x5', 'phoS4Full5x5', 'phoSieieOSipipFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi']
+
+
+
+Training with params:
+{'eval_metric': 'auc', 'sampling_method': 'uniform', 'alpha': 0.01, 'tree_method': 'exact', 'booster': 'gbtree', 'colsample_bytree': 0.5, 'verbosity': 1, 'nthread': -1, 'min_child_weight': 1.8, 'predictor': 'cpu_predictor', 'subsample': 0.5, 'eta': 0.02, 'objective': 'binary:logistic', 'max_depth': 22, 'gamma': 0.05}
+
+
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1672280 / 327720 = 5.10)
+BackgroundSumW/SignalSumW 	=	118920104.000000 / 962626.812500	=	123.537079
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	118959856.000000 / 962626.812500	=	123.578377
+
+Training data:
+Total Events	=	819550 (B/S= 684955 / 134595 = 5.09)
+BackgroundSumW/SignalSumW 	=	48728768.000000 / 396644.968750	=	122.852356
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48750264.000000 / 396644.968750	=	122.906548
+
+Validation data:
+Total Events	=	579872 (B/S= 485148 / 94724 = 5.12)
+BackgroundSumW/SignalSumW 	=	34831516.000000 / 277818.906250	=	125.374893
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34816180.000000 / 277818.906250	=	125.319695
+
+Test data:
+Total Events	=	600578 (B/S= 502177 / 98401 = 5.10)
+BackgroundSumW/SignalSumW 	=	35359820.000000 / 288163.031250	=	122.707687
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35393416.000000 / 288163.031250	=	122.824280
+
+
+[0]	train-auc:0.996064	test-auc:0.993476	validation-auc:0.993312
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.997656	test-auc:0.993696	validation-auc:0.993736
+[2]	train-auc:0.998296	test-auc:0.99463	validation-auc:0.993951
+[3]	train-auc:0.998708	test-auc:0.994943	validation-auc:0.994424
+[4]	train-auc:0.998893	test-auc:0.994993	validation-auc:0.994954
+[5]	train-auc:0.9989	test-auc:0.995324	validation-auc:0.994892
+[6]	train-auc:0.999127	test-auc:0.995896	validation-auc:0.995161
+[7]	train-auc:0.999115	test-auc:0.995959	validation-auc:0.995424
+[8]	train-auc:0.999202	test-auc:0.995799	validation-auc:0.995579
+[9]	train-auc:0.999218	test-auc:0.995821	validation-auc:0.995723
+[10]	train-auc:0.99939	test-auc:0.996085	validation-auc:0.995946
+[11]	train-auc:0.999433	test-auc:0.996237	validation-auc:0.996043
+[12]	train-auc:0.999447	test-auc:0.996271	validation-auc:0.996123
+[13]	train-auc:0.999473	test-auc:0.996293	validation-auc:0.995986
+[14]	train-auc:0.999496	test-auc:0.996144	validation-auc:0.996021
+[15]	train-auc:0.999553	test-auc:0.99637	validation-auc:0.996223
+[16]	train-auc:0.999555	test-auc:0.996433	validation-auc:0.996114
+[17]	train-auc:0.999549	test-auc:0.996457	validation-auc:0.996145
+[18]	train-auc:0.999554	test-auc:0.996521	validation-auc:0.996214
+[19]	train-auc:0.999566	test-auc:0.996503	validation-auc:0.996288
+[20]	train-auc:0.999578	test-auc:0.996574	validation-auc:0.996321
+[21]	train-auc:0.999615	test-auc:0.996633	validation-auc:0.996443
+[22]	train-auc:0.999621	test-auc:0.996634	validation-auc:0.996509
+[23]	train-auc:0.99962	test-auc:0.996671	validation-auc:0.996618
+[24]	train-auc:0.999632	test-auc:0.996746	validation-auc:0.99667
+[25]	train-auc:0.999625	test-auc:0.996698	validation-auc:0.996701
+[26]	train-auc:0.999632	test-auc:0.996699	validation-auc:0.996783
+[27]	train-auc:0.999639	test-auc:0.996806	validation-auc:0.996807
+[28]	train-auc:0.999655	test-auc:0.996867	validation-auc:0.996967
+[29]	train-auc:0.999665	test-auc:0.996866	validation-auc:0.996983
+[30]	train-auc:0.999669	test-auc:0.996886	validation-auc:0.996993
+[31]	train-auc:0.999675	test-auc:0.996982	validation-auc:0.996931
+[32]	train-auc:0.999676	test-auc:0.997122	validation-auc:0.996954
+[33]	train-auc:0.999691	test-auc:0.997104	validation-auc:0.996906
+[34]	train-auc:0.999692	test-auc:0.997109	validation-auc:0.996942
+[35]	train-auc:0.999679	test-auc:0.99708	validation-auc:0.996905
+[36]	train-auc:0.999679	test-auc:0.997073	validation-auc:0.996879
+[37]	train-auc:0.999692	test-auc:0.997057	validation-auc:0.996889
+[38]	train-auc:0.999693	test-auc:0.997061	validation-auc:0.996886
+[39]	train-auc:0.999705	test-auc:0.997112	validation-auc:0.996929
+[40]	train-auc:0.999712	test-auc:0.997075	validation-auc:0.996896
+Stopping. Best iteration:
+[30]	train-auc:0.999669	test-auc:0.996886	validation-auc:0.996993
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.993476, 
+            0.993696, 
+            0.99463, 
+            0.994943, 
+            0.994993, 
+            0.995324, 
+            0.995896, 
+            0.995959, 
+            0.995799, 
+            0.995821, 
+            0.996085, 
+            0.996237, 
+            0.996271, 
+            0.996293, 
+            0.996144, 
+            0.99637, 
+            0.996433, 
+            0.996457, 
+            0.996521, 
+            0.996503, 
+            0.996574, 
+            0.996633, 
+            0.996634, 
+            0.996671, 
+            0.996746, 
+            0.996698, 
+            0.996699, 
+            0.996806, 
+            0.996867, 
+            0.996866, 
+            0.996886, 
+            0.996982, 
+            0.997122, 
+            0.997104, 
+            0.997109, 
+            0.99708, 
+            0.997073, 
+            0.997057, 
+            0.997061, 
+            0.997112
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.996064, 
+            0.997656, 
+            0.998296, 
+            0.998708, 
+            0.998893, 
+            0.9989, 
+            0.999127, 
+            0.999115, 
+            0.999202, 
+            0.999218, 
+            0.99939, 
+            0.999433, 
+            0.999447, 
+            0.999473, 
+            0.999496, 
+            0.999553, 
+            0.999555, 
+            0.999549, 
+            0.999554, 
+            0.999566, 
+            0.999578, 
+            0.999615, 
+            0.999621, 
+            0.99962, 
+            0.999632, 
+            0.999625, 
+            0.999632, 
+            0.999639, 
+            0.999655, 
+            0.999665, 
+            0.999669, 
+            0.999675, 
+            0.999676, 
+            0.999691, 
+            0.999692, 
+            0.999679, 
+            0.999679, 
+            0.999692, 
+            0.999693, 
+            0.999705
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.993312, 
+            0.993736, 
+            0.993951, 
+            0.994424, 
+            0.994954, 
+            0.994892, 
+            0.995161, 
+            0.995424, 
+            0.995579, 
+            0.995723, 
+            0.995946, 
+            0.996043, 
+            0.996123, 
+            0.995986, 
+            0.996021, 
+            0.996223, 
+            0.996114, 
+            0.996145, 
+            0.996214, 
+            0.996288, 
+            0.996321, 
+            0.996443, 
+            0.996509, 
+            0.996618, 
+            0.99667, 
+            0.996701, 
+            0.996783, 
+            0.996807, 
+            0.996967, 
+            0.996983, 
+            0.996993, 
+            0.996931, 
+            0.996954, 
+            0.996906, 
+            0.996942, 
+            0.996905, 
+            0.996879, 
+            0.996889, 
+            0.996886, 
+            0.996929
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.996537	test-auc:0.99354
+[1]	train-auc:0.99746	test-auc:0.994157
+[2]	train-auc:0.998426	test-auc:0.994897
+[3]	train-auc:0.998749	test-auc:0.99536
+[4]	train-auc:0.998815	test-auc:0.99566
+[5]	train-auc:0.99892	test-auc:0.995699
+[6]	train-auc:0.999008	test-auc:0.995875
+[7]	train-auc:0.999063	test-auc:0.995985
+[8]	train-auc:0.99921	test-auc:0.995874
+[9]	train-auc:0.999212	test-auc:0.995942
+[10]	train-auc:0.999194	test-auc:0.995959
+[11]	train-auc:0.99924	test-auc:0.996099
+[12]	train-auc:0.999327	test-auc:0.996148
+[13]	train-auc:0.999343	test-auc:0.996152
+[14]	train-auc:0.99935	test-auc:0.996258
+[15]	train-auc:0.999389	test-auc:0.99636
+[16]	train-auc:0.999401	test-auc:0.996396
+[17]	train-auc:0.999413	test-auc:0.996404
+[18]	train-auc:0.999448	test-auc:0.996541
+[19]	train-auc:0.999458	test-auc:0.996628
+[20]	train-auc:0.999448	test-auc:0.996625
+[21]	train-auc:0.999441	test-auc:0.996544
+[22]	train-auc:0.999478	test-auc:0.996617
+[23]	train-auc:0.999488	test-auc:0.996667
+[24]	train-auc:0.999483	test-auc:0.996651
+[25]	train-auc:0.999482	test-auc:0.996654
+[26]	train-auc:0.999488	test-auc:0.996665
+[27]	train-auc:0.999489	test-auc:0.996678
+[28]	train-auc:0.999516	test-auc:0.996799
+[29]	train-auc:0.999532	test-auc:0.996793
+[30]	train-auc:0.999558	test-auc:0.996948
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.99354, 
+            0.994157, 
+            0.994897, 
+            0.99536, 
+            0.99566, 
+            0.995699, 
+            0.995875, 
+            0.995985, 
+            0.995874, 
+            0.995942, 
+            0.995959, 
+            0.996099, 
+            0.996148, 
+            0.996152, 
+            0.996258, 
+            0.99636, 
+            0.996396, 
+            0.996404, 
+            0.996541, 
+            0.996628, 
+            0.996625, 
+            0.996544, 
+            0.996617, 
+            0.996667, 
+            0.996651, 
+            0.996654, 
+            0.996665, 
+            0.996678, 
+            0.996799, 
+            0.996793, 
+            0.996948
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.996537, 
+            0.99746, 
+            0.998426, 
+            0.998749, 
+            0.998815, 
+            0.99892, 
+            0.999008, 
+            0.999063, 
+            0.99921, 
+            0.999212, 
+            0.999194, 
+            0.99924, 
+            0.999327, 
+            0.999343, 
+            0.99935, 
+            0.999389, 
+            0.999401, 
+            0.999413, 
+            0.999448, 
+            0.999458, 
+            0.999448, 
+            0.999441, 
+            0.999478, 
+            0.999488, 
+            0.999483, 
+            0.999482, 
+            0.999488, 
+            0.999489, 
+            0.999516, 
+            0.999532, 
+            0.999558
+        ]
+    }
+}
+
+
+
+Chunk 0 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1672548 / 327452 = 5.11)
+BackgroundSumW/SignalSumW 	=	119768024.000000 / 952336.875000	=	125.762245
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119753632.000000 / 952336.875000	=	125.747131
+
+Training data:
+Total Events	=	820556 (B/S= 686069 / 134487 = 5.10)
+BackgroundSumW/SignalSumW 	=	49401132.000000 / 391636.093750	=	126.140396
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	49373160.000000 / 391636.093750	=	126.068970
+
+Validation data:
+Total Events	=	579881 (B/S= 484905 / 94976 = 5.11)
+BackgroundSumW/SignalSumW 	=	34338536.000000 / 274380.843750	=	125.149178
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34320340.000000 / 274380.843750	=	125.082855
+
+Test data:
+Total Events	=	599563 (B/S= 501574 / 97989 = 5.12)
+BackgroundSumW/SignalSumW 	=	36028376.000000 / 286319.937500	=	125.832581
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	36060152.000000 / 286319.937500	=	125.943558
+
+
+[0]	train-auc:0.997033	test-auc:0.996764	validation-auc:0.996969
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.997106	test-auc:0.996768	validation-auc:0.996975
+[2]	train-auc:0.997278	test-auc:0.996863	validation-auc:0.997017
+[3]	train-auc:0.997382	test-auc:0.996779	validation-auc:0.997005
+[4]	train-auc:0.997517	test-auc:0.996691	validation-auc:0.99701
+[5]	train-auc:0.997603	test-auc:0.996692	validation-auc:0.997012
+[6]	train-auc:0.99772	test-auc:0.996691	validation-auc:0.997008
+[7]	train-auc:0.997764	test-auc:0.99668	validation-auc:0.99703
+[8]	train-auc:0.997876	test-auc:0.996686	validation-auc:0.997026
+[9]	train-auc:0.997955	test-auc:0.996683	validation-auc:0.997019
+[10]	train-auc:0.998043	test-auc:0.996679	validation-auc:0.997014
+[11]	train-auc:0.998057	test-auc:0.996756	validation-auc:0.997065
+[12]	train-auc:0.99821	test-auc:0.996758	validation-auc:0.997083
+[13]	train-auc:0.998277	test-auc:0.996742	validation-auc:0.997071
+[14]	train-auc:0.998342	test-auc:0.996751	validation-auc:0.997078
+[15]	train-auc:0.998411	test-auc:0.996747	validation-auc:0.997081
+[16]	train-auc:0.998501	test-auc:0.996705	validation-auc:0.997131
+[17]	train-auc:0.998544	test-auc:0.996678	validation-auc:0.997112
+[18]	train-auc:0.998602	test-auc:0.996672	validation-auc:0.997113
+[19]	train-auc:0.998664	test-auc:0.996735	validation-auc:0.997108
+[20]	train-auc:0.998706	test-auc:0.99673	validation-auc:0.997105
+[21]	train-auc:0.998737	test-auc:0.996785	validation-auc:0.997085
+[22]	train-auc:0.998802	test-auc:0.996781	validation-auc:0.997091
+[23]	train-auc:0.998833	test-auc:0.996774	validation-auc:0.997091
+[24]	train-auc:0.998874	test-auc:0.996772	validation-auc:0.997077
+[25]	train-auc:0.998909	test-auc:0.996796	validation-auc:0.99708
+[26]	train-auc:0.998944	test-auc:0.996796	validation-auc:0.997082
+Stopping. Best iteration:
+[16]	train-auc:0.998501	test-auc:0.996705	validation-auc:0.997131
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.996764, 
+            0.996768, 
+            0.996863, 
+            0.996779, 
+            0.996691, 
+            0.996692, 
+            0.996691, 
+            0.99668, 
+            0.996686, 
+            0.996683, 
+            0.996679, 
+            0.996756, 
+            0.996758, 
+            0.996742, 
+            0.996751, 
+            0.996747, 
+            0.996705, 
+            0.996678, 
+            0.996672, 
+            0.996735, 
+            0.99673, 
+            0.996785, 
+            0.996781, 
+            0.996774, 
+            0.996772, 
+            0.996796
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997033, 
+            0.997106, 
+            0.997278, 
+            0.997382, 
+            0.997517, 
+            0.997603, 
+            0.99772, 
+            0.997764, 
+            0.997876, 
+            0.997955, 
+            0.998043, 
+            0.998057, 
+            0.99821, 
+            0.998277, 
+            0.998342, 
+            0.998411, 
+            0.998501, 
+            0.998544, 
+            0.998602, 
+            0.998664, 
+            0.998706, 
+            0.998737, 
+            0.998802, 
+            0.998833, 
+            0.998874, 
+            0.998909
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.996969, 
+            0.996975, 
+            0.997017, 
+            0.997005, 
+            0.99701, 
+            0.997012, 
+            0.997008, 
+            0.99703, 
+            0.997026, 
+            0.997019, 
+            0.997014, 
+            0.997065, 
+            0.997083, 
+            0.997071, 
+            0.997078, 
+            0.997081, 
+            0.997131, 
+            0.997112, 
+            0.997113, 
+            0.997108, 
+            0.997105, 
+            0.997085, 
+            0.997091, 
+            0.997091, 
+            0.997077, 
+            0.99708
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.997164	test-auc:0.996771
+[1]	train-auc:0.997345	test-auc:0.99672
+[2]	train-auc:0.997495	test-auc:0.996836
+[3]	train-auc:0.997612	test-auc:0.996823
+[4]	train-auc:0.99768	test-auc:0.996792
+[5]	train-auc:0.997751	test-auc:0.996819
+[6]	train-auc:0.997831	test-auc:0.996839
+[7]	train-auc:0.99788	test-auc:0.996828
+[8]	train-auc:0.997917	test-auc:0.9968
+[9]	train-auc:0.998014	test-auc:0.99682
+[10]	train-auc:0.998074	test-auc:0.996818
+[11]	train-auc:0.998165	test-auc:0.996811
+[12]	train-auc:0.998256	test-auc:0.996864
+[13]	train-auc:0.998353	test-auc:0.996903
+[14]	train-auc:0.998437	test-auc:0.996913
+[15]	train-auc:0.998468	test-auc:0.996938
+[16]	train-auc:0.998536	test-auc:0.996904
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.996771, 
+            0.99672, 
+            0.996836, 
+            0.996823, 
+            0.996792, 
+            0.996819, 
+            0.996839, 
+            0.996828, 
+            0.9968, 
+            0.99682, 
+            0.996818, 
+            0.996811, 
+            0.996864, 
+            0.996903, 
+            0.996913, 
+            0.996938, 
+            0.996904
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997164, 
+            0.997345, 
+            0.997495, 
+            0.997612, 
+            0.99768, 
+            0.997751, 
+            0.997831, 
+            0.99788, 
+            0.997917, 
+            0.998014, 
+            0.998074, 
+            0.998165, 
+            0.998256, 
+            0.998353, 
+            0.998437, 
+            0.998468, 
+            0.998536
+        ]
+    }
+}
+
+
+
+Chunk 1 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671596 / 328404 = 5.09)
+BackgroundSumW/SignalSumW 	=	119429912.000000 / 953133.312500	=	125.302422
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119394792.000000 / 953133.312500	=	125.265572
+
+Training data:
+Total Events	=	820407 (B/S= 685194 / 135213 = 5.07)
+BackgroundSumW/SignalSumW 	=	48931420.000000 / 395665.343750	=	123.668701
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48915464.000000 / 395665.343750	=	123.628380
+
+Validation data:
+Total Events	=	580885 (B/S= 485943 / 94942 = 5.12)
+BackgroundSumW/SignalSumW 	=	34736480.000000 / 273824.375000	=	126.856789
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34768452.000000 / 273824.375000	=	126.973549
+
+Test data:
+Total Events	=	598708 (B/S= 500459 / 98249 = 5.09)
+BackgroundSumW/SignalSumW 	=	35761992.000000 / 283643.437500	=	126.080803
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35710892.000000 / 283643.437500	=	125.900642
+
+
+[0]	train-auc:0.997182	test-auc:0.996638	validation-auc:0.996817
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.997386	test-auc:0.996669	validation-auc:0.996829
+[2]	train-auc:0.997516	test-auc:0.996676	validation-auc:0.996849
+[3]	train-auc:0.997558	test-auc:0.996655	validation-auc:0.996846
+[4]	train-auc:0.997645	test-auc:0.996656	validation-auc:0.996843
+[5]	train-auc:0.997717	test-auc:0.996651	validation-auc:0.996849
+[6]	train-auc:0.997762	test-auc:0.996644	validation-auc:0.99683
+[7]	train-auc:0.997839	test-auc:0.996636	validation-auc:0.996825
+[8]	train-auc:0.997908	test-auc:0.996638	validation-auc:0.996802
+[9]	train-auc:0.997931	test-auc:0.996732	validation-auc:0.996798
+[10]	train-auc:0.997981	test-auc:0.996738	validation-auc:0.996786
+[11]	train-auc:0.998083	test-auc:0.996738	validation-auc:0.996777
+[12]	train-auc:0.998173	test-auc:0.996717	validation-auc:0.996808
+Stopping. Best iteration:
+[2]	train-auc:0.997516	test-auc:0.996676	validation-auc:0.996849
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.996638, 
+            0.996669, 
+            0.996676, 
+            0.996655, 
+            0.996656, 
+            0.996651, 
+            0.996644, 
+            0.996636, 
+            0.996638, 
+            0.996732, 
+            0.996738, 
+            0.996738
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997182, 
+            0.997386, 
+            0.997516, 
+            0.997558, 
+            0.997645, 
+            0.997717, 
+            0.997762, 
+            0.997839, 
+            0.997908, 
+            0.997931, 
+            0.997981, 
+            0.998083
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.996817, 
+            0.996829, 
+            0.996849, 
+            0.996846, 
+            0.996843, 
+            0.996849, 
+            0.99683, 
+            0.996825, 
+            0.996802, 
+            0.996798, 
+            0.996786, 
+            0.996777
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.997091	test-auc:0.996625
+[1]	train-auc:0.997259	test-auc:0.99657
+[2]	train-auc:0.997432	test-auc:0.996621
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.996625, 
+            0.99657, 
+            0.996621
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997091, 
+            0.997259, 
+            0.997432
+        ]
+    }
+}
+
+
+
+Chunk 2 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671417 / 328583 = 5.09)
+BackgroundSumW/SignalSumW 	=	119300864.000000 / 955788.187500	=	124.819351
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119313904.000000 / 955788.187500	=	124.833000
+
+Training data:
+Total Events	=	819813 (B/S= 685184 / 134629 = 5.09)
+BackgroundSumW/SignalSumW 	=	48727980.000000 / 390602.000000	=	124.750977
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48767740.000000 / 390602.000000	=	124.852768
+
+Validation data:
+Total Events	=	580850 (B/S= 485366 / 95484 = 5.08)
+BackgroundSumW/SignalSumW 	=	34464016.000000 / 281335.500000	=	122.501480
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34450308.000000 / 281335.500000	=	122.452759
+
+Test data:
+Total Events	=	599337 (B/S= 500867 / 98470 = 5.09)
+BackgroundSumW/SignalSumW 	=	36108880.000000 / 283850.562500	=	127.210884
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	36095796.000000 / 283850.562500	=	127.164787
+
+
+[0]	train-auc:0.997288	test-auc:0.996865	validation-auc:0.997122
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.997368	test-auc:0.996998	validation-auc:0.997127
+[2]	train-auc:0.997488	test-auc:0.997	validation-auc:0.997128
+[3]	train-auc:0.997635	test-auc:0.996998	validation-auc:0.997135
+[4]	train-auc:0.997713	test-auc:0.996994	validation-auc:0.997138
+[5]	train-auc:0.997901	test-auc:0.997032	validation-auc:0.997137
+[6]	train-auc:0.998019	test-auc:0.997048	validation-auc:0.997182
+[7]	train-auc:0.9981	test-auc:0.997054	validation-auc:0.997186
+[8]	train-auc:0.998151	test-auc:0.997039	validation-auc:0.997185
+[9]	train-auc:0.998213	test-auc:0.997057	validation-auc:0.997195
+[10]	train-auc:0.99827	test-auc:0.997075	validation-auc:0.997217
+[11]	train-auc:0.998325	test-auc:0.99707	validation-auc:0.997218
+[12]	train-auc:0.998391	test-auc:0.997057	validation-auc:0.997207
+[13]	train-auc:0.99847	test-auc:0.997058	validation-auc:0.997193
+[14]	train-auc:0.998509	test-auc:0.997058	validation-auc:0.997194
+[15]	train-auc:0.998598	test-auc:0.997078	validation-auc:0.99721
+[16]	train-auc:0.998654	test-auc:0.997075	validation-auc:0.997209
+[17]	train-auc:0.998686	test-auc:0.997073	validation-auc:0.997203
+[18]	train-auc:0.998718	test-auc:0.997068	validation-auc:0.997194
+[19]	train-auc:0.99878	test-auc:0.997129	validation-auc:0.997204
+[20]	train-auc:0.998821	test-auc:0.997134	validation-auc:0.997207
+[21]	train-auc:0.998864	test-auc:0.997132	validation-auc:0.997207
+Stopping. Best iteration:
+[11]	train-auc:0.998325	test-auc:0.99707	validation-auc:0.997218
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.996865, 
+            0.996998, 
+            0.997, 
+            0.996998, 
+            0.996994, 
+            0.997032, 
+            0.997048, 
+            0.997054, 
+            0.997039, 
+            0.997057, 
+            0.997075, 
+            0.99707, 
+            0.997057, 
+            0.997058, 
+            0.997058, 
+            0.997078, 
+            0.997075, 
+            0.997073, 
+            0.997068, 
+            0.997129, 
+            0.997134
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997288, 
+            0.997368, 
+            0.997488, 
+            0.997635, 
+            0.997713, 
+            0.997901, 
+            0.998019, 
+            0.9981, 
+            0.998151, 
+            0.998213, 
+            0.99827, 
+            0.998325, 
+            0.998391, 
+            0.99847, 
+            0.998509, 
+            0.998598, 
+            0.998654, 
+            0.998686, 
+            0.998718, 
+            0.99878, 
+            0.998821
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997122, 
+            0.997127, 
+            0.997128, 
+            0.997135, 
+            0.997138, 
+            0.997137, 
+            0.997182, 
+            0.997186, 
+            0.997185, 
+            0.997195, 
+            0.997217, 
+            0.997218, 
+            0.997207, 
+            0.997193, 
+            0.997194, 
+            0.99721, 
+            0.997209, 
+            0.997203, 
+            0.997194, 
+            0.997204, 
+            0.997207
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.997332	test-auc:0.996889
+[1]	train-auc:0.997453	test-auc:0.996885
+[2]	train-auc:0.997521	test-auc:0.996884
+[3]	train-auc:0.997574	test-auc:0.996869
+[4]	train-auc:0.99765	test-auc:0.996857
+[5]	train-auc:0.997673	test-auc:0.996867
+[6]	train-auc:0.997744	test-auc:0.996922
+[7]	train-auc:0.997849	test-auc:0.996917
+[8]	train-auc:0.997979	test-auc:0.996947
+[9]	train-auc:0.998058	test-auc:0.996966
+[10]	train-auc:0.998104	test-auc:0.996959
+[11]	train-auc:0.998154	test-auc:0.996944
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.996889, 
+            0.996885, 
+            0.996884, 
+            0.996869, 
+            0.996857, 
+            0.996867, 
+            0.996922, 
+            0.996917, 
+            0.996947, 
+            0.996966, 
+            0.996959, 
+            0.996944
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997332, 
+            0.997453, 
+            0.997521, 
+            0.997574, 
+            0.99765, 
+            0.997673, 
+            0.997744, 
+            0.997849, 
+            0.997979, 
+            0.998058, 
+            0.998104, 
+            0.998154
+        ]
+    }
+}
+
+
+
+Chunk 3 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671100 / 328900 = 5.08)
+BackgroundSumW/SignalSumW 	=	119146784.000000 / 960686.687500	=	124.022522
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119219912.000000 / 960686.687500	=	124.098640
+
+Training data:
+Total Events	=	819742 (B/S= 685068 / 134674 = 5.09)
+BackgroundSumW/SignalSumW 	=	48607180.000000 / 391697.500000	=	124.093666
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48617780.000000 / 391697.500000	=	124.120728
+
+Validation data:
+Total Events	=	580124 (B/S= 484877 / 95247 = 5.09)
+BackgroundSumW/SignalSumW 	=	34599972.000000 / 278650.437500	=	124.169807
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34647832.000000 / 278650.437500	=	124.341568
+
+Test data:
+Total Events	=	600134 (B/S= 501155 / 98979 = 5.06)
+BackgroundSumW/SignalSumW 	=	35939620.000000 / 290338.531250	=	123.785225
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35954288.000000 / 290338.531250	=	123.835747
+
+
+[0]	train-auc:0.997111	test-auc:0.997018	validation-auc:0.997012
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.99727	test-auc:0.997052	validation-auc:0.997027
+[2]	train-auc:0.997485	test-auc:0.997043	validation-auc:0.997114
+[3]	train-auc:0.99762	test-auc:0.99706	validation-auc:0.997136
+[4]	train-auc:0.99766	test-auc:0.997058	validation-auc:0.997126
+[5]	train-auc:0.997697	test-auc:0.997047	validation-auc:0.997115
+[6]	train-auc:0.997743	test-auc:0.997038	validation-auc:0.997109
+[7]	train-auc:0.997756	test-auc:0.997029	validation-auc:0.997103
+[8]	train-auc:0.997829	test-auc:0.997025	validation-auc:0.997102
+[9]	train-auc:0.997931	test-auc:0.997035	validation-auc:0.997117
+[10]	train-auc:0.998009	test-auc:0.997035	validation-auc:0.997106
+[11]	train-auc:0.998096	test-auc:0.99704	validation-auc:0.9971
+[12]	train-auc:0.998176	test-auc:0.997037	validation-auc:0.997106
+[13]	train-auc:0.998189	test-auc:0.997031	validation-auc:0.997098
+Stopping. Best iteration:
+[3]	train-auc:0.99762	test-auc:0.99706	validation-auc:0.997136
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997018, 
+            0.997052, 
+            0.997043, 
+            0.99706, 
+            0.997058, 
+            0.997047, 
+            0.997038, 
+            0.997029, 
+            0.997025, 
+            0.997035, 
+            0.997035, 
+            0.99704, 
+            0.997037
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997111, 
+            0.99727, 
+            0.997485, 
+            0.99762, 
+            0.99766, 
+            0.997697, 
+            0.997743, 
+            0.997756, 
+            0.997829, 
+            0.997931, 
+            0.998009, 
+            0.998096, 
+            0.998176
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997012, 
+            0.997027, 
+            0.997114, 
+            0.997136, 
+            0.997126, 
+            0.997115, 
+            0.997109, 
+            0.997103, 
+            0.997102, 
+            0.997117, 
+            0.997106, 
+            0.9971, 
+            0.997106
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.997127	test-auc:0.997005
+[1]	train-auc:0.997306	test-auc:0.996973
+[2]	train-auc:0.997419	test-auc:0.996995
+[3]	train-auc:0.997466	test-auc:0.996998
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997005, 
+            0.996973, 
+            0.996995, 
+            0.996998
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997127, 
+            0.997306, 
+            0.997419, 
+            0.997466
+        ]
+    }
+}
+
+
+
+Chunk 4 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671802 / 328198 = 5.09)
+BackgroundSumW/SignalSumW 	=	119492888.000000 / 953362.625000	=	125.338341
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119387688.000000 / 953362.625000	=	125.227989
+
+Training data:
+Total Events	=	819895 (B/S= 685319 / 134576 = 5.09)
+BackgroundSumW/SignalSumW 	=	48657552.000000 / 389951.000000	=	124.778633
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48614016.000000 / 389951.000000	=	124.666985
+
+Validation data:
+Total Events	=	580524 (B/S= 484944 / 95580 = 5.07)
+BackgroundSumW/SignalSumW 	=	35047688.000000 / 280688.031250	=	124.863495
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34988176.000000 / 280688.031250	=	124.651474
+
+Test data:
+Total Events	=	599581 (B/S= 501539 / 98042 = 5.12)
+BackgroundSumW/SignalSumW 	=	35787632.000000 / 282723.718750	=	126.581642
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35785476.000000 / 282723.718750	=	126.574013
+
+
+[0]	train-auc:0.997765	test-auc:0.997331	validation-auc:0.997054
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.997868	test-auc:0.997339	validation-auc:0.99703
+[2]	train-auc:0.997923	test-auc:0.99733	validation-auc:0.997027
+[3]	train-auc:0.997994	test-auc:0.99734	validation-auc:0.997061
+[4]	train-auc:0.998095	test-auc:0.997347	validation-auc:0.99708
+[5]	train-auc:0.998192	test-auc:0.997361	validation-auc:0.997082
+[6]	train-auc:0.998242	test-auc:0.997353	validation-auc:0.997168
+[7]	train-auc:0.998287	test-auc:0.997346	validation-auc:0.997157
+[8]	train-auc:0.998372	test-auc:0.997353	validation-auc:0.997172
+[9]	train-auc:0.99844	test-auc:0.997348	validation-auc:0.997164
+[10]	train-auc:0.998493	test-auc:0.997347	validation-auc:0.99717
+[11]	train-auc:0.998549	test-auc:0.997347	validation-auc:0.997176
+[12]	train-auc:0.998592	test-auc:0.997342	validation-auc:0.997169
+[13]	train-auc:0.998642	test-auc:0.99734	validation-auc:0.997163
+[14]	train-auc:0.998708	test-auc:0.99735	validation-auc:0.997211
+[15]	train-auc:0.998749	test-auc:0.997342	validation-auc:0.997201
+[16]	train-auc:0.998807	test-auc:0.997364	validation-auc:0.997211
+[17]	train-auc:0.998851	test-auc:0.997361	validation-auc:0.99721
+[18]	train-auc:0.998904	test-auc:0.997358	validation-auc:0.997206
+[19]	train-auc:0.998927	test-auc:0.99735	validation-auc:0.997191
+[20]	train-auc:0.998983	test-auc:0.997374	validation-auc:0.997221
+[21]	train-auc:0.999015	test-auc:0.997373	validation-auc:0.997226
+[22]	train-auc:0.99906	test-auc:0.997277	validation-auc:0.997224
+[23]	train-auc:0.999117	test-auc:0.9973	validation-auc:0.99725
+[24]	train-auc:0.99916	test-auc:0.997327	validation-auc:0.997262
+[25]	train-auc:0.999187	test-auc:0.997329	validation-auc:0.997261
+[26]	train-auc:0.999211	test-auc:0.997421	validation-auc:0.997267
+[27]	train-auc:0.999248	test-auc:0.997439	validation-auc:0.997279
+[28]	train-auc:0.999281	test-auc:0.997441	validation-auc:0.997285
+[29]	train-auc:0.999311	test-auc:0.997444	validation-auc:0.997285
+[30]	train-auc:0.999331	test-auc:0.997438	validation-auc:0.997282
+[31]	train-auc:0.999358	test-auc:0.997455	validation-auc:0.9973
+[32]	train-auc:0.999382	test-auc:0.997444	validation-auc:0.997292
+[33]	train-auc:0.999403	test-auc:0.997444	validation-auc:0.997294
+[34]	train-auc:0.999418	test-auc:0.997441	validation-auc:0.997294
+[35]	train-auc:0.999447	test-auc:0.997456	validation-auc:0.997321
+[36]	train-auc:0.999463	test-auc:0.997453	validation-auc:0.997315
+[37]	train-auc:0.999484	test-auc:0.997447	validation-auc:0.997308
+[38]	train-auc:0.999503	test-auc:0.997449	validation-auc:0.997303
+[39]	train-auc:0.99952	test-auc:0.997443	validation-auc:0.997294
+[40]	train-auc:0.999535	test-auc:0.997445	validation-auc:0.997289
+[41]	train-auc:0.999549	test-auc:0.997454	validation-auc:0.997284
+[42]	train-auc:0.999568	test-auc:0.997448	validation-auc:0.997282
+[43]	train-auc:0.999583	test-auc:0.99745	validation-auc:0.997287
+[44]	train-auc:0.999597	test-auc:0.997448	validation-auc:0.997282
+[45]	train-auc:0.999615	test-auc:0.99745	validation-auc:0.997283
+Stopping. Best iteration:
+[35]	train-auc:0.999447	test-auc:0.997456	validation-auc:0.997321
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997331, 
+            0.997339, 
+            0.99733, 
+            0.99734, 
+            0.997347, 
+            0.997361, 
+            0.997353, 
+            0.997346, 
+            0.997353, 
+            0.997348, 
+            0.997347, 
+            0.997347, 
+            0.997342, 
+            0.99734, 
+            0.99735, 
+            0.997342, 
+            0.997364, 
+            0.997361, 
+            0.997358, 
+            0.99735, 
+            0.997374, 
+            0.997373, 
+            0.997277, 
+            0.9973, 
+            0.997327, 
+            0.997329, 
+            0.997421, 
+            0.997439, 
+            0.997441, 
+            0.997444, 
+            0.997438, 
+            0.997455, 
+            0.997444, 
+            0.997444, 
+            0.997441, 
+            0.997456, 
+            0.997453, 
+            0.997447, 
+            0.997449, 
+            0.997443, 
+            0.997445, 
+            0.997454, 
+            0.997448, 
+            0.99745, 
+            0.997448
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997765, 
+            0.997868, 
+            0.997923, 
+            0.997994, 
+            0.998095, 
+            0.998192, 
+            0.998242, 
+            0.998287, 
+            0.998372, 
+            0.99844, 
+            0.998493, 
+            0.998549, 
+            0.998592, 
+            0.998642, 
+            0.998708, 
+            0.998749, 
+            0.998807, 
+            0.998851, 
+            0.998904, 
+            0.998927, 
+            0.998983, 
+            0.999015, 
+            0.99906, 
+            0.999117, 
+            0.99916, 
+            0.999187, 
+            0.999211, 
+            0.999248, 
+            0.999281, 
+            0.999311, 
+            0.999331, 
+            0.999358, 
+            0.999382, 
+            0.999403, 
+            0.999418, 
+            0.999447, 
+            0.999463, 
+            0.999484, 
+            0.999503, 
+            0.99952, 
+            0.999535, 
+            0.999549, 
+            0.999568, 
+            0.999583, 
+            0.999597
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997054, 
+            0.99703, 
+            0.997027, 
+            0.997061, 
+            0.99708, 
+            0.997082, 
+            0.997168, 
+            0.997157, 
+            0.997172, 
+            0.997164, 
+            0.99717, 
+            0.997176, 
+            0.997169, 
+            0.997163, 
+            0.997211, 
+            0.997201, 
+            0.997211, 
+            0.99721, 
+            0.997206, 
+            0.997191, 
+            0.997221, 
+            0.997226, 
+            0.997224, 
+            0.99725, 
+            0.997262, 
+            0.997261, 
+            0.997267, 
+            0.997279, 
+            0.997285, 
+            0.997285, 
+            0.997282, 
+            0.9973, 
+            0.997292, 
+            0.997294, 
+            0.997294, 
+            0.997321, 
+            0.997315, 
+            0.997308, 
+            0.997303, 
+            0.997294, 
+            0.997289, 
+            0.997284, 
+            0.997282, 
+            0.997287, 
+            0.997282
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.997428	test-auc:0.997298
+[1]	train-auc:0.997532	test-auc:0.997293
+[2]	train-auc:0.997637	test-auc:0.997281
+[3]	train-auc:0.997767	test-auc:0.997312
+[4]	train-auc:0.997845	test-auc:0.997302
+[5]	train-auc:0.997913	test-auc:0.997298
+[6]	train-auc:0.997955	test-auc:0.997298
+[7]	train-auc:0.997985	test-auc:0.997296
+[8]	train-auc:0.99806	test-auc:0.997294
+[9]	train-auc:0.998103	test-auc:0.9973
+[10]	train-auc:0.998171	test-auc:0.997296
+[11]	train-auc:0.998218	test-auc:0.997284
+[12]	train-auc:0.998277	test-auc:0.997273
+[13]	train-auc:0.998328	test-auc:0.997276
+[14]	train-auc:0.998374	test-auc:0.99727
+[15]	train-auc:0.998421	test-auc:0.997292
+[16]	train-auc:0.99846	test-auc:0.997295
+[17]	train-auc:0.998501	test-auc:0.997292
+[18]	train-auc:0.998564	test-auc:0.997288
+[19]	train-auc:0.998637	test-auc:0.997333
+[20]	train-auc:0.998688	test-auc:0.997339
+[21]	train-auc:0.998723	test-auc:0.997342
+[22]	train-auc:0.998765	test-auc:0.997344
+[23]	train-auc:0.99881	test-auc:0.997345
+[24]	train-auc:0.998863	test-auc:0.997384
+[25]	train-auc:0.998899	test-auc:0.997391
+[26]	train-auc:0.998927	test-auc:0.997391
+[27]	train-auc:0.998955	test-auc:0.997395
+[28]	train-auc:0.998983	test-auc:0.997393
+[29]	train-auc:0.999011	test-auc:0.997396
+[30]	train-auc:0.999038	test-auc:0.997398
+[31]	train-auc:0.999074	test-auc:0.997397
+[32]	train-auc:0.999097	test-auc:0.997392
+[33]	train-auc:0.999126	test-auc:0.9974
+[34]	train-auc:0.999153	test-auc:0.997398
+[35]	train-auc:0.999174	test-auc:0.997408
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997298, 
+            0.997293, 
+            0.997281, 
+            0.997312, 
+            0.997302, 
+            0.997298, 
+            0.997298, 
+            0.997296, 
+            0.997294, 
+            0.9973, 
+            0.997296, 
+            0.997284, 
+            0.997273, 
+            0.997276, 
+            0.99727, 
+            0.997292, 
+            0.997295, 
+            0.997292, 
+            0.997288, 
+            0.997333, 
+            0.997339, 
+            0.997342, 
+            0.997344, 
+            0.997345, 
+            0.997384, 
+            0.997391, 
+            0.997391, 
+            0.997395, 
+            0.997393, 
+            0.997396, 
+            0.997398, 
+            0.997397, 
+            0.997392, 
+            0.9974, 
+            0.997398, 
+            0.997408
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997428, 
+            0.997532, 
+            0.997637, 
+            0.997767, 
+            0.997845, 
+            0.997913, 
+            0.997955, 
+            0.997985, 
+            0.99806, 
+            0.998103, 
+            0.998171, 
+            0.998218, 
+            0.998277, 
+            0.998328, 
+            0.998374, 
+            0.998421, 
+            0.99846, 
+            0.998501, 
+            0.998564, 
+            0.998637, 
+            0.998688, 
+            0.998723, 
+            0.998765, 
+            0.99881, 
+            0.998863, 
+            0.998899, 
+            0.998927, 
+            0.998955, 
+            0.998983, 
+            0.999011, 
+            0.999038, 
+            0.999074, 
+            0.999097, 
+            0.999126, 
+            0.999153, 
+            0.999174
+        ]
+    }
+}
+
+
+
+Chunk 5 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671676 / 328324 = 5.09)
+BackgroundSumW/SignalSumW 	=	120431416.000000 / 958725.125000	=	125.616211
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	120455512.000000 / 958725.125000	=	125.641342
+
+Training data:
+Total Events	=	820499 (B/S= 685824 / 134675 = 5.09)
+BackgroundSumW/SignalSumW 	=	49091108.000000 / 391721.093750	=	125.321587
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	49140188.000000 / 391721.093750	=	125.446877
+
+Validation data:
+Total Events	=	579993 (B/S= 484811 / 95182 = 5.09)
+BackgroundSumW/SignalSumW 	=	35485752.000000 / 279880.000000	=	126.789169
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35449444.000000 / 279880.000000	=	126.659439
+
+Test data:
+Total Events	=	599508 (B/S= 501041 / 98467 = 5.09)
+BackgroundSumW/SignalSumW 	=	35854548.000000 / 287124.156250	=	124.874718
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35865852.000000 / 287124.156250	=	124.914085
+
+
+[0]	train-auc:0.997191	test-auc:0.997737	validation-auc:0.997328
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.997266	test-auc:0.997729	validation-auc:0.997326
+[2]	train-auc:0.997507	test-auc:0.997721	validation-auc:0.99733
+[3]	train-auc:0.997631	test-auc:0.997721	validation-auc:0.997332
+[4]	train-auc:0.997745	test-auc:0.997744	validation-auc:0.997346
+[5]	train-auc:0.997863	test-auc:0.997762	validation-auc:0.997381
+[6]	train-auc:0.997932	test-auc:0.99776	validation-auc:0.997378
+[7]	train-auc:0.998003	test-auc:0.997761	validation-auc:0.997377
+[8]	train-auc:0.998081	test-auc:0.997783	validation-auc:0.997396
+[9]	train-auc:0.998123	test-auc:0.997779	validation-auc:0.997392
+[10]	train-auc:0.998184	test-auc:0.997785	validation-auc:0.997394
+[11]	train-auc:0.998228	test-auc:0.997781	validation-auc:0.997391
+[12]	train-auc:0.998289	test-auc:0.997788	validation-auc:0.997388
+[13]	train-auc:0.998351	test-auc:0.997787	validation-auc:0.997475
+[14]	train-auc:0.998386	test-auc:0.997788	validation-auc:0.997478
+[15]	train-auc:0.998435	test-auc:0.997788	validation-auc:0.997474
+[16]	train-auc:0.998474	test-auc:0.997786	validation-auc:0.997465
+[17]	train-auc:0.998525	test-auc:0.99779	validation-auc:0.997474
+[18]	train-auc:0.99857	test-auc:0.99779	validation-auc:0.997475
+[19]	train-auc:0.99862	test-auc:0.997793	validation-auc:0.99748
+[20]	train-auc:0.998671	test-auc:0.9978	validation-auc:0.997474
+[21]	train-auc:0.998701	test-auc:0.997804	validation-auc:0.997475
+[22]	train-auc:0.998751	test-auc:0.997832	validation-auc:0.997491
+[23]	train-auc:0.99878	test-auc:0.997833	validation-auc:0.997499
+[24]	train-auc:0.998813	test-auc:0.997836	validation-auc:0.997513
+[25]	train-auc:0.998852	test-auc:0.997834	validation-auc:0.997513
+[26]	train-auc:0.99889	test-auc:0.99784	validation-auc:0.997513
+[27]	train-auc:0.998919	test-auc:0.997835	validation-auc:0.997509
+[28]	train-auc:0.998949	test-auc:0.997842	validation-auc:0.997536
+[29]	train-auc:0.998983	test-auc:0.997846	validation-auc:0.99753
+[30]	train-auc:0.999016	test-auc:0.997847	validation-auc:0.997535
+[31]	train-auc:0.999049	test-auc:0.99785	validation-auc:0.997546
+[32]	train-auc:0.999083	test-auc:0.997848	validation-auc:0.997546
+[33]	train-auc:0.999114	test-auc:0.997855	validation-auc:0.997553
+[34]	train-auc:0.999143	test-auc:0.997854	validation-auc:0.997556
+[35]	train-auc:0.99917	test-auc:0.997856	validation-auc:0.997558
+[36]	train-auc:0.9992	test-auc:0.997864	validation-auc:0.997569
+[37]	train-auc:0.999228	test-auc:0.997867	validation-auc:0.997568
+[38]	train-auc:0.999256	test-auc:0.997865	validation-auc:0.997564
+[39]	train-auc:0.999283	test-auc:0.997872	validation-auc:0.997568
+[40]	train-auc:0.999307	test-auc:0.997868	validation-auc:0.997572
+[41]	train-auc:0.999329	test-auc:0.997861	validation-auc:0.99756
+[42]	train-auc:0.999352	test-auc:0.997869	validation-auc:0.997571
+[43]	train-auc:0.999372	test-auc:0.997867	validation-auc:0.997569
+[44]	train-auc:0.999393	test-auc:0.997864	validation-auc:0.997567
+[45]	train-auc:0.999417	test-auc:0.997874	validation-auc:0.997572
+[46]	train-auc:0.99944	test-auc:0.997883	validation-auc:0.997583
+[47]	train-auc:0.999457	test-auc:0.99788	validation-auc:0.997586
+[48]	train-auc:0.999476	test-auc:0.99789	validation-auc:0.997595
+[49]	train-auc:0.99949	test-auc:0.997888	validation-auc:0.997593
+[50]	train-auc:0.999508	test-auc:0.997888	validation-auc:0.997589
+[51]	train-auc:0.999523	test-auc:0.997885	validation-auc:0.9976
+[52]	train-auc:0.999538	test-auc:0.997882	validation-auc:0.997603
+[53]	train-auc:0.999552	test-auc:0.997883	validation-auc:0.99761
+[54]	train-auc:0.999568	test-auc:0.997898	validation-auc:0.997621
+[55]	train-auc:0.999583	test-auc:0.997896	validation-auc:0.997625
+[56]	train-auc:0.999598	test-auc:0.997898	validation-auc:0.997626
+[57]	train-auc:0.999612	test-auc:0.9979	validation-auc:0.997622
+[58]	train-auc:0.999626	test-auc:0.997898	validation-auc:0.997626
+[59]	train-auc:0.99964	test-auc:0.997896	validation-auc:0.997628
+[60]	train-auc:0.999659	test-auc:0.997912	validation-auc:0.997642
+[61]	train-auc:0.999672	test-auc:0.99791	validation-auc:0.997643
+[62]	train-auc:0.999688	test-auc:0.997916	validation-auc:0.997656
+[63]	train-auc:0.9997	test-auc:0.997924	validation-auc:0.997668
+[64]	train-auc:0.999709	test-auc:0.99792	validation-auc:0.997668
+[65]	train-auc:0.999718	test-auc:0.997919	validation-auc:0.99767
+[66]	train-auc:0.999731	test-auc:0.997925	validation-auc:0.997672
+[67]	train-auc:0.999741	test-auc:0.997926	validation-auc:0.997668
+[68]	train-auc:0.999751	test-auc:0.997925	validation-auc:0.997665
+[69]	train-auc:0.999762	test-auc:0.997926	validation-auc:0.997662
+[70]	train-auc:0.999773	test-auc:0.997933	validation-auc:0.997666
+[71]	train-auc:0.99978	test-auc:0.997933	validation-auc:0.997663
+[72]	train-auc:0.999788	test-auc:0.997935	validation-auc:0.997672
+[73]	train-auc:0.999798	test-auc:0.997938	validation-auc:0.997685
+[74]	train-auc:0.999805	test-auc:0.997937	validation-auc:0.997684
+[75]	train-auc:0.999812	test-auc:0.997939	validation-auc:0.997687
+[76]	train-auc:0.999818	test-auc:0.99794	validation-auc:0.997682
+[77]	train-auc:0.999825	test-auc:0.997948	validation-auc:0.997692
+[78]	train-auc:0.999832	test-auc:0.997948	validation-auc:0.997693
+[79]	train-auc:0.99984	test-auc:0.997948	validation-auc:0.997693
+[80]	train-auc:0.999845	test-auc:0.997948	validation-auc:0.997694
+[81]	train-auc:0.999852	test-auc:0.99795	validation-auc:0.997695
+[82]	train-auc:0.999858	test-auc:0.997953	validation-auc:0.997702
+[83]	train-auc:0.999863	test-auc:0.997952	validation-auc:0.997699
+[84]	train-auc:0.999868	test-auc:0.997949	validation-auc:0.997699
+[85]	train-auc:0.999873	test-auc:0.997949	validation-auc:0.9977
+[86]	train-auc:0.999876	test-auc:0.997951	validation-auc:0.997698
+[87]	train-auc:0.999882	test-auc:0.997951	validation-auc:0.997698
+[88]	train-auc:0.999887	test-auc:0.99795	validation-auc:0.997702
+[89]	train-auc:0.999889	test-auc:0.997948	validation-auc:0.997702
+[90]	train-auc:0.999893	test-auc:0.997944	validation-auc:0.997699
+[91]	train-auc:0.999898	test-auc:0.997945	validation-auc:0.9977
+[92]	train-auc:0.999902	test-auc:0.997951	validation-auc:0.997703
+[93]	train-auc:0.999906	test-auc:0.997961	validation-auc:0.997713
+[94]	train-auc:0.999909	test-auc:0.997964	validation-auc:0.997713
+[95]	train-auc:0.999911	test-auc:0.997966	validation-auc:0.997711
+[96]	train-auc:0.999916	test-auc:0.997973	validation-auc:0.997713
+[97]	train-auc:0.999919	test-auc:0.997971	validation-auc:0.997709
+[98]	train-auc:0.999921	test-auc:0.997975	validation-auc:0.997714
+[99]	train-auc:0.999923	test-auc:0.997977	validation-auc:0.997714
+[100]	train-auc:0.999927	test-auc:0.997976	validation-auc:0.997714
+[101]	train-auc:0.999929	test-auc:0.997978	validation-auc:0.997714
+[102]	train-auc:0.999931	test-auc:0.997977	validation-auc:0.997713
+[103]	train-auc:0.999933	test-auc:0.997975	validation-auc:0.997712
+[104]	train-auc:0.999935	test-auc:0.997976	validation-auc:0.997715
+[105]	train-auc:0.999938	test-auc:0.997977	validation-auc:0.997717
+[106]	train-auc:0.99994	test-auc:0.997983	validation-auc:0.997722
+[107]	train-auc:0.999942	test-auc:0.997989	validation-auc:0.997727
+[108]	train-auc:0.999944	test-auc:0.997991	validation-auc:0.997728
+[109]	train-auc:0.999945	test-auc:0.997994	validation-auc:0.997725
+[110]	train-auc:0.999948	test-auc:0.997997	validation-auc:0.997724
+[111]	train-auc:0.99995	test-auc:0.998004	validation-auc:0.997732
+[112]	train-auc:0.999951	test-auc:0.998009	validation-auc:0.997739
+[113]	train-auc:0.999954	test-auc:0.998015	validation-auc:0.997744
+[114]	train-auc:0.999955	test-auc:0.998015	validation-auc:0.997745
+[115]	train-auc:0.999956	test-auc:0.998016	validation-auc:0.997741
+[116]	train-auc:0.999957	test-auc:0.998014	validation-auc:0.997739
+[117]	train-auc:0.999958	test-auc:0.998016	validation-auc:0.997741
+[118]	train-auc:0.99996	test-auc:0.998021	validation-auc:0.997744
+[119]	train-auc:0.999961	test-auc:0.998025	validation-auc:0.997747
+[120]	train-auc:0.999962	test-auc:0.998027	validation-auc:0.997746
+[121]	train-auc:0.999964	test-auc:0.998028	validation-auc:0.997746
+[122]	train-auc:0.999965	test-auc:0.998028	validation-auc:0.997748
+[123]	train-auc:0.999966	test-auc:0.998033	validation-auc:0.997749
+[124]	train-auc:0.999967	test-auc:0.998034	validation-auc:0.997748
+[125]	train-auc:0.999968	test-auc:0.998038	validation-auc:0.997752
+[126]	train-auc:0.999968	test-auc:0.99804	validation-auc:0.997752
+[127]	train-auc:0.999969	test-auc:0.998038	validation-auc:0.997752
+[128]	train-auc:0.99997	test-auc:0.998038	validation-auc:0.997755
+[129]	train-auc:0.999971	test-auc:0.998039	validation-auc:0.997754
+[130]	train-auc:0.999972	test-auc:0.998046	validation-auc:0.997761
+[131]	train-auc:0.999972	test-auc:0.998045	validation-auc:0.997764
+[132]	train-auc:0.999973	test-auc:0.998048	validation-auc:0.997761
+[133]	train-auc:0.999974	test-auc:0.998056	validation-auc:0.997769
+[134]	train-auc:0.999974	test-auc:0.998054	validation-auc:0.997767
+[135]	train-auc:0.999975	test-auc:0.998055	validation-auc:0.997766
+[136]	train-auc:0.999975	test-auc:0.998055	validation-auc:0.997765
+[137]	train-auc:0.999976	test-auc:0.998061	validation-auc:0.997768
+[138]	train-auc:0.999977	test-auc:0.998063	validation-auc:0.997772
+[139]	train-auc:0.999977	test-auc:0.998065	validation-auc:0.997773
+[140]	train-auc:0.999977	test-auc:0.998064	validation-auc:0.997774
+[141]	train-auc:0.999978	test-auc:0.998065	validation-auc:0.997777
+[142]	train-auc:0.999978	test-auc:0.99807	validation-auc:0.997775
+[143]	train-auc:0.999979	test-auc:0.998071	validation-auc:0.997778
+[144]	train-auc:0.999979	test-auc:0.99807	validation-auc:0.997773
+[145]	train-auc:0.999979	test-auc:0.998068	validation-auc:0.997772
+[146]	train-auc:0.99998	test-auc:0.998071	validation-auc:0.997773
+[147]	train-auc:0.99998	test-auc:0.998075	validation-auc:0.997776
+[148]	train-auc:0.999981	test-auc:0.99808	validation-auc:0.997783
+[149]	train-auc:0.999981	test-auc:0.998081	validation-auc:0.997782
+[150]	train-auc:0.999981	test-auc:0.998085	validation-auc:0.99779
+[151]	train-auc:0.999981	test-auc:0.998084	validation-auc:0.997787
+[152]	train-auc:0.999982	test-auc:0.998082	validation-auc:0.997787
+[153]	train-auc:0.999982	test-auc:0.998084	validation-auc:0.997786
+[154]	train-auc:0.999982	test-auc:0.998089	validation-auc:0.997791
+[155]	train-auc:0.999983	test-auc:0.998089	validation-auc:0.997793
+[156]	train-auc:0.999983	test-auc:0.998088	validation-auc:0.99779
+[157]	train-auc:0.999983	test-auc:0.998086	validation-auc:0.997791
+[158]	train-auc:0.999983	test-auc:0.998089	validation-auc:0.997791
+[159]	train-auc:0.999984	test-auc:0.998089	validation-auc:0.997791
+[160]	train-auc:0.999984	test-auc:0.998088	validation-auc:0.99779
+[161]	train-auc:0.999984	test-auc:0.998091	validation-auc:0.997797
+[162]	train-auc:0.999985	test-auc:0.998097	validation-auc:0.997799
+[163]	train-auc:0.999985	test-auc:0.998102	validation-auc:0.997799
+[164]	train-auc:0.999985	test-auc:0.998107	validation-auc:0.997803
+[165]	train-auc:0.999985	test-auc:0.998106	validation-auc:0.997803
+[166]	train-auc:0.999986	test-auc:0.998104	validation-auc:0.997802
+[167]	train-auc:0.999986	test-auc:0.998103	validation-auc:0.997801
+[168]	train-auc:0.999986	test-auc:0.998106	validation-auc:0.997803
+[169]	train-auc:0.999986	test-auc:0.998106	validation-auc:0.997805
+[170]	train-auc:0.999986	test-auc:0.998107	validation-auc:0.997806
+[171]	train-auc:0.999986	test-auc:0.998107	validation-auc:0.997806
+[172]	train-auc:0.999987	test-auc:0.998105	validation-auc:0.997806
+[173]	train-auc:0.999987	test-auc:0.998104	validation-auc:0.997805
+[174]	train-auc:0.999987	test-auc:0.998105	validation-auc:0.997812
+[175]	train-auc:0.999987	test-auc:0.998104	validation-auc:0.997813
+[176]	train-auc:0.999987	test-auc:0.998109	validation-auc:0.997816
+[177]	train-auc:0.999988	test-auc:0.998109	validation-auc:0.997814
+[178]	train-auc:0.999988	test-auc:0.998112	validation-auc:0.997815
+[179]	train-auc:0.999988	test-auc:0.998114	validation-auc:0.997812
+[180]	train-auc:0.999988	test-auc:0.998112	validation-auc:0.997809
+[181]	train-auc:0.999988	test-auc:0.998112	validation-auc:0.99781
+[182]	train-auc:0.999989	test-auc:0.998117	validation-auc:0.997812
+[183]	train-auc:0.999989	test-auc:0.998115	validation-auc:0.997811
+[184]	train-auc:0.999989	test-auc:0.998118	validation-auc:0.997812
+[185]	train-auc:0.999989	test-auc:0.998123	validation-auc:0.997814
+[186]	train-auc:0.999989	test-auc:0.998122	validation-auc:0.997816
+Stopping. Best iteration:
+[176]	train-auc:0.999987	test-auc:0.998109	validation-auc:0.997816
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997737, 
+            0.997729, 
+            0.997721, 
+            0.997721, 
+            0.997744, 
+            0.997762, 
+            0.99776, 
+            0.997761, 
+            0.997783, 
+            0.997779, 
+            0.997785, 
+            0.997781, 
+            0.997788, 
+            0.997787, 
+            0.997788, 
+            0.997788, 
+            0.997786, 
+            0.99779, 
+            0.99779, 
+            0.997793, 
+            0.9978, 
+            0.997804, 
+            0.997832, 
+            0.997833, 
+            0.997836, 
+            0.997834, 
+            0.99784, 
+            0.997835, 
+            0.997842, 
+            0.997846, 
+            0.997847, 
+            0.99785, 
+            0.997848, 
+            0.997855, 
+            0.997854, 
+            0.997856, 
+            0.997864, 
+            0.997867, 
+            0.997865, 
+            0.997872, 
+            0.997868, 
+            0.997861, 
+            0.997869, 
+            0.997867, 
+            0.997864, 
+            0.997874, 
+            0.997883, 
+            0.99788, 
+            0.99789, 
+            0.997888, 
+            0.997888, 
+            0.997885, 
+            0.997882, 
+            0.997883, 
+            0.997898, 
+            0.997896, 
+            0.997898, 
+            0.9979, 
+            0.997898, 
+            0.997896, 
+            0.997912, 
+            0.99791, 
+            0.997916, 
+            0.997924, 
+            0.99792, 
+            0.997919, 
+            0.997925, 
+            0.997926, 
+            0.997925, 
+            0.997926, 
+            0.997933, 
+            0.997933, 
+            0.997935, 
+            0.997938, 
+            0.997937, 
+            0.997939, 
+            0.99794, 
+            0.997948, 
+            0.997948, 
+            0.997948, 
+            0.997948, 
+            0.99795, 
+            0.997953, 
+            0.997952, 
+            0.997949, 
+            0.997949, 
+            0.997951, 
+            0.997951, 
+            0.99795, 
+            0.997948, 
+            0.997944, 
+            0.997945, 
+            0.997951, 
+            0.997961, 
+            0.997964, 
+            0.997966, 
+            0.997973, 
+            0.997971, 
+            0.997975, 
+            0.997977, 
+            0.997976, 
+            0.997978, 
+            0.997977, 
+            0.997975, 
+            0.997976, 
+            0.997977, 
+            0.997983, 
+            0.997989, 
+            0.997991, 
+            0.997994, 
+            0.997997, 
+            0.998004, 
+            0.998009, 
+            0.998015, 
+            0.998015, 
+            0.998016, 
+            0.998014, 
+            0.998016, 
+            0.998021, 
+            0.998025, 
+            0.998027, 
+            0.998028, 
+            0.998028, 
+            0.998033, 
+            0.998034, 
+            0.998038, 
+            0.99804, 
+            0.998038, 
+            0.998038, 
+            0.998039, 
+            0.998046, 
+            0.998045, 
+            0.998048, 
+            0.998056, 
+            0.998054, 
+            0.998055, 
+            0.998055, 
+            0.998061, 
+            0.998063, 
+            0.998065, 
+            0.998064, 
+            0.998065, 
+            0.99807, 
+            0.998071, 
+            0.99807, 
+            0.998068, 
+            0.998071, 
+            0.998075, 
+            0.99808, 
+            0.998081, 
+            0.998085, 
+            0.998084, 
+            0.998082, 
+            0.998084, 
+            0.998089, 
+            0.998089, 
+            0.998088, 
+            0.998086, 
+            0.998089, 
+            0.998089, 
+            0.998088, 
+            0.998091, 
+            0.998097, 
+            0.998102, 
+            0.998107, 
+            0.998106, 
+            0.998104, 
+            0.998103, 
+            0.998106, 
+            0.998106, 
+            0.998107, 
+            0.998107, 
+            0.998105, 
+            0.998104, 
+            0.998105, 
+            0.998104, 
+            0.998109, 
+            0.998109, 
+            0.998112, 
+            0.998114, 
+            0.998112, 
+            0.998112, 
+            0.998117, 
+            0.998115, 
+            0.998118, 
+            0.998123
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997191, 
+            0.997266, 
+            0.997507, 
+            0.997631, 
+            0.997745, 
+            0.997863, 
+            0.997932, 
+            0.998003, 
+            0.998081, 
+            0.998123, 
+            0.998184, 
+            0.998228, 
+            0.998289, 
+            0.998351, 
+            0.998386, 
+            0.998435, 
+            0.998474, 
+            0.998525, 
+            0.99857, 
+            0.99862, 
+            0.998671, 
+            0.998701, 
+            0.998751, 
+            0.99878, 
+            0.998813, 
+            0.998852, 
+            0.99889, 
+            0.998919, 
+            0.998949, 
+            0.998983, 
+            0.999016, 
+            0.999049, 
+            0.999083, 
+            0.999114, 
+            0.999143, 
+            0.99917, 
+            0.9992, 
+            0.999228, 
+            0.999256, 
+            0.999283, 
+            0.999307, 
+            0.999329, 
+            0.999352, 
+            0.999372, 
+            0.999393, 
+            0.999417, 
+            0.99944, 
+            0.999457, 
+            0.999476, 
+            0.99949, 
+            0.999508, 
+            0.999523, 
+            0.999538, 
+            0.999552, 
+            0.999568, 
+            0.999583, 
+            0.999598, 
+            0.999612, 
+            0.999626, 
+            0.99964, 
+            0.999659, 
+            0.999672, 
+            0.999688, 
+            0.9997, 
+            0.999709, 
+            0.999718, 
+            0.999731, 
+            0.999741, 
+            0.999751, 
+            0.999762, 
+            0.999773, 
+            0.99978, 
+            0.999788, 
+            0.999798, 
+            0.999805, 
+            0.999812, 
+            0.999818, 
+            0.999825, 
+            0.999832, 
+            0.99984, 
+            0.999845, 
+            0.999852, 
+            0.999858, 
+            0.999863, 
+            0.999868, 
+            0.999873, 
+            0.999876, 
+            0.999882, 
+            0.999887, 
+            0.999889, 
+            0.999893, 
+            0.999898, 
+            0.999902, 
+            0.999906, 
+            0.999909, 
+            0.999911, 
+            0.999916, 
+            0.999919, 
+            0.999921, 
+            0.999923, 
+            0.999927, 
+            0.999929, 
+            0.999931, 
+            0.999933, 
+            0.999935, 
+            0.999938, 
+            0.99994, 
+            0.999942, 
+            0.999944, 
+            0.999945, 
+            0.999948, 
+            0.99995, 
+            0.999951, 
+            0.999954, 
+            0.999955, 
+            0.999956, 
+            0.999957, 
+            0.999958, 
+            0.99996, 
+            0.999961, 
+            0.999962, 
+            0.999964, 
+            0.999965, 
+            0.999966, 
+            0.999967, 
+            0.999968, 
+            0.999968, 
+            0.999969, 
+            0.99997, 
+            0.999971, 
+            0.999972, 
+            0.999972, 
+            0.999973, 
+            0.999974, 
+            0.999974, 
+            0.999975, 
+            0.999975, 
+            0.999976, 
+            0.999977, 
+            0.999977, 
+            0.999977, 
+            0.999978, 
+            0.999978, 
+            0.999979, 
+            0.999979, 
+            0.999979, 
+            0.99998, 
+            0.99998, 
+            0.999981, 
+            0.999981, 
+            0.999981, 
+            0.999981, 
+            0.999982, 
+            0.999982, 
+            0.999982, 
+            0.999983, 
+            0.999983, 
+            0.999983, 
+            0.999983, 
+            0.999984, 
+            0.999984, 
+            0.999984, 
+            0.999985, 
+            0.999985, 
+            0.999985, 
+            0.999985, 
+            0.999986, 
+            0.999986, 
+            0.999986, 
+            0.999986, 
+            0.999986, 
+            0.999986, 
+            0.999987, 
+            0.999987, 
+            0.999987, 
+            0.999987, 
+            0.999987, 
+            0.999988, 
+            0.999988, 
+            0.999988, 
+            0.999988, 
+            0.999988, 
+            0.999989, 
+            0.999989, 
+            0.999989, 
+            0.999989
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997328, 
+            0.997326, 
+            0.99733, 
+            0.997332, 
+            0.997346, 
+            0.997381, 
+            0.997378, 
+            0.997377, 
+            0.997396, 
+            0.997392, 
+            0.997394, 
+            0.997391, 
+            0.997388, 
+            0.997475, 
+            0.997478, 
+            0.997474, 
+            0.997465, 
+            0.997474, 
+            0.997475, 
+            0.99748, 
+            0.997474, 
+            0.997475, 
+            0.997491, 
+            0.997499, 
+            0.997513, 
+            0.997513, 
+            0.997513, 
+            0.997509, 
+            0.997536, 
+            0.99753, 
+            0.997535, 
+            0.997546, 
+            0.997546, 
+            0.997553, 
+            0.997556, 
+            0.997558, 
+            0.997569, 
+            0.997568, 
+            0.997564, 
+            0.997568, 
+            0.997572, 
+            0.99756, 
+            0.997571, 
+            0.997569, 
+            0.997567, 
+            0.997572, 
+            0.997583, 
+            0.997586, 
+            0.997595, 
+            0.997593, 
+            0.997589, 
+            0.9976, 
+            0.997603, 
+            0.99761, 
+            0.997621, 
+            0.997625, 
+            0.997626, 
+            0.997622, 
+            0.997626, 
+            0.997628, 
+            0.997642, 
+            0.997643, 
+            0.997656, 
+            0.997668, 
+            0.997668, 
+            0.99767, 
+            0.997672, 
+            0.997668, 
+            0.997665, 
+            0.997662, 
+            0.997666, 
+            0.997663, 
+            0.997672, 
+            0.997685, 
+            0.997684, 
+            0.997687, 
+            0.997682, 
+            0.997692, 
+            0.997693, 
+            0.997693, 
+            0.997694, 
+            0.997695, 
+            0.997702, 
+            0.997699, 
+            0.997699, 
+            0.9977, 
+            0.997698, 
+            0.997698, 
+            0.997702, 
+            0.997702, 
+            0.997699, 
+            0.9977, 
+            0.997703, 
+            0.997713, 
+            0.997713, 
+            0.997711, 
+            0.997713, 
+            0.997709, 
+            0.997714, 
+            0.997714, 
+            0.997714, 
+            0.997714, 
+            0.997713, 
+            0.997712, 
+            0.997715, 
+            0.997717, 
+            0.997722, 
+            0.997727, 
+            0.997728, 
+            0.997725, 
+            0.997724, 
+            0.997732, 
+            0.997739, 
+            0.997744, 
+            0.997745, 
+            0.997741, 
+            0.997739, 
+            0.997741, 
+            0.997744, 
+            0.997747, 
+            0.997746, 
+            0.997746, 
+            0.997748, 
+            0.997749, 
+            0.997748, 
+            0.997752, 
+            0.997752, 
+            0.997752, 
+            0.997755, 
+            0.997754, 
+            0.997761, 
+            0.997764, 
+            0.997761, 
+            0.997769, 
+            0.997767, 
+            0.997766, 
+            0.997765, 
+            0.997768, 
+            0.997772, 
+            0.997773, 
+            0.997774, 
+            0.997777, 
+            0.997775, 
+            0.997778, 
+            0.997773, 
+            0.997772, 
+            0.997773, 
+            0.997776, 
+            0.997783, 
+            0.997782, 
+            0.99779, 
+            0.997787, 
+            0.997787, 
+            0.997786, 
+            0.997791, 
+            0.997793, 
+            0.99779, 
+            0.997791, 
+            0.997791, 
+            0.997791, 
+            0.99779, 
+            0.997797, 
+            0.997799, 
+            0.997799, 
+            0.997803, 
+            0.997803, 
+            0.997802, 
+            0.997801, 
+            0.997803, 
+            0.997805, 
+            0.997806, 
+            0.997806, 
+            0.997806, 
+            0.997805, 
+            0.997812, 
+            0.997813, 
+            0.997816, 
+            0.997814, 
+            0.997815, 
+            0.997812, 
+            0.997809, 
+            0.99781, 
+            0.997812, 
+            0.997811, 
+            0.997812, 
+            0.997814
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.997355	test-auc:0.997734
+[1]	train-auc:0.997523	test-auc:0.997739
+[2]	train-auc:0.997647	test-auc:0.997742
+[3]	train-auc:0.997761	test-auc:0.997751
+[4]	train-auc:0.997835	test-auc:0.99775
+[5]	train-auc:0.997898	test-auc:0.997748
+[6]	train-auc:0.997971	test-auc:0.997748
+[7]	train-auc:0.99808	test-auc:0.997749
+[8]	train-auc:0.998161	test-auc:0.997749
+[9]	train-auc:0.998215	test-auc:0.997753
+[10]	train-auc:0.998276	test-auc:0.997754
+[11]	train-auc:0.998337	test-auc:0.997754
+[12]	train-auc:0.998385	test-auc:0.997761
+[13]	train-auc:0.998423	test-auc:0.997762
+[14]	train-auc:0.99845	test-auc:0.997761
+[15]	train-auc:0.99848	test-auc:0.99776
+[16]	train-auc:0.998518	test-auc:0.997766
+[17]	train-auc:0.998557	test-auc:0.997769
+[18]	train-auc:0.99861	test-auc:0.997794
+[19]	train-auc:0.998657	test-auc:0.997791
+[20]	train-auc:0.998698	test-auc:0.99779
+[21]	train-auc:0.998739	test-auc:0.99779
+[22]	train-auc:0.998764	test-auc:0.997792
+[23]	train-auc:0.998804	test-auc:0.997799
+[24]	train-auc:0.998832	test-auc:0.99781
+[25]	train-auc:0.998878	test-auc:0.997831
+[26]	train-auc:0.998918	test-auc:0.997843
+[27]	train-auc:0.998947	test-auc:0.99784
+[28]	train-auc:0.998982	test-auc:0.997841
+[29]	train-auc:0.999007	test-auc:0.99784
+[30]	train-auc:0.999045	test-auc:0.997849
+[31]	train-auc:0.999079	test-auc:0.997866
+[32]	train-auc:0.99911	test-auc:0.99787
+[33]	train-auc:0.999138	test-auc:0.997875
+[34]	train-auc:0.999164	test-auc:0.997875
+[35]	train-auc:0.999186	test-auc:0.997875
+[36]	train-auc:0.999217	test-auc:0.997888
+[37]	train-auc:0.999242	test-auc:0.99789
+[38]	train-auc:0.999261	test-auc:0.997889
+[39]	train-auc:0.999283	test-auc:0.997895
+[40]	train-auc:0.999305	test-auc:0.997896
+[41]	train-auc:0.999328	test-auc:0.997899
+[42]	train-auc:0.999346	test-auc:0.997896
+[43]	train-auc:0.999367	test-auc:0.997896
+[44]	train-auc:0.999388	test-auc:0.997897
+[45]	train-auc:0.999408	test-auc:0.997899
+[46]	train-auc:0.99943	test-auc:0.997911
+[47]	train-auc:0.999448	test-auc:0.997913
+[48]	train-auc:0.999469	test-auc:0.997922
+[49]	train-auc:0.999491	test-auc:0.997937
+[50]	train-auc:0.999506	test-auc:0.997937
+[51]	train-auc:0.999524	test-auc:0.997948
+[52]	train-auc:0.999541	test-auc:0.997947
+[53]	train-auc:0.999558	test-auc:0.99795
+[54]	train-auc:0.99957	test-auc:0.997947
+[55]	train-auc:0.999583	test-auc:0.997947
+[56]	train-auc:0.999596	test-auc:0.997948
+[57]	train-auc:0.999609	test-auc:0.99795
+[58]	train-auc:0.999622	test-auc:0.997946
+[59]	train-auc:0.999629	test-auc:0.997943
+[60]	train-auc:0.999644	test-auc:0.997952
+[61]	train-auc:0.999659	test-auc:0.997957
+[62]	train-auc:0.999674	test-auc:0.997968
+[63]	train-auc:0.999684	test-auc:0.997969
+[64]	train-auc:0.999696	test-auc:0.997979
+[65]	train-auc:0.999704	test-auc:0.997979
+[66]	train-auc:0.999715	test-auc:0.997977
+[67]	train-auc:0.999723	test-auc:0.997976
+[68]	train-auc:0.999735	test-auc:0.997983
+[69]	train-auc:0.999746	test-auc:0.997982
+[70]	train-auc:0.999754	test-auc:0.997988
+[71]	train-auc:0.999763	test-auc:0.99799
+[72]	train-auc:0.99977	test-auc:0.997992
+[73]	train-auc:0.999777	test-auc:0.99799
+[74]	train-auc:0.999784	test-auc:0.997989
+[75]	train-auc:0.999794	test-auc:0.997993
+[76]	train-auc:0.999802	test-auc:0.997995
+[77]	train-auc:0.99981	test-auc:0.998
+[78]	train-auc:0.999816	test-auc:0.998001
+[79]	train-auc:0.999823	test-auc:0.99801
+[80]	train-auc:0.99983	test-auc:0.998011
+[81]	train-auc:0.999836	test-auc:0.998012
+[82]	train-auc:0.999841	test-auc:0.998014
+[83]	train-auc:0.999847	test-auc:0.998013
+[84]	train-auc:0.999852	test-auc:0.998012
+[85]	train-auc:0.999857	test-auc:0.998009
+[86]	train-auc:0.999863	test-auc:0.998012
+[87]	train-auc:0.999869	test-auc:0.998008
+[88]	train-auc:0.999873	test-auc:0.998009
+[89]	train-auc:0.999878	test-auc:0.998011
+[90]	train-auc:0.999883	test-auc:0.998022
+[91]	train-auc:0.999888	test-auc:0.998025
+[92]	train-auc:0.999892	test-auc:0.998021
+[93]	train-auc:0.999896	test-auc:0.998025
+[94]	train-auc:0.9999	test-auc:0.998025
+[95]	train-auc:0.999903	test-auc:0.998028
+[96]	train-auc:0.999906	test-auc:0.998028
+[97]	train-auc:0.99991	test-auc:0.998033
+[98]	train-auc:0.999913	test-auc:0.998035
+[99]	train-auc:0.999916	test-auc:0.998033
+[100]	train-auc:0.999919	test-auc:0.998032
+[101]	train-auc:0.999922	test-auc:0.998034
+[102]	train-auc:0.999925	test-auc:0.998036
+[103]	train-auc:0.999927	test-auc:0.998036
+[104]	train-auc:0.999929	test-auc:0.998034
+[105]	train-auc:0.999932	test-auc:0.99804
+[106]	train-auc:0.999934	test-auc:0.998041
+[107]	train-auc:0.999936	test-auc:0.998039
+[108]	train-auc:0.999939	test-auc:0.998045
+[109]	train-auc:0.999941	test-auc:0.998054
+[110]	train-auc:0.999943	test-auc:0.998058
+[111]	train-auc:0.999944	test-auc:0.998059
+[112]	train-auc:0.999946	test-auc:0.998057
+[113]	train-auc:0.999948	test-auc:0.998058
+[114]	train-auc:0.99995	test-auc:0.998056
+[115]	train-auc:0.999951	test-auc:0.998063
+[116]	train-auc:0.999953	test-auc:0.998063
+[117]	train-auc:0.999954	test-auc:0.998062
+[118]	train-auc:0.999955	test-auc:0.998062
+[119]	train-auc:0.999957	test-auc:0.998066
+[120]	train-auc:0.999958	test-auc:0.99807
+[121]	train-auc:0.999959	test-auc:0.99807
+[122]	train-auc:0.99996	test-auc:0.998069
+[123]	train-auc:0.999961	test-auc:0.998071
+[124]	train-auc:0.999962	test-auc:0.998069
+[125]	train-auc:0.999963	test-auc:0.998068
+[126]	train-auc:0.999964	test-auc:0.998067
+[127]	train-auc:0.999965	test-auc:0.998067
+[128]	train-auc:0.999966	test-auc:0.998069
+[129]	train-auc:0.999966	test-auc:0.998071
+[130]	train-auc:0.999967	test-auc:0.998078
+[131]	train-auc:0.999968	test-auc:0.998083
+[132]	train-auc:0.999969	test-auc:0.998083
+[133]	train-auc:0.99997	test-auc:0.998085
+[134]	train-auc:0.99997	test-auc:0.998083
+[135]	train-auc:0.999971	test-auc:0.998084
+[136]	train-auc:0.999971	test-auc:0.998085
+[137]	train-auc:0.999972	test-auc:0.998092
+[138]	train-auc:0.999973	test-auc:0.998089
+[139]	train-auc:0.999973	test-auc:0.998092
+[140]	train-auc:0.999974	test-auc:0.998096
+[141]	train-auc:0.999974	test-auc:0.998093
+[142]	train-auc:0.999975	test-auc:0.998091
+[143]	train-auc:0.999975	test-auc:0.998093
+[144]	train-auc:0.999976	test-auc:0.998094
+[145]	train-auc:0.999976	test-auc:0.998098
+[146]	train-auc:0.999977	test-auc:0.998099
+[147]	train-auc:0.999977	test-auc:0.998102
+[148]	train-auc:0.999978	test-auc:0.9981
+[149]	train-auc:0.999978	test-auc:0.998096
+[150]	train-auc:0.999978	test-auc:0.998096
+[151]	train-auc:0.999978	test-auc:0.998094
+[152]	train-auc:0.999979	test-auc:0.998096
+[153]	train-auc:0.999979	test-auc:0.998095
+[154]	train-auc:0.99998	test-auc:0.998095
+[155]	train-auc:0.99998	test-auc:0.998095
+[156]	train-auc:0.99998	test-auc:0.998096
+[157]	train-auc:0.999981	test-auc:0.998095
+[158]	train-auc:0.999981	test-auc:0.998097
+[159]	train-auc:0.999981	test-auc:0.998105
+[160]	train-auc:0.999982	test-auc:0.998106
+[161]	train-auc:0.999982	test-auc:0.998111
+[162]	train-auc:0.999982	test-auc:0.998112
+[163]	train-auc:0.999983	test-auc:0.998117
+[164]	train-auc:0.999983	test-auc:0.998117
+[165]	train-auc:0.999983	test-auc:0.99812
+[166]	train-auc:0.999983	test-auc:0.998119
+[167]	train-auc:0.999983	test-auc:0.998118
+[168]	train-auc:0.999984	test-auc:0.998116
+[169]	train-auc:0.999984	test-auc:0.998118
+[170]	train-auc:0.999984	test-auc:0.998117
+[171]	train-auc:0.999984	test-auc:0.99812
+[172]	train-auc:0.999985	test-auc:0.998121
+[173]	train-auc:0.999985	test-auc:0.99812
+[174]	train-auc:0.999985	test-auc:0.998125
+[175]	train-auc:0.999985	test-auc:0.998125
+[176]	train-auc:0.999985	test-auc:0.998125
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997734, 
+            0.997739, 
+            0.997742, 
+            0.997751, 
+            0.99775, 
+            0.997748, 
+            0.997748, 
+            0.997749, 
+            0.997749, 
+            0.997753, 
+            0.997754, 
+            0.997754, 
+            0.997761, 
+            0.997762, 
+            0.997761, 
+            0.99776, 
+            0.997766, 
+            0.997769, 
+            0.997794, 
+            0.997791, 
+            0.99779, 
+            0.99779, 
+            0.997792, 
+            0.997799, 
+            0.99781, 
+            0.997831, 
+            0.997843, 
+            0.99784, 
+            0.997841, 
+            0.99784, 
+            0.997849, 
+            0.997866, 
+            0.99787, 
+            0.997875, 
+            0.997875, 
+            0.997875, 
+            0.997888, 
+            0.99789, 
+            0.997889, 
+            0.997895, 
+            0.997896, 
+            0.997899, 
+            0.997896, 
+            0.997896, 
+            0.997897, 
+            0.997899, 
+            0.997911, 
+            0.997913, 
+            0.997922, 
+            0.997937, 
+            0.997937, 
+            0.997948, 
+            0.997947, 
+            0.99795, 
+            0.997947, 
+            0.997947, 
+            0.997948, 
+            0.99795, 
+            0.997946, 
+            0.997943, 
+            0.997952, 
+            0.997957, 
+            0.997968, 
+            0.997969, 
+            0.997979, 
+            0.997979, 
+            0.997977, 
+            0.997976, 
+            0.997983, 
+            0.997982, 
+            0.997988, 
+            0.99799, 
+            0.997992, 
+            0.99799, 
+            0.997989, 
+            0.997993, 
+            0.997995, 
+            0.998, 
+            0.998001, 
+            0.99801, 
+            0.998011, 
+            0.998012, 
+            0.998014, 
+            0.998013, 
+            0.998012, 
+            0.998009, 
+            0.998012, 
+            0.998008, 
+            0.998009, 
+            0.998011, 
+            0.998022, 
+            0.998025, 
+            0.998021, 
+            0.998025, 
+            0.998025, 
+            0.998028, 
+            0.998028, 
+            0.998033, 
+            0.998035, 
+            0.998033, 
+            0.998032, 
+            0.998034, 
+            0.998036, 
+            0.998036, 
+            0.998034, 
+            0.99804, 
+            0.998041, 
+            0.998039, 
+            0.998045, 
+            0.998054, 
+            0.998058, 
+            0.998059, 
+            0.998057, 
+            0.998058, 
+            0.998056, 
+            0.998063, 
+            0.998063, 
+            0.998062, 
+            0.998062, 
+            0.998066, 
+            0.99807, 
+            0.99807, 
+            0.998069, 
+            0.998071, 
+            0.998069, 
+            0.998068, 
+            0.998067, 
+            0.998067, 
+            0.998069, 
+            0.998071, 
+            0.998078, 
+            0.998083, 
+            0.998083, 
+            0.998085, 
+            0.998083, 
+            0.998084, 
+            0.998085, 
+            0.998092, 
+            0.998089, 
+            0.998092, 
+            0.998096, 
+            0.998093, 
+            0.998091, 
+            0.998093, 
+            0.998094, 
+            0.998098, 
+            0.998099, 
+            0.998102, 
+            0.9981, 
+            0.998096, 
+            0.998096, 
+            0.998094, 
+            0.998096, 
+            0.998095, 
+            0.998095, 
+            0.998095, 
+            0.998096, 
+            0.998095, 
+            0.998097, 
+            0.998105, 
+            0.998106, 
+            0.998111, 
+            0.998112, 
+            0.998117, 
+            0.998117, 
+            0.99812, 
+            0.998119, 
+            0.998118, 
+            0.998116, 
+            0.998118, 
+            0.998117, 
+            0.99812, 
+            0.998121, 
+            0.99812, 
+            0.998125, 
+            0.998125, 
+            0.998125
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997355, 
+            0.997523, 
+            0.997647, 
+            0.997761, 
+            0.997835, 
+            0.997898, 
+            0.997971, 
+            0.99808, 
+            0.998161, 
+            0.998215, 
+            0.998276, 
+            0.998337, 
+            0.998385, 
+            0.998423, 
+            0.99845, 
+            0.99848, 
+            0.998518, 
+            0.998557, 
+            0.99861, 
+            0.998657, 
+            0.998698, 
+            0.998739, 
+            0.998764, 
+            0.998804, 
+            0.998832, 
+            0.998878, 
+            0.998918, 
+            0.998947, 
+            0.998982, 
+            0.999007, 
+            0.999045, 
+            0.999079, 
+            0.99911, 
+            0.999138, 
+            0.999164, 
+            0.999186, 
+            0.999217, 
+            0.999242, 
+            0.999261, 
+            0.999283, 
+            0.999305, 
+            0.999328, 
+            0.999346, 
+            0.999367, 
+            0.999388, 
+            0.999408, 
+            0.99943, 
+            0.999448, 
+            0.999469, 
+            0.999491, 
+            0.999506, 
+            0.999524, 
+            0.999541, 
+            0.999558, 
+            0.99957, 
+            0.999583, 
+            0.999596, 
+            0.999609, 
+            0.999622, 
+            0.999629, 
+            0.999644, 
+            0.999659, 
+            0.999674, 
+            0.999684, 
+            0.999696, 
+            0.999704, 
+            0.999715, 
+            0.999723, 
+            0.999735, 
+            0.999746, 
+            0.999754, 
+            0.999763, 
+            0.99977, 
+            0.999777, 
+            0.999784, 
+            0.999794, 
+            0.999802, 
+            0.99981, 
+            0.999816, 
+            0.999823, 
+            0.99983, 
+            0.999836, 
+            0.999841, 
+            0.999847, 
+            0.999852, 
+            0.999857, 
+            0.999863, 
+            0.999869, 
+            0.999873, 
+            0.999878, 
+            0.999883, 
+            0.999888, 
+            0.999892, 
+            0.999896, 
+            0.9999, 
+            0.999903, 
+            0.999906, 
+            0.99991, 
+            0.999913, 
+            0.999916, 
+            0.999919, 
+            0.999922, 
+            0.999925, 
+            0.999927, 
+            0.999929, 
+            0.999932, 
+            0.999934, 
+            0.999936, 
+            0.999939, 
+            0.999941, 
+            0.999943, 
+            0.999944, 
+            0.999946, 
+            0.999948, 
+            0.99995, 
+            0.999951, 
+            0.999953, 
+            0.999954, 
+            0.999955, 
+            0.999957, 
+            0.999958, 
+            0.999959, 
+            0.99996, 
+            0.999961, 
+            0.999962, 
+            0.999963, 
+            0.999964, 
+            0.999965, 
+            0.999966, 
+            0.999966, 
+            0.999967, 
+            0.999968, 
+            0.999969, 
+            0.99997, 
+            0.99997, 
+            0.999971, 
+            0.999971, 
+            0.999972, 
+            0.999973, 
+            0.999973, 
+            0.999974, 
+            0.999974, 
+            0.999975, 
+            0.999975, 
+            0.999976, 
+            0.999976, 
+            0.999977, 
+            0.999977, 
+            0.999978, 
+            0.999978, 
+            0.999978, 
+            0.999978, 
+            0.999979, 
+            0.999979, 
+            0.99998, 
+            0.99998, 
+            0.99998, 
+            0.999981, 
+            0.999981, 
+            0.999981, 
+            0.999982, 
+            0.999982, 
+            0.999982, 
+            0.999983, 
+            0.999983, 
+            0.999983, 
+            0.999983, 
+            0.999983, 
+            0.999984, 
+            0.999984, 
+            0.999984, 
+            0.999984, 
+            0.999985, 
+            0.999985, 
+            0.999985, 
+            0.999985, 
+            0.999985
+        ]
+    }
+}
+
+
+
+Chunk 6 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671677 / 328323 = 5.09)
+BackgroundSumW/SignalSumW 	=	119752384.000000 / 963410.250000	=	124.300507
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119747544.000000 / 963410.250000	=	124.295486
+
+Training data:
+Total Events	=	820593 (B/S= 686071 / 134522 = 5.10)
+BackgroundSumW/SignalSumW 	=	48761676.000000 / 397016.875000	=	122.820160
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48740364.000000 / 397016.875000	=	122.766479
+
+Validation data:
+Total Events	=	580907 (B/S= 485372 / 95535 = 5.08)
+BackgroundSumW/SignalSumW 	=	35088800.000000 / 279515.281250	=	125.534462
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35101200.000000 / 279515.281250	=	125.578819
+
+Test data:
+Total Events	=	598500 (B/S= 500234 / 98266 = 5.09)
+BackgroundSumW/SignalSumW 	=	35901908.000000 / 286877.968750	=	125.146965
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35906020.000000 / 286877.968750	=	125.161301
+
+
+[0]	train-auc:0.998256	test-auc:0.998036	validation-auc:0.997907
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.99837	test-auc:0.998043	validation-auc:0.997916
+[2]	train-auc:0.998442	test-auc:0.99804	validation-auc:0.997915
+[3]	train-auc:0.998522	test-auc:0.998043	validation-auc:0.997925
+[4]	train-auc:0.998572	test-auc:0.998039	validation-auc:0.997931
+[5]	train-auc:0.998627	test-auc:0.998053	validation-auc:0.997946
+[6]	train-auc:0.998671	test-auc:0.99805	validation-auc:0.997938
+[7]	train-auc:0.998716	test-auc:0.998052	validation-auc:0.997935
+[8]	train-auc:0.998764	test-auc:0.998053	validation-auc:0.997937
+[9]	train-auc:0.998807	test-auc:0.998058	validation-auc:0.997947
+[10]	train-auc:0.998856	test-auc:0.99806	validation-auc:0.997944
+[11]	train-auc:0.998896	test-auc:0.998061	validation-auc:0.99794
+[12]	train-auc:0.998931	test-auc:0.998061	validation-auc:0.997946
+[13]	train-auc:0.998969	test-auc:0.998065	validation-auc:0.997945
+[14]	train-auc:0.999005	test-auc:0.998066	validation-auc:0.997949
+[15]	train-auc:0.999037	test-auc:0.998062	validation-auc:0.997948
+[16]	train-auc:0.999067	test-auc:0.99806	validation-auc:0.997949
+[17]	train-auc:0.999097	test-auc:0.998067	validation-auc:0.997952
+[18]	train-auc:0.999128	test-auc:0.998071	validation-auc:0.997954
+[19]	train-auc:0.999156	test-auc:0.998074	validation-auc:0.997961
+[20]	train-auc:0.999184	test-auc:0.998074	validation-auc:0.997964
+[21]	train-auc:0.999211	test-auc:0.998076	validation-auc:0.997967
+[22]	train-auc:0.999234	test-auc:0.998074	validation-auc:0.997967
+[23]	train-auc:0.99926	test-auc:0.998083	validation-auc:0.997974
+[24]	train-auc:0.999279	test-auc:0.99808	validation-auc:0.997975
+[25]	train-auc:0.999301	test-auc:0.998085	validation-auc:0.997974
+[26]	train-auc:0.999321	test-auc:0.998082	validation-auc:0.997979
+[27]	train-auc:0.999343	test-auc:0.99808	validation-auc:0.997984
+[28]	train-auc:0.999361	test-auc:0.998083	validation-auc:0.997985
+[29]	train-auc:0.999382	test-auc:0.998088	validation-auc:0.997995
+[30]	train-auc:0.999401	test-auc:0.998088	validation-auc:0.997995
+[31]	train-auc:0.99942	test-auc:0.998089	validation-auc:0.99799
+[32]	train-auc:0.999437	test-auc:0.998093	validation-auc:0.99799
+[33]	train-auc:0.999454	test-auc:0.998097	validation-auc:0.997995
+[34]	train-auc:0.999467	test-auc:0.998097	validation-auc:0.997995
+[35]	train-auc:0.999484	test-auc:0.998098	validation-auc:0.997998
+[36]	train-auc:0.999497	test-auc:0.998095	validation-auc:0.997994
+[37]	train-auc:0.999509	test-auc:0.998095	validation-auc:0.997998
+[38]	train-auc:0.999523	test-auc:0.998096	validation-auc:0.997999
+[39]	train-auc:0.999539	test-auc:0.998097	validation-auc:0.997998
+[40]	train-auc:0.999555	test-auc:0.998098	validation-auc:0.99801
+[41]	train-auc:0.99957	test-auc:0.998102	validation-auc:0.998018
+[42]	train-auc:0.999583	test-auc:0.9981	validation-auc:0.998021
+[43]	train-auc:0.999595	test-auc:0.998099	validation-auc:0.99802
+[44]	train-auc:0.999608	test-auc:0.998096	validation-auc:0.99802
+[45]	train-auc:0.99962	test-auc:0.998093	validation-auc:0.998022
+[46]	train-auc:0.999634	test-auc:0.998095	validation-auc:0.998023
+[47]	train-auc:0.999647	test-auc:0.998093	validation-auc:0.998021
+[48]	train-auc:0.999658	test-auc:0.998093	validation-auc:0.998021
+[49]	train-auc:0.999668	test-auc:0.998094	validation-auc:0.998025
+[50]	train-auc:0.99968	test-auc:0.998096	validation-auc:0.998026
+[51]	train-auc:0.999693	test-auc:0.998099	validation-auc:0.998028
+[52]	train-auc:0.999705	test-auc:0.998101	validation-auc:0.998029
+[53]	train-auc:0.999715	test-auc:0.998114	validation-auc:0.99803
+[54]	train-auc:0.999725	test-auc:0.998112	validation-auc:0.998028
+[55]	train-auc:0.999735	test-auc:0.998109	validation-auc:0.998026
+[56]	train-auc:0.999744	test-auc:0.998111	validation-auc:0.998029
+[57]	train-auc:0.999753	test-auc:0.99811	validation-auc:0.998029
+[58]	train-auc:0.999761	test-auc:0.998108	validation-auc:0.998026
+[59]	train-auc:0.999772	test-auc:0.998107	validation-auc:0.998026
+[60]	train-auc:0.999781	test-auc:0.998106	validation-auc:0.998027
+[61]	train-auc:0.99979	test-auc:0.998104	validation-auc:0.998029
+[62]	train-auc:0.999798	test-auc:0.998104	validation-auc:0.998028
+[63]	train-auc:0.999807	test-auc:0.998105	validation-auc:0.998034
+[64]	train-auc:0.999817	test-auc:0.998103	validation-auc:0.998031
+[65]	train-auc:0.999824	test-auc:0.998102	validation-auc:0.998028
+[66]	train-auc:0.999833	test-auc:0.998104	validation-auc:0.998027
+[67]	train-auc:0.999842	test-auc:0.998106	validation-auc:0.998028
+[68]	train-auc:0.99985	test-auc:0.998104	validation-auc:0.998028
+[69]	train-auc:0.999856	test-auc:0.998104	validation-auc:0.998027
+[70]	train-auc:0.999864	test-auc:0.998104	validation-auc:0.998027
+[71]	train-auc:0.99987	test-auc:0.998104	validation-auc:0.998029
+[72]	train-auc:0.999876	test-auc:0.998102	validation-auc:0.998028
+[73]	train-auc:0.999882	test-auc:0.998104	validation-auc:0.998029
+Stopping. Best iteration:
+[63]	train-auc:0.999807	test-auc:0.998105	validation-auc:0.998034
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.998036, 
+            0.998043, 
+            0.99804, 
+            0.998043, 
+            0.998039, 
+            0.998053, 
+            0.99805, 
+            0.998052, 
+            0.998053, 
+            0.998058, 
+            0.99806, 
+            0.998061, 
+            0.998061, 
+            0.998065, 
+            0.998066, 
+            0.998062, 
+            0.99806, 
+            0.998067, 
+            0.998071, 
+            0.998074, 
+            0.998074, 
+            0.998076, 
+            0.998074, 
+            0.998083, 
+            0.99808, 
+            0.998085, 
+            0.998082, 
+            0.99808, 
+            0.998083, 
+            0.998088, 
+            0.998088, 
+            0.998089, 
+            0.998093, 
+            0.998097, 
+            0.998097, 
+            0.998098, 
+            0.998095, 
+            0.998095, 
+            0.998096, 
+            0.998097, 
+            0.998098, 
+            0.998102, 
+            0.9981, 
+            0.998099, 
+            0.998096, 
+            0.998093, 
+            0.998095, 
+            0.998093, 
+            0.998093, 
+            0.998094, 
+            0.998096, 
+            0.998099, 
+            0.998101, 
+            0.998114, 
+            0.998112, 
+            0.998109, 
+            0.998111, 
+            0.99811, 
+            0.998108, 
+            0.998107, 
+            0.998106, 
+            0.998104, 
+            0.998104, 
+            0.998105, 
+            0.998103, 
+            0.998102, 
+            0.998104, 
+            0.998106, 
+            0.998104, 
+            0.998104, 
+            0.998104, 
+            0.998104, 
+            0.998102
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998256, 
+            0.99837, 
+            0.998442, 
+            0.998522, 
+            0.998572, 
+            0.998627, 
+            0.998671, 
+            0.998716, 
+            0.998764, 
+            0.998807, 
+            0.998856, 
+            0.998896, 
+            0.998931, 
+            0.998969, 
+            0.999005, 
+            0.999037, 
+            0.999067, 
+            0.999097, 
+            0.999128, 
+            0.999156, 
+            0.999184, 
+            0.999211, 
+            0.999234, 
+            0.99926, 
+            0.999279, 
+            0.999301, 
+            0.999321, 
+            0.999343, 
+            0.999361, 
+            0.999382, 
+            0.999401, 
+            0.99942, 
+            0.999437, 
+            0.999454, 
+            0.999467, 
+            0.999484, 
+            0.999497, 
+            0.999509, 
+            0.999523, 
+            0.999539, 
+            0.999555, 
+            0.99957, 
+            0.999583, 
+            0.999595, 
+            0.999608, 
+            0.99962, 
+            0.999634, 
+            0.999647, 
+            0.999658, 
+            0.999668, 
+            0.99968, 
+            0.999693, 
+            0.999705, 
+            0.999715, 
+            0.999725, 
+            0.999735, 
+            0.999744, 
+            0.999753, 
+            0.999761, 
+            0.999772, 
+            0.999781, 
+            0.99979, 
+            0.999798, 
+            0.999807, 
+            0.999817, 
+            0.999824, 
+            0.999833, 
+            0.999842, 
+            0.99985, 
+            0.999856, 
+            0.999864, 
+            0.99987, 
+            0.999876
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997907, 
+            0.997916, 
+            0.997915, 
+            0.997925, 
+            0.997931, 
+            0.997946, 
+            0.997938, 
+            0.997935, 
+            0.997937, 
+            0.997947, 
+            0.997944, 
+            0.99794, 
+            0.997946, 
+            0.997945, 
+            0.997949, 
+            0.997948, 
+            0.997949, 
+            0.997952, 
+            0.997954, 
+            0.997961, 
+            0.997964, 
+            0.997967, 
+            0.997967, 
+            0.997974, 
+            0.997975, 
+            0.997974, 
+            0.997979, 
+            0.997984, 
+            0.997985, 
+            0.997995, 
+            0.997995, 
+            0.99799, 
+            0.99799, 
+            0.997995, 
+            0.997995, 
+            0.997998, 
+            0.997994, 
+            0.997998, 
+            0.997999, 
+            0.997998, 
+            0.99801, 
+            0.998018, 
+            0.998021, 
+            0.99802, 
+            0.99802, 
+            0.998022, 
+            0.998023, 
+            0.998021, 
+            0.998021, 
+            0.998025, 
+            0.998026, 
+            0.998028, 
+            0.998029, 
+            0.99803, 
+            0.998028, 
+            0.998026, 
+            0.998029, 
+            0.998029, 
+            0.998026, 
+            0.998026, 
+            0.998027, 
+            0.998029, 
+            0.998028, 
+            0.998034, 
+            0.998031, 
+            0.998028, 
+            0.998027, 
+            0.998028, 
+            0.998028, 
+            0.998027, 
+            0.998027, 
+            0.998029, 
+            0.998028
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998169	test-auc:0.998045
+[1]	train-auc:0.998303	test-auc:0.998033
+[2]	train-auc:0.998385	test-auc:0.998038
+[3]	train-auc:0.998469	test-auc:0.998037
+[4]	train-auc:0.99854	test-auc:0.998042
+[5]	train-auc:0.998594	test-auc:0.998048
+[6]	train-auc:0.998639	test-auc:0.99804
+[7]	train-auc:0.998685	test-auc:0.998044
+[8]	train-auc:0.998731	test-auc:0.998044
+[9]	train-auc:0.998772	test-auc:0.998045
+[10]	train-auc:0.99881	test-auc:0.998054
+[11]	train-auc:0.998855	test-auc:0.998066
+[12]	train-auc:0.998888	test-auc:0.998067
+[13]	train-auc:0.99892	test-auc:0.998063
+[14]	train-auc:0.998956	test-auc:0.998067
+[15]	train-auc:0.998991	test-auc:0.998078
+[16]	train-auc:0.999026	test-auc:0.998083
+[17]	train-auc:0.999059	test-auc:0.998096
+[18]	train-auc:0.999084	test-auc:0.998091
+[19]	train-auc:0.999105	test-auc:0.998092
+[20]	train-auc:0.999126	test-auc:0.998091
+[21]	train-auc:0.999149	test-auc:0.998089
+[22]	train-auc:0.999176	test-auc:0.998094
+[23]	train-auc:0.999199	test-auc:0.998094
+[24]	train-auc:0.999224	test-auc:0.998106
+[25]	train-auc:0.999245	test-auc:0.998107
+[26]	train-auc:0.999267	test-auc:0.998105
+[27]	train-auc:0.999286	test-auc:0.998094
+[28]	train-auc:0.999306	test-auc:0.998094
+[29]	train-auc:0.999327	test-auc:0.998102
+[30]	train-auc:0.999346	test-auc:0.99811
+[31]	train-auc:0.999362	test-auc:0.998109
+[32]	train-auc:0.999381	test-auc:0.998112
+[33]	train-auc:0.999398	test-auc:0.998113
+[34]	train-auc:0.999413	test-auc:0.998111
+[35]	train-auc:0.999428	test-auc:0.998111
+[36]	train-auc:0.999445	test-auc:0.998112
+[37]	train-auc:0.999462	test-auc:0.998113
+[38]	train-auc:0.999478	test-auc:0.998113
+[39]	train-auc:0.999493	test-auc:0.998117
+[40]	train-auc:0.99951	test-auc:0.998123
+[41]	train-auc:0.999526	test-auc:0.998125
+[42]	train-auc:0.999542	test-auc:0.998128
+[43]	train-auc:0.999556	test-auc:0.998131
+[44]	train-auc:0.999569	test-auc:0.998131
+[45]	train-auc:0.999581	test-auc:0.998131
+[46]	train-auc:0.999594	test-auc:0.998142
+[47]	train-auc:0.999607	test-auc:0.998146
+[48]	train-auc:0.999619	test-auc:0.998148
+[49]	train-auc:0.999632	test-auc:0.99815
+[50]	train-auc:0.999646	test-auc:0.998151
+[51]	train-auc:0.999657	test-auc:0.998154
+[52]	train-auc:0.999669	test-auc:0.998154
+[53]	train-auc:0.999682	test-auc:0.998155
+[54]	train-auc:0.99969	test-auc:0.998154
+[55]	train-auc:0.999702	test-auc:0.998153
+[56]	train-auc:0.999712	test-auc:0.998153
+[57]	train-auc:0.999721	test-auc:0.99815
+[58]	train-auc:0.999732	test-auc:0.998151
+[59]	train-auc:0.999744	test-auc:0.998155
+[60]	train-auc:0.999753	test-auc:0.998155
+[61]	train-auc:0.999762	test-auc:0.998154
+[62]	train-auc:0.999772	test-auc:0.998153
+[63]	train-auc:0.999782	test-auc:0.998154
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.998045, 
+            0.998033, 
+            0.998038, 
+            0.998037, 
+            0.998042, 
+            0.998048, 
+            0.99804, 
+            0.998044, 
+            0.998044, 
+            0.998045, 
+            0.998054, 
+            0.998066, 
+            0.998067, 
+            0.998063, 
+            0.998067, 
+            0.998078, 
+            0.998083, 
+            0.998096, 
+            0.998091, 
+            0.998092, 
+            0.998091, 
+            0.998089, 
+            0.998094, 
+            0.998094, 
+            0.998106, 
+            0.998107, 
+            0.998105, 
+            0.998094, 
+            0.998094, 
+            0.998102, 
+            0.99811, 
+            0.998109, 
+            0.998112, 
+            0.998113, 
+            0.998111, 
+            0.998111, 
+            0.998112, 
+            0.998113, 
+            0.998113, 
+            0.998117, 
+            0.998123, 
+            0.998125, 
+            0.998128, 
+            0.998131, 
+            0.998131, 
+            0.998131, 
+            0.998142, 
+            0.998146, 
+            0.998148, 
+            0.99815, 
+            0.998151, 
+            0.998154, 
+            0.998154, 
+            0.998155, 
+            0.998154, 
+            0.998153, 
+            0.998153, 
+            0.99815, 
+            0.998151, 
+            0.998155, 
+            0.998155, 
+            0.998154, 
+            0.998153, 
+            0.998154
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998169, 
+            0.998303, 
+            0.998385, 
+            0.998469, 
+            0.99854, 
+            0.998594, 
+            0.998639, 
+            0.998685, 
+            0.998731, 
+            0.998772, 
+            0.99881, 
+            0.998855, 
+            0.998888, 
+            0.99892, 
+            0.998956, 
+            0.998991, 
+            0.999026, 
+            0.999059, 
+            0.999084, 
+            0.999105, 
+            0.999126, 
+            0.999149, 
+            0.999176, 
+            0.999199, 
+            0.999224, 
+            0.999245, 
+            0.999267, 
+            0.999286, 
+            0.999306, 
+            0.999327, 
+            0.999346, 
+            0.999362, 
+            0.999381, 
+            0.999398, 
+            0.999413, 
+            0.999428, 
+            0.999445, 
+            0.999462, 
+            0.999478, 
+            0.999493, 
+            0.99951, 
+            0.999526, 
+            0.999542, 
+            0.999556, 
+            0.999569, 
+            0.999581, 
+            0.999594, 
+            0.999607, 
+            0.999619, 
+            0.999632, 
+            0.999646, 
+            0.999657, 
+            0.999669, 
+            0.999682, 
+            0.99969, 
+            0.999702, 
+            0.999712, 
+            0.999721, 
+            0.999732, 
+            0.999744, 
+            0.999753, 
+            0.999762, 
+            0.999772, 
+            0.999782
+        ]
+    }
+}
+
+
+
+Chunk 7 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1672174 / 327826 = 5.10)
+BackgroundSumW/SignalSumW 	=	119206624.000000 / 956016.625000	=	124.690956
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119255736.000000 / 956016.625000	=	124.742325
+
+Training data:
+Total Events	=	819998 (B/S= 685754 / 134244 = 5.11)
+BackgroundSumW/SignalSumW 	=	49347988.000000 / 391500.468750	=	126.048347
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	49385164.000000 / 391500.468750	=	126.143311
+
+Validation data:
+Total Events	=	579714 (B/S= 484562 / 95152 = 5.09)
+BackgroundSumW/SignalSumW 	=	34157648.000000 / 276110.468750	=	123.710083
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34164028.000000 / 276110.468750	=	123.733185
+
+Test data:
+Total Events	=	600288 (B/S= 501858 / 98430 = 5.10)
+BackgroundSumW/SignalSumW 	=	35700956.000000 / 288405.781250	=	123.787239
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35706536.000000 / 288405.781250	=	123.806587
+
+
+[0]	train-auc:0.998306	test-auc:0.997904	validation-auc:0.998103
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.99846	test-auc:0.997924	validation-auc:0.998103
+[2]	train-auc:0.998538	test-auc:0.997918	validation-auc:0.998099
+[3]	train-auc:0.998598	test-auc:0.997914	validation-auc:0.9981
+[4]	train-auc:0.998654	test-auc:0.997915	validation-auc:0.998095
+[5]	train-auc:0.998702	test-auc:0.997918	validation-auc:0.998098
+[6]	train-auc:0.998753	test-auc:0.997928	validation-auc:0.998095
+[7]	train-auc:0.998801	test-auc:0.997939	validation-auc:0.998097
+[8]	train-auc:0.998846	test-auc:0.997939	validation-auc:0.998093
+[9]	train-auc:0.998883	test-auc:0.997944	validation-auc:0.998088
+[10]	train-auc:0.998934	test-auc:0.997944	validation-auc:0.998088
+Stopping. Best iteration:
+[0]	train-auc:0.998306	test-auc:0.997904	validation-auc:0.998103
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997904, 
+            0.997924, 
+            0.997918, 
+            0.997914, 
+            0.997915, 
+            0.997918, 
+            0.997928, 
+            0.997939, 
+            0.997939, 
+            0.997944
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998306, 
+            0.99846, 
+            0.998538, 
+            0.998598, 
+            0.998654, 
+            0.998702, 
+            0.998753, 
+            0.998801, 
+            0.998846, 
+            0.998883
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.998103, 
+            0.998103, 
+            0.998099, 
+            0.9981, 
+            0.998095, 
+            0.998098, 
+            0.998095, 
+            0.998097, 
+            0.998093, 
+            0.998088
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998277	test-auc:0.997932
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997932
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998277
+        ]
+    }
+}
+
+
+
+Chunk 8 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671308 / 328692 = 5.08)
+BackgroundSumW/SignalSumW 	=	119696072.000000 / 957383.625000	=	125.024147
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119694608.000000 / 957383.625000	=	125.022621
+
+Training data:
+Total Events	=	819603 (B/S= 684740 / 134863 = 5.08)
+BackgroundSumW/SignalSumW 	=	48531416.000000 / 390928.781250	=	124.143883
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48559712.000000 / 390928.781250	=	124.216263
+
+Validation data:
+Total Events	=	580741 (B/S= 485485 / 95256 = 5.10)
+BackgroundSumW/SignalSumW 	=	35497644.000000 / 278637.500000	=	127.397224
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35469696.000000 / 278637.500000	=	127.296921
+
+Test data:
+Total Events	=	599656 (B/S= 501083 / 98573 = 5.08)
+BackgroundSumW/SignalSumW 	=	35666996.000000 / 287817.343750	=	123.922333
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35665172.000000 / 287817.343750	=	123.915993
+
+
+[0]	train-auc:0.998099	test-auc:0.998257	validation-auc:0.997756
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.998186	test-auc:0.998256	validation-auc:0.997745
+[2]	train-auc:0.998269	test-auc:0.998252	validation-auc:0.99768
+[3]	train-auc:0.998401	test-auc:0.998261	validation-auc:0.997674
+[4]	train-auc:0.99846	test-auc:0.998262	validation-auc:0.997665
+[5]	train-auc:0.998512	test-auc:0.998264	validation-auc:0.997661
+[6]	train-auc:0.998568	test-auc:0.998271	validation-auc:0.997661
+[7]	train-auc:0.99864	test-auc:0.998272	validation-auc:0.997666
+[8]	train-auc:0.998683	test-auc:0.998271	validation-auc:0.997662
+[9]	train-auc:0.998728	test-auc:0.998272	validation-auc:0.997666
+[10]	train-auc:0.998771	test-auc:0.998272	validation-auc:0.997665
+Stopping. Best iteration:
+[0]	train-auc:0.998099	test-auc:0.998257	validation-auc:0.997756
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.998257, 
+            0.998256, 
+            0.998252, 
+            0.998261, 
+            0.998262, 
+            0.998264, 
+            0.998271, 
+            0.998272, 
+            0.998271, 
+            0.998272
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998099, 
+            0.998186, 
+            0.998269, 
+            0.998401, 
+            0.99846, 
+            0.998512, 
+            0.998568, 
+            0.99864, 
+            0.998683, 
+            0.998728
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997756, 
+            0.997745, 
+            0.99768, 
+            0.997674, 
+            0.997665, 
+            0.997661, 
+            0.997661, 
+            0.997666, 
+            0.997662, 
+            0.997666
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998016	test-auc:0.998247
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.998247
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998016
+        ]
+    }
+}
+
+
+
+Chunk 9 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671916 / 328084 = 5.10)
+BackgroundSumW/SignalSumW 	=	119575480.000000 / 956222.125000	=	125.049896
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119533256.000000 / 956222.125000	=	125.005745
+
+Training data:
+Total Events	=	820757 (B/S= 686413 / 134344 = 5.11)
+BackgroundSumW/SignalSumW 	=	48731792.000000 / 389780.562500	=	125.023659
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48695760.000000 / 389780.562500	=	124.931213
+
+Validation data:
+Total Events	=	579715 (B/S= 484732 / 94983 = 5.10)
+BackgroundSumW/SignalSumW 	=	34900936.000000 / 278471.343750	=	125.330437
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34869020.000000 / 278471.343750	=	125.215828
+
+Test data:
+Total Events	=	599528 (B/S= 500771 / 98757 = 5.07)
+BackgroundSumW/SignalSumW 	=	35942728.000000 / 287970.156250	=	124.814072
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35968420.000000 / 287970.156250	=	124.903290
+
+
+[0]	train-auc:0.997974	test-auc:0.997575	validation-auc:0.997936
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.998065	test-auc:0.997564	validation-auc:0.997933
+[2]	train-auc:0.998135	test-auc:0.997552	validation-auc:0.997927
+[3]	train-auc:0.99823	test-auc:0.997555	validation-auc:0.997945
+[4]	train-auc:0.998301	test-auc:0.997562	validation-auc:0.997958
+[5]	train-auc:0.998357	test-auc:0.997566	validation-auc:0.997951
+[6]	train-auc:0.998407	test-auc:0.997563	validation-auc:0.99794
+[7]	train-auc:0.998459	test-auc:0.997564	validation-auc:0.997934
+[8]	train-auc:0.998513	test-auc:0.997558	validation-auc:0.997933
+[9]	train-auc:0.998564	test-auc:0.997566	validation-auc:0.997932
+[10]	train-auc:0.998611	test-auc:0.997569	validation-auc:0.997936
+[11]	train-auc:0.998658	test-auc:0.997571	validation-auc:0.997937
+[12]	train-auc:0.9987	test-auc:0.997576	validation-auc:0.997941
+[13]	train-auc:0.998735	test-auc:0.997581	validation-auc:0.997942
+[14]	train-auc:0.998777	test-auc:0.997579	validation-auc:0.99794
+Stopping. Best iteration:
+[4]	train-auc:0.998301	test-auc:0.997562	validation-auc:0.997958
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997575, 
+            0.997564, 
+            0.997552, 
+            0.997555, 
+            0.997562, 
+            0.997566, 
+            0.997563, 
+            0.997564, 
+            0.997558, 
+            0.997566, 
+            0.997569, 
+            0.997571, 
+            0.997576, 
+            0.997581
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.997974, 
+            0.998065, 
+            0.998135, 
+            0.99823, 
+            0.998301, 
+            0.998357, 
+            0.998407, 
+            0.998459, 
+            0.998513, 
+            0.998564, 
+            0.998611, 
+            0.998658, 
+            0.9987, 
+            0.998735
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997936, 
+            0.997933, 
+            0.997927, 
+            0.997945, 
+            0.997958, 
+            0.997951, 
+            0.99794, 
+            0.997934, 
+            0.997933, 
+            0.997932, 
+            0.997936, 
+            0.997937, 
+            0.997941, 
+            0.997942
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998033	test-auc:0.997583
+[1]	train-auc:0.99812	test-auc:0.997587
+[2]	train-auc:0.998203	test-auc:0.997585
+[3]	train-auc:0.998262	test-auc:0.997596
+[4]	train-auc:0.998333	test-auc:0.99761
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997583, 
+            0.997587, 
+            0.997585, 
+            0.997596, 
+            0.99761
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998033, 
+            0.99812, 
+            0.998203, 
+            0.998262, 
+            0.998333
+        ]
+    }
+}
+
+
+
+Chunk 10 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671029 / 328971 = 5.08)
+BackgroundSumW/SignalSumW 	=	119963848.000000 / 964521.562500	=	124.376534
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119991832.000000 / 964521.562500	=	124.405548
+
+Training data:
+Total Events	=	819610 (B/S= 684667 / 134943 = 5.07)
+BackgroundSumW/SignalSumW 	=	48773156.000000 / 394311.343750	=	123.691994
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48820660.000000 / 394311.343750	=	123.812469
+
+Validation data:
+Total Events	=	579479 (B/S= 484391 / 95088 = 5.09)
+BackgroundSumW/SignalSumW 	=	35046196.000000 / 279242.843750	=	125.504364
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35040260.000000 / 279242.843750	=	125.483109
+
+Test data:
+Total Events	=	600911 (B/S= 501971 / 98940 = 5.07)
+BackgroundSumW/SignalSumW 	=	36144488.000000 / 290967.187500	=	124.221870
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	36130908.000000 / 290967.187500	=	124.175194
+
+
+[0]	train-auc:0.998228	test-auc:0.997293	validation-auc:0.997897
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.998308	test-auc:0.997287	validation-auc:0.997898
+[2]	train-auc:0.998378	test-auc:0.997292	validation-auc:0.997898
+[3]	train-auc:0.998452	test-auc:0.9973	validation-auc:0.997912
+[4]	train-auc:0.998509	test-auc:0.997319	validation-auc:0.997916
+[5]	train-auc:0.998567	test-auc:0.99732	validation-auc:0.997914
+[6]	train-auc:0.998612	test-auc:0.997324	validation-auc:0.99791
+[7]	train-auc:0.998652	test-auc:0.997333	validation-auc:0.997913
+[8]	train-auc:0.998696	test-auc:0.997331	validation-auc:0.997913
+[9]	train-auc:0.998745	test-auc:0.997333	validation-auc:0.997919
+[10]	train-auc:0.998791	test-auc:0.997342	validation-auc:0.997923
+[11]	train-auc:0.998826	test-auc:0.997341	validation-auc:0.997921
+[12]	train-auc:0.998862	test-auc:0.997347	validation-auc:0.997916
+[13]	train-auc:0.998898	test-auc:0.997349	validation-auc:0.997918
+[14]	train-auc:0.998937	test-auc:0.997347	validation-auc:0.997926
+[15]	train-auc:0.998971	test-auc:0.997349	validation-auc:0.997928
+[16]	train-auc:0.999006	test-auc:0.997354	validation-auc:0.99793
+[17]	train-auc:0.999036	test-auc:0.997357	validation-auc:0.997929
+[18]	train-auc:0.999067	test-auc:0.997357	validation-auc:0.997929
+[19]	train-auc:0.999094	test-auc:0.997368	validation-auc:0.997931
+[20]	train-auc:0.999118	test-auc:0.997367	validation-auc:0.997933
+[21]	train-auc:0.999145	test-auc:0.99737	validation-auc:0.997934
+[22]	train-auc:0.999172	test-auc:0.997369	validation-auc:0.997936
+[23]	train-auc:0.999197	test-auc:0.99737	validation-auc:0.997936
+[24]	train-auc:0.999219	test-auc:0.997367	validation-auc:0.997934
+[25]	train-auc:0.999242	test-auc:0.997365	validation-auc:0.997931
+[26]	train-auc:0.999264	test-auc:0.997363	validation-auc:0.997932
+[27]	train-auc:0.999284	test-auc:0.997366	validation-auc:0.997934
+[28]	train-auc:0.999305	test-auc:0.997368	validation-auc:0.997937
+[29]	train-auc:0.999324	test-auc:0.997366	validation-auc:0.997938
+[30]	train-auc:0.999344	test-auc:0.99737	validation-auc:0.997935
+[31]	train-auc:0.999364	test-auc:0.997372	validation-auc:0.997936
+[32]	train-auc:0.999383	test-auc:0.997369	validation-auc:0.997934
+[33]	train-auc:0.999399	test-auc:0.997369	validation-auc:0.997936
+[34]	train-auc:0.999418	test-auc:0.997373	validation-auc:0.997934
+[35]	train-auc:0.999435	test-auc:0.997376	validation-auc:0.997932
+[36]	train-auc:0.999452	test-auc:0.997377	validation-auc:0.99793
+[37]	train-auc:0.999468	test-auc:0.997377	validation-auc:0.997932
+[38]	train-auc:0.999482	test-auc:0.997373	validation-auc:0.997934
+[39]	train-auc:0.999501	test-auc:0.997376	validation-auc:0.997934
+Stopping. Best iteration:
+[29]	train-auc:0.999324	test-auc:0.997366	validation-auc:0.997938
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997293, 
+            0.997287, 
+            0.997292, 
+            0.9973, 
+            0.997319, 
+            0.99732, 
+            0.997324, 
+            0.997333, 
+            0.997331, 
+            0.997333, 
+            0.997342, 
+            0.997341, 
+            0.997347, 
+            0.997349, 
+            0.997347, 
+            0.997349, 
+            0.997354, 
+            0.997357, 
+            0.997357, 
+            0.997368, 
+            0.997367, 
+            0.99737, 
+            0.997369, 
+            0.99737, 
+            0.997367, 
+            0.997365, 
+            0.997363, 
+            0.997366, 
+            0.997368, 
+            0.997366, 
+            0.99737, 
+            0.997372, 
+            0.997369, 
+            0.997369, 
+            0.997373, 
+            0.997376, 
+            0.997377, 
+            0.997377, 
+            0.997373
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998228, 
+            0.998308, 
+            0.998378, 
+            0.998452, 
+            0.998509, 
+            0.998567, 
+            0.998612, 
+            0.998652, 
+            0.998696, 
+            0.998745, 
+            0.998791, 
+            0.998826, 
+            0.998862, 
+            0.998898, 
+            0.998937, 
+            0.998971, 
+            0.999006, 
+            0.999036, 
+            0.999067, 
+            0.999094, 
+            0.999118, 
+            0.999145, 
+            0.999172, 
+            0.999197, 
+            0.999219, 
+            0.999242, 
+            0.999264, 
+            0.999284, 
+            0.999305, 
+            0.999324, 
+            0.999344, 
+            0.999364, 
+            0.999383, 
+            0.999399, 
+            0.999418, 
+            0.999435, 
+            0.999452, 
+            0.999468, 
+            0.999482
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997897, 
+            0.997898, 
+            0.997898, 
+            0.997912, 
+            0.997916, 
+            0.997914, 
+            0.99791, 
+            0.997913, 
+            0.997913, 
+            0.997919, 
+            0.997923, 
+            0.997921, 
+            0.997916, 
+            0.997918, 
+            0.997926, 
+            0.997928, 
+            0.99793, 
+            0.997929, 
+            0.997929, 
+            0.997931, 
+            0.997933, 
+            0.997934, 
+            0.997936, 
+            0.997936, 
+            0.997934, 
+            0.997931, 
+            0.997932, 
+            0.997934, 
+            0.997937, 
+            0.997938, 
+            0.997935, 
+            0.997936, 
+            0.997934, 
+            0.997936, 
+            0.997934, 
+            0.997932, 
+            0.99793, 
+            0.997932, 
+            0.997934
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998195	test-auc:0.997319
+[1]	train-auc:0.998316	test-auc:0.997328
+[2]	train-auc:0.998383	test-auc:0.997329
+[3]	train-auc:0.998449	test-auc:0.997335
+[4]	train-auc:0.998507	test-auc:0.997337
+[5]	train-auc:0.998561	test-auc:0.997339
+[6]	train-auc:0.99861	test-auc:0.99734
+[7]	train-auc:0.998663	test-auc:0.997342
+[8]	train-auc:0.998702	test-auc:0.997337
+[9]	train-auc:0.998744	test-auc:0.997343
+[10]	train-auc:0.998784	test-auc:0.997352
+[11]	train-auc:0.998822	test-auc:0.997347
+[12]	train-auc:0.99886	test-auc:0.997346
+[13]	train-auc:0.998896	test-auc:0.997348
+[14]	train-auc:0.998932	test-auc:0.997349
+[15]	train-auc:0.998965	test-auc:0.997354
+[16]	train-auc:0.998999	test-auc:0.997353
+[17]	train-auc:0.999028	test-auc:0.997358
+[18]	train-auc:0.999056	test-auc:0.997361
+[19]	train-auc:0.999082	test-auc:0.997358
+[20]	train-auc:0.999109	test-auc:0.997363
+[21]	train-auc:0.999135	test-auc:0.997362
+[22]	train-auc:0.999161	test-auc:0.997361
+[23]	train-auc:0.999185	test-auc:0.997359
+[24]	train-auc:0.999209	test-auc:0.997358
+[25]	train-auc:0.99923	test-auc:0.99736
+[26]	train-auc:0.999254	test-auc:0.997358
+[27]	train-auc:0.999276	test-auc:0.997361
+[28]	train-auc:0.999299	test-auc:0.997361
+[29]	train-auc:0.99932	test-auc:0.997361
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997319, 
+            0.997328, 
+            0.997329, 
+            0.997335, 
+            0.997337, 
+            0.997339, 
+            0.99734, 
+            0.997342, 
+            0.997337, 
+            0.997343, 
+            0.997352, 
+            0.997347, 
+            0.997346, 
+            0.997348, 
+            0.997349, 
+            0.997354, 
+            0.997353, 
+            0.997358, 
+            0.997361, 
+            0.997358, 
+            0.997363, 
+            0.997362, 
+            0.997361, 
+            0.997359, 
+            0.997358, 
+            0.99736, 
+            0.997358, 
+            0.997361, 
+            0.997361, 
+            0.997361
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998195, 
+            0.998316, 
+            0.998383, 
+            0.998449, 
+            0.998507, 
+            0.998561, 
+            0.99861, 
+            0.998663, 
+            0.998702, 
+            0.998744, 
+            0.998784, 
+            0.998822, 
+            0.99886, 
+            0.998896, 
+            0.998932, 
+            0.998965, 
+            0.998999, 
+            0.999028, 
+            0.999056, 
+            0.999082, 
+            0.999109, 
+            0.999135, 
+            0.999161, 
+            0.999185, 
+            0.999209, 
+            0.99923, 
+            0.999254, 
+            0.999276, 
+            0.999299, 
+            0.99932
+        ]
+    }
+}
+
+
+
+Chunk 11 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671774 / 328226 = 5.09)
+BackgroundSumW/SignalSumW 	=	119266752.000000 / 956849.875000	=	124.645210
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119308872.000000 / 956849.875000	=	124.689224
+
+Training data:
+Total Events	=	818862 (B/S= 684059 / 134803 = 5.07)
+BackgroundSumW/SignalSumW 	=	48900656.000000 / 395445.375000	=	123.659698
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48914304.000000 / 395445.375000	=	123.694214
+
+Validation data:
+Total Events	=	580423 (B/S= 485589 / 94834 = 5.12)
+BackgroundSumW/SignalSumW 	=	34556016.000000 / 275165.656250	=	125.582588
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34550156.000000 / 275165.656250	=	125.561295
+
+Test data:
+Total Events	=	600715 (B/S= 502126 / 98589 = 5.09)
+BackgroundSumW/SignalSumW 	=	35810064.000000 / 286238.843750	=	125.105537
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35844400.000000 / 286238.843750	=	125.225494
+
+
+[0]	train-auc:0.998368	test-auc:0.998176	validation-auc:0.997936
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.998458	test-auc:0.998187	validation-auc:0.997929
+[2]	train-auc:0.99853	test-auc:0.998185	validation-auc:0.997923
+[3]	train-auc:0.998578	test-auc:0.998183	validation-auc:0.997915
+[4]	train-auc:0.998646	test-auc:0.998179	validation-auc:0.997913
+[5]	train-auc:0.998734	test-auc:0.998184	validation-auc:0.997911
+[6]	train-auc:0.99878	test-auc:0.998191	validation-auc:0.997906
+[7]	train-auc:0.998823	test-auc:0.998192	validation-auc:0.997907
+[8]	train-auc:0.998866	test-auc:0.99819	validation-auc:0.997911
+[9]	train-auc:0.99891	test-auc:0.998192	validation-auc:0.997909
+[10]	train-auc:0.998948	test-auc:0.998192	validation-auc:0.997913
+Stopping. Best iteration:
+[0]	train-auc:0.998368	test-auc:0.998176	validation-auc:0.997936
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.998176, 
+            0.998187, 
+            0.998185, 
+            0.998183, 
+            0.998179, 
+            0.998184, 
+            0.998191, 
+            0.998192, 
+            0.99819, 
+            0.998192
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998368, 
+            0.998458, 
+            0.99853, 
+            0.998578, 
+            0.998646, 
+            0.998734, 
+            0.99878, 
+            0.998823, 
+            0.998866, 
+            0.99891
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997936, 
+            0.997929, 
+            0.997923, 
+            0.997915, 
+            0.997913, 
+            0.997911, 
+            0.997906, 
+            0.997907, 
+            0.997911, 
+            0.997909
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998272	test-auc:0.998161
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.998161
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998272
+        ]
+    }
+}
+
+
+
+Chunk 12 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1672617 / 327383 = 5.11)
+BackgroundSumW/SignalSumW 	=	119856048.000000 / 960017.250000	=	124.847809
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119885576.000000 / 960017.250000	=	124.878563
+
+Training data:
+Total Events	=	819991 (B/S= 685667 / 134324 = 5.10)
+BackgroundSumW/SignalSumW 	=	49130380.000000 / 395321.781250	=	124.279465
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	49053808.000000 / 395321.781250	=	124.085770
+
+Validation data:
+Total Events	=	579790 (B/S= 484915 / 94875 = 5.11)
+BackgroundSumW/SignalSumW 	=	34679120.000000 / 276815.625000	=	125.278763
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34782588.000000 / 276815.625000	=	125.652542
+
+Test data:
+Total Events	=	600219 (B/S= 502035 / 98184 = 5.11)
+BackgroundSumW/SignalSumW 	=	36046532.000000 / 287879.718750	=	125.213867
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	36049160.000000 / 287879.718750	=	125.222992
+
+
+[0]	train-auc:0.998358	test-auc:0.997616	validation-auc:0.997956
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.998471	test-auc:0.997615	validation-auc:0.99797
+[2]	train-auc:0.998521	test-auc:0.997627	validation-auc:0.99797
+[3]	train-auc:0.9986	test-auc:0.997623	validation-auc:0.997967
+[4]	train-auc:0.998663	test-auc:0.997629	validation-auc:0.997967
+[5]	train-auc:0.998718	test-auc:0.997632	validation-auc:0.997966
+[6]	train-auc:0.998762	test-auc:0.997636	validation-auc:0.997966
+[7]	train-auc:0.998805	test-auc:0.997634	validation-auc:0.997967
+[8]	train-auc:0.998843	test-auc:0.997627	validation-auc:0.997968
+[9]	train-auc:0.998882	test-auc:0.997627	validation-auc:0.997966
+[10]	train-auc:0.998915	test-auc:0.99763	validation-auc:0.997964
+[11]	train-auc:0.998954	test-auc:0.997627	validation-auc:0.997962
+Stopping. Best iteration:
+[1]	train-auc:0.998471	test-auc:0.997615	validation-auc:0.99797
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997616, 
+            0.997615, 
+            0.997627, 
+            0.997623, 
+            0.997629, 
+            0.997632, 
+            0.997636, 
+            0.997634, 
+            0.997627, 
+            0.997627, 
+            0.99763
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998358, 
+            0.998471, 
+            0.998521, 
+            0.9986, 
+            0.998663, 
+            0.998718, 
+            0.998762, 
+            0.998805, 
+            0.998843, 
+            0.998882, 
+            0.998915
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.997956, 
+            0.99797, 
+            0.99797, 
+            0.997967, 
+            0.997967, 
+            0.997966, 
+            0.997966, 
+            0.997967, 
+            0.997968, 
+            0.997966, 
+            0.997964
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998145	test-auc:0.997627
+[1]	train-auc:0.998269	test-auc:0.997625
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997627, 
+            0.997625
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998145, 
+            0.998269
+        ]
+    }
+}
+
+
+
+Chunk 13 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1671482 / 328518 = 5.09)
+BackgroundSumW/SignalSumW 	=	119216600.000000 / 957193.562500	=	124.548058
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119237376.000000 / 957193.562500	=	124.569763
+
+Training data:
+Total Events	=	818775 (B/S= 684711 / 134064 = 5.11)
+BackgroundSumW/SignalSumW 	=	48590368.000000 / 390854.968750	=	124.318153
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48626092.000000 / 390854.968750	=	124.409554
+
+Validation data:
+Total Events	=	580554 (B/S= 485189 / 95365 = 5.09)
+BackgroundSumW/SignalSumW 	=	34662392.000000 / 277240.312500	=	125.026520
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34648284.000000 / 277240.312500	=	124.975632
+
+Test data:
+Total Events	=	600671 (B/S= 501582 / 99089 = 5.06)
+BackgroundSumW/SignalSumW 	=	35963804.000000 / 289098.312500	=	124.399910
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	35963020.000000 / 289098.312500	=	124.397202
+
+
+[0]	train-auc:0.998203	test-auc:0.997846	validation-auc:0.998039
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.99826	test-auc:0.997851	validation-auc:0.99804
+[2]	train-auc:0.998336	test-auc:0.997851	validation-auc:0.998041
+[3]	train-auc:0.998397	test-auc:0.997847	validation-auc:0.998038
+[4]	train-auc:0.998444	test-auc:0.997846	validation-auc:0.998032
+[5]	train-auc:0.998499	test-auc:0.997849	validation-auc:0.998027
+[6]	train-auc:0.998546	test-auc:0.997849	validation-auc:0.998024
+[7]	train-auc:0.998587	test-auc:0.997855	validation-auc:0.998031
+[8]	train-auc:0.998634	test-auc:0.997851	validation-auc:0.998031
+[9]	train-auc:0.998681	test-auc:0.997853	validation-auc:0.998031
+[10]	train-auc:0.998726	test-auc:0.997854	validation-auc:0.998032
+[11]	train-auc:0.998767	test-auc:0.997854	validation-auc:0.998031
+[12]	train-auc:0.998804	test-auc:0.997849	validation-auc:0.998029
+Stopping. Best iteration:
+[2]	train-auc:0.998336	test-auc:0.997851	validation-auc:0.998041
+
+
+Validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997846, 
+            0.997851, 
+            0.997851, 
+            0.997847, 
+            0.997846, 
+            0.997849, 
+            0.997849, 
+            0.997855, 
+            0.997851, 
+            0.997853, 
+            0.997854, 
+            0.997854
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998203, 
+            0.99826, 
+            0.998336, 
+            0.998397, 
+            0.998444, 
+            0.998499, 
+            0.998546, 
+            0.998587, 
+            0.998634, 
+            0.998681, 
+            0.998726, 
+            0.998767
+        ]
+    }, 
+    "validation": {
+        "auc": [
+            0.998039, 
+            0.99804, 
+            0.998041, 
+            0.998038, 
+            0.998032, 
+            0.998027, 
+            0.998024, 
+            0.998031, 
+            0.998031, 
+            0.998031, 
+            0.998032, 
+            0.998031
+        ]
+    }
+}
+
+
+
+[0]	train-auc:0.998165	test-auc:0.997878
+[1]	train-auc:0.998233	test-auc:0.997875
+[2]	train-auc:0.998317	test-auc:0.997877
+
+Post-validation progress:
+
+{
+    "test": {
+        "auc": [
+            0.997878, 
+            0.997875, 
+            0.997877
+        ]
+    }, 
+    "train": {
+        "auc": [
+            0.998165, 
+            0.998233, 
+            0.998317
+        ]
+    }
+}
+
+
+
+Chunk 14 processed!
+
+
+Total data:
+Total Events	=	2000000 (B/S= 1672220 / 327780 = 5.10)
+BackgroundSumW/SignalSumW 	=	119343896.000000 / 956993.125000	=	124.707161
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	119331240.000000 / 956993.125000	=	124.693939
+
+Training data:
+Total Events	=	820412 (B/S= 685602 / 134810 = 5.09)
+BackgroundSumW/SignalSumW 	=	48756028.000000 / 395050.343750	=	123.417252
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	48803088.000000 / 395050.343750	=	123.536377
+
+Validation data:
+Total Events	=	580234 (B/S= 485436 / 94798 = 5.12)
+BackgroundSumW/SignalSumW 	=	34383044.000000 / 276606.218750	=	124.303223
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	34391292.000000 / 276606.218750	=	124.333038
+
+Test data:
+Total Events	=	599354 (B/S= 501182 / 98172 = 5.11)
+BackgroundSumW/SignalSumW 	=	36204836.000000 / 285336.500000	=	126.884697
+BackgroundSumPtEtaW/SignalSumPtEtaW 	=	36136904.000000 / 285336.500000	=	126.646622
+
+
+[0]	train-auc:0.998133	test-auc:0.997702	validation-auc:0.997923
+Multiple eval metrics have been passed: 'validation-auc' will be used for early stopping.
+
+Will train until validation-auc hasn't improved in 10 rounds.
+[1]	train-auc:0.998236	test-auc:0.997701	validation-auc:0.997925
+[2]	train-auc:0.998325	test-auc:0.997695	validation-auc:0.997946
+[3]	train-auc:0.998394	test-auc:0.997701	validation-auc:0.997941
+[4]	train-auc:0.998442	test-auc:0.997706	validation-auc:0.997945
+[5]	train-auc:0.998515	test-auc:0.997716	validation-auc:0.997949
+[6]	train-auc:0.998569	test-auc:0.997717	validation-auc:0.997947
+[7]	train-auc:0.99862	test-auc:0.997721	validation-auc:0.997946
+[8]	train-auc:0.99867	test-auc:0.997719	validation-auc:0.997943
+[9]	train-auc:0.998714	test-auc:0.997721	validation-auc:0.997942
+[10]	train-auc:0.998756	test-auc:0.99772	validation-auc:0.997945
+[11]	train-auc:0.998795	test-auc:0.997722	validation-auc:0.997947
+[12]	train-auc:0.998836	test-auc:0.997722	validation-auc:0.997949
+[13]	train-auc:0.998872	test-auc:0.997721	validation-auc:0.99795
+[14]	train-auc:0.998907	test-auc:0.997727	validation-auc:0.997951
+[15]	train-auc:0.998937	test-auc:0.997727	validation-auc:0.997951
+[16]	train-auc:0.998967	test-auc:0.997727	validation-auc:0.99795
+[17]	train-auc:0.998995	test-auc:0.99773	validation-auc:0.99795
+[18]	train-auc:0.999023	test-auc:0.99773	validation-auc:0.997955
+[19]	train-auc:0.99905	test-auc:0.997729	validation-auc:0.997953
+[20]	train-auc:0.999075	test-auc:0.997727	validation-auc:0.997952
+[21]	train-auc:0.999102	test-auc:0.99773	validation-auc:0.997952
+[22]	train-auc:0.999124	test-auc:0.997735	validation-auc:0.997953
+[23]	train-auc:0.999147	test-auc:0.997739	validation-auc:0.997952
+[24]	train-auc:0.999174	test-auc:0.997739	validation-auc:0.997953
+[25]	train-auc:0.9992	test-auc:0.997739	validation-auc:0.997954
+[26]	train-auc:0.9992

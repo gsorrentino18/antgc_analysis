@@ -298,7 +298,8 @@ for totalData in pbar(read_root(paths=args.inFilePath, key=args.inTreeName, colu
 		space = {
 
 			'objective': 'binary:logistic',
-			'eta': hp.choice('eta', [0.01, 0.02, 0.05, 0.08, 0.1, 0.12]),
+			# 'eta': hp.choice('eta', [0.01, 0.02, 0.05, 0.08, 0.1, 0.12]),
+			'eta': 0.1,
 			'eval_metric': 'auc',
 			'booster': 'gbtree',
 			'verbosity': 1,
@@ -315,7 +316,7 @@ for totalData in pbar(read_root(paths=args.inFilePath, key=args.inTreeName, colu
 			'predictor': 'cpu_predictor'
 		}
 
-		best = fmin(score, space, algo=tpe.suggest, trials=trials, max_evals=10)
+		best = fmin(score, space, algo=tpe.suggest, trials=trials, max_evals=1)
 		print("Optimum parameters:")
 		print(best)
 
