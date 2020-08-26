@@ -51,17 +51,21 @@ def sampleStats(df):
 
 	sigCount = len(df[df['isSignal'] == 1].index)
 	bkgCount = len(df[df['isSignal'] == 0].index)
-	print('Total Events\t=\t%d (B/S= %d / %d = %1.2f)' %
-		  ((sigCount + bkgCount), bkgCount, sigCount, float(bkgCount) / float(sigCount)))
+	print('Total Events\t=\t%d (B/S= %d / %d)' %
+		  ((sigCount + bkgCount), bkgCount, sigCount))
 
-	sigSumW = np.sum(df[df.isSignal == 1]['xSecW'].values)
-	bkgSumW = np.sum(df[df.isSignal == 0]['xSecW'].values)
-	BoS = bkgSumW / sigSumW
-	print('BackgroundSumW/SignalSumW \t=\t%.6f / %.6f\t=\t%.6f' %
-		  (bkgSumW, sigSumW, BoS))
 
-	sigSumPtEtaW = np.sum(df[df.isSignal == 1]['bdtWeight'].values)
-	bkgSumPtEtaW = np.sum(df[df.isSignal == 0]['bdtWeight'].values)
-	BoSPtEtaW = bkgSumPtEtaW / sigSumPtEtaW
-	print('BackgroundSumPtEtaW/SignalSumPtEtaW \t=\t%.6f / %.6f\t=\t%.6f' %
-		  (bkgSumPtEtaW, sigSumPtEtaW, BoSPtEtaW))
+	# print('Total Events\t=\t%d (B/S= %d / %d = %1.2f)' %
+	# 	  ((sigCount + bkgCount), bkgCount, sigCount, float(bkgCount) / float(sigCount)))
+
+	# sigSumW = np.sum(df[df.isSignal == 1]['xSecW'].values)
+	# bkgSumW = np.sum(df[df.isSignal == 0]['xSecW'].values)
+	# BoS = bkgSumW / sigSumW
+	# print('BackgroundSumW/SignalSumW \t=\t%.6f / %.6f\t=\t%.6f' %
+	# 	  (bkgSumW, sigSumW, BoS))
+
+	# sigSumPtEtaW = np.sum(df[df.isSignal == 1]['bdtWeight'].values)
+	# bkgSumPtEtaW = np.sum(df[df.isSignal == 0]['bdtWeight'].values)
+	# BoSPtEtaW = bkgSumPtEtaW / sigSumPtEtaW
+	# print('BackgroundSumPtEtaW/SignalSumPtEtaW \t=\t%.6f / %.6f\t=\t%.6f' %
+	# 	  (bkgSumPtEtaW, sigSumPtEtaW, BoSPtEtaW))

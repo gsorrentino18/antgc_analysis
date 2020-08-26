@@ -1,0 +1,11 @@
+************************************************************************************************************************************************
+
+2020-08-21 05:43:42
+Starting photon ID training BDT
+
+inFilePath	=	../mergedSamplesShuffled.root
+saveDir		=	../tuning/
+inTreeName	=	fullEB_Tree
+testSize	=	0.2
+validSize	=	0.25
+logFile		=	../tuning//trainLog_2020_08_21_05_43_42.log

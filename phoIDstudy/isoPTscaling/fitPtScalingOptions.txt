@@ -6,6 +6,7 @@ etaBins 								==		0.,0.5; 0.5,1.; 1.,1.2; 1.2,1.479; 0.,1.; 1.,1.479; 0.,1.479
 
 isoVar 									==		phoPFClusEcalIso, phoPFClusHcalIso, phoTrkSumPtSolidConeDR04, phoTrkSumPtHollowConeDR04, phoTrkSumPtSolidConeDR03, phoTrkSumPtHollowConeDR03, phoPFChIsoRaw, phoPFChWorstIsoRaw, phoPFNeuIsoRaw, phoPFPhoIsoRaw
 etaBins 								==		0.,0.5; 0.5,1.; 1,1.4442
+isoVar 									==		phoHoverE
 
 
 yMin 									==		-0.201
@@ -29,20 +30,8 @@ writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/is
 
 applyEAcorr 							==		1
 
-percentile 								==		80
-phoPFChIsoRawEA							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFChIsoRaw.txt
-phoPFChWorstIsoRawEA					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFChWorstIsoRaw.txt
-phoPFClusEcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFClusEcalIso.txt
-phoPFClusHcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFClusHcalIso.txt
-phoPFNeuIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFNeuIsoRaw.txt
-phoPFPhoIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFPhoIsoRaw.txt
-phoTrkSumPtHollowConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtHollowConeDR03.txt
-phoTrkSumPtHollowConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtHollowConeDR04.txt
-phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtSolidConeDR03.txt
-phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtSolidConeDR04.txt
-writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/80pc/
-
 percentile 								==		70
+phoHoverEEA								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoHoverE.txt
 phoPFChIsoRawEA							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFChIsoRaw.txt
 phoPFChWorstIsoRawEA					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFChWorstIsoRaw.txt
 phoPFClusEcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/70pc/phoPFClusEcalIso.txt
@@ -56,6 +45,7 @@ phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/
 writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/70pc/
 
 percentile 								==		90
+phoHoverEEA								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoHoverE.txt
 phoPFChIsoRawEA							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFChIsoRaw.txt
 phoPFChWorstIsoRawEA					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFChWorstIsoRaw.txt
 phoPFClusEcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoPFClusEcalIso.txt
@@ -67,6 +57,22 @@ phoTrkSumPtHollowConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis
 phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoTrkSumPtSolidConeDR03.txt
 phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/90pc/phoTrkSumPtSolidConeDR04.txt
 writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/90pc/
+
+percentile 								==		80
+phoHoverEEA								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoHoverE.txt
+phoPFChIsoRawEA							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFChIsoRaw.txt
+phoPFChWorstIsoRawEA					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFChWorstIsoRaw.txt
+phoPFClusEcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFClusEcalIso.txt
+phoPFClusHcalIsoEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFClusHcalIso.txt
+phoPFNeuIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFNeuIsoRaw.txt
+phoPFPhoIsoRawEA						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoPFPhoIsoRaw.txt
+phoTrkSumPtHollowConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtHollowConeDR03.txt
+phoTrkSumPtHollowConeDR04EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtHollowConeDR04.txt
+phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtSolidConeDR03.txt
+phoTrkSumPtSolidConeDR03EA				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/80pc/phoTrkSumPtSolidConeDR04.txt
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/isoPTscaling/fitPlots/80pc/
+
+
 
 
 fileDir									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_08_07/promptDR0p01DPt0p1/merged

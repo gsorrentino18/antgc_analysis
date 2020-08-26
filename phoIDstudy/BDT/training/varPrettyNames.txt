@@ -1,0 +1,31 @@
+rho											==	#rho (GeV)																==		80,0.,80.
+phoPFClusEcalIso							==	I_{ECAL}^{PFClus} (GeV)													==		11000,-50.,500.
+phoPFClusHcalIso							==	I_{HCAL}^{PFClus} (GeV)													==		11000,-50.,500.
+phoTrkSumPtSolidConeDR04					==	I_{Tkr} (GeV)															==		11000,-50.,500.
+phoTrkSumPtHollowConeDR04					==	I_{TkrH} (GeV)															==		11000,-50.,500.
+phoTrkSumPtSolidConeDR03					==	I_{Tkr} (GeV)															==		11000,-50.,500.
+phoTrkSumPtHollowConeDR03					==	I_{TkrH} (GeV)															==		11000,-50.,500.
+phoPFChIsoRaw								==	I_{CH} (GeV)															==		11000,-50.,500.
+phoPFChWorstIsoRaw							==	I_{CH}^{max} (GeV)														==		11000,-50.,500.
+phoPFNeuIsoRaw								==	I_{NH} (GeV)															==		11000,-50.,500.
+phoPFPhoIsoRaw								==	I_{#gamma} (GeV)														==		11000,-50.,500.
+phoPt 										== 	p_{T}^{#gamma} (GeV)													==		40,200.,1200.
+
+
+phoE5x5OESCrFull5x5 						== 	E_{5#times5}/E_{SC}^{raw}												==		0.,1.5,150.
+phoE2x5OESCrFull5x5 						== 	E_{2#times5}/E_{SC}^{raw}												==		0.,1.,100.
+phoSigmaIEtaIEta 							== 	#sigma_{i#etai#eta}														==		60,0.,0.03
+phoE2ndOE3x3Full5x5 						== 	E_{2}/E_{3#times3}														==		0.,1.,100.
+phoE1x3OESCrFull5x5 						== 	E_{1#times3}/E_{SC}^{raw}												==		0.,1.,100.
+phoEtaWidth 								== 	#sigma_{#eta}															==		40,0.005,0.025
+phoSieieOSipipFull5x5 						== 	#sigma_{i#etai#eta}/#sigma_{i#phii#phi}									==		80,0.,0.08
+phoSigmaIPhiIPhi 							== 	#sigma_{i#phii#phi}														==		80,0.,0.04
+phoS4Full5x5 								== 	E_{2#times2}/E_{SC}^{raw}												==		100,0.,1.
+phoPhiWidth 								== 	#sigma_{#phi}															==		80,0.,0.08
+phoSigmaIEtaIPhi 							== 	#sigma_{i#etai#phi}														==		70,-0.00035,0.00035
+phoR9Full5x5 								== 	E_{3#times3}/E_{SC}^{raw}												==		100,0.1,1.1
+phoEtaWOPhiWFull5x5 						== 	#sigma_{#eta}/#sigma_{#phi}												==		80,0.,0.08	
+phoEmaxOE3x3Full5x5 						== 	E_{max}/E_{3#times3}													==		0.,1.,100.
+phoE2ndOESCrFull5x5 						== 	E_{2}/E_{SC}^{raw}														==		
+phoE2ndOEmaxFull5x5 						== 	E_{2}/E_{max}															==		
+phoEmaxOESCrFull5x5 						== 	E_{max}/E_{SC}^{raw}													==		

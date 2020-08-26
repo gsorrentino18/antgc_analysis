@@ -4,6 +4,7 @@ percentiles 							==		95,dd3497
 
 isoVar 									==		phoPFClusEcalIso, phoPFClusHcalIso, phoTrkSumPtSolidConeDR04, phoTrkSumPtHollowConeDR04, phoTrkSumPtSolidConeDR03, phoTrkSumPtHollowConeDR03
 isoVar 									==		phoPFChIsoRaw, phoPFChWorstIsoRaw, phoPFNeuIsoRaw, phoPFPhoIsoRaw
+isoVar 									==		phoHoverE
 etaBins 								==		0.,0.5; 0.5,1.; 1.,1.2; 1.2,1.479; 0.,1.; 1.,1.479
 percentiles 							==		95,dd3497;  90,313695; 85,ff7f00; 80,984ea3; 75,e41a1c; 70,ffff99
 
@@ -29,11 +30,11 @@ fitIntervalInfo 						==		(1#sigma fit range)
 fitOpt 									== 		0ERS
 fitLnWidth 								== 		3.
 fitLnStl 								== 		1
-pcWidth 								==		1.5
-pcMkrSz 								==		1.5
+pcWidth 								==		2
+pcMkrSz 								==		2
 pcMkrStl 								==		20
-slopePrecision							== 		4
-interceptPrecision						== 		3
+slopePrecision							== 		6
+interceptPrecision						== 		4
 chi2precision 							== 		1
 
 canvasX									==		2600

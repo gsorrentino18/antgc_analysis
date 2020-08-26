@@ -1,0 +1,28 @@
+************************************************************************************************************************************************
+
+2020-08-21 02:00:52
+Starting photon ID training BDT
+
+inFilePath	=	../mergedSamplesShuffled.root
+saveDir		=	../tuning/
+inTreeName	=	fullEB_Tree
+testSize	=	0.2
+validSize	=	0.25
+logFile		=	../tuning//trainLog_2020_08_21_02_00_52.log
+
+BDT input features (17) :
+['phoE1x3OESCrFull5x5', 'phoE2ndOE3x3Full5x5', 'phoE2ndOESCrFull5x5', 'phoE2ndOEmaxFull5x5', 'phoE2x5OESCrFull5x5', 'phoE5x5OESCrFull5x5', 'phoEmaxOE3x3Full5x5', 'phoEmaxOESCrFull5x5', 'phoEtaWOPhiWFull5x5', 'phoEtaWidth', 'phoPhiWidth', 'phoR9Full5x5', 'phoS4Full5x5', 'phoSieieOSipipFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi']
+
+
+
+
+Total data:
+Total Events	=	62136250 (B/S= 51941286 / 10194964)
+
+Training data:
+Total Events	=	25476367 (B/S= 21295299 / 4181068)
+
+Validation data:
+Total Events	=	18022058 (B/S= 15066820 / 2955238)
+Search space:
+{'objective': 'binary:logistic', 'eta': <hyperopt.pyll.base.Apply object at 0x2add1324cda0>, 'gamma': <hyperopt.pyll.base.Apply object at 0x2add1aebd3c8>, 'max_depth': <hyperopt.pyll.base.Apply object at 0x2add1aebd588>, 'min_child_weight': <hyperopt.pyll.base.Apply object at 0x2add1aebd710>, 'subsample': <hyperopt.pyll.base.Apply object at 0x2add1aebd898>, 'colsample_bytree': <hyperopt.pyll.base.Apply object at 0x2add1aebda20>, 'alpha': <hyperopt.pyll.base.Apply object at 0x2add1aebdba8>, 'sampling_method': 'gradient_based', 'tree_method': 'gpu_hist', 'predictor': 'gpu_predictor'}

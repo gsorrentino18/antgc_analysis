@@ -1,0 +1,30 @@
+featsPath							== /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/optimizedV1/featImps.txt
+writeDir							== /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/optimizedV1/
+
+brSpecFile 							==/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/training/varPrettyNames.txt
+
+canvasX								== 	2400
+canvasY								==	2400
+pad0x1								==0.
+pad0x2								==1.
+pad0y1								==0.
+pad0y2								==1.
+pad0marginL							==0.15
+pad0marginR							==0.1
+pad0marginB							==0.11
+pad0marginT							==0.02
+pad0YaxisLabelSize					==0.05
+pad0XaxisLabelSize					==0.03
+pad0axisTitleSize					==0.04
+pad0XtitleOffset					==1.
+pad0YtitleOffset					==1.3
+pad0yNdivs							==510
+pad0xNdivs							==510
+
+drawOption							== hbar
+
+col									== #d73027
+barW								== 0.4
+barSep								== 0.3
+
+maxFactor 							== 1.1

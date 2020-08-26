@@ -11,7 +11,7 @@ jobListFile=/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/batch/jobLi
 # jobListFile=$(readlink -m ${jobListFile})
 writeDir=$1
 writeDir=$(readlink -m ${writeDir})/
-jobsDir=$2
+jobsDir=$1
 jobsDir=$(readlink -m ${jobsDir})/
 
 # espresso     = 20 minutes
@@ -22,7 +22,7 @@ jobsDir=$(readlink -m ${jobsDir})/
 # testmatch    = 3 days
 # nextweek     = 1 week
 jobflavor=workday
-splitfiles=2
+splitfiles=1
 
 
 # className="genPhoMatcher"
@@ -31,19 +31,24 @@ splitfiles=2
 # className="fakePhoFinder"
 # ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinder.cc"
 
-className="fakePhoFinderNo22"
-ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinderNo22.cc"
+
+className="fakePhoFinder"
+ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinderV2.cc"
+
+
+# className="genPhoMatcher"
+# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcherV2.cc"
 
 macroTemplate=${workDir}/macroTemplate.C
 runScriptTemplate=${workDir}/run_script.sh
 condorCFGtemplate=${workDir}/condor_job.sh
 
-
-dataPUfile="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_pileup/pileup_2017_data.root"
-CHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfChargedHadrons_90percentBased_V2.txt",
-WCHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfWorstChargedHadrons_70percentBased.txt"
-PhoEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfPhotons_90percentBased_V2.txt"
-NHEffArea="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/effAreas/EGM/effAreaPhotons_cone03_pfNeutralHadrons_90percentBased_V2.txt"
+bdtPath="/hdfs/cms/user/wadud/anTGC/BDTdata/optimizedV0/aNTGC_photon_BDT.model"
+dataPUfile="/hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/pileup_2017_data.root"
+CHEffArea="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/EGM/effAreaPhotons_cone03_pfChargedHadrons_90percentBased_V2.txt"
+WCHEffArea="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/EGM/effAreaPhotons_cone03_pfWorstChargedHadrons_70percentBased.txt"
+PhoEffArea="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/EGM/effAreaPhotons_cone03_pfPhotons_90percentBased_V2.txt"
+NHEffArea="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/EGM/effAreaPhotons_cone03_pfNeutralHadrons_90percentBased_V2.txt"
 ############################################################################
 
 current_date_time=$(date +%Y-%m-%d_%H-%M-%S)
@@ -120,6 +125,7 @@ function preSelectDataset(){
 	sed -i 's|#WCHEffArea|'${WCHEffArea}'|g' ${rootMacro}
 	sed -i 's|#PhoEffArea|'${PhoEffArea}'|g' ${rootMacro}
 	sed -i 's|#NHEffArea|'${NHEffArea}'|g' ${rootMacro}
+	sed -i 's|#BDTpath|'${bdtPath}'|g' ${rootMacro}
 
 	### prepare run script ###
 	runScript=${jobDir}/${jobName}.sh

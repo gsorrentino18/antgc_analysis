@@ -5,8 +5,6 @@
 #include <iostream>
 #include <fstream>
 
-const Double_t ECAL_EB_ETA_BINS[29] = {-1.4442, -1.3, -1.2, -1.1, -1., -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.2, 1.3, 1.4442};
-
 void 											makePtEtaHists(TH1D &_PtHist, TH1D &_EtaHist, TH2D & _PtEtaHist, TH1D &_PtNoXsecHist, TH1D &_EtaNoXsecHist, TH2D & _PtEtaNoXsecHist, const std::vector<std::string> & _samplePaths, std::string _directory);
 void 											extractPtEtaWeights();
 void 											createTrees4BDT();

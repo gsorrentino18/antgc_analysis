@@ -1,0 +1,13 @@
+rho											==	#rho (GeV)																==		80,0.,80.
+phoPFClusEcalIso							==	I_{ECAL}^{PFClus} (GeV)													==		35,-15.,20.
+phoPFClusHcalIso							==	I_{HCAL}^{PFClus} (GeV)													==		500,-50.,50.
+phoTrkSumPtSolidConeDR04					==	I_{Tkr} (GeV)															==		500,-50.,50.
+phoTrkSumPtHollowConeDR04					==	I_{TkrH} (GeV)															==		500,-50.,50.
+phoTrkSumPtSolidConeDR03					==	I_{Tkr} (GeV)															==		500,-50.,50.
+phoTrkSumPtHollowConeDR03					==	I_{TkrH} (GeV)															==		500,-50.,50.
+phoPFChIsoRaw								==	I_{CH} (GeV)															==		500,-50.,50.
+phoPFChWorstIsoRaw							==	I_{CH}^{max} (GeV)														==		500,-50.,50.
+phoPFNeuIsoRaw								==	I_{NH} (GeV)															==		500,-50.,50.
+phoPFPhoIsoRaw								==	I_{#gamma} (GeV)														==		500,-50.,50.
+bdtScore 									==	BDT Score 																==		1000.,0.,1.
+phoHoverE									==	H/E 																	==		500,0.,1.

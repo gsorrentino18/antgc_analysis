@@ -1,0 +1,508 @@
+************************************************************************************************************************************************
+
+2020-08-21 08:38:46
+Starting photon ID training BDT
+
+inFilePath	=	../mergedSamplesShuffled.root
+saveDir		=	../tuning/
+inTreeName	=	fullEB_Tree
+testSize	=	0.2
+validSize	=	0.25
+logFile		=	../tuning//trainLog_2020_08_21_08_38_46.log
+
+BDT input features (17) :
+['phoE1x3OESCrFull5x5', 'phoE2ndOE3x3Full5x5', 'phoE2ndOESCrFull5x5', 'phoE2ndOEmaxFull5x5', 'phoE2x5OESCrFull5x5', 'phoE5x5OESCrFull5x5', 'phoEmaxOE3x3Full5x5', 'phoEmaxOESCrFull5x5', 'phoEtaWOPhiWFull5x5', 'phoEtaWidth', 'phoPhiWidth', 'phoR9Full5x5', 'phoS4Full5x5', 'phoSieieOSipipFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi']
+
+
+
+
+Total data:
+Total Events	=	62136250 (B/S= 51941286 / 10194964)
+
+Training data:
+Total Events	=	25476367 (B/S= 21295299 / 4181068)
+
+Validation data:
+Total Events	=	18022058 (B/S= 15066820 / 2955238)
+Search space:
+{'objective': 'binary:logistic', 'eta': <hyperopt.pyll.base.Apply object at 0x2acc4d9e00f0>, 'gamma': <hyperopt.pyll.base.Apply object at 0x2acc5566e6a0>, 'max_depth': <hyperopt.pyll.base.Apply object at 0x2acc5566e860>, 'min_child_weight': <hyperopt.pyll.base.Apply object at 0x2acc5566e9e8>, 'subsample': <hyperopt.pyll.base.Apply object at 0x2acc5566eb70>, 'colsample_bytree': <hyperopt.pyll.base.Apply object at 0x2acc5566ecf8>, 'alpha': <hyperopt.pyll.base.Apply object at 0x2acc5566ee80>, 'sampling_method': 'gradient_based', 'tree_method': 'gpu_hist', 'predictor': 'gpu_predictor'}
+
+
+2020-08-21 08:58:15
+Launching tuning module... 
+
+
+  0%|          | 0/5000 [00:00<?, ?trial/s, best loss=?]                                                        
+
+Training with params : {'alpha': 850.0, 'colsample_bytree': 0.7669999999999999, 'eta': 0.042, 'gamma': 0.0, 'max_depth': 21, 'min_child_weight': 21.0, 'objective': 'binary:logistic', 'predictor': 'gpu_predictor', 'sampling_method': 'gradient_based', 'subsample': 0.5, 'tree_method': 'gpu_hist'}
+  0%|          | 0/5000 [00:00<?, ?trial/s, best loss=?]                                                        [0]	train-error:0.00275	val-error:0.00426
+
+  0%|          | 0/5000 [00:06<?, ?trial/s, best loss=?]                                                        Multiple eval metrics have been passed: 'val-error' will be used for early stopping.
+
+
+  0%|          | 0/5000 [00:06<?, ?trial/s, best loss=?]                                                        Will train until val-error hasn't improved in 20 rounds.
+
+  0%|          | 0/5000 [00:06<?, ?trial/s, best loss=?]                                                        [1]	train-error:0.00240	val-error:0.00421
+
+  0%|          | 0/5000 [00:06<?, ?trial/s, best loss=?]                                                        [2]	train-error:0.00233	val-error:0.00422
+
+  0%|          | 0/5000 [00:07<?, ?trial/s, best loss=?]                                                        [3]	train-error:0.00232	val-error:0.00422
+
+  0%|          | 0/5000 [00:08<?, ?trial/s, best loss=?]                                                        [4]	train-error:0.00231	val-error:0.00424
+
+  0%|          | 0/5000 [00:08<?, ?trial/s, best loss=?]                                                        [5]	train-error:0.00226	val-error:0.00418
+
+  0%|          | 0/5000 [00:09<?, ?trial/s, best loss=?]                                                        [6]	train-error:0.00225	val-error:0.00421
+
+  0%|          | 0/5000 [00:10<?, ?trial/s, best loss=?]                                                        [7]	train-error:0.00226	val-error:0.00420
+
+  0%|          | 0/5000 [00:11<?, ?trial/s, best loss=?]                                                        [8]	train-error:0.00224	val-error:0.00418
+
+  0%|          | 0/5000 [00:11<?, ?trial/s, best loss=?]                                                        [9]	train-error:0.00226	val-error:0.00418
+
+  0%|          | 0/5000 [00:12<?, ?trial/s, best loss=?]                                                        [10]	train-error:0.00227	val-error:0.00418
+
+  0%|          | 0/5000 [00:13<?, ?trial/s, best loss=?]                                                        [11]	train-error:0.00226	val-error:0.00415
+
+  0%|          | 0/5000 [00:13<?, ?trial/s, best loss=?]                                                        [12]	train-error:0.00225	val-error:0.00412
+
+  0%|          | 0/5000 [00:14<?, ?trial/s, best loss=?]                                                        [13]	train-error:0.00226	val-error:0.00413
+
+  0%|          | 0/5000 [00:15<?, ?trial/s, best loss=?]                                                        [14]	train-error:0.00226	val-error:0.00410
+
+  0%|          | 0/5000 [00:15<?, ?trial/s, best loss=?]                                                        [15]	train-error:0.00226	val-error:0.00412
+
+  0%|          | 0/5000 [00:16<?, ?trial/s, best loss=?]                                                        [16]	train-error:0.00224	val-error:0.00412
+
+  0%|          | 0/5000 [00:17<?, ?trial/s, best loss=?]                                                        [17]	train-error:0.00223	val-error:0.00410
+
+  0%|          | 0/5000 [00:17<?, ?trial/s, best loss=?]                                                        [18]	train-error:0.00222	val-error:0.00410
+
+  0%|          | 0/5000 [00:18<?, ?trial/s, best loss=?]                                                        [19]	train-error:0.00220	val-error:0.00411
+
+  0%|          | 0/5000 [00:19<?, ?trial/s, best loss=?]                                                        [20]	train-error:0.00219	val-error:0.00411
+
+  0%|          | 0/5000 [00:19<?, ?trial/s, best loss=?]                                                        [21]	train-error:0.00219	val-error:0.00410
+
+  0%|          | 0/5000 [00:20<?, ?trial/s, best loss=?]                                                        [22]	train-error:0.00219	val-error:0.00408
+
+  0%|          | 0/5000 [00:20<?, ?trial/s, best loss=?]                                                        [23]	train-error:0.00218	val-error:0.00408
+
+  0%|          | 0/5000 [00:21<?, ?trial/s, best loss=?]                                                        [24]	train-error:0.00218	val-error:0.00409
+
+  0%|          | 0/5000 [00:22<?, ?trial/s, best loss=?]                                                        [25]	train-error:0.00217	val-error:0.00409
+
+  0%|          | 0/5000 [00:22<?, ?trial/s, best loss=?]                                                        [26]	train-error:0.00216	val-error:0.00409
+
+  0%|          | 0/5000 [00:23<?, ?trial/s, best loss=?]                                                        [27]	train-error:0.00215	val-error:0.00408
+
+  0%|          | 0/5000 [00:24<?, ?trial/s, best loss=?]                                                        [28]	train-error:0.00215	val-error:0.00409
+
+  0%|          | 0/5000 [00:24<?, ?trial/s, best loss=?]                                                        [29]	train-error:0.00214	val-error:0.00408
+
+  0%|          | 0/5000 [00:25<?, ?trial/s, best loss=?]                                                        [30]	train-error:0.00214	val-error:0.00408
+
+  0%|          | 0/5000 [00:26<?, ?trial/s, best loss=?]                                                        [31]	train-error:0.00214	val-error:0.00408
+
+  0%|          | 0/5000 [00:26<?, ?trial/s, best loss=?]                                                        [32]	train-error:0.00213	val-error:0.00407
+
+  0%|          | 0/5000 [00:27<?, ?trial/s, best loss=?]                                                        [33]	train-error:0.00212	val-error:0.00407
+
+  0%|          | 0/5000 [00:28<?, ?trial/s, best loss=?]                                                        [34]	train-error:0.00212	val-error:0.00405
+
+  0%|          | 0/5000 [00:28<?, ?trial/s, best loss=?]                                                        [35]	train-error:0.00211	val-error:0.00405
+
+  0%|          | 0/5000 [00:29<?, ?trial/s, best loss=?]                                                        [36]	train-error:0.00211	val-error:0.00404
+
+  0%|          | 0/5000 [00:30<?, ?trial/s, best loss=?]                                                        [37]	train-error:0.00210	val-error:0.00405
+
+  0%|          | 0/5000 [00:30<?, ?trial/s, best loss=?]                                                        [38]	train-error:0.00209	val-error:0.00406
+
+  0%|          | 0/5000 [00:31<?, ?trial/s, best loss=?]                                                        [39]	train-error:0.00209	val-error:0.00408
+
+  0%|          | 0/5000 [00:31<?, ?trial/s, best loss=?]                                                        [40]	train-error:0.00208	val-error:0.00407
+
+  0%|          | 0/5000 [00:32<?, ?trial/s, best loss=?]                                                        [41]	train-error:0.00208	val-error:0.00407
+
+  0%|          | 0/5000 [00:33<?, ?trial/s, best loss=?]                                                        [42]	train-error:0.00208	val-error:0.00407
+
+  0%|          | 0/5000 [00:33<?, ?trial/s, best loss=?]                                                        [43]	train-error:0.00207	val-error:0.00407
+
+  0%|          | 0/5000 [00:34<?, ?trial/s, best loss=?]                                                        [44]	train-error:0.00206	val-error:0.00408
+
+  0%|          | 0/5000 [00:34<?, ?trial/s, best loss=?]                                                        [45]	train-error:0.00206	val-error:0.00408
+
+  0%|          | 0/5000 [00:35<?, ?trial/s, best loss=?]                                                        [46]	train-error:0.00205	val-error:0.00407
+
+  0%|          | 0/5000 [00:36<?, ?trial/s, best loss=?]                                                        [47]	train-error:0.00205	val-error:0.00407
+
+  0%|          | 0/5000 [00:36<?, ?trial/s, best loss=?]                                                        [48]	train-error:0.00204	val-error:0.00407
+
+  0%|          | 0/5000 [00:37<?, ?trial/s, best loss=?]                                                        [49]	train-error:0.00204	val-error:0.00408
+
+  0%|          | 0/5000 [00:37<?, ?trial/s, best loss=?]                                                        [50]	train-error:0.00204	val-error:0.00407
+
+  0%|          | 0/5000 [00:38<?, ?trial/s, best loss=?]                                                        [51]	train-error:0.00203	val-error:0.00406
+
+  0%|          | 0/5000 [00:39<?, ?trial/s, best loss=?]                                                        [52]	train-error:0.00203	val-error:0.00407
+
+  0%|          | 0/5000 [00:39<?, ?trial/s, best loss=?]                                                        [53]	train-error:0.00202	val-error:0.00408
+
+  0%|          | 0/5000 [00:40<?, ?trial/s, best loss=?]                                                        [54]	train-error:0.00202	val-error:0.00407
+
+  0%|          | 0/5000 [00:40<?, ?trial/s, best loss=?]                                                        [55]	train-error:0.00202	val-error:0.00408
+
+  0%|          | 0/5000 [00:41<?, ?trial/s, best loss=?]                                                        [56]	train-error:0.00202	val-error:0.00407
+
+  0%|          | 0/5000 [00:42<?, ?trial/s, best loss=?]                                                        Stopping. Best iteration:
+[36]	train-error:0.00211	val-error:0.00404
+
+
+  0%|          | 0/5000 [00:42<?, ?trial/s, best loss=?]                                                        	bestValScore: 0.004045
+  0%|          | 0/5000 [00:42<?, ?trial/s, best loss=?]                                                        	bestNtreeLimit: 37
+  0%|          | 0/5000 [00:42<?, ?trial/s, best loss=?]                                                        	theScore : 0.995955
+  0%|          | 0/5000 [00:42<?, ?trial/s, best loss=?]  0%|          | 1/5000 [00:42<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           
+
+Training with params : {'alpha': 800.0, 'colsample_bytree': 0.944, 'eta': 0.045, 'gamma': 0.1, 'max_depth': 23, 'min_child_weight': 21.0, 'objective': 'binary:logistic', 'predictor': 'gpu_predictor', 'sampling_method': 'gradient_based', 'subsample': 0.5, 'tree_method': 'gpu_hist'}
+  0%|          | 1/5000 [00:42<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [0]	train-error:0.00268	val-error:0.00422
+
+  0%|          | 1/5000 [00:43<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           Multiple eval metrics have been passed: 'val-error' will be used for early stopping.
+
+
+  0%|          | 1/5000 [00:43<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           Will train until val-error hasn't improved in 20 rounds.
+
+  0%|          | 1/5000 [00:43<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [1]	train-error:0.00245	val-error:0.00418
+
+  0%|          | 1/5000 [00:43<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [2]	train-error:0.00233	val-error:0.00421
+
+  0%|          | 1/5000 [00:44<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [3]	train-error:0.00226	val-error:0.00425
+
+  0%|          | 1/5000 [00:45<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [4]	train-error:0.00222	val-error:0.00425
+
+  0%|          | 1/5000 [00:46<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [5]	train-error:0.00218	val-error:0.00428
+
+  0%|          | 1/5000 [00:47<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [6]	train-error:0.00217	val-error:0.00427
+
+  0%|          | 1/5000 [00:48<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [7]	train-error:0.00216	val-error:0.00427
+
+  0%|          | 1/5000 [00:49<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [8]	train-error:0.00214	val-error:0.00426
+
+  0%|          | 1/5000 [00:50<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [9]	train-error:0.00214	val-error:0.00425
+
+  0%|          | 1/5000 [00:50<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [10]	train-error:0.00215	val-error:0.00426
+
+  0%|          | 1/5000 [00:51<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [11]	train-error:0.00214	val-error:0.00426
+
+  0%|          | 1/5000 [00:52<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [12]	train-error:0.00214	val-error:0.00423
+
+  0%|          | 1/5000 [00:53<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [13]	train-error:0.00213	val-error:0.00423
+
+  0%|          | 1/5000 [00:54<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [14]	train-error:0.00213	val-error:0.00422
+
+  0%|          | 1/5000 [00:54<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [15]	train-error:0.00211	val-error:0.00420
+
+  0%|          | 1/5000 [00:55<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [16]	train-error:0.00211	val-error:0.00419
+
+  0%|          | 1/5000 [00:56<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [17]	train-error:0.00210	val-error:0.00419
+
+  0%|          | 1/5000 [00:57<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [18]	train-error:0.00209	val-error:0.00418
+
+  0%|          | 1/5000 [00:57<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [19]	train-error:0.00208	val-error:0.00417
+
+  0%|          | 1/5000 [00:58<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [20]	train-error:0.00208	val-error:0.00415
+
+  0%|          | 1/5000 [00:59<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [21]	train-error:0.00207	val-error:0.00417
+
+  0%|          | 1/5000 [01:00<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [22]	train-error:0.00206	val-error:0.00415
+
+  0%|          | 1/5000 [01:00<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [23]	train-error:0.00205	val-error:0.00417
+
+  0%|          | 1/5000 [01:01<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [24]	train-error:0.00205	val-error:0.00419
+
+  0%|          | 1/5000 [01:02<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [25]	train-error:0.00205	val-error:0.00419
+
+  0%|          | 1/5000 [01:03<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [26]	train-error:0.00204	val-error:0.00420
+
+  0%|          | 1/5000 [01:03<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [27]	train-error:0.00204	val-error:0.00421
+
+  0%|          | 1/5000 [01:04<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [28]	train-error:0.00203	val-error:0.00421
+
+  0%|          | 1/5000 [01:05<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [29]	train-error:0.00203	val-error:0.00418
+
+  0%|          | 1/5000 [01:06<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [30]	train-error:0.00202	val-error:0.00419
+
+  0%|          | 1/5000 [01:06<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [31]	train-error:0.00202	val-error:0.00419
+
+  0%|          | 1/5000 [01:07<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [32]	train-error:0.00201	val-error:0.00419
+
+  0%|          | 1/5000 [01:08<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [33]	train-error:0.00201	val-error:0.00418
+
+  0%|          | 1/5000 [01:09<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [34]	train-error:0.00200	val-error:0.00417
+
+  0%|          | 1/5000 [01:09<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [35]	train-error:0.00200	val-error:0.00418
+
+  0%|          | 1/5000 [01:10<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [36]	train-error:0.00199	val-error:0.00416
+
+  0%|          | 1/5000 [01:11<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [37]	train-error:0.00199	val-error:0.00416
+
+  0%|          | 1/5000 [01:12<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [38]	train-error:0.00198	val-error:0.00415
+
+  0%|          | 1/5000 [01:12<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [39]	train-error:0.00198	val-error:0.00414
+
+  0%|          | 1/5000 [01:13<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [40]	train-error:0.00198	val-error:0.00413
+
+  0%|          | 1/5000 [01:14<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [41]	train-error:0.00197	val-error:0.00412
+
+  0%|          | 1/5000 [01:15<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [42]	train-error:0.00197	val-error:0.00412
+
+  0%|          | 1/5000 [01:15<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [43]	train-error:0.00196	val-error:0.00413
+
+  0%|          | 1/5000 [01:16<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [44]	train-error:0.00195	val-error:0.00413
+
+  0%|          | 1/5000 [01:17<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [45]	train-error:0.00195	val-error:0.00412
+
+  0%|          | 1/5000 [01:17<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [46]	train-error:0.00194	val-error:0.00413
+
+  0%|          | 1/5000 [01:18<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [47]	train-error:0.00194	val-error:0.00413
+
+  0%|          | 1/5000 [01:19<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [48]	train-error:0.00194	val-error:0.00413
+
+  0%|          | 1/5000 [01:20<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [49]	train-error:0.00193	val-error:0.00413
+
+  0%|          | 1/5000 [01:20<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [50]	train-error:0.00193	val-error:0.00413
+
+  0%|          | 1/5000 [01:21<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [51]	train-error:0.00192	val-error:0.00413
+
+  0%|          | 1/5000 [01:22<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [52]	train-error:0.00192	val-error:0.00413
+
+  0%|          | 1/5000 [01:22<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [53]	train-error:0.00191	val-error:0.00413
+
+  0%|          | 1/5000 [01:23<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [54]	train-error:0.00191	val-error:0.00413
+
+  0%|          | 1/5000 [01:24<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [55]	train-error:0.00190	val-error:0.00413
+
+  0%|          | 1/5000 [01:24<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [56]	train-error:0.00190	val-error:0.00413
+
+  0%|          | 1/5000 [01:25<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [57]	train-error:0.00189	val-error:0.00413
+
+  0%|          | 1/5000 [01:26<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [58]	train-error:0.00189	val-error:0.00413
+
+  0%|          | 1/5000 [01:26<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [59]	train-error:0.00188	val-error:0.00413
+
+  0%|          | 1/5000 [01:27<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [60]	train-error:0.00188	val-error:0.00414
+
+  0%|          | 1/5000 [01:28<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           [61]	train-error:0.00187	val-error:0.00414
+
+  0%|          | 1/5000 [01:28<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           Stopping. Best iteration:
+[41]	train-error:0.00197	val-error:0.00412
+
+
+  0%|          | 1/5000 [01:28<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           	bestValScore: 0.004122
+  0%|          | 1/5000 [01:28<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           	bestNtreeLimit: 42
+  0%|          | 1/5000 [01:28<58:33:32, 42.17s/trial, best loss: 0.995955]                                                                           	theScore : 0.995878
+  0%|          | 1/5000 [01:28<58:33:32, 42.17s/trial, best loss: 0.995955]  0%|          | 2/5000 [01:28<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           
+
+Training with params : {'alpha': 750.0, 'colsample_bytree': 0.649, 'eta': 0.049, 'gamma': 0.05, 'max_depth': 22, 'min_child_weight': 21.0, 'objective': 'binary:logistic', 'predictor': 'gpu_predictor', 'sampling_method': 'gradient_based', 'subsample': 0.7000000000000001, 'tree_method': 'gpu_hist'}
+  0%|          | 2/5000 [01:29<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [0]	train-error:0.00275	val-error:0.00422
+
+  0%|          | 2/5000 [01:29<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           Multiple eval metrics have been passed: 'val-error' will be used for early stopping.
+
+
+  0%|          | 2/5000 [01:29<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           Will train until val-error hasn't improved in 20 rounds.
+
+  0%|          | 2/5000 [01:29<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [1]	train-error:0.00251	val-error:0.00423
+
+  0%|          | 2/5000 [01:30<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [2]	train-error:0.00238	val-error:0.00426
+
+  0%|          | 2/5000 [01:31<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [3]	train-error:0.00237	val-error:0.00427
+
+  0%|          | 2/5000 [01:32<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [4]	train-error:0.00238	val-error:0.00432
+
+  0%|          | 2/5000 [01:33<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [5]	train-error:0.00230	val-error:0.00426
+
+  0%|          | 2/5000 [01:34<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [6]	train-error:0.00232	val-error:0.00432
+
+  0%|          | 2/5000 [01:34<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [7]	train-error:0.00232	val-error:0.00435
+
+  0%|          | 2/5000 [01:35<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [8]	train-error:0.00234	val-error:0.00432
+
+  0%|          | 2/5000 [01:36<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [9]	train-error:0.00235	val-error:0.00434
+
+  0%|          | 2/5000 [01:37<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [10]	train-error:0.00233	val-error:0.00432
+
+  0%|          | 2/5000 [01:37<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [11]	train-error:0.00230	val-error:0.00428
+
+  0%|          | 2/5000 [01:38<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [12]	train-error:0.00230	val-error:0.00428
+
+  0%|          | 2/5000 [01:39<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [13]	train-error:0.00231	val-error:0.00429
+
+  0%|          | 2/5000 [01:40<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [14]	train-error:0.00229	val-error:0.00424
+
+  0%|          | 2/5000 [01:40<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [15]	train-error:0.00229	val-error:0.00424
+
+  0%|          | 2/5000 [01:41<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [16]	train-error:0.00228	val-error:0.00425
+
+  0%|          | 2/5000 [01:42<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [17]	train-error:0.00225	val-error:0.00420
+
+  0%|          | 2/5000 [01:42<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [18]	train-error:0.00223	val-error:0.00416
+
+  0%|          | 2/5000 [01:43<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [19]	train-error:0.00222	val-error:0.00415
+
+  0%|          | 2/5000 [01:44<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [20]	train-error:0.00220	val-error:0.00413
+
+  0%|          | 2/5000 [01:45<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [21]	train-error:0.00221	val-error:0.00413
+
+  0%|          | 2/5000 [01:45<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [22]	train-error:0.00220	val-error:0.00412
+
+  0%|          | 2/5000 [01:46<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [23]	train-error:0.00219	val-error:0.00411
+
+  0%|          | 2/5000 [01:47<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [24]	train-error:0.00220	val-error:0.00411
+
+  0%|          | 2/5000 [01:47<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [25]	train-error:0.00220	val-error:0.00411
+
+  0%|          | 2/5000 [01:48<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [26]	train-error:0.00220	val-error:0.00409
+
+  0%|          | 2/5000 [01:49<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [27]	train-error:0.00218	val-error:0.00409
+
+  0%|          | 2/5000 [01:49<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [28]	train-error:0.00218	val-error:0.00411
+
+  0%|          | 2/5000 [01:50<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [29]	train-error:0.00216	val-error:0.00410
+
+  0%|          | 2/5000 [01:51<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [30]	train-error:0.00215	val-error:0.00410
+
+  0%|          | 2/5000 [01:52<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [31]	train-error:0.00216	val-error:0.00410
+
+  0%|          | 2/5000 [01:52<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [32]	train-error:0.00215	val-error:0.00409
+
+  0%|          | 2/5000 [01:53<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [33]	train-error:0.00213	val-error:0.00408
+
+  0%|          | 2/5000 [01:54<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [34]	train-error:0.00212	val-error:0.00409
+
+  0%|          | 2/5000 [01:54<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [35]	train-error:0.00211	val-error:0.00408
+
+  0%|          | 2/5000 [01:55<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [36]	train-error:0.00211	val-error:0.00407
+
+  0%|          | 2/5000 [01:56<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [37]	train-error:0.00211	val-error:0.00408
+
+  0%|          | 2/5000 [01:56<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [38]	train-error:0.00209	val-error:0.00409
+
+  0%|          | 2/5000 [01:57<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [39]	train-error:0.00209	val-error:0.00407
+
+  0%|          | 2/5000 [01:58<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [40]	train-error:0.00208	val-error:0.00408
+
+  0%|          | 2/5000 [01:58<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [41]	train-error:0.00207	val-error:0.00409
+
+  0%|          | 2/5000 [01:59<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [42]	train-error:0.00206	val-error:0.00409
+
+  0%|          | 2/5000 [02:00<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [43]	train-error:0.00206	val-error:0.00407
+
+  0%|          | 2/5000 [02:00<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [44]	train-error:0.00205	val-error:0.00407
+
+  0%|          | 2/5000 [02:01<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [45]	train-error:0.00204	val-error:0.00407
+
+  0%|          | 2/5000 [02:01<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [46]	train-error:0.00204	val-error:0.00407
+
+  0%|          | 2/5000 [02:02<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [47]	train-error:0.00203	val-error:0.00408
+
+  0%|          | 2/5000 [02:03<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [48]	train-error:0.00202	val-error:0.00408
+
+  0%|          | 2/5000 [02:03<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [49]	train-error:0.00202	val-error:0.00409
+
+  0%|          | 2/5000 [02:04<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [50]	train-error:0.00201	val-error:0.00407
+
+  0%|          | 2/5000 [02:05<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [51]	train-error:0.00201	val-error:0.00406
+
+  0%|          | 2/5000 [02:05<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [52]	train-error:0.00200	val-error:0.00408
+
+  0%|          | 2/5000 [02:06<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [53]	train-error:0.00200	val-error:0.00408
+
+  0%|          | 2/5000 [02:06<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [54]	train-error:0.00199	val-error:0.00407
+
+  0%|          | 2/5000 [02:07<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [55]	train-error:0.00199	val-error:0.00406
+
+  0%|          | 2/5000 [02:08<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [56]	train-error:0.00199	val-error:0.00406
+
+  0%|          | 2/5000 [02:08<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [57]	train-error:0.00199	val-error:0.00407
+
+  0%|          | 2/5000 [02:09<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [58]	train-error:0.00198	val-error:0.00407
+
+  0%|          | 2/5000 [02:09<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [59]	train-error:0.00197	val-error:0.00409
+
+  0%|          | 2/5000 [02:10<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [60]	train-error:0.00196	val-error:0.00409
+
+  0%|          | 2/5000 [02:11<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [61]	train-error:0.00196	val-error:0.00409
+
+  0%|          | 2/5000 [02:11<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [62]	train-error:0.00195	val-error:0.00408
+
+  0%|          | 2/5000 [02:12<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [63]	train-error:0.00195	val-error:0.00408
+
+  0%|          | 2/5000 [02:12<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [64]	train-error:0.00194	val-error:0.00408
+
+  0%|          | 2/5000 [02:13<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [65]	train-error:0.00193	val-error:0.00408
+
+  0%|          | 2/5000 [02:14<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [66]	train-error:0.00193	val-error:0.00408
+
+  0%|          | 2/5000 [02:14<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [67]	train-error:0.00192	val-error:0.00408
+
+  0%|          | 2/5000 [02:15<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [68]	train-error:0.00192	val-error:0.00409
+
+  0%|          | 2/5000 [02:15<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [69]	train-error:0.00191	val-error:0.00408
+
+  0%|          | 2/5000 [02:16<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [70]	train-error:0.00190	val-error:0.00408
+
+  0%|          | 2/5000 [02:16<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [71]	train-error:0.00189	val-error:0.00409
+
+  0%|          | 2/5000 [02:17<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [72]	train-error:0.00189	val-error:0.00408
+
+  0%|          | 2/5000 [02:17<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [73]	train-error:0.00189	val-error:0.00408
+
+  0%|          | 2/5000 [02:18<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [74]	train-error:0.00188	val-error:0.00408
+
+  0%|          | 2/5000 [02:19<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           [75]	train-error:0.00188	val-error:0.00409
+
+  0%|          | 2/5000 [02:20<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           Stopping. Best iteration:
+[55]	train-error:0.00199	val-error:0.00406
+
+
+  0%|          | 2/5000 [02:20<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           	bestValScore: 0.00406
+  0%|          | 2/5000 [02:20<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           	bestNtreeLimit: 56
+  0%|          | 2/5000 [02:20<60:29:07, 43.57s/trial, best loss: 0.995878]                                                                           	theScore : 0.99594
+  0%|          | 2/5000 [02:20<60:29:07, 43.57s/trial, best loss: 0.995878]  0%|          | 3/5000 [02:20<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           
+
+Training with params : {'alpha': 800.0, 'colsample_bytree': 0.649, 'eta': 0.045, 'gamma': 0.05, 'max_depth': 22, 'min_child_weight': 21.0, 'objective': 'binary:logistic', 'predictor': 'gpu_predictor', 'sampling_method': 'gradient_based', 'subsample': 0.7000000000000001, 'tree_method': 'gpu_hist'}
+  0%|          | 3/5000 [02:20<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [0]	train-error:0.00277	val-error:0.00424
+
+  0%|          | 3/5000 [02:21<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           Multiple eval metrics have been passed: 'val-error' will be used for early stopping.
+
+
+  0%|          | 3/5000 [02:21<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           Will train until val-error hasn't improved in 20 rounds.
+
+  0%|          | 3/5000 [02:21<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [1]	train-error:0.00253	val-error:0.00425
+
+  0%|          | 3/5000 [02:21<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [2]	train-error:0.00240	val-error:0.00428
+
+  0%|          | 3/5000 [02:22<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [3]	train-error:0.00239	val-error:0.00426
+
+  0%|          | 3/5000 [02:23<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [4]	train-error:0.00240	val-error:0.00432
+
+  0%|          | 3/5000 [02:24<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [5]	train-error:0.00232	val-error:0.00428
+
+  0%|          | 3/5000 [02:24<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [6]	train-error:0.00234	val-error:0.00434
+
+  0%|          | 3/5000 [02:25<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [7]	train-error:0.00235	val-error:0.00437
+
+  0%|          | 3/5000 [02:26<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [8]	train-error:0.00237	val-error:0.00431
+
+  0%|          | 3/5000 [02:27<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [9]	train-error:0.00239	val-error:0.00433
+
+  0%|          | 3/5000 [02:27<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [10]	train-error:0.00236	val-error:0.00432
+
+  0%|          | 3/5000 [02:28<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [11]	train-error:0.00233	val-error:0.00427
+
+  0%|          | 3/5000 [02:29<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [12]	train-error:0.00233	val-error:0.00426
+
+  0%|          | 3/5000 [02:29<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [13]	train-error:0.00234	val-error:0.00431
+
+  0%|          | 3/5000 [02:30<63:42:45, 45.90s/trial, best loss: 0.995878]                                                                           [14]	train-error:0.00232	val-error:0.00428
+
+  0%|          | 3/5000 [02:31<63:42:45, 45.90s/trial, best loss: 0.995878]  0%|          | 3/5000 [02:31<70:18:07, 50.65s/trial, best loss: 0.995878]

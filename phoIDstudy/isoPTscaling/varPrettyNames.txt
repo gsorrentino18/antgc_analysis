@@ -10,3 +10,4 @@ phoPFChWorstIsoRaw							==	I_{CH}^{max} (GeV)														==		11000,-50.,500.
 phoPFNeuIsoRaw								==	I_{NH} (GeV)															==		11000,-50.,500.
 phoPFPhoIsoRaw								==	I_{#gamma} (GeV)														==		11000,-50.,500.
 phoPt 										== 	p_{T}^{#gamma} (GeV)													==		40,200.,1200.
+phoHoverE									==	H/E - #rhoA_{eff}														==		500,0.,1.

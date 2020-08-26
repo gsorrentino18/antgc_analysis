@@ -243,8 +243,7 @@ struct Profile2D;
 struct parseOptions;
 struct bitBar2D;
 struct effectiveAreaMap;
-struct linearPtScalingMap;
-struct quadPtScalingMap;
+struct isoPtScalingMap;
 struct coronaCorrections;
 struct BGset;
 template <typename anytype>
@@ -253,6 +252,7 @@ template <typename anytype>
 struct indexer;
 struct DinkyHister;
 struct logStream;
+struct correlationMatix;
 
 
 class CSVReader;
@@ -328,10 +328,10 @@ struct TTreeReaderAnyValue{
 		val = nullptr;
 	};
 	void set(TTreeReader & ttreereader, std::string branchname){
-		if(!branchExists(branchname, ttreereader.GetTree())){
-			std::cout<<"\t\tError! Branch "<<branchname<<" does not exist in TTree "<<ttreereader.GetTree()->GetName()<<std::endl;
-			exit(EXIT_FAILURE);
-		}
+		// if(!branchExists(branchname, ttreereader.GetTree())){
+		// 	std::cout<<"\t\tError! Branch "<<branchname<<" does not exist in TTree "<<ttreereader.GetTree()->GetName()<<std::endl;
+		// 	exit(EXIT_FAILURE);
+		// }
 		delete val;
 		val = new TTreeReaderValue<anytype>(ttreereader,branchname.c_str());
 		std::cout<<"\t\tInitialized branch <"<< boost::typeindex::type_id<anytype>().pretty_name() <<"> "<<branchname<<std::endl;
@@ -378,10 +378,10 @@ struct TTreeReaderArrayValue{
 		val = nullptr;
 	};
 	void set(TTreeReader & ttreereader, std::string branchname){
-		if(!branchExists(branchname, ttreereader.GetTree())){
-			std::cout<<"\t\tError! Branch "<<branchname<<" does not exist in TTree "<<ttreereader.GetTree()->GetName()<<std::endl;
-			exit (EXIT_FAILURE);
-		}
+		// if(!branchExists(branchname, ttreereader.GetTree())){
+		// 	std::cout<<"\t\tError! Branch "<<branchname<<" does not exist in TTree "<<ttreereader.GetTree()->GetName()<<std::endl;
+		// 	exit (EXIT_FAILURE);
+		// }
 		val = new TTreeReaderArray<anytype>(ttreereader,branchname.c_str());
 		std::cout<<"\t\tInitialized array branch <"<< boost::typeindex::type_id<anytype>().pretty_name() <<"> "<<branchname<<std::endl;
 	};
@@ -875,6 +875,7 @@ public:
 
 struct effectiveAreaMap{
 	std::map<Float_t, Float_t> effectiveAreas;
+	std::string mapFile;
 
 	effectiveAreaMap(){};
 
@@ -882,12 +883,13 @@ struct effectiveAreaMap{
 		init(mapFile, _verbose, _delimiter, _firstLine);
 	};
 
-	void init(std::string mapFile, Bool_t _verbose=1, std::string _delimiter="        ", Int_t _firstLine = 2){
-		if(!file_exists(mapFile)){
+	void init(std::string _mapFile, Bool_t _verbose=1, std::string _delimiter="        ", Int_t _firstLine = 2){
+		if(!file_exists(_mapFile)){
 			std::cout<<"\tError! File does not exist! "<<mapFile<<std::endl;
 			exit(EXIT_FAILURE);
 		}
 
+		mapFile = _mapFile;
 		CSVReader readFile(mapFile, _delimiter);
 		std::vector<std::vector<std::string>> effAreaData 		= 	readFile.getData();
 
@@ -898,7 +900,7 @@ struct effectiveAreaMap{
 		}
 
 		if(_verbose){
-			std::cout<<"\tEffective area loaded from file: "<< mapFile<<std::endl;
+			std::cout<<"\tEffective areas loaded from file: "<< mapFile<<std::endl;
 			std::cout<<"\t\t\t|eta|\t\tEA:"<<std::endl;
 			for(std::map<Float_t, Float_t>::iterator iEl 		= 	effectiveAreas.begin(); iEl != effectiveAreas.end(); iEl++){
 				std::cout<<"\t\t\t"<<iEl->first<<"\t\t"<<iEl->second<<std::endl;
@@ -907,25 +909,92 @@ struct effectiveAreaMap{
 	};
 
 	Float_t getEffectiveArea(Float_t absEta){
-		// std::map<Float_t, Float_t>::iterator iBin = effectiveAreas.lower_bound(absEta);
-		// return iBin->second;
-		return effectiveAreas.lower_bound(absEta)->second;
+		if(effectiveAreas.empty()) return 0.;
+		std::map<Float_t, Float_t>::iterator iBin = effectiveAreas.lower_bound(absEta);
+		if(iBin == effectiveAreas.end()){
+			std::cout<<"Error! Eta "<<absEta<<" is outside range specified in map "<<mapFile<<std::endl;
+			return 0.;
+		}
+		return iBin->second;
 	};
 
 	Float_t getEffectiveAreaAbs(Float_t eta){
-		return effectiveAreas.lower_bound(std::abs(eta))->second;
+		if(effectiveAreas.empty()) return 0.;
+		std::map<Float_t, Float_t>::iterator iBin = effectiveAreas.lower_bound(std::abs(eta));
+		if(iBin == effectiveAreas.end()){
+			std::cout<<"Error! Eta "<<eta<<" is outside range specified in map "<<mapFile<<std::endl;
+			return 0.;
+		}
+		return iBin->second;
 	};
 };
 
+struct isoPtScalingMap{
 
-struct linearPtScalingMap{
+	std::map<Float_t, std::pair<Float_t,Float_t>> ptScalingCoeffs;
+	std::map<Float_t, std::pair<Float_t,Float_t>>::iterator etaBin;
+	Bool_t isQuadratic;
+	std::string mapFile;
+
+	isoPtScalingMap(){};
+
+	isoPtScalingMap(std::string _mapFile, Bool_t _isQuadratic, Bool_t _verbose=1, std::string _delimiter="        ", Int_t _firstLine = 2){
+		init(_mapFile, _isQuadratic, _verbose, _delimiter, _firstLine);
+	};
+
+	void init(std::string _mapFile, Bool_t _isQuadratic, Bool_t _verbose=1, std::string _delimiter="        ", Int_t _firstLine = 2){
+		if(!file_exists(_mapFile)){
+			std::cout<<"\tError! Isolation scaling file does not exist! "<<_mapFile<<std::endl;
+			exit(EXIT_FAILURE);
+		}
+		mapFile = _mapFile;
+		isQuadratic = _isQuadratic;
+
+		CSVReader readFile(_mapFile, _delimiter);
+		std::vector<std::vector<std::string>> ptScalingData 		= 	readFile.getData();
+
+		for(UInt_t iRow = _firstLine; iRow < ptScalingData.size(); iRow++){
+			Float_t uBound 										= 	std::stof(ptScalingData[iRow][1]);
+			Float_t c1 											= 	std::stof(ptScalingData[iRow][3]);
+			Float_t c2 											= 	_isQuadratic ? std::stof(ptScalingData[iRow][4]) : 0.;
+			ptScalingCoeffs[uBound] 								= 	std::make_pair(c1,c2);
+		}
+
+		if(_verbose){
+			std::cout<<"\tIsolation pT scalingsa loaded from file: "<< _mapFile<<std::endl;
+			std::cout<<"\t\t\t|eta|\t\t\tc1:\t\t\tc2"<<std::endl;
+			for(std::map<Float_t, std::pair<Float_t,Float_t>>::iterator iEl	= 	ptScalingCoeffs.begin(); iEl != ptScalingCoeffs.end(); iEl++){
+				std::cout<<"\t\t\t"<<iEl->first<<"\t\t\t"<<iEl->second.first<<"\t\t"<<iEl->second.second<<std::endl;
+			}
+		}
+	};
+
+	Float_t getPtScaling(Float_t _absEta, Float_t _pT){
+		etaBin = ptScalingCoeffs.lower_bound(_absEta);
+
+		if(etaBin == ptScalingCoeffs.end()){
+			std::cout<<"Error! Eta "<< _absEta <<" is outside range specified in map "<<mapFile<<std::endl;
+			return 0.;
+		}
+
+		Float_t scalingCorrection = (etaBin->second.first)*_pT + (isQuadratic ? (etaBin->second.second)*_pT*_pT : 0.);
+		return scalingCorrection;
+	};
+
+	Float_t getPtScalingAbs(Float_t _eta, Float_t _pT){
+		etaBin = ptScalingCoeffs.lower_bound(std::abs(_eta));
+
+		if(etaBin == ptScalingCoeffs.end()){
+			std::cout<<"Error! Eta "<< _eta <<" is outside range specified in map "<<mapFile<<std::endl;
+			return 0.;
+		}
+
+		Float_t scalingCorrection = (etaBin->second.first)*_pT + (isQuadratic ? (etaBin->second.second)*_pT*_pT : 0.);
+		return scalingCorrection;
+	};
 
 };
 
-
-struct quadPtScalingMap{
-
-};
 
 struct coronaCorrections{
 	std::vector<std::vector<Float_t>>							percentiles;
@@ -1325,7 +1394,7 @@ Double_t deltaR(Double_t _eta1, Double_t _phi1, Double_t _eta2, Double_t _phi2){
 
 Double_t deltaPhi(Double_t phi1, Double_t phi2){
 	Double_t tmpDeltaPhi = std::abs(phi2-phi1);
-	Double_t minDeltaPhi = (tmpDeltaPhi > (2*TMath::Pi() - tmpDeltaPhi)) ? (2*TMath::Pi() - tmpDeltaPhi) : tmpDeltaPhi;
+	Double_t minDeltaPhi = (tmpDeltaPhi > TMath::Pi()) ? (2*TMath::Pi() - tmpDeltaPhi) : tmpDeltaPhi;
 	return minDeltaPhi;
 };
 
@@ -2927,6 +2996,24 @@ struct DinkyHister{
 	THStack histStack;
 	std::string titles;
 };
+
+
+// struct correlationMatix{
+// 	UInt_t 								nVar;
+// 	std::vector<std::vector<Double_t>>	2p;
+// 	std::vector<std::vector<Double_t>>	1p;
+// 	Double_t 							sumW;
+
+// 	correlationMatix(){};
+
+// 	correlationMatix(Int_t _nVar){
+// 		nVar 			=	_nVar;
+// 		2p				=	std::vector<std::vector<Double_t>>(nVar, std::vector<Double_t>(nVar, 0.));
+// 		1p				=	std::vector<std::vector<Double_t>>(nVar, std::vector<Double_t>(nVar, 0.));
+// 		sumW 			= 	0.;
+// 	};
+
+// };
 
 
 std::string stringToUpper(std::string _str){

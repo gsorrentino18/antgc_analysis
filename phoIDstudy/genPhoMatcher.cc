@@ -566,7 +566,7 @@ void genPhoMatcher::analyze(){
 				nvtxPostweight.Fill(_nVtx, genPUweight);
 			} else{
 				genWeight_ = _genWeight;
-				puWeight_ = genWeight_;    
+				puWeight_ = 1.;    
 			}
 			pileupPreweight.Fill(_puTrue, genWeight_);
 		}
@@ -614,6 +614,7 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	}
 
 	Short_t phoSCindex 		= _phoDirectEcalSCindex[_phoIndex];
+	phoSCeta_ 				= _ecalSCeta[phoSCindex];
 	Float_t phoAbsSCEta 	= std::abs(phoSCeta_);
 
 	phoPt_ 					= _phoCalibEt[_phoIndex];
@@ -683,7 +684,6 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex){
 	
 	phoSCet_ 				= (_ecalSCEn[phoSCindex]) / std::cosh(phoSCeta_);
 	phoSCrawet_				= (_ecalSCRawEn[phoSCindex]) / std::cosh(phoSCeta_);
-	phoSCeta_ 				= _ecalSCeta[phoSCindex];
 	phoSCphi_ 				= _ecalSCphi[phoSCindex];
 	phoSCEn_ 				= _ecalSCEn[phoSCindex];
 	phoSCRawEn_				= _ecalSCRawEn[phoSCindex];

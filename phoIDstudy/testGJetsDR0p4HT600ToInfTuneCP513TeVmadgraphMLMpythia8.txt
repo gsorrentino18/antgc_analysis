@@ -1,1 +1,1 @@
-/data/cmszfs1/user/wadud/aNTGCmet/ntuples/METv5/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8_001.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8_000.root

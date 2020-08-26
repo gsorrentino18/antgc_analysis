@@ -12,7 +12,8 @@ void #macroname(){
 				"#CHEffArea",
 				"#WCHEffArea",
 				"#PhoEffArea",
-				"#NHEffArea");
+				"#NHEffArea",
+				"#BDTpath");
 
 	std::cout<<"End root macro!"<<std::endl;
 	std::cout<<getCurrentTime()<<std::endl;
