@@ -10,7 +10,7 @@ Method         : Cuts::CutsGA
 TMVA Release   : 4.2.1         [262657]
 ROOT Release   : 6.18/04       [397828]
 Creator        : wadud
-Date           : Wed Aug 26 02:30:27 2020
+Date           : Fri Aug 28 18:07:09 2020
 Host           : Linux cmsbuild01.cern.ch 3.10.0-1062.9.1.el7.x86_64 #1 SMP Fri Dec 6 15:49:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
 Dir            : /data/cmszfs1/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/cutOptimize
 Training events: 2787577

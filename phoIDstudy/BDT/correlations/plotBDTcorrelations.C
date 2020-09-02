@@ -248,18 +248,18 @@ void 															initialize(){
 		delete isoPtScaling;
 	}
 
-	std::string 							isoCorrelationOutFilePath	 				= 	options.get("writeDir") + "/" +std::to_string(plotSignal) + "_CombinedIso.txt";
-	ofstream 								isoCorrelationOutFile 							(isoCorrelationOutFilePath, std::ofstream::out);
-	for(std::string iPtBinStr : pTbins){
-		std::vector<Float_t> iPtMinMax = strToFloatList(iPtBinStr, ",");
-		std::cout<<"Pt: "<<iPtMinMax[0]<<"-"<<iPtMinMax[1]<<std::endl;
-		for(std::string iEtaBinStr : etaBins){
-			std::vector<Float_t> iEtaMinMax = strToFloatList(iEtaBinStr, ",");
-			std::cout<<"Eta: "<<iEtaMinMax[0]<<"-"<<iEtaMinMax[1]<<std::endl;
-			getCombIsoCorrelation(bdtVar, iEtaMinMax[0], iEtaMinMax[1], iPtMinMax[0], iPtMinMax[1], &isoCorrelationOutFile);
-		}
-	}
-	isoCorrelationOutFile.close();
+	// std::string 							isoCorrelationOutFilePath	 				= 	options.get("writeDir") + "/" +std::to_string(plotSignal) + "_CombinedIso.txt";
+	// ofstream 								isoCorrelationOutFile 							(isoCorrelationOutFilePath, std::ofstream::out);
+	// for(std::string iPtBinStr : pTbins){
+	// 	std::vector<Float_t> iPtMinMax = strToFloatList(iPtBinStr, ",");
+	// 	std::cout<<"Pt: "<<iPtMinMax[0]<<"-"<<iPtMinMax[1]<<std::endl;
+	// 	for(std::string iEtaBinStr : etaBins){
+	// 		std::vector<Float_t> iEtaMinMax = strToFloatList(iEtaBinStr, ",");
+	// 		std::cout<<"Eta: "<<iEtaMinMax[0]<<"-"<<iEtaMinMax[1]<<std::endl;
+	// 		getCombIsoCorrelation(bdtVar, iEtaMinMax[0], iEtaMinMax[1], iPtMinMax[0], iPtMinMax[1], &isoCorrelationOutFile);
+	// 	}
+	// }
+	// isoCorrelationOutFile.close();
 };
 
 

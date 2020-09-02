@@ -1,6 +1,6 @@
 rho											==	#rho (GeV)																==		80,0.,80.
-phoPFClusEcalIso							==	I_{ECAL}^{PFClus} (GeV)													==		35,-15.,20.
-phoPFClusHcalIso							==	I_{HCAL}^{PFClus} (GeV)													==		500,-50.,50.
+phoPFClusEcalIso							==	I_{ECAL}^{PFClus} (GeV)													==		140,-15.,20.
+phoPFClusHcalIso							==	I_{HCAL}^{PFClus} (GeV)													==		300,-50.,100.
 phoTrkSumPtSolidConeDR04					==	I_{Tkr} (GeV)															==		500,-50.,50.
 phoTrkSumPtHollowConeDR04					==	I_{TkrH} (GeV)															==		500,-50.,50.
 phoTrkSumPtSolidConeDR03					==	I_{Tkr} (GeV)															==		500,-50.,50.
@@ -11,3 +11,43 @@ phoPFNeuIsoRaw								==	I_{NH} (GeV)															==		500,-50.,50.
 phoPFPhoIsoRaw								==	I_{#gamma} (GeV)														==		500,-50.,50.
 bdtScore 									==	BDT Score 																==		1000.,0.,1.
 phoHoverE									==	H/E 																	==		500,0.,1.
+
+rho											==	#rho (GeV)																==		80,0.,80.
+phoPFClusEcalIso							==	I_{ECAL}^{PFClus} (GeV)													==		11000,-50.,500.
+phoPFClusHcalIso							==	I_{HCAL}^{PFClus} (GeV)													==		11000,-50.,500.
+phoTrkSumPtSolidConeDR04					==	I_{Tkr} (GeV)															==		11000,-50.,500.
+phoTrkSumPtHollowConeDR04					==	I_{TkrH} (GeV)															==		11000,-50.,500.
+phoTrkSumPtSolidConeDR03					==	I_{Tkr} (GeV)															==		11000,-50.,500.
+phoTrkSumPtHollowConeDR03					==	I_{TkrH} (GeV)															==		11000,-50.,500.
+phoPFChIsoRaw								==	I_{CH} (GeV)															==		11000,-50.,500.
+phoPFChWorstIsoRaw							==	I_{CH}^{max} (GeV)														==		11000,-50.,500.
+phoPFNeuIsoRaw								==	I_{NH} (GeV)															==		11000,-50.,500.
+phoPFPhoIsoRaw								==	I_{#gamma} (GeV)														==		11000,-50.,500.
+phoPt 										== 	p_{T} (GeV)																	==		40,200.,1200.
+phoEta 										== 	#eta																		==		40,200.,1200.
+
+phoHoverE									==	H/E																		==		200,0.,0.02
+phoPFClusEcalIsoCorr						== Corr. I_{ECAL}^{PFClus} (GeV)										==		232,-8.,50.
+phoPFClusHcalIsoCorr						== Corr. I_{HCAL}^{PFClus} (GeV)										==		480,-20.,100.
+phoTrkSumPtHollowConeDR03Corr				== Corr. I_{TkrH} (GeV) (GeV)											==		168,-2.,40.
+
+phoE5x5OESCrFull5x5 						== 	E_{5#times5}/E_{SC}^{raw}												==		140,0.5,1.2
+phoE2x5OESCrFull5x5 						== 	E_{2#times5}/E_{SC}^{raw}												==		150,0.25,1.
+phoSigmaIEtaIEta 							== 	#sigma_{i#etai#eta}														==		290,0.0055,0.02
+phoE2ndOE3x3Full5x5 						== 	E_{2#times2}/E_{3#times3}												==		200,0.5,1.
+phoE1x3OESCrFull5x5 						== 	E_{1#times3}/E_{SC}^{raw}												==		200,0.,1.
+phoEtaWidth 								== 	#sigma_{#eta}															==		160,0.005,0.025
+phoSigmaIPhiIPhi 							== 	#sigma_{i#phii#phi}														==		217,0.006,0.03
+phoS4Full5x5 								== 	E_{2#times2}/E_{SC}^{raw}												==		180,0.1,1.
+phoPhiWidth 								== 	#sigma_{#phi}															==		150,0.005,0.08
+phoSigmaIEtaIPhi 							== 	#sigma_{i#etai#phi}														==		400,-0.00025,0.00025
+phoR9Full5x5 								== 	E_{3#times3}/E_{SC}^{raw}												==		150,0.3,1.05
+phoEmaxOE3x3Full5x5 						== 	E_{max}/E_{3#times3}													==		200,0.,1.
+phoE2ndOESCrFull5x5 						== 	E_{2}/E_{SC}^{raw}														==		200,0.,1.
+phoE2ndOEmaxFull5x5 						== 	E_{2}/E_{max}															==		201,0.,1.005
+phoEmaxOESCrFull5x5 						== 	E_{max}/E_{SC}^{raw}													==		200,0.,1.
+phoEtaWOPhiWFull5x5 						== 	#sigma_{#eta}/#sigma_{#phi}												==		300,0.,1.5
+phoSieieOSipipFull5x5 						== 	#sigma_{i#etai#eta}/#sigma_{i#phii#phi}									==		280,0.3,1.7
+phoE2ndOESCrFull5x5 						== 	E_{2}/E_{SC}^{raw}														==		100,0.,0.5
+
+bdtScore 									==	BDT Score 																==		200.,0.,1.

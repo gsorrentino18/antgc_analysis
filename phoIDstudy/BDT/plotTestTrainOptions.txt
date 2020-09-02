@@ -1,0 +1,55 @@
+etaBins 								==		0.,1.4442
+pTbins 									==		200,1200
+
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/plots/bdtDistribution/
+
+prettyNamesFile 							==	varPrettyNames.txt
+
+testLineStyle						== 1
+trainLineStyle						== 1
+testLineWidth						== 2.
+trainLineWidth						== 3
+yTitle 								== a.u.
+
+testSignalColor							==	238b45
+trainSignalColor							==	e31a1c
+testBackgroundColor						==	6a51a3
+trainBackgroundColor						==	8c510a
+
+testSignalMkrStyle						==	20
+testBackgroundMkrStyle						==	21
+
+mkrSize 								== 1.5
+
+yScaleup 							==	1.38
+yScaleupLog 							==	10000
+logX 								==	0
+
+canvasX								== 2000
+canvasY								==1800
+pad0x1								==0.
+pad0x2								==1.
+pad0y1								==0.
+pad0y2								==1.
+pad0marginL							==0.14
+pad0marginR							==0.05
+pad0marginB							==0.14
+pad0marginT							==0.05
+pad0axisLabelSize					==0.05
+pad0axisTitleSize					==0.055
+pad0XtitleOffset					==1.15
+pad0YtitleOffset					==1.3
+pad0yNdivs							==510
+pad0xNdivs							==510
+
+legFillStyle 							== 		1000
+legFillColor 							== 		d9d9d9
+legFillColorAlpha 						== 		0.95
+legW 								==	0.5
+legH 								==	0.18
+legendx1							==0.4
+legendx2							==0.945
+legendy1							==0.75
+legendy2							==0.948
+legendTextSize						==0.04
+legendNcols							==1

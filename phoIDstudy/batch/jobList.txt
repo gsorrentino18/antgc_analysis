@@ -1,1 +1,2 @@
-GJetsHT200To400TuneCP513TeVmadgraphMLMpythia8
+TGJetsTuneCP513TeVamcatnlomadspinpythia8
+TTGJetsTuneCP513TeVamcatnloFXFXmadspinpythia8

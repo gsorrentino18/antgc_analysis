@@ -9,7 +9,8 @@ phoPFChIsoRaw								==	I_{CH} (GeV)															==		11000,-50.,500.
 phoPFChWorstIsoRaw							==	I_{CH}^{max} (GeV)														==		11000,-50.,500.
 phoPFNeuIsoRaw								==	I_{NH} (GeV)															==		11000,-50.,500.
 phoPFPhoIsoRaw								==	I_{#gamma} (GeV)														==		11000,-50.,500.
-phoPt 										== 	p_{T}^{#gamma} (GeV)													==		40,200.,1200.
+phoPt 										== 	p_{T} (GeV)																	==		40,200.,1200.
+phoEta 										== 	#eta																		==		40,200.,1200.
 
 phoHoverE									==	H/E																		==		200,0.,0.02
 phoPFClusEcalIsoCorr						== Corr. I_{ECAL}^{PFClus} (GeV)										==		232,-8.,50.
@@ -34,3 +35,5 @@ phoEmaxOESCrFull5x5 						== 	E_{max}/E_{SC}^{raw}													==		200,0.,1.
 phoEtaWOPhiWFull5x5 						== 	#sigma_{#eta}/#sigma_{#phi}												==		300,0.,1.5
 phoSieieOSipipFull5x5 						== 	#sigma_{i#etai#eta}/#sigma_{i#phii#phi}									==		280,0.3,1.7
 phoE2ndOESCrFull5x5 						== 	E_{2}/E_{SC}^{raw}														==		100,0.,0.5
+
+bdtScore 									==	BDT Score 																==		200.,0.,1.

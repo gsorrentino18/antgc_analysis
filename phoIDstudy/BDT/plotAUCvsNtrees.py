@@ -25,3 +25,4 @@ plt.xlabel('Number of Boosting Rounds')
 plt.ylabel('AUC')
 
 plt.savefig('AUCvsTrees.png', dpi=600)
+plt.savefig('AUCvsTrees.pdf', dpi=600)

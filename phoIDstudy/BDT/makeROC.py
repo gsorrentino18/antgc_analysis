@@ -45,34 +45,40 @@ trainW = data[(data.isTrain == 1) & (data.isValidation==0)]['bdtWeightF']
 trainAUC = aucW(trainY, trainPredY, trainW)
 print("Train AUC computed!")
 
+validationY = data[(data.isValidation==1)]['isSignal']
+validationPredY = data[(data.isValidation==1)]['bdtScore']
+validationW = data[(data.isValidation==1)]['bdtWeightF']
+validationAUC = aucW(validationY, validationPredY, validationW)
+print("Train AUC computed!")
+
 testY = data[data.isTrain == 0]['isSignal']
 testPredY = data[data.isTrain == 0]['bdtScore']
 testW = data[data.isTrain == 0]['bdtWeightF']
 testAUC = aucW(testY, testPredY, testW)
 print("Test AUC computed!")
 
-oldBDTPredY = data[data.isTrain == 0]['phoBDTpredictionHoE']
-oldBDTAUC = aucW(testY, oldBDTPredY, testW)
-print("Old AUC computed!")
+# oldBDTPredY = data[data.isTrain == 0]['phoBDTpredictionHoE']
+# oldBDTAUC = aucW(testY, oldBDTPredY, testW)
+# print("Old AUC computed!")
 
 
-data['looseID'] = data['phoIDbit'] & (1 << 0)
-data['looseID'] = data['looseID'].astype('bool')
-lSigEff	= data[(data.isSignal==1) & (data.looseID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-lBgEff	= data[(data.isSignal==0) & (data.looseID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
-print("Loose efficiencies calculated!")
+# data['looseID'] = data['phoIDbit'] & (1 << 0)
+# data['looseID'] = data['looseID'].astype('bool')
+# lSigEff	= data[(data.isSignal==1) & (data.looseID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
+# lBgEff	= data[(data.isSignal==0) & (data.looseID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+# print("Loose efficiencies calculated!")
 
-data['mediumID'] = data['phoIDbit'] & (1 << 1)
-data['mediumID'] = data['mediumID'].astype('bool')
-mSigEff	= data[(data.isSignal==1) & (data.mediumID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-mBgEff	= data[(data.isSignal==0) & (data.mediumID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
-print("Medium efficiencies calculated!")
+# data['mediumID'] = data['phoIDbit'] & (1 << 1)
+# data['mediumID'] = data['mediumID'].astype('bool')
+# mSigEff	= data[(data.isSignal==1) & (data.mediumID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
+# mBgEff	= data[(data.isSignal==0) & (data.mediumID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+# print("Medium efficiencies calculated!")
 
-data['tightID'] = data['phoIDbit'] & (1 << 2)
-data['tightID'] = data['tightID'].astype('bool')
-tSigEff	= data[(data.isSignal==1) & (data.tightID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-tBgEff	= data[(data.isSignal==0) & (data.tightID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
-print("Tight efficiencies calculated!")
+# data['tightID'] = data['phoIDbit'] & (1 << 2)
+# data['tightID'] = data['tightID'].astype('bool')
+# tSigEff	= data[(data.isSignal==1) & (data.tightID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
+# tBgEff	= data[(data.isSignal==0) & (data.tightID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+# print("Tight efficiencies calculated!")
 
 print("Making plot!")
 
@@ -83,25 +89,31 @@ plt.rc('legend', fontsize='medium')
 plt.figure(1)
 
 bkgEff, sigEff, thres = roc_curve(trainY, trainPredY, sample_weight=trainW)
-plt.plot(bkgEff, sigEff, label='Train: AUC=%1.5f, S=%d(%d%%), B=%d(%d%%)' %
+plt.plot(bkgEff, sigEff, label='Train: AUC=%1.5f, S=%.0f(%.0f%%), B=%.0f(%.0f%%)' %
 		 (trainAUC, np.count_nonzero(trainY == 1), 100. * np.count_nonzero(trainY == 1) / len(trainY), np.count_nonzero(trainY == 0), 100. * np.count_nonzero(trainY == 0) / len(trainY)), color='#034e7b')
 
+
+bkgEff, sigEff, thres = roc_curve(validationY, validationPredY, sample_weight=validationW)
+plt.plot(bkgEff, sigEff, label='Validation: AUC=%1.5f, S=%.0f(%.0f%%), B=%.0f(%.0f%%)' %
+		 (validationAUC, np.count_nonzero(validationY == 1), 100. * np.count_nonzero(validationY == 1) / len(validationY), np.count_nonzero(validationY == 0), 100. * np.count_nonzero(validationY == 0) / len(validationY)), color='#1b7837')
+
+
 bkgEff, sigEff, thres = roc_curve(testY, testPredY, sample_weight=testW)
-plt.plot(bkgEff, sigEff, label='Test: AUC=%1.5f, S=%d(%d%%), B=%d(%d%%)' %
+plt.plot(bkgEff, sigEff, label='Test: AUC=%1.5f, S=%.0f(%.0f%%), B=%.0f(%.0f%%)' %
 		 (testAUC, np.count_nonzero(testY == 1), 100. * np.count_nonzero(testY == 1) / len(testY), np.count_nonzero(testY == 0), 100. * np.count_nonzero(testY == 0) / len(testY)), color='#d73027')
 
-bkgEff, sigEff, thres = roc_curve(testY, oldBDTPredY, sample_weight=testW)
-plt.plot(bkgEff, sigEff, label='H/E BDT: AUC=%1.5f, S=%d(%d%%), B=%d(%d%%)' %
-		 (oldBDTAUC, np.count_nonzero(testY == 1), 100. * np.count_nonzero(testY == 1) / len(testY), np.count_nonzero(testY == 0), 100. * np.count_nonzero(testY == 0) / len(testY)), color='#238443')
+# bkgEff, sigEff, thres = roc_curve(testY, oldBDTPredY, sample_weight=testW)
+# plt.plot(bkgEff, sigEff, label='H/E BDT: AUC=%1.5f, S=%.0f(%.0f%%), B=%.0f(%.0f%%)' %
+# 		 (oldBDTAUC, np.count_nonzero(testY == 1), 100. * np.count_nonzero(testY == 1) / len(testY), np.count_nonzero(testY == 0), 100. * np.count_nonzero(testY == 0) / len(testY)), color='#238443')
 
-plt.plot([lBgEff], [lSigEff], marker='o', markersize=3, color="black")
-plt.text(lBgEff*0.98,lSigEff,'Loose(%1.3f,%1.3f)' %(lBgEff, lSigEff),horizontalalignment='left', va='bottom', fontsize=9)
+# plt.plot([lBgEff], [lSigEff], marker='o', markersize=3, color="black")
+# plt.text(lBgEff*0.98,lSigEff,'Loose(%1.3f,%1.3f)' %(lBgEff, lSigEff),horizontalalignment='left', va='bottom', fontsize=9)
 
-plt.plot([mBgEff], [mSigEff], marker='o', markersize=3, color="black")
-plt.text(mBgEff*0.98,mSigEff,'Medium(%1.3f,%1.3f)' %(mBgEff, mSigEff),horizontalalignment='left', va='bottom', fontsize=9)
+# plt.plot([mBgEff], [mSigEff], marker='o', markersize=3, color="black")
+# plt.text(mBgEff*0.98,mSigEff,'Medium(%1.3f,%1.3f)' %(mBgEff, mSigEff),horizontalalignment='left', va='bottom', fontsize=9)
 
-plt.plot([tBgEff], [tSigEff], marker='o', markersize=3, color="black")
-plt.text(tBgEff*0.98,tSigEff,'Tight(%1.3f,%1.3f)' %(tBgEff, tSigEff),horizontalalignment='left', va='bottom', fontsize=9)
+# plt.plot([tBgEff], [tSigEff], marker='o', markersize=3, color="black")
+# plt.text(tBgEff*0.98,tSigEff,'Tight(%1.3f,%1.3f)' %(tBgEff, tSigEff),horizontalalignment='left', va='bottom', fontsize=9)
 
 plt.legend(loc="lower right")
 plt.grid()

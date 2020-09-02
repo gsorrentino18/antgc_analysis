@@ -1,0 +1,44 @@
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/correlations/plots/
+
+featsFile								==		/hdfs/cms/user/wadud/anTGC/BDTdata/mergedSamplesShuffled.root
+featsTree								==		fullEB_Tree
+bdtFile									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/optimizedV1/BDTresults_0.root
+bdtTree									==		fullEB_BDT_Tree
+prettyNamesFile 						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/correlations/varPrettyNames.txt
+
+plotSignal								==		1
+
+pTrange 								==		200,1200
+etaRange 								==		0., 1.4442
+useSaved 								==		1
+
+drawOpt1								==		colz 
+drawOpt2								==		TEXT SAME
+tCol 									==		d7301f
+decPlaces 								==		4.2f
+colorPalette 							== 		57
+2dNcontours 							== 		1000
+
+logZ 									==		0
+canvasX									==		2500
+canvasY									==		2000
+
+pad0x1									==		0.
+pad0x2									==		1.
+pad0y1									==		0.
+pad0y2									==		1.
+pad0marginL								==		0.12
+pad0marginR								==		0.1
+pad0marginB								==		0.15
+pad0marginT								==		0.01
+pad0axisLabelSize						==		0.05
+pad0ZaxisLabelSize 						==		0.02
+pad0axisTitleSize						==		0.048
+pad0XtitleOffset						==		1.1
+pad0YtitleOffset						==		1.5
+pad0ZtitleOffset 						==		0.55
+pad0XlabelOffset 						==		0.002
+labAlign								== 		33
+labAngle 								== 		60
+pad0xNdivs								==		520
+pad0yNdivs								==		520

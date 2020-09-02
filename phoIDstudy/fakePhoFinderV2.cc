@@ -45,12 +45,15 @@ struct eventType{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class fakePhoFinder{
 public:
-	fakePhoFinder(std::string FILELIST, std::string OUTFILE, Float_t XSECTION=-1., std::string MCPILEUPHIST="", std::string DATAPILEUPHIST="",
-		std::string CHARGED_HADRONIC_EFFECTIVE_AREAS="", std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS="", std::string PHOTONIC_EFFECTIVE_AREAS="", std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS="",
-		std::string BDT_PATH="/local/cms/user/wadud/aNTGCmet/antgcpreselector/macros/photonIDmva/BDT/data/GJets_Central_NewPromptDef/resultsKDE/tuned/removeExtras/trained/aNTGC_photon_BDT.model");
+	fakePhoFinder(std::string FILELIST, std::string OUTFILE, Float_t XSECTION=-1., std::string MCPILEUPHIST="", std::string DATAPILEUPHIST="/hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/pileup_2017_data.root",
+		std::string PFECALCLUS_EFFECTIVE_AREAS="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusEcalIso.txt",
+		std::string PFHCALCLUS_EFFECTIVE_AREAS="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusHcalIso.txt",
+		std::string TKRISO_EFFECTIVE_AREAS="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoTrkSumPtHollowConeDR03.txt",
+		std::string PFECALCLUS_PTSCALING="/hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusEcalIso.txt",
+		std::string PFHCALCLUS_PTSCALING="/hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusHcalIso.txt",
+		std::string BDT_PATH="/hdfs/cms/user/wadud/anTGC/BDTdata/optimizedV1/aNTGC_photon_BDT.model");
 
 	~fakePhoFinder(){
-		XGBoosterFree(phoBDTvHoE_h);
 		XGBoosterFree(phoBDT_h);
 		std::cout<<"END @ "<<getCurrentTime()<<std::endl;
 		std::cout<<"*************************************************************************************************************************************************"<<std::endl;
@@ -61,10 +64,12 @@ private:
 	Bool_t              doPUreweight = false;
 	Float_t             xSec = -1.;
 
-	effectiveAreaMap    ChHadEffAreas;
-	effectiveAreaMap    WChHadEffAreas;
-	effectiveAreaMap    PhoEffAreas;
-	effectiveAreaMap    NeuHadEffAreas;
+	effectiveAreaMap    PFHCALClusEffAreas;
+	effectiveAreaMap    PFECALClusEffAreas;
+	effectiveAreaMap    TkrEffAreas;
+
+	isoPtScalingMap 	PFHCALClusPtScaling;
+	isoPtScalingMap 	PFECALClusPtScaling;
 
 	void                analyze();
 	Bool_t              selectEvent();
@@ -232,7 +237,7 @@ private:
 	Float_t 			phoE5x5OESCrFull5x5_;
 
 	Float_t 			phoEmaxOE3x3Full5x5_;
-	Float_t 			phoE2ndOE3x3Full5x5_;
+	Float_t 			pho2x2OE3x3Full5x5_;
 	Float_t 			phoSieieOSipipFull5x5_;
 	Float_t				phoEtaWOPhiWFull5x5_;
 
@@ -257,31 +262,20 @@ private:
 	Float_t				phoTrkSumPtHollowConeDR03_;
 	Float_t				phoECALIso_;
 	Float_t				phoHCALIso_;
+	Float_t 			phoPFECALClusIsoCorr_;
+	Float_t 			phoPFHCALClusIsoCorr_;
+	Float_t 			phoTkrIsoCorr_;	
 
 	Float_t 			phoHoverE_;
 	Float_t 			phoPFChIsoRaw_;
 	Float_t 			phoPFPhoIsoRaw_;
 	Float_t 			phoPFNeuIsoRaw_;
 	Float_t 			phoPFChWorstIsoRaw_;
-	Float_t 			phoPFChIsoCorr_;
-	Float_t 			phoPFChWorstIsoCorr_;
-	Float_t 			phoPFPhoIsoCorr_;
-	Float_t 			phoPFNeuIsoCorr_;	
 	Float_t 			phoIDMVA_;
 	UChar_t             phoIDbit_;
-	Float_t 			phoBDTpredHoE_;
 	Float_t 			phoBDTpred_;
+	UChar_t 			phoPFClusIDbits_;
 	Float_t 			phoMIP_;	
-
-	Float_t 			phoRelTightPFChIsoCorr_;
-	Float_t 			phoRelTightPFPhoIsoCorr_;
-	Float_t 			phoRelTightPFNeuIsoCorr_;
-	Float_t 			phoRelMedPFChIsoCorr_;
-	Float_t 			phoRelMedPFPhoIsoCorr_;
-	Float_t 			phoRelMedPFNeuIsoCorr_;
-	Float_t 			phoRelLoosePFChIsoCorr_;
-	Float_t 			phoRelLoosePFPhoIsoCorr_;
-	Float_t 			phoRelLoosePFNeuIsoCorr_;
 
 	Float_t 			phoSCet_;
 	Float_t 			phoSCrawet_;
@@ -315,11 +309,7 @@ private:
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////// XGBoost ////////////////////////////////////////////////////////////
-	std::string 		bdtHoEpath="/local/cms/user/wadud/aNTGCmet/antgcpreselector/macros/photonIDmva/BDT/data/GJets_Central_NewPromptDef/resultsKDE/tuned/removeExtras/trained/aNTGC_photon_BDT.model";
-	BoosterHandle 		phoBDTvHoE_h;
 	DMatrixHandle 		dTest;
-	Bool_t 				predictBDTvHoe = 0;
-
 	BoosterHandle 		phoBDT_h;
 	Bool_t 				predictBDT = 0;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -338,7 +328,8 @@ private:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 fakePhoFinder::fakePhoFinder(std::string FILELIST, std::string OUTFILE, Float_t XSECTION, std::string MCPILEUPHIST, std::string DATAPILEUPHIST,
-	std::string CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS, std::string PHOTONIC_EFFECTIVE_AREAS, std::string NEUTRAL_HADRONIC_EFFECTIVE_AREAS,
+	std::string PFECALCLUS_EFFECTIVE_AREAS, std::string PFHCALCLUS_EFFECTIVE_AREAS, std::string TKRISO_EFFECTIVE_AREAS,
+	std::string PFECALCLUS_PTSCALING,	std::string PFHCALCLUS_PTSCALING,
 	std::string BDT_PATH){
 
 	std::cout<<"*************************************************************************************************************************************************"<<std::endl<<
@@ -350,9 +341,11 @@ fakePhoFinder::fakePhoFinder(std::string FILELIST, std::string OUTFILE, Float_t 
 	"\t\tCross section = "<<XSECTION<<std::endl<<
 	"\t\tMC pileup histogram = "<<MCPILEUPHIST<<std::endl<<
 	"\t\tData pileup histogram = "<<DATAPILEUPHIST<<std::endl<<
-	"\t\tCharged Hadronic Effective Areas = "<<CHARGED_HADRONIC_EFFECTIVE_AREAS<<std::endl<<
-	"\t\tPhotonic Effective Areas = "<<PHOTONIC_EFFECTIVE_AREAS<<std::endl<<
-	"\t\tNeutral Hadronic Effective Areas = "<<NEUTRAL_HADRONIC_EFFECTIVE_AREAS<<std::endl<<
+	"\t\tECAL PFCLuster Isolation Effective Areas = "<<PFECALCLUS_EFFECTIVE_AREAS<<std::endl<<
+	"\t\tHCAL PFCLuster Isolation Effective Areas = "<<PFHCALCLUS_EFFECTIVE_AREAS<<std::endl<<
+	"\t\tTracker Isolation Effective Areas = "<<TKRISO_EFFECTIVE_AREAS<<std::endl<<
+	"\t\tECAL PFCLuster Isolation pT Scaling = "<<PFECALCLUS_PTSCALING<<std::endl<<
+	"\t\tHCAL PFCLuster Isolation pT Scaling = "<<PFHCALCLUS_PTSCALING<<std::endl<<
 	"\t\tBDT model file = "<<BDT_PATH<<std::endl;
 
 	xSec = XSECTION;
@@ -369,35 +362,29 @@ fakePhoFinder::fakePhoFinder(std::string FILELIST, std::string OUTFILE, Float_t 
 		puReweighter.init(MCPILEUPHIST, DATAPILEUPHIST, "hPUTruew", "pileup");
 	}
 
-	if(file_exists(CHARGED_HADRONIC_EFFECTIVE_AREAS)) {
-		std::cout<<"Charged hadronic effective area:"<<std::endl;
-		ChHadEffAreas.init(CHARGED_HADRONIC_EFFECTIVE_AREAS);
+	if(file_exists(PFECALCLUS_EFFECTIVE_AREAS)) {
+		std::cout<<"PF ECAL Cluster effective areas:"<<std::endl;
+		PFECALClusEffAreas.init(PFECALCLUS_EFFECTIVE_AREAS, 1, ",", 0);
 	}
 
-	if(file_exists(WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS)) {
-		std::cout<<"Worst Charged hadronic effective area:"<<std::endl;
-		WChHadEffAreas.init(WORST_CHARGED_HADRONIC_EFFECTIVE_AREAS);
+	if(file_exists(PFHCALCLUS_EFFECTIVE_AREAS)) {
+		std::cout<<"PF HCAL Cluster effective areas:"<<std::endl;
+		PFHCALClusEffAreas.init(PFHCALCLUS_EFFECTIVE_AREAS, 1, ",", 0);
 	}
 	
-	if(file_exists(PHOTONIC_EFFECTIVE_AREAS)){
-		std::cout<<"Photonic effective area:"<<std::endl;
-		PhoEffAreas.init(PHOTONIC_EFFECTIVE_AREAS);
-	}
-	if(file_exists(NEUTRAL_HADRONIC_EFFECTIVE_AREAS)){
-		std::cout<<"Neutral hadronic effective area:"<<std::endl;
-		NeuHadEffAreas.init(NEUTRAL_HADRONIC_EFFECTIVE_AREAS);
+	if(file_exists(TKRISO_EFFECTIVE_AREAS)){
+		std::cout<<"Tracker isolation effective areas:"<<std::endl;
+		TkrEffAreas.init(TKRISO_EFFECTIVE_AREAS, 1, ",", 0);
 	}
 
-	if(file_exists(bdtHoEpath)){
-		std::cout<<"\nLoading HoE BDT model from "<<bdtHoEpath <<std::endl;
-		XGBoosterCreate(NULL, 0, &phoBDTvHoE_h);
-		XGBoosterSetParam(phoBDTvHoE_h, "seed", "0");
-		Int_t mLdSuccess = XGBoosterLoadModel(phoBDTvHoE_h, bdtHoEpath.c_str());
-		// XGBoosterSetParam(phoBDTvHoE_h, "nthread", "1");
-		if(mLdSuccess == 0) predictBDTvHoe=1;
-		else{
-			std::cout<<"Failed to load BDT model!"<<std::endl;
-		}
+	if(file_exists(PFECALCLUS_PTSCALING)){
+		std::cout<<"ECAL pT scaling:"<<std::endl;
+		PFECALClusPtScaling.init(PFECALCLUS_PTSCALING, 0, 1, ",", 0);
+	}
+
+	if(file_exists(PFHCALCLUS_PTSCALING)){
+		std::cout<<"HCAL pT scaling:"<<std::endl;
+		PFHCALClusPtScaling.init(PFHCALCLUS_PTSCALING, 1, 1, ",", 0);
 	}
 
 	if(file_exists(BDT_PATH)){
@@ -405,7 +392,6 @@ fakePhoFinder::fakePhoFinder(std::string FILELIST, std::string OUTFILE, Float_t 
 		XGBoosterCreate(NULL, 0, &phoBDT_h);
 		XGBoosterSetParam(phoBDT_h, "seed", "0");
 		Int_t mLdSuccess = XGBoosterLoadModel(phoBDT_h, BDT_PATH.c_str());
-		// XGBoosterSetParam(phoBDTvHoE_h, "nthread", "1");
 		if(mLdSuccess == 0) predictBDT=1;
 		else{
 			std::cout<<"Failed to load BDT model!"<<std::endl;
@@ -550,29 +536,29 @@ Bool_t fakePhoFinder::selectEvent(){
 	fullEB.lastCutStep = 0.;
 	registerAllCutFlow();
 
-	ULong64_t HLTPho    = (_HLTPho);                //// 9 = HLT_Photon200_v, 11 = HLT_Photon300_NoHE_v, 19 = HLT_Photon135_PFMET100_v, no trigger on 2016 MC
-	if(!getBit(HLTPho, 9))      return 0;           //// 200 GeV photon trigger
-	registerAllCutFlow();
+	// ULong64_t HLTPho    = (_HLTPho);                //// 9 = HLT_Photon200_v, 11 = HLT_Photon300_NoHE_v, 19 = HLT_Photon135_PFMET100_v, no trigger on 2016 MC
+	// if(!getBit(HLTPho, 9))      return 0;           //// 200 GeV photon trigger
+	// registerAllCutFlow();
 
 	Short_t highetsPtIndex 	= -9999;
 	Float_t highestPhoPt 	= -999.;
 	Bool_t 	passedFidCut 	= 0;
 	Bool_t 	passedPtCut 	= 0;
-	Bool_t 	passedPixelCut 	= 0;
+	// Bool_t 	passedPixelCut 	= 0;
 	Bool_t 	passedGenMatch	= 0;
 	
 	for(UShort_t iPho = 0; iPho < _nPho; iPho++){
 
-		UChar_t iPhoFidReg = _phoFiducialRegion[iPho];
-		if(!getBit(iPhoFidReg, 0) || getBit(iPhoFidReg, 2)) continue; 			// skip if not EB or in EB-EE gap (0 = EB, 1 = EE, 2 = EB-EE gap)
+		if(std::abs(_ecalSCeta[_phoDirectEcalSCindex[iPho]]) > BETRetaMin) continue;
+
 		passedFidCut = 1;
 
 		if(_phoCalibEt[iPho] < 200.) continue;
 		passedPtCut 	=	1;
 
-		UChar_t iQualityBits = _phoQualityBits[iPho];
-		if(getBit(iQualityBits,0)) continue;                             	// 0=has pixel seed, 1=electron veto
-		passedPixelCut = 1;
+		// UChar_t iQualityBits = _phoQualityBits[iPho];
+		// if(getBit(iQualityBits,0)) continue;                             	// 0=has pixel seed, 1=electron veto
+		// passedPixelCut = 1;
 
 		if(!photonIsFake(iPho, 0.3)) continue;
 		passedGenMatch =1;
@@ -586,7 +572,7 @@ Bool_t fakePhoFinder::selectEvent(){
 
 	if(passedFidCut) registerAllCutFlow();
 	if(passedPtCut) registerAllCutFlow();
-	if(passedPixelCut) registerAllCutFlow();
+	// if(passedPixelCut) registerAllCutFlow();
 	if(passedGenMatch) registerAllCutFlow();
 
 	if(highestPhoPt<0) return 0;
@@ -699,13 +685,13 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 	phoE3x3Full5x5_			= phoR9Full5x5_ * _ecalSCRawEn[phoSCindex];
 	phoE5x5Full5x5_			= _phoE5x5Full5x5[_phoIndex];
 	phoMaxEnergyXtal_		= _phoMaxEnergyXtal[_phoIndex];
-	phoE2ndFull5x5_			= _phoE2x2Full5x5[_phoIndex];
+	phoE2ndFull5x5_			= _phoE2ndFull5x5[_phoIndex];
 	phoE1x3Full5x5_			= _phoE1x3Full5x5[_phoIndex];
 	phoE1x5Full5x5_			= _phoE1x5Full5x5[_phoIndex];
 	phoE2x5Full5x5_			= _phoE2x2Full5x5[_phoIndex];
 
 	phoEmaxOE3x3Full5x5_ 	= phoMaxEnergyXtal_/phoE3x3Full5x5_;
-	phoE2ndOE3x3Full5x5_	= phoE2ndFull5x5_/phoE3x3Full5x5_;
+	pho2x2OE3x3Full5x5_		= phoE2x2Full5x5_/phoE3x3Full5x5_;
 	phoSieieOSipipFull5x5_	= phoSigmaIEtaIEta_/phoSigmaIPhiIPhi_;
 
 	phoPFClusEcalIso_		= _phoPFClusEcalIso[_phoIndex];
@@ -717,29 +703,19 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 	phoECALIso_ 			= _phoECALIso[_phoIndex];
 	phoHCALIso_ 			= _phoHCALIso[_phoIndex];
 
+	phoPFECALClusIsoCorr_ 		= 	phoPFClusEcalIso_ - rho_ * PFECALClusEffAreas.getEffectiveArea(phoAbsSCEta) - PFECALClusPtScaling.getPtScaling(phoAbsSCEta, phoPt_);
+	phoPFHCALClusIsoCorr_ 		= 	phoPFClusHcalIso_ - rho_ * PFHCALClusEffAreas.getEffectiveArea(phoAbsSCEta) - PFHCALClusPtScaling.getPtScaling(phoAbsSCEta, phoPt_);
+	phoTkrIsoCorr_ 				= 	phoTrkSumPtHollowConeDR03_ - rho_ * TkrEffAreas.getEffectiveArea(phoAbsSCEta);
+
 	phoHoverE_ 				= _phoHoverE[_phoIndex];
 	phoPFChIsoRaw_ 			= _phoPFChIso[_phoIndex];
 	phoPFPhoIsoRaw_ 		= _phoPFPhoIso[_phoIndex];
 	phoPFNeuIsoRaw_ 		= _phoPFNeuIso[_phoIndex];
 	phoPFChWorstIsoRaw_ 	= _phoPFChWorstIso[_phoIndex];
-	phoPFChIsoCorr_ 		= std::max(_phoPFChIso[_phoIndex] - _rho * ChHadEffAreas.getEffectiveArea(phoAbsSCEta), (Float_t)0.);
-	phoPFChWorstIsoCorr_ 	= std::max(_phoPFChWorstIso[_phoIndex] - _rho * WChHadEffAreas.getEffectiveArea(phoAbsSCEta), (Float_t)0.);
-	phoPFPhoIsoCorr_ 		= std::max(_phoPFPhoIso[_phoIndex] - _rho * PhoEffAreas.getEffectiveArea(phoAbsSCEta), (Float_t)0.);
-	phoPFNeuIsoCorr_ 		= std::max(_phoPFNeuIso[_phoIndex] - _rho * NeuHadEffAreas.getEffectiveArea(phoAbsSCEta), (Float_t)0.);
 	phoIDMVA_ 				= _phoIDMVA[_phoIndex];
 	phoIDbit_ 				= _phoIDbit[_phoIndex];
 	phoMIP_ 				= _phoMIPTotEnergy[_phoIndex];
 
-	phoRelTightPFChIsoCorr_		= phoPFChIsoCorr_/0.65;
-	phoRelTightPFPhoIsoCorr_	= phoPFPhoIsoCorr_/(2.044 + 0.004017*_phoEt[_phoIndex]);
-	phoRelTightPFNeuIsoCorr_	= phoPFNeuIsoCorr_/(0.317 + 0.01512*_phoEt[_phoIndex] + 2.259e-05*_phoEt[_phoIndex]*_phoEt[_phoIndex]);
-	phoRelMedPFChIsoCorr_ 		= phoPFChIsoCorr_/1.141;
-	phoRelMedPFPhoIsoCorr_ 		= phoPFPhoIsoCorr_/(2.08 + 0.004017*_phoEt[_phoIndex]);
-	phoRelMedPFNeuIsoCorr_ 		= phoPFNeuIsoCorr_/(1.189 + 0.01512*_phoEt[_phoIndex] + 2.259e-05*_phoEt[_phoIndex]*_phoEt[_phoIndex]);
-	phoRelLoosePFChIsoCorr_ 	= phoPFChIsoCorr_/1.694;
-	phoRelLoosePFPhoIsoCorr_ 	= phoPFPhoIsoCorr_/(2.876 + 0.004017*_phoEt[_phoIndex]);
-	phoRelLoosePFNeuIsoCorr_ 	= phoPFNeuIsoCorr_/(24.032 + 0.01512*_phoEt[_phoIndex] + 2.259e-05*_phoEt[_phoIndex]*_phoEt[_phoIndex]);
-	
 	phoSCet_ 				= (_ecalSCEn[phoSCindex]) / std::cosh(phoSCeta_);
 	phoSCrawet_				= (_ecalSCRawEn[phoSCindex]) / std::cosh(phoSCeta_);
 	phoSCphi_ 				= _ecalSCphi[phoSCindex];
@@ -785,30 +761,11 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 		deltaRtrg_ = - 999;
 		deltaPttrg_ = - 999;
 	}
-	
-	// BDT prediction
-	// Features in order:	'ecalSCetaWidth', 'ecalSCphiWidth', 'phoHoverE', 'phoR9Full5x5', 'phoS4realFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi'
-	if(predictBDTvHoe){
-		float feats[1][8];
-		feats[0][0] = phoEtaWidth_;
-		feats[0][1] = phoPhiWidth_;
-		feats[0][2] = phoHoverE_;
-		feats[0][3] = phoR9Full5x5_;
-		feats[0][4] = phoS4Full5x5_;
-		feats[0][5] = phoSigmaIEtaIEta_;
-		feats[0][6] = phoSigmaIEtaIPhi_;
-		feats[0][7] = phoSigmaIPhiIPhi_;
-		XGDMatrixCreateFromMat((float*)feats, 1, 8, -1, &dTest);
-		bst_ulong out_len;
-		const float *prediction;
-		XGBoosterPredict(phoBDTvHoE_h, dTest, 0, 0, 0, &out_len, &prediction);
-		assert(out_len == 1);
-		XGDMatrixFree(dTest);
-		phoBDTpredHoE_ = prediction[0];
-	}
+
+	phoPFClusIDbits_ 		= 0;
 
 	if(predictBDT){
-		std::vector<Float_t> feats{phoE1x3OESCrFull5x5_, phoE2ndOE3x3Full5x5_, phoE2ndOESCrFull5x5_, phoE2ndOEmaxFull5x5_, phoE2x5OESCrFull5x5_, phoE5x5OESCrFull5x5_, phoEmaxOE3x3Full5x5_, phoEmaxOESCrFull5x5_, phoEtaWOPhiWFull5x5_, phoEtaWidth_, phoPhiWidth_, phoR9Full5x5_, phoS4Full5x5_, phoSieieOSipipFull5x5_, phoSigmaIEtaIEta_, phoSigmaIEtaIPhi_, phoSigmaIPhiIPhi_};
+		std::vector<Float_t> feats{phoE1x3OESCrFull5x5_, pho2x2OE3x3Full5x5_, phoE2ndOESCrFull5x5_, phoE2ndOEmaxFull5x5_, phoE2x5OESCrFull5x5_, phoE5x5OESCrFull5x5_, phoEmaxOE3x3Full5x5_, phoEmaxOESCrFull5x5_, phoEtaWOPhiWFull5x5_, phoEtaWidth_, phoPhiWidth_, phoR9Full5x5_, phoS4Full5x5_, phoSieieOSipipFull5x5_, phoSigmaIEtaIEta_, phoSigmaIEtaIPhi_, phoSigmaIPhiIPhi_};
 		XGDMatrixCreateFromMat((float*)feats.data(), 1, feats.size(), -1, &dTest);
 		bst_ulong out_len;
 		const float *prediction;
@@ -816,6 +773,16 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 		assert(out_len == 1);
 		XGDMatrixFree(dTest);
 		phoBDTpred_ = prediction[0];
+
+		Bool_t 					pass95 = (phoBDTpred_ >= 8.49e-02) && (phoHoverE_ < 4.50e-02) && (phoPFECALClusIsoCorr_ < 3.41) && (phoPFHCALClusIsoCorr_ < 9.28) && (phoTkrIsoCorr_ < 4.21);
+		Bool_t 					pass90 = (phoBDTpred_ >= 2.05e-01) && (phoHoverE_ < 3.66e-02) && (phoPFECALClusIsoCorr_ < 4.02) && (phoPFHCALClusIsoCorr_ < 5.21) && (phoTkrIsoCorr_ < 3.33);
+		Bool_t 					pass80 = (phoBDTpred_ >= 3.29e-01) && (phoHoverE_ < 4.87e-02) && (phoPFECALClusIsoCorr_ < 4.47) && (phoPFHCALClusIsoCorr_ < 3.03) && (phoTkrIsoCorr_ < 1.43);
+		Bool_t 					pass70 = (phoBDTpred_ >= 6.47e-01) && (phoHoverE_ < 3.16e-02) && (phoPFECALClusIsoCorr_ < 1.53) && (phoPFHCALClusIsoCorr_ < 9.26) && (phoTkrIsoCorr_ < 1.75);
+
+		if(pass70) setBit(phoPFClusIDbits_, 0, 1);
+		if(pass80) setBit(phoPFClusIDbits_, 1, 1);
+		if(pass90) setBit(phoPFClusIDbits_, 2, 1);
+		if(pass95) setBit(phoPFClusIDbits_, 3, 1);
 	}
 
 	lepVeto_ = 0;
@@ -858,7 +825,7 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 		if(std::abs(_AK4CHSJet_Eta[iJet])>5.) continue;
 
 		Char_t iJetPUID = _AK4CHSJet_PUFullID[iJet];
-		if(!getBit(iJetPUID, 2)) continue; 			// lose PU ID
+		if(!getBit(iJetPUID, 2)) continue; 			// loose PU ID
 
 		Char_t iJetID = _AK4CHSJet_ID[iJet];
 		if(!getBit(iJetID, 1)) continue; 			// tight ID
@@ -1054,7 +1021,7 @@ void fakePhoFinder::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoE2x5OESCrFull5x5", &phoE2x5OESCrFull5x5_);
 	evType.tree->Branch("phoE5x5OESCrFull5x5", &phoE5x5OESCrFull5x5_);
 	evType.tree->Branch("phoEmaxOE3x3Full5x5", &phoEmaxOE3x3Full5x5_);
-	evType.tree->Branch("phoE2ndOE3x3Full5x5", &phoE2ndOE3x3Full5x5_);
+	evType.tree->Branch("phoE2ndOE3x3Full5x5", &pho2x2OE3x3Full5x5_);
 	evType.tree->Branch("phoSigmaIEtaIEta", &phoSigmaIEtaIEta_);
 	evType.tree->Branch("phoSigmaIEtaIPhi", &phoSigmaIEtaIPhi_);
 	evType.tree->Branch("phoSigmaIPhiIPhi", &phoSigmaIPhiIPhi_);
@@ -1080,31 +1047,20 @@ void fakePhoFinder::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoTrkSumPtHollowConeDR03", &phoTrkSumPtHollowConeDR03_);
 	evType.tree->Branch("phoECALIso", &phoECALIso_);
 	evType.tree->Branch("phoHCALIso", &phoHCALIso_);
+	evType.tree->Branch("phoPFECALClusIsoCorr", &phoPFECALClusIsoCorr_);
+	evType.tree->Branch("phoPFHCALClusIsoCorr", &phoPFHCALClusIsoCorr_);
+	evType.tree->Branch("phoTkrIsoCorr", &phoTkrIsoCorr_);
 
 	evType.tree->Branch("phoHoverE", &phoHoverE_);
 	evType.tree->Branch("phoPFChIsoRaw", &phoPFChIsoRaw_);
 	evType.tree->Branch("phoPFPhoIsoRaw", &phoPFPhoIsoRaw_);
 	evType.tree->Branch("phoPFNeuIsoRaw", &phoPFNeuIsoRaw_);
 	evType.tree->Branch("phoPFChWorstIsoRaw", &phoPFChWorstIsoRaw_);
-	evType.tree->Branch("phoPFChIsoCorr", &phoPFChIsoCorr_);
-	evType.tree->Branch("phoPFChWorstIsoCorr", &phoPFChWorstIsoCorr_);
-	evType.tree->Branch("phoPFPhoIsoCorr", &phoPFPhoIsoCorr_);
-	evType.tree->Branch("phoPFNeuIsoCorr", &phoPFNeuIsoCorr_);
 	evType.tree->Branch("phoEGMidMVA", &phoIDMVA_);
-	evType.tree->Branch("phoBDTpredHoE", &phoBDTpredHoE_);
 	evType.tree->Branch("phoBDTpred", &phoBDTpred_);
+	evType.tree->Branch("phoPFClusIDbits", &phoPFClusIDbits_);	
 	evType.tree->Branch("phoIDbit", &phoIDbit_);
 	evType.tree->Branch("phoMIP", &phoMIP_);
-	
-	evType.tree->Branch("phoRelTightPFChIso", &phoRelTightPFChIsoCorr_);
-	evType.tree->Branch("phoRelTightPFPhoIso", &phoRelTightPFPhoIsoCorr_);
-	evType.tree->Branch("phoRelTightPFNeuIso", &phoRelTightPFNeuIsoCorr_);
-	evType.tree->Branch("phoRelMedPFChIso", &phoRelMedPFChIsoCorr_);
-	evType.tree->Branch("phoRelMedPFPhoIso", &phoRelMedPFPhoIsoCorr_);
-	evType.tree->Branch("phoRelMedPFNeuIso", &phoRelMedPFNeuIsoCorr_);
-	evType.tree->Branch("phoRelLoosePFChIso", &phoRelLoosePFChIsoCorr_);
-	evType.tree->Branch("phoRelLoosePFPhoIso", &phoRelLoosePFPhoIsoCorr_);
-	evType.tree->Branch("phoRelLoosePFNeuIso", &phoRelLoosePFNeuIsoCorr_);
 	
 	evType.tree->Branch("phoSCet", &phoSCet_);
 	evType.tree->Branch("phoSCrawet", &phoSCrawet_);
@@ -1130,7 +1086,7 @@ void fakePhoFinder::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("minDeltaRPhoJet30", &minDeltaRPhoJet30_);
 	
 	std::cout<<"Created output tree:\t"<<typeName<<"\t"<<typeTitle<<std::endl<<std::endl;
-	evType.tree->Print();
+	// evType.tree->Print();
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

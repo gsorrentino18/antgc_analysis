@@ -1,10 +1,12 @@
 vars 									==		 phoHoverE, phoPFClusEcalIsoCorr, phoPFClusHcalIsoCorr, phoTrkSumPtHollowConeDR03Corr, phoR9Full5x5, phoS4Full5x5, phoEmaxOESCrFull5x5, phoE2ndOESCrFull5x5, phoE2ndOEmaxFull5x5, phoE1x3OESCrFull5x5, phoE2x5OESCrFull5x5, phoE5x5OESCrFull5x5, phoEmaxOE3x3Full5x5, phoE2ndOE3x3Full5x5, phoSigmaIEtaIEta, phoSigmaIEtaIPhi, phoSigmaIPhiIPhi, phoSieieOSipipFull5x5, phoEtaWidth, phoPhiWidth, phoEtaWOPhiWFull5x5
 
-vars 									==	phoE2ndOEmaxFull5x5	 
-etaBins 								==		0.,1.4442
+vars 									==		phoEmaxOESCrFull5x5	 
+etaBins 								==		1.4,1.4442; 1.2,1.4; 1.,1.2;0.5,1;0,0.5
 pTbins 									==		200,1200
+etaBins 								==		0,1.4442
+pTbins 									==		200,250;250,300;300,400;400,600;600,800;800,1200
 
-writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/plots/features/
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/plots/features/kink/
 
 prettyNamesFile 							==	varPrettyNames.txt
 plotTrain 							==1

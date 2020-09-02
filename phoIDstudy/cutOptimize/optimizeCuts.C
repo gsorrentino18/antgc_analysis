@@ -22,7 +22,7 @@ void optimizeCuts(){
 	TTreeReaderAnyValue<Float_t>				phoTrkSumPtHollowConeDR03Corr_					(inputTTreeReader, "phoTrkSumPtHollowConeDR03Corr");
 	TTreeReaderAnyValue<Double_t>				bdtWeight_										(inputTTreeReader, "bdtWeightF");
 
-	TFile outFile("/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/cutOptimize/data/cutOptmizationV3.root", "RECREATE");
+	TFile outFile("/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/cutOptimize/data/cutOptmizationV4.root", "RECREATE");
 	TMVA::Factory factory("optimizeCutsEGMHoe", &outFile, "V:!Silent:Color:DrawProgressBar:AnalysisType=Classification");
 	TMVA::DataLoader dataloader("dataset");
 	dataloader.AddVariable("bdtScore", "BDT Score", "", 'F');
@@ -115,7 +115,7 @@ void optimizeCuts(){
 	closeTChain(bdtTree);
 
 	dataloader.PrepareTrainingAndTestTree( "", "", "NormMode=EqualNumEvents:V" );
-	factory.BookMethod(&dataloader, TMVA::Types::kCuts, "CutsGA", "H:!V:VarProp[0]=FMax:VarProp[1]=FMin:VarProp[2]=FMin:VarProp[3]=FMin:VarProp[4]=FMin:FitMethod=GA:EffSel:PopSize=600:Steps=50:Cycles=3:SC_steps=10:SC_rate=5:SC_factor=0.95");
+	factory.BookMethod(&dataloader, TMVA::Types::kCuts, "CutsGA", "H:!V:VarProp[0]=FMax:VarProp[1]=FMin:VarProp[2]=FMin:VarProp[3]=FMin:VarProp[4]=FMin:FitMethod=GA:EffSel:PopSize=1000:Steps=60:Cycles=3:SC_steps=10:SC_rate=5:SC_factor=0.95:SaveBestCycle=15");
 
 	factory.TrainAllMethods();
 	factory.TestAllMethods();

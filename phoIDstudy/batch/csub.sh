@@ -22,7 +22,7 @@ jobsDir=$(readlink -m ${jobsDir})/
 # testmatch    = 3 days
 # nextweek     = 1 week
 jobflavor=workday
-splitfiles=1
+splitfiles=5
 
 
 # className="genPhoMatcher"
@@ -37,9 +37,9 @@ ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFind
 
 
 # className="genPhoMatcher"
-# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcherV2.cc"
+# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcherV3.cc"
 
-macroTemplate=${workDir}/macroTemplate.C
+macroTemplate=${workDir}/macroTemplateV2.C
 runScriptTemplate=${workDir}/run_script.sh
 condorCFGtemplate=${workDir}/condor_job.sh
 
@@ -108,7 +108,6 @@ function preSelectDataset(){
 	outFile=${writeOutDir}/${jobName}.root
 	echo	-e	"\t\tOutput file = "${outFile}
 
-
 	### prepare root macro ###
 	rootMacro=${jobDir}/${jobName}.C
 	cp ${macroTemplate} ${rootMacro}
@@ -136,7 +135,6 @@ function preSelectDataset(){
 	sed -i 's|#writedir|'${writeOutDir}'|g' ${runScript}
 	chmod +x ${runScript}
 
-
 	### prepare condor script ###
 	condorCFG=${jobDir}/condor_${jobName}.sh
 	cp ${condorCFGtemplate} ${condorCFG}
@@ -148,7 +146,6 @@ function preSelectDataset(){
 	chmod +x ${condorCFG}
 	
 	cd ${jobDir}
-	##bash ${runScript}
 	condor_submit ${condorCFG}
 	cd ${workDir}
 	echo -e "\n"

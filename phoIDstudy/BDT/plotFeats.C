@@ -16,6 +16,8 @@ void plotVar(std::string _plotVar, Float_t _etaMin, Float_t _etaMax, Float_t _pT
 		return;
 	}
 
+	std::string 								plotName 								=		_plotVar + "_eta_" + findAndReplaceAll(removeTrailingZeros(_etaMin) + "to" + removeTrailingZeros(_etaMax), ".", "p") + "_pT_" + findAndReplaceAll(removeTrailingZeros(_pTmin) + "to" + removeTrailingZeros(_pTmax), ".", "p");
+
 	TChain*                                     featsTree      							=		openTChain(std::vector<std::string>({"/hdfs/cms/user/wadud/anTGC/BDTdata/mergedSamplesShuffled.root"}), "fullEB_Tree");
 	TChain*                                     isoTree         						=		openTChain(std::vector<std::string>({"/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/isoShuffledTree.root"}), "fullEB_isoTree");
 	TChain*                                     bdtTree         						=		openTChain(std::vector<std::string>({"/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/optimizedV1/BDTresults_0.root"}), "fullEB_BDT_Tree");
@@ -30,8 +32,8 @@ void plotVar(std::string _plotVar, Float_t _etaMin, Float_t _etaMax, Float_t _pT
 	TTreeReaderAnyValue<Double_t>				bdtWeight_										(inputTTreeReader, "bdtWeightF");
 	TTreeReaderAnyValue<Float_t>				feat_											(inputTTreeReader, _plotVar);
 
-	TH1D 										signalHist((_plotVar+"_signal").c_str(), "", std::stoi(varPlotInfo[_plotVar][1]), std::stof(varPlotInfo[_plotVar][2]), std::stof(varPlotInfo[_plotVar][3]));
-	TH1D 										backgroundHist((_plotVar+"_background").c_str(), "", std::stoi(varPlotInfo[_plotVar][1]), std::stof(varPlotInfo[_plotVar][2]), std::stof(varPlotInfo[_plotVar][3]));
+	TH1D 										signalHist((plotName+"_signal").c_str(), "", std::stoi(varPlotInfo[_plotVar][1]), std::stof(varPlotInfo[_plotVar][2]), std::stof(varPlotInfo[_plotVar][3]));
+	TH1D 										backgroundHist((plotName+"_background").c_str(), "", std::stoi(varPlotInfo[_plotVar][1]), std::stof(varPlotInfo[_plotVar][2]), std::stof(varPlotInfo[_plotVar][3]));
 
 	signalHist.SetLineStyle(options.getInt("signalLineStyle"));
 	signalHist.SetLineWidth(options.getInt("signalLineWidth"));
@@ -64,7 +66,7 @@ void plotVar(std::string _plotVar, Float_t _etaMin, Float_t _etaMax, Float_t _pT
 	normalizeHist(signalHist, 100.);
 	normalizeHist(backgroundHist, 100.);
 
-	TCanvas canvas((_plotVar + "_canvas").c_str(), "", options.getDouble("canvasX"), options.getDouble("canvasY"));
+	TCanvas canvas((plotName + "_canvas").c_str(), "", options.getDouble("canvasX"), options.getDouble("canvasY"));
 	canvas.SetFillStyle(4000);
 	
 	TPad pad0("pad0", "", options.getDouble("pad0x1"), options.getDouble("pad0y1"), options.getDouble("pad0x2"), options.getDouble("pad0y2"));
@@ -83,7 +85,7 @@ void plotVar(std::string _plotVar, Float_t _etaMin, Float_t _etaMax, Float_t _pT
 	legend.SetFillColorAlpha(options.getTColFromHex("legFillColor"), options.getFloat("legFillColorAlpha"));
 	legend.SetFillStyle(options.getInt("legFillStyle"));
 	
-	THStack 								hStack((_plotVar + "_stack").c_str(), "");
+	THStack 								hStack((plotName + "_stack").c_str(), "");
 	hStack.Add(&signalHist, "HIST");
 	hStack.Add(&backgroundHist, "HIST");
 
@@ -132,8 +134,8 @@ void plotVar(std::string _plotVar, Float_t _etaMin, Float_t _etaMax, Float_t _pT
 	canvas.Modified();
 
 	
-	canvas.SaveAs((options.get("writeDir")+_plotVar+".png").c_str());
-	canvas.SaveAs((options.get("writeDir")+_plotVar+".pdf").c_str());
+	canvas.SaveAs((options.get("writeDir")+plotName+".png").c_str());
+	canvas.SaveAs((options.get("writeDir")+plotName+".pdf").c_str());
 
 	pad0.SetLogy();
 	
@@ -146,8 +148,8 @@ void plotVar(std::string _plotVar, Float_t _etaMin, Float_t _etaMax, Float_t _pT
 	canvas.Update();
 	canvas.Modified();
 
-	canvas.SaveAs((options.get("writeDir")+ "/logY/" +_plotVar+".png").c_str());
-	canvas.SaveAs((options.get("writeDir")+ "/logY/"+_plotVar+".pdf").c_str());
+	canvas.SaveAs((options.get("writeDir")+ "/logY/" +plotName+".png").c_str());
+	canvas.SaveAs((options.get("writeDir")+ "/logY/"+plotName+".pdf").c_str());
 	
 	clearHeap();
 };

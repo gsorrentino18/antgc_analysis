@@ -6,7 +6,6 @@
 
 #include "/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/macros/extra_tools.cc"
 
-// R__LOAD_LIBRARY(/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/libc.so)
 R__ADD_INCLUDE_PATH(/local/cms/user/wadud/aNTGCmet/xgboost/include/xgboost/)
 R__LOAD_LIBRARY(/local/cms/user/wadud/aNTGCmet/xgboost/lib/libxgboost.so)
 #include </local/cms/user/wadud/aNTGCmet/xgboost/include/xgboost/c_api.h>

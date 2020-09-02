@@ -203,6 +203,7 @@ void removeNegativeBins(TH1* _hist);
 Float_t foldedPhi(Float_t _phi);
 bool isInteger(const std::string & s);
 Char_t RGB2ColPlt(std::string _CSVFile, Int_t _firstCol);
+TH2* getAbsHist(TH2* _hist);
 
 Float_t foldedPhi(Float_t _phi){
 	if(std::abs(_phi) <= TMath::PiOver2()) return _phi;
@@ -2998,22 +2999,83 @@ struct DinkyHister{
 };
 
 
-// struct correlationMatix{
-// 	UInt_t 								nVar;
-// 	std::vector<std::vector<Double_t>>	2p;
-// 	std::vector<std::vector<Double_t>>	1p;
-// 	Double_t 							sumW;
+struct correlationMatix{
+	UInt_t 								nVar;
+	std::vector<std::vector<Double_t>>	data2p;
+	std::vector<Double_t>				data1p;
+	Double_t 							sumW;
 
-// 	correlationMatix(){};
+	correlationMatix(){};
 
-// 	correlationMatix(Int_t _nVar){
-// 		nVar 			=	_nVar;
-// 		2p				=	std::vector<std::vector<Double_t>>(nVar, std::vector<Double_t>(nVar, 0.));
-// 		1p				=	std::vector<std::vector<Double_t>>(nVar, std::vector<Double_t>(nVar, 0.));
-// 		sumW 			= 	0.;
-// 	};
+	correlationMatix(Int_t _nVar){
+		nVar 			=	_nVar;
+		data2p			=	std::vector<std::vector<Double_t>>(nVar, std::vector<Double_t>(nVar, 0.));
+		data1p			=	std::vector<Double_t>(nVar, 0.);
+		sumW 			= 	0.;
+	};
 
-// };
+	void addPoint(std::vector<Double_t> _point, Double_t _weight){
+		sumW += _weight;
+
+		for(UInt_t i = 0; i < nVar; i++){
+
+			data1p[i] += _point[i]*_weight;
+
+			for(UInt_t j = 0; j < nVar; j++){
+				data2p[i][j] += (_point[i]*_point[j]*_weight);
+			}
+		}
+		
+	}
+
+	TH2F* getCorrelationHistAbs(){
+		TH2F* 						corrHist 		=		new TH2F("corrHist", "", nVar, 0, nVar, nVar, 0, nVar);
+		std::vector<Double_t>		means;
+
+		for(UInt_t i = 0; i < data1p.size(); i++){
+			means.push_back(data1p[i]/sumW);
+		}		
+
+		for(UInt_t i = 0; i < data2p.size(); i++){
+			Double_t 	denI 	= std::sqrt(data2p[i][i] - sumW * means[i]* means[i]);
+
+			for(UInt_t j = 0; j < data2p.size(); j++){
+
+				Double_t  Rij	=	data2p[i][j] - sumW * means[i]*means[j];
+				Rij 			/=	denI;
+				Rij 			/=	std::sqrt(data2p[j][j] - sumW * means[j]* means[j]);
+
+				std::cout<<"r["<<i<<", "<<j<<"]\t=\t"<<Rij<<std::endl;
+				corrHist->SetBinContent(1+i, 1+j, std::abs(Rij));
+			}
+		}
+
+		return corrHist;
+	}
+
+	TH2F* getCorrelationHist(){
+		TH2F* 						corrHist 		=		new TH2F("corrHist", "", nVar, 0, nVar, nVar, 0, nVar);
+		std::vector<Double_t>		means;
+
+		for(UInt_t i = 0; i < data1p.size(); i++){
+			means.push_back(data1p[i]/sumW);
+		}		
+
+		for(UInt_t i = 0; i < data2p.size(); i++){
+			Double_t 	denI 	= std::sqrt(data2p[i][i] - sumW * means[i]* means[i]);
+			for(UInt_t j = 0; j < data2p.size(); j++){
+				Double_t  Rij	=	data2p[i][j] - sumW * means[i]*means[j];
+				Rij 			/=	denI;
+				Rij 			/=	std::sqrt(data2p[j][j] - sumW * means[j]* means[j]);
+				std::cout<<"r["<<i<<", "<<j<<"]\t=\t"<<Rij<<std::endl;
+				corrHist->SetBinContent(1+i, 1+j, Rij);
+			}
+		}
+
+		return corrHist;
+	}
+
+};
 
 
 std::string stringToUpper(std::string _str){
@@ -3324,6 +3386,18 @@ Char_t RGB2ColPlt(std::string _CSVFile, Int_t _firstCol=0){
 
 	return 0;
 };
+
+TH2* getAbsHist(TH2* _hist){
+	TH2* _clone = (TH2*) _hist->Clone("abs_clone");
+	_clone->Reset();
+
+	for(Int_t iBinX = 1; iBinX <= _hist->GetNbinsX(); iBinX++){
+		for(Int_t iBinY = 1; iBinY <= _hist->GetNbinsY(); iBinY++){
+			_clone->SetBinContent(iBinX, iBinY, std::abs(_hist->GetBinContent(iBinX, iBinY)));
+		}		
+	}
+	return _clone;
+}
 // void redrawBorder(){
 //    gPad->Update();
 //    gPad->RedrawAxis();

@@ -15,7 +15,7 @@ phoPt 										== 	p_{T}^{#gamma} (GeV)													==		40,200.,1200.
 phoE5x5OESCrFull5x5 						== 	E_{5#times5}/E_{SC}^{raw}												==		0.,1.5,150.
 phoE2x5OESCrFull5x5 						== 	E_{2#times5}/E_{SC}^{raw}												==		0.,1.,100.
 phoSigmaIEtaIEta 							== 	#sigma_{i#etai#eta}														==		60,0.,0.03
-phoE2ndOE3x3Full5x5 						== 	E_{2}/E_{3#times3}														==		0.,1.,100.
+phoE2ndOE3x3Full5x5 						== 	E_{2#times2}/E_{3#times3}												==		0.,1.,100.
 phoE1x3OESCrFull5x5 						== 	E_{1#times3}/E_{SC}^{raw}												==		0.,1.,100.
 phoEtaWidth 								== 	#sigma_{#eta}															==		40,0.005,0.025
 phoSieieOSipipFull5x5 						== 	#sigma_{i#etai#eta}/#sigma_{i#phii#phi}									==		80,0.,0.08

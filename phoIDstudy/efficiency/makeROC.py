@@ -22,7 +22,7 @@ featFile='/hdfs/cms/user/wadud/anTGC/BDTdata/mergedSamplesShuffled.root'
 bdtFile='/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/optimizedV1/BDTresults_0.root'
 idFile='/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/efficiency/data/idShuffledTree.root'
 
-data = read_root(paths=featFile, key='fullEB_Tree', columns=['isSignal', 'isTrain', 'isValidation', 'phoIDbit'])
+data = read_root(paths=featFile, key='fullEB_Tree', columns=['isSignal', 'isTrain', 'isValidation', 'phoIDbit', 'phoSCeta'])
 bdtData = read_root(paths=bdtFile, key='fullEB_BDT_Tree', columns=['bdtWeightF', 'bdtScore'])
 idData = read_root(paths=idFile, key='fullEB_IdTree', columns=['pass95', 'pass90', 'pass80', 'pass70'])
 data['bdtWeightF'] = bdtData['bdtWeightF'].to_numpy()
@@ -46,42 +46,42 @@ data['pass90'] = data['pass90'].astype('bool')
 data['pass80'] = data['pass80'].astype('bool')
 data['pass70'] = data['pass70'].astype('bool')
 
-sumSig = data[(data.isSignal==1) & (data.isTrain == 0) & (data.isValidation==0)]['bdtWeightF'].sum()
-sumBg = data[(data.isSignal==0) & (data.isTrain == 0)& (data.isValidation==0)]['bdtWeightF'].sum()
+sumSig = data[(data.isSignal==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()
+sumBg = data[(data.isSignal==0) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()
 
-llSigEff	= 100.*data[(data.isSignal==1) & (data.pass95==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-llBgEff	= 100.*data[(data.isSignal==0) & (data.pass95==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+llSigEff	= 100.*data[(data.isSignal==1) & (data.pass95==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumSig
+llBgEff	= 100.*data[(data.isSignal==0) & (data.pass95==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumBg
 print('95 %% efficiencies calculated!')
 
-lSigEff	= 100.*data[(data.isSignal==1) & (data.pass90==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-lBgEff	= 100.*data[(data.isSignal==0) & (data.pass90==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+lSigEff	= 100.*data[(data.isSignal==1) & (data.pass90==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumSig
+lBgEff	= 100.*data[(data.isSignal==0) & (data.pass90==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumBg
 print('90 %% efficiencies calculated!')
 
 
-mSigEff	= 100.*data[(data.isSignal==1) & (data.pass80==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-mBgEff	= 100.*data[(data.isSignal==0) & (data.pass80==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+mSigEff	= 100.*data[(data.isSignal==1) & (data.pass80==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442) ]['bdtWeightF'].sum()/sumSig
+mBgEff	= 100.*data[(data.isSignal==0) & (data.pass80==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442) ]['bdtWeightF'].sum()/sumBg
 print('80 %% efficiencies calculated!')
 
-tSigEff	= 100.*data[(data.isSignal==1) & (data.pass70==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-tBgEff	= 100.*data[(data.isSignal==0) & (data.pass70==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+tSigEff	= 100.*data[(data.isSignal==1) & (data.pass70==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442) ]['bdtWeightF'].sum()/sumSig
+tBgEff	= 100.*data[(data.isSignal==0) & (data.pass70==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumBg
 print('70 %% efficiencies calculated!')
 
 data['looseID'] = data['phoIDbit'] & (1 << 0)
 data['looseID'] = data['looseID'].astype('bool')
-lEGMSigEff	= 100.*data[(data.isSignal==1) & (data.looseID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-lEGMBgEff	= 100.*data[(data.isSignal==0) & (data.looseID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+lEGMSigEff	= 100.*data[(data.isSignal==1) & (data.looseID==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumSig
+lEGMBgEff	= 100.*data[(data.isSignal==0) & (data.looseID==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumBg
 print('EGM Loose efficiencies calculated!')
 
 data['mediumID'] = data['phoIDbit'] & (1 << 1)
 data['mediumID'] = data['mediumID'].astype('bool')
-mEGMSigEff	= 100.*data[(data.isSignal==1) & (data.mediumID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-mEGMBgEff	= 100.*data[(data.isSignal==0) & (data.mediumID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+mEGMSigEff	= 100.*data[(data.isSignal==1) & (data.mediumID==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumSig
+mEGMBgEff	= 100.*data[(data.isSignal==0) & (data.mediumID==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumBg
 print('EGM Medium efficiencies calculated!')
 
 data['tightID'] = data['phoIDbit'] & (1 << 2)
 data['tightID'] = data['tightID'].astype('bool')
-tEGMSigEff	= 100.*data[(data.isSignal==1) & (data.tightID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumSig
-tEGMBgEff	= 100.*data[(data.isSignal==0) & (data.tightID==1) & (data.isTrain == 0)]['bdtWeightF'].sum()/sumBg
+tEGMSigEff	= 100.*data[(data.isSignal==1) & (data.tightID==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumSig
+tEGMBgEff	= 100.*data[(data.isSignal==0) & (data.tightID==1) & (data.isTrain == 0) & (abs(data.phoSCeta) <= 1.4442)]['bdtWeightF'].sum()/sumBg
 print('EGM Tight efficiencies calculated!')
 
 print('Making plot!')
