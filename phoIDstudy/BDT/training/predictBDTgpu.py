@@ -3,13 +3,12 @@
 ####################################################################
 # Photon ID BDT for aNTGC search in Z(->nu nu) + Gamma channel     #
 # Mohammad Abrar Wadud (BD), 04/02/2020                            #
-####################################################################
-
-import numpy as np
+###################################################################
 
 # configure options
 from argparse import ArgumentParser
-parser = ArgumentParser(
+parser = ArgumentParse
+
 	description='Photon ID BDT Training for CMS aNTGC search in Z(->nu nu) + gamma channel')
 parser.add_argument('--inFilePath', type=str, help='Input root file',
 					default='/home/rusack/wadud/phoBDT/mergedSamplesShuffled.root', action='store')
@@ -65,6 +64,7 @@ print("inTreeName\t=\t" + args.inTreeName)
 print("logFile\t\t=\t" + logFileName)
 
 # using root_pandas - thanks to https://github.com/scikit-hep/root_pandas
+import numpy as np
 import pandas as pd
 import xgboost as xg
 import pickle

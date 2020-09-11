@@ -1,18 +1,18 @@
 
-outDir 						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/
+outDir 						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/dataV2/
 
-signalInDir					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_08_13_Prompt/merged/
+signalInDir					==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_09_04_Retrain_Prompt/merged
 signalSamples				== 		GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root, WGToLNuG01J5fPtG290TuneCP513TeVamcatnloFXFXpythia8.root, WGToLNuG01J5fPtG490TuneCP513TeVamcatnloFXFXpythia8.root, ZNuNuGJetsMonoPhotonPtG130TuneCP513TeVmadgraph.root
 
 
-backgroundInDir				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_08_13_Fakes/merged/
+backgroundInDir				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_09_04_Retrain_Fake/merged
 bgSamples					== 		GJetsDR0p4HT200To400TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT400To600TuneCP513TeVmadgraphMLMpythia8v2.root, GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root, QCDPt1400to1800TuneCP513TeVpythia8.root, QCDPt1800to2400TuneCP513TeVpythia8.root, QCDPt300to470TuneCP513TeVpythia8.root,  QCDPt470to600TuneCP513TeVpythia8.root, QCDPt800to1000TuneCP513TeVpythia8.root, QCDPt1000to1400TuneCP513TeVpythia8.root, QCDPt170to300TuneCP513TeVpythia8.root, QCDPt2400to3200TuneCP513TeVpythia8.root, QCDPt3200toInfTuneCP513TeVpythia8.root, QCDPt600to800TuneCP513TeVpythia8.root
 
-inTreeName 					==		fullEB/fullEB_Tree
+inTreeName 					==		fullEB/fullEBTree
 
-etaBinning 					==		0, 0.2, 0.4, 0.6, 0.8, 1., 1.2, 1.4442
+etaBinning 					==		0, 0.087,0.261,0.435,0.609,0.870,1.131,1.4442
 
-ptBinning 					==		200,220.,250.,300.,350.,400.,500.,600.,800.,1200.,10000.
+ptBinning 					==		200,220.,240.,260.,280.,290.,300.,310.,330.,350.,400.,450.,480.,490.,510.,530.,550.,570.,600.,630.,660.,700.,750.,800.,900.,1000.,1100.,1200.,1400.,1600.,2000.
 
 xSectionMap 				==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv
 

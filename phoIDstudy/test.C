@@ -29,23 +29,23 @@
 // 		"/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/optimizedV0/aNTGC_photon_BDT.model");
 // }; 
 
-#include "fakePhoFinderV2.cc"
-
-void test(){
-	fakePhoFinder t(
-		"testGJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.txt",
-		"testGJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root",
-		40.66,
-		"/hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root");
-}; 
-
-
-// #include "genPhoMatcherV3.cc"
+// #include "fakePhoFinderV2.cc"
 
 // void test(){
-// 	genPhoMatcher t(
+// 	fakePhoFinder t(
 // 		"testGJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.txt",
 // 		"testGJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root",
 // 		40.66,
 // 		"/hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root");
 // }; 
+
+
+#include "genPhoMatcherV3.cc"
+
+void test(){
+	genPhoMatcher t(
+		"testGJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.txt",
+		"testGJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root",
+		40.66,
+		"/hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/GJetsDR0p4HT600ToInfTuneCP513TeVmadgraphMLMpythia8.root");
+}; 

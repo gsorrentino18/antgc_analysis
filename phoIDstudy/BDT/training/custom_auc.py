@@ -55,14 +55,11 @@ def sampleStats(df):
 		  ((sigCount + bkgCount), bkgCount, sigCount))
 
 
-	# print('Total Events\t=\t%d (B/S= %d / %d = %1.2f)' %
-	# 	  ((sigCount + bkgCount), bkgCount, sigCount, float(bkgCount) / float(sigCount)))
-
-	# sigSumW = np.sum(df[df.isSignal == 1]['xSecW'].values)
-	# bkgSumW = np.sum(df[df.isSignal == 0]['xSecW'].values)
-	# BoS = bkgSumW / sigSumW
-	# print('BackgroundSumW/SignalSumW \t=\t%.6f / %.6f\t=\t%.6f' %
-	# 	  (bkgSumW, sigSumW, BoS))
+	sigSumW = np.sum(df[df.isSignal == 1]['flatPtEtaRwNoXsec'].values)
+	bkgSumW = np.sum(df[df.isSignal == 0]['flatPtEtaRwNoXsec'].values)
+	BoS = bkgSumW / sigSumW
+	print('BackgroundSumW/SignalSumW \t=\t%.6f / %.6f\t=\t%.6f' %
+		  (bkgSumW, sigSumW, BoS))
 
 	# sigSumPtEtaW = np.sum(df[df.isSignal == 1]['bdtWeight'].values)
 	# bkgSumPtEtaW = np.sum(df[df.isSignal == 0]['bdtWeight'].values)

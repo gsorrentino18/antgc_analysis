@@ -1,0 +1,16 @@
+************************************************************************************************************************************************
+
+2020-09-10 20:41:35
+Starting photon ID training BDT
+
+featFilePath	=	dataV2/mergedSamples.root
+featTreeName	=	fullEBTree
+indexFilePath	=	dataV2/mergedSamplesShuffledIndices.root
+indexTreeName	=	randomized_split
+saveDir		=	tuningmGPUbays/
+logFile		=	tuningmGPUbays//mGPUbaysTuneLog_2020_09_10_20_41_35.log
+
+BDT input features (18) :
+['pho2x2OE3x3Full5x5', 'phoE1x3OESCrFull5x5', 'phoE2ndOE3x3Full5x5', 'phoE2ndOESCrFull5x5', 'phoE2ndOEmaxFull5x5', 'phoE2x5OESCrFull5x5', 'phoE5x5OESCrFull5x5', 'phoEmaxOE3x3Full5x5', 'phoEmaxOESCrFull5x5', 'phoEtaWOPhiWFull5x5', 'phoEtaWidth', 'phoPhiWidth', 'phoR9Full5x5', 'phoS4Full5x5', 'phoSieieOSipipFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi']
+
+

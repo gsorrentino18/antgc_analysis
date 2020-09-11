@@ -237,6 +237,7 @@ private:
 	Float_t 			phoE5x5OESCrFull5x5_;
 
 	Float_t 			phoEmaxOE3x3Full5x5_;
+	Float_t 			phoE2ndOE3x3Full5x5_;
 	Float_t 			pho2x2OE3x3Full5x5_;
 	Float_t 			phoSieieOSipipFull5x5_;
 	Float_t				phoEtaWOPhiWFull5x5_;
@@ -275,6 +276,12 @@ private:
 	UChar_t             phoIDbit_;
 	Float_t 			phoBDTpred_;
 	UChar_t 			phoPFClusIDbits_;
+
+	Bool_t 					pass95_ = 0;
+	Bool_t 					pass90_ = 0;
+	Bool_t 					pass80_ = 0;
+	Bool_t 					pass70_ = 0;
+
 	Float_t 			phoMIP_;	
 
 	Float_t 			phoSCet_;
@@ -691,6 +698,7 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 	phoE2x5Full5x5_			= _phoE2x2Full5x5[_phoIndex];
 
 	phoEmaxOE3x3Full5x5_ 	= phoMaxEnergyXtal_/phoE3x3Full5x5_;
+	phoE2ndOE3x3Full5x5_ 	= phoE2ndFull5x5_/phoE3x3Full5x5_;
 	pho2x2OE3x3Full5x5_		= phoE2x2Full5x5_/phoE3x3Full5x5_;
 	phoSieieOSipipFull5x5_	= phoSigmaIEtaIEta_/phoSigmaIPhiIPhi_;
 
@@ -774,15 +782,15 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 		XGDMatrixFree(dTest);
 		phoBDTpred_ = prediction[0];
 
-		Bool_t 					pass95 = (phoBDTpred_ >= 8.49e-02) && (phoHoverE_ < 4.50e-02) && (phoPFECALClusIsoCorr_ < 3.41) && (phoPFHCALClusIsoCorr_ < 9.28) && (phoTkrIsoCorr_ < 4.21);
-		Bool_t 					pass90 = (phoBDTpred_ >= 2.05e-01) && (phoHoverE_ < 3.66e-02) && (phoPFECALClusIsoCorr_ < 4.02) && (phoPFHCALClusIsoCorr_ < 5.21) && (phoTkrIsoCorr_ < 3.33);
-		Bool_t 					pass80 = (phoBDTpred_ >= 3.29e-01) && (phoHoverE_ < 4.87e-02) && (phoPFECALClusIsoCorr_ < 4.47) && (phoPFHCALClusIsoCorr_ < 3.03) && (phoTkrIsoCorr_ < 1.43);
-		Bool_t 					pass70 = (phoBDTpred_ >= 6.47e-01) && (phoHoverE_ < 3.16e-02) && (phoPFECALClusIsoCorr_ < 1.53) && (phoPFHCALClusIsoCorr_ < 9.26) && (phoTkrIsoCorr_ < 1.75);
+		pass95_ = (phoBDTpred_ >= 8.4858950660326768e-02) && (phoHoverE_ < 4.5018283831009365e-02) && (phoPFECALClusIsoCorr_ < 3.4103181645009730e+00) && (phoPFHCALClusIsoCorr_ < 9.2786995496122131e+00) && (phoTkrIsoCorr_ < 4.2117599454665431e+00);
+		pass90_ = (phoBDTpred_ >= 2.0507127927211427e-01) && (phoHoverE_ < 3.6568641101583359e-02) && (phoPFECALClusIsoCorr_ < 4.0163389219598731e+00) && (phoPFHCALClusIsoCorr_ < 5.2111989884892580e+00) && (phoTkrIsoCorr_ < 3.3294343175354939e+00);
+		pass80_ = (phoBDTpred_ >= 3.2887671669257112e-01) && (phoHoverE_ < 4.8717872871108611e-02) && (phoPFECALClusIsoCorr_ < 4.4686313648949589e+00) && (phoPFHCALClusIsoCorr_ < 3.0344907163887740e+00) && (phoTkrIsoCorr_ < 1.4285177877985955e+00);
+		pass70_ = (phoBDTpred_ >= 6.4674869718575889e-01) && (phoHoverE_ < 3.1618057666772573e-02) && (phoPFECALClusIsoCorr_ < 1.5315069640623058e-01) && (phoPFHCALClusIsoCorr_ < 9.2591138752480902e+00) && (phoTkrIsoCorr_ < 1.7539121705839822e+00);
 
-		if(pass70) setBit(phoPFClusIDbits_, 0, 1);
-		if(pass80) setBit(phoPFClusIDbits_, 1, 1);
-		if(pass90) setBit(phoPFClusIDbits_, 2, 1);
-		if(pass95) setBit(phoPFClusIDbits_, 3, 1);
+		if(pass70_) setBit(phoPFClusIDbits_, 0, 1);
+		if(pass80_) setBit(phoPFClusIDbits_, 1, 1);
+		if(pass90_) setBit(phoPFClusIDbits_, 2, 1);
+		if(pass95_) setBit(phoPFClusIDbits_, 3, 1);
 	}
 
 	lepVeto_ = 0;
@@ -1021,7 +1029,8 @@ void fakePhoFinder::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoE2x5OESCrFull5x5", &phoE2x5OESCrFull5x5_);
 	evType.tree->Branch("phoE5x5OESCrFull5x5", &phoE5x5OESCrFull5x5_);
 	evType.tree->Branch("phoEmaxOE3x3Full5x5", &phoEmaxOE3x3Full5x5_);
-	evType.tree->Branch("phoE2ndOE3x3Full5x5", &pho2x2OE3x3Full5x5_);
+	evType.tree->Branch("phoE2ndOE3x3Full5x5", &phoE2ndOE3x3Full5x5_);
+	evType.tree->Branch("pho2x2OE3x3Full5x5", &pho2x2OE3x3Full5x5_);
 	evType.tree->Branch("phoSigmaIEtaIEta", &phoSigmaIEtaIEta_);
 	evType.tree->Branch("phoSigmaIEtaIPhi", &phoSigmaIEtaIPhi_);
 	evType.tree->Branch("phoSigmaIPhiIPhi", &phoSigmaIPhiIPhi_);
@@ -1059,6 +1068,12 @@ void fakePhoFinder::initEventType(eventType & evType, std::string typeName, std:
 	evType.tree->Branch("phoEGMidMVA", &phoIDMVA_);
 	evType.tree->Branch("phoBDTpred", &phoBDTpred_);
 	evType.tree->Branch("phoPFClusIDbits", &phoPFClusIDbits_);	
+
+	evType.tree->Branch("pass95", &pass95_);	
+	evType.tree->Branch("pass90", &pass90_);
+	evType.tree->Branch("pass80", &pass80_);
+	evType.tree->Branch("pass70", &pass70_);
+
 	evType.tree->Branch("phoIDbit", &phoIDbit_);
 	evType.tree->Branch("phoMIP", &phoMIP_);
 	

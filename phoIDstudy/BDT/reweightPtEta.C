@@ -5,15 +5,15 @@
 #include <iostream>
 #include <fstream>
 
-void 											makePtEtaHists(TH1D &_PtHist, TH1D &_EtaHist, TH2D & _PtEtaHist, TH1D &_PtNoXsecHist, TH1D &_EtaNoXsecHist, TH2D & _PtEtaNoXsecHist, const std::vector<std::string> & _samplePaths, std::string _directory);
+void 											makePtEtaHists( TH2D & _PtEtaHist, TH2D & _PtEtaNoXsecHist, const std::vector<std::string> & _samplePaths, std::string _directory);
 void 											extractPtEtaWeights();
 void 											createTrees4BDT();
 void 											create1Tree4BDT(std::string filePath, Int_t _sampleIndex, Bool_t _isSignal);
 void 											initialize();
 std::string 									optionsFile = "reweightPtEtaOptions.txt";
 std::string 									weightsFile;
-std::vector<Float_t> 							etaBinning;
-std::vector<Float_t> 							ptBinning;
+std::vector<Double_t> 							etaBinning;
+std::vector<Double_t> 							ptBinning;
 parseOptions                                	options;
 std::vector<std::string>                    	signalSamples;
 std::vector<std::string>						bgSamples;
@@ -34,9 +34,9 @@ void extractPtEtaWeights(){
 	options.parseIt(optionsFile, "==");
 
 	//// load eta bins
-	std::vector<Float_t> 						absEtaBinning 								=	options.getFloatList("etaBinning");
+	std::vector<Double_t> 						absEtaBinning 								=	options.getDoubleList("etaBinning");
 	absEtaMax 																				=	*std::max_element(absEtaBinning.begin(), absEtaBinning.end());
-	for(std::vector<Float_t>::reverse_iterator iEtaBin = absEtaBinning.rbegin(); iEtaBin != absEtaBinning.rend(); ++iEtaBin){
+	for(std::vector<Double_t>::reverse_iterator iEtaBin = absEtaBinning.rbegin(); iEtaBin != absEtaBinning.rend(); ++iEtaBin){
 		etaBinning.push_back(-(*iEtaBin));
 		etaBinning.push_back(*iEtaBin);
 	}
@@ -44,7 +44,7 @@ void extractPtEtaWeights(){
 	etaBinning.erase(std::unique(etaBinning.begin(), etaBinning.end() ), etaBinning.end());
 
 	//// load pT bins
-	ptBinning 																				=	options.getFloatList("ptBinning");
+	ptBinning 																				=	options.getDoubleList("ptBinning");
 	pTmin																					= 	ptBinning[0];
 	pTmax																					= 	ptBinning.back();
 
@@ -54,20 +54,8 @@ void extractPtEtaWeights(){
 	outFile.cd();
 
 	//// Make histograms for signal
-	TH1D										signalPt("signalPt", "Signal;p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	signalPt.Sumw2();
-
-	TH1D										signalEta("signalEta", "Signal;#eta", etaBinning.size()-1, etaBinning.data());
-	signalEta.Sumw2();
-
 	TH2D										signalPtEta("signalPtEta", "Signal;p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
 	signalPtEta.Sumw2();
-
-	TH1D										signalPtNoXsec("signalPtNoXsec", "Signal (No weights);p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	signalPtNoXsec.Sumw2();
-
-	TH1D										signalEtaNoXsec("signalEtaNoXsec", "Signal (No weights);#eta", etaBinning.size()-1, etaBinning.data());
-	signalEtaNoXsec.Sumw2();
 
 	TH2D 										signalPtEtaNoXsec("signalPtEtaNoXsec", "Signal (No weights);p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
 	signalPtEtaNoXsec.Sumw2();	
@@ -75,32 +63,19 @@ void extractPtEtaWeights(){
 	signalSamples																			= 	options.getList("signalSamples", ","); std::sort(signalSamples.begin(), signalSamples.end());
 
 	std::cout<<"Getting signal histograms..."<<std::endl;
-	makePtEtaHists(signalPt, signalEta, signalPtEta, signalPtNoXsec, signalEtaNoXsec, signalPtEtaNoXsec,  signalSamples, options.get("signalInDir"));
+	makePtEtaHists(signalPtEta,signalPtEtaNoXsec,  signalSamples, options.get("signalInDir"));
 
-	normalizeHist(signalPt, 1000000.);
-	normalizeHist(signalEta, 1000000.);
-	normalizeHist(signalPtEta, 1000000.);
+	signalPtEta.Scale(1./signalPtEta.Integral());
+	signalPtEtaNoXsec.Scale(1./signalPtEtaNoXsec.Integral());
 
-	normalizeHist(signalPtNoXsec, 1000000.);
-	normalizeHist(signalEtaNoXsec, 1000000.);
-	normalizeHist(signalPtEtaNoXsec, 1000000.);
+	signalPtEta.Scale(1., "width");
+	signalPtEtaNoXsec.Scale(1., "width");
+
 
 	//// Make histograms for background
 	outFile.cd();
-	TH1D										bgPt("bgPt", "Background;p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	bgPt.Sumw2();
-
-	TH1D										bgEta("bgEta", "Background;#eta", etaBinning.size()-1, etaBinning.data());
-	bgEta.Sumw2();
-
 	TH2D 										bgPtEta("bgPtEta", "Background;p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
 	bgPtEta.Sumw2();
-
-	TH1D										bgPtNoXsec("bgPtNoXsec", "Background;p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	bgPtNoXsec.Sumw2();
-
-	TH1D										bgEtaNoXsec("bgEtaNoXsec", "Background (No weights);#eta", etaBinning.size()-1, etaBinning.data());
-	bgEtaNoXsec.Sumw2();
 
 	TH2D 										bgPtEtaNoXsec("bgPtEtaNoXsec", "Background (No weights);p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
 	bgPtEtaNoXsec.Sumw2();
@@ -108,15 +83,13 @@ void extractPtEtaWeights(){
 	bgSamples																				= 	options.getList("bgSamples", ","); std::sort(signalSamples.begin(), signalSamples.end());
 	
 	std::cout<<"Getting background histograms..."<<std::endl;
-	makePtEtaHists(bgPt, bgEta, bgPtEta, bgPtNoXsec, bgEtaNoXsec, bgPtEtaNoXsec, bgSamples, options.get("backgroundInDir"));
+	makePtEtaHists(bgPtEta, bgPtEtaNoXsec, bgSamples, options.get("backgroundInDir"));
 
-	normalizeHist(bgPt, 1000000.);
-	normalizeHist(bgEta, 1000000.);
-	normalizeHist(bgPtEta, 1000000.);
+	bgPtEta.Scale(1./bgPtEta.Integral());
+	bgPtEtaNoXsec.Scale(1./bgPtEtaNoXsec.Integral());
 
-	normalizeHist(bgPtNoXsec, 1000000.);
-	normalizeHist(bgEtaNoXsec, 1000000.);
-	normalizeHist(bgPtEtaNoXsec, 1000000.);
+	bgPtEta.Scale(1., "width");
+	bgPtEtaNoXsec.Scale(1., "width");
 
 	//// Make weights
 	TH2D* 										weightsSoB 									=  (TH2D*) signalPtEta.Clone("weightsSoB");
@@ -145,7 +118,7 @@ void extractPtEtaWeights(){
 };
 
 
-void makePtEtaHists(TH1D &_PtHist, TH1D &_EtaHist, TH2D & _PtEtaHist, TH1D &_PtNoXsecHist, TH1D &_EtaNoXsecHist, TH2D & _PtEtaNoXsecHist, const std::vector<std::string> & _samplePaths, std::string _directory){
+void makePtEtaHists(TH2D & _PtEtaHist, TH2D & _PtEtaNoXsecHist, const std::vector<std::string> & _samplePaths, std::string _directory){
 	
 	std::cout<<"Filling Eta-Pt histograms @ "<<getCurrentTime()<<std::endl;
 
@@ -157,7 +130,7 @@ void makePtEtaHists(TH1D &_PtHist, TH1D &_EtaHist, TH2D & _PtEtaHist, TH1D &_PtN
 		TTreeReaderAnyValue<Float_t>            puWeight(inputTTreeReader, "puWeight");
 		TTreeReaderAnyValue<Float_t>            genWeight(inputTTreeReader, "genWeight");
 		TTreeReaderAnyValue<Float_t>            phoPt(inputTTreeReader, "phoPt");
-		TTreeReaderAnyValue<Float_t>            phoEta(inputTTreeReader, "phoEta");
+		TTreeReaderAnyValue<Float_t>            phoSCeta(inputTTreeReader, "phoSCeta");
 		Double_t 								xSection 			=	std::stod(vLookup(sampleName, options.get("xSectionMap"), 0, 2));
 		Double_t 								sumGenWeight		=	std::stod(vLookup(sampleName, options.get("xSectionMap"), 0, 7));
 
@@ -168,17 +141,12 @@ void makePtEtaHists(TH1D &_PtHist, TH1D &_EtaHist, TH2D & _PtEtaHist, TH1D &_PtN
 			
 			if(phoPt < pTmin) continue;
 			if(phoPt > pTmax) continue;
-			if(std::abs(phoEta) > absEtaMax) continue;
+			if(std::abs(phoSCeta) > absEtaMax) continue;
 
-			Double_t weight =  puWeight * genWeight * xSection*1000000./sumGenWeight;
+			Double_t weight =  puWeight * genWeight * xSection*100./sumGenWeight;
 			
-			_PtHist.Fill(phoPt, weight);
-			_EtaHist.Fill(phoEta, weight);
-			_PtEtaHist.Fill(phoPt, phoEta, weight);
-
-			_PtNoXsecHist.Fill(phoPt);
-			_EtaNoXsecHist.Fill(phoEta);
-			_PtEtaNoXsecHist.Fill(phoPt, phoEta);
+			_PtEtaHist.Fill(phoPt, phoSCeta, weight);
+			_PtEtaNoXsecHist.Fill(phoPt, phoSCeta);
 
 			addedEntries++;
 		}
@@ -232,6 +200,13 @@ void createTrees4BDT(){
 
 void create1Tree4BDT(std::string filePath, Int_t _sampleIndex, Bool_t _isSignal){
 
+	std::vector<Double_t> 						absEtaBinning 								=	options.getDoubleList("etaBinning");
+	absEtaMax 																				=	*std::max_element(absEtaBinning.begin(), absEtaBinning.end());
+
+	ptBinning 																				=	options.getDoubleList("ptBinning");
+	pTmin																					= 	ptBinning[0];
+	pTmax																					= 	ptBinning.back();
+
 	//// Import input tree
 	TFile                                       sampleFile(filePath.c_str(), "READ");
 	TTree*                                      sampleTree          = 	(TTree*) sampleFile.Get(options.get("inTreeName").c_str());
@@ -240,12 +215,12 @@ void create1Tree4BDT(std::string filePath, Int_t _sampleIndex, Bool_t _isSignal)
 	Float_t 									puWeight;
 	Float_t 									genWeight;
 	Float_t 									phoPt;
-	Float_t 									phoEta;
+	Float_t 									phoSCeta;
 	sampleTree->SetBranchStatus("*",1);
 	sampleTree->SetBranchAddress("puWeight", &puWeight);
 	sampleTree->SetBranchAddress("genWeight", &genWeight);
 	sampleTree->SetBranchAddress("phoPt", &phoPt);
-	sampleTree->SetBranchAddress("phoEta", &phoEta);
+	sampleTree->SetBranchAddress("phoSCeta", &phoSCeta);
 
 	std::string                             sampleName          =	findAndReplaceAll(getFileName(filePath), ".root", "");
 	Double_t 								xSection 			=	std::stod(vLookup(sampleName, options.get("xSectionMap"), 0, 2));
@@ -259,15 +234,19 @@ void create1Tree4BDT(std::string filePath, Int_t _sampleIndex, Bool_t _isSignal)
 	TFile                                       outFile(outFilePath.c_str(), "RECREATE");
 	outFile.cd();
 	TTree*                                      outTree             		= (TTree*) sampleTree->CloneTree(0);
-	Float_t 									xSecW;
-	Float_t                                     PtEtaRwBG;
-	Float_t                                     PtEtaRwSignal;
-	Float_t                                     PtEtaNoXsecRwBG;
-	Float_t                                     PtEtaNoXsecRwSignal;
+	Double_t 									xSecW;
+	Double_t 									flatPtEtaRw;
+	Double_t 									flatPtEtaRwNoXsec;
+	Double_t                                     PtEtaRwBG;
+	Double_t                                     PtEtaRwSignal;
+	Double_t                                     PtEtaNoXsecRwBG;
+	Double_t                                     PtEtaNoXsecRwSignal;
 	Bool_t                                      isSignal 					= 	_isSignal;
 	UChar_t                                     sampleIndex 				= 	_sampleIndex;
 	
 	outTree->Branch("xSecW", &xSecW);
+	outTree->Branch("flatPtEtaRw", &flatPtEtaRw);
+	outTree->Branch("flatPtEtaRwNoXsec", &flatPtEtaRwNoXsec);
 	outTree->Branch("PtEtaRwBG", &PtEtaRwBG);
 	outTree->Branch("PtEtaRwSignal", &PtEtaRwSignal);
 	outTree->Branch("PtEtaNoXsecRwBG", &PtEtaNoXsecRwBG);
@@ -276,69 +255,45 @@ void create1Tree4BDT(std::string filePath, Int_t _sampleIndex, Bool_t _isSignal)
 	outTree->Branch("sampleIndex", &sampleIndex);
 	outTree->SetDirectory(outFile.GetDirectory(0));
 
-	//// Fill tree
+	
+	TH2D*                                       signalPtEta     			=   (TH2D*) getHistFromFile("signalPtEta", weightsFile, 0, outFile.GetDirectory(""));
+	TH2D*                                       signalPtEtaNoXsec  			=   (TH2D*) getHistFromFile("signalPtEtaNoXsec", weightsFile, 0, outFile.GetDirectory(""));
+	TH2D*                                       bgPtEta     				=   (TH2D*) getHistFromFile("bgPtEta", weightsFile, 0, outFile.GetDirectory(""));
+	TH2D*                                       bgPtEtaNoXsec     			=   (TH2D*) getHistFromFile("bgPtEtaNoXsec", weightsFile, 0, outFile.GetDirectory(""));
 	TH2D*                                       weightsBoS     				=   (TH2D*) getHistFromFile("weightsBoS", weightsFile, 0, outFile.GetDirectory(""));
 	TH2D*                                       weightsSoB     				=   (TH2D*) getHistFromFile("weightsSoB", weightsFile, 0, outFile.GetDirectory(""));
 	TH2D*                                       weightsNoXsecBoS    	 	=   (TH2D*) getHistFromFile("weightsBoSnoXsec", weightsFile, 0, outFile.GetDirectory(""));
 	TH2D*                                       weightsNoXsecSoB     		=   (TH2D*) getHistFromFile("weightsSoBnoXsec", weightsFile, 0, outFile.GetDirectory(""));
 
+	//// Fill tree
 	outFile.cd();
-	TH2D                                        preRwPtEta("preRwPtEta", "Pre Re-weight;p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
-	TH1D                                        preRwPt("preRwPt", "Pre Re-weight;p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	TH1D                                        preRwEta("preRwEta", "Pre Re-weight;#eta", etaBinning.size()-1, etaBinning.data());
-	TH2D                                        preRwNoXsecPtEta("preRwNoXsecPtEta", "Pre Re-weight (No #times-section);p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
-	TH1D                                        preRwNoXsecPt("preRwNoXsecPt", "Pre Re-weight (No #times-section);p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	TH1D                                        preRwNoXsecEta("preRwNoXsecEta", "Pre Re-weight (No #times-section);#eta", etaBinning.size()-1, etaBinning.data());
-
-	TH2D                                        postRwPtEta("postRwPtEta", "Reweighted;p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
-	TH1D                                        postRwPt("postRwPt", "Reweighted;p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	TH1D                                        postRwEta("postRwEta", "Reweighted;#eta", etaBinning.size()-1, etaBinning.data());
-	TH2D                                        postRwNoXsecPtEta("postRwNoXsecPtEta", "Reweighted (No #times-section);p_{T} (GeV);#eta", ptBinning.size()-1, ptBinning.data(), etaBinning.size()-1, etaBinning.data());
-	TH1D                                        postRwNoXsecPt("postRwNoXsecPt", "Reweighted (No #times-section);p_{T} (GeV)", ptBinning.size()-1, ptBinning.data());
-	TH1D                                        postRwNoXsecEta("postRwNoXsecEta", "Reweighted (No #times-section);#eta", etaBinning.size()-1, etaBinning.data());
-
+	
 	for(ULong64_t iEntry = 0; iEntry < nEntries; iEntry++){
 
 		sampleTree->GetEntry(iEntry);
 
 		if(phoPt < pTmin) continue;
 		if(phoPt > pTmax) continue;
-		if(std::abs(phoEta) > absEtaMax) continue;
+		if(std::abs(phoSCeta) > absEtaMax) continue;
 		
-		xSecW                             		 							=	puWeight * genWeight * xSection * 1000000. / sumGenWeight;
-
-		preRwPtEta.Fill(phoPt, phoEta, xSecW);
-		preRwPt.Fill(phoPt, xSecW);
-		preRwEta.Fill(phoEta, xSecW);
-		preRwNoXsecPtEta.Fill(phoPt, phoEta);
-		preRwNoXsecPt.Fill(phoPt);
-		preRwNoXsecEta.Fill(phoEta);
+		xSecW                             		 							=	puWeight * genWeight * xSection * 1000. / sumGenWeight;
 
 		if(_isSignal){
-			PtEtaRwBG 														=	1.;
-			PtEtaRwSignal 													=	weightsBoS->GetBinContent(weightsBoS->FindBin(phoPt, phoEta));
-			PtEtaNoXsecRwBG 												=	1.;
-			PtEtaNoXsecRwSignal												=	weightsNoXsecBoS->GetBinContent(weightsNoXsecBoS->FindBin(phoPt, phoEta));
 
-			postRwPtEta.Fill(phoPt, phoEta, xSecW*PtEtaRwSignal);
-			postRwPt.Fill(phoPt, xSecW*PtEtaRwSignal);
-			postRwEta.Fill(phoEta, xSecW*PtEtaRwSignal);
-			postRwNoXsecPtEta.Fill(phoPt, phoEta, PtEtaNoXsecRwSignal);
-			postRwNoXsecPt.Fill(phoPt, PtEtaNoXsecRwSignal);
-			postRwNoXsecEta.Fill(phoEta, PtEtaNoXsecRwSignal);
+			flatPtEtaRw 													=	1./signalPtEta->GetBinContent(signalPtEta->FindBin(phoPt, phoSCeta));
+			flatPtEtaRwNoXsec 												=	1./signalPtEtaNoXsec->GetBinContent(signalPtEtaNoXsec->FindBin(phoPt, phoSCeta));
+			PtEtaRwBG 														=	1.;
+			PtEtaRwSignal 													=	weightsBoS->GetBinContent(weightsBoS->FindBin(phoPt, phoSCeta));
+			PtEtaNoXsecRwBG 												=	1.;
+			PtEtaNoXsecRwSignal												=	weightsNoXsecBoS->GetBinContent(weightsNoXsecBoS->FindBin(phoPt, phoSCeta));
 
 		} else{
-			PtEtaRwBG 														=	weightsSoB->GetBinContent(weightsSoB->FindBin(phoPt, phoEta));
+			flatPtEtaRw 													=	1./bgPtEta->GetBinContent(bgPtEta->FindBin(phoPt, phoSCeta));
+			flatPtEtaRwNoXsec 												=	1./bgPtEtaNoXsec->GetBinContent(bgPtEtaNoXsec->FindBin(phoPt, phoSCeta));
+			PtEtaRwBG 														=	weightsSoB->GetBinContent(weightsSoB->FindBin(phoPt, phoSCeta));
 			PtEtaRwSignal 													=	1.;
-			PtEtaNoXsecRwBG 												=	weightsNoXsecSoB->GetBinContent(weightsNoXsecSoB->FindBin(phoPt, phoEta));
+			PtEtaNoXsecRwBG 												=	weightsNoXsecSoB->GetBinContent(weightsNoXsecSoB->FindBin(phoPt, phoSCeta));
 			PtEtaNoXsecRwSignal												=	1.;
-
-			postRwPtEta.Fill(phoPt, phoEta, xSecW*PtEtaRwBG);
-			postRwPt.Fill(phoPt, xSecW*PtEtaRwBG);
-			postRwEta.Fill(phoEta, xSecW*PtEtaRwBG);
-			postRwNoXsecPtEta.Fill(phoPt, phoEta, PtEtaNoXsecRwBG);
-			postRwNoXsecPt.Fill(phoPt, PtEtaNoXsecRwBG);
-			postRwNoXsecEta.Fill(phoEta, PtEtaNoXsecRwBG);
 		}
 
 		outTree->Fill();
@@ -346,61 +301,6 @@ void create1Tree4BDT(std::string filePath, Int_t _sampleIndex, Bool_t _isSignal)
 
 	sampleTree->Delete();
 	sampleFile.Close();
-
-
-
-	TH2D*										signalPtEta 				=   (TH2D*) getHistFromFile("signalPtEta", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										signalPt 					=   (TH1D*) getHistFromFile("signalPt", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										signalEta 					=   (TH1D*) getHistFromFile("signalEta", weightsFile, 0, outFile.GetDirectory(""));
-	TH2D* 										signalPtEtaNoXsec 			=   (TH2D*) getHistFromFile("signalPtEtaNoXsec", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										signalPtNoXsec 				=   (TH1D*) getHistFromFile("signalPtNoXsec", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										signalEtaNoXsec 			=   (TH1D*) getHistFromFile("signalEtaNoXsec", weightsFile, 0, outFile.GetDirectory(""));
-
-	TH2D*										bgPtEta 					=   (TH2D*) getHistFromFile("bgPtEta", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										bgPt 						=   (TH1D*) getHistFromFile("bgPt", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										bgEta 						=   (TH1D*) getHistFromFile("bgEta", weightsFile, 0, outFile.GetDirectory(""));
-	TH2D* 										bgPtEtaNoXsec 				=   (TH2D*) getHistFromFile("bgPtEtaNoXsec", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										bgPtNoXsec 					=   (TH1D*) getHistFromFile("bgPtNoXsec", weightsFile, 0, outFile.GetDirectory(""));
-	TH1D*										bgEtaNoXsec 				=   (TH1D*) getHistFromFile("bgEtaNoXsec", weightsFile, 0, outFile.GetDirectory(""));
-
-	TH2D*                                       postRwPtEtaOverTarget 		= 	(TH2D*) postRwPtEta.Clone("postRwPtEtaOverTarget");
-	TH1D*                                       postRwPtOverTarget 			= 	(TH1D*) postRwPt.Clone("postRwPtOverTarget");
-	TH1D*                                       postRwEtaOverTarget 		=	(TH1D*) postRwEta.Clone("postRwEtaOverTarget");
-	TH2D*                                       postRwNoXsecPtEtaOverTarget =	(TH2D*) postRwNoXsecPtEta.Clone("postRwNoXsecPtEtaOverTarget");
-	TH1D*                                       postRwNoXsecPtOverTarget 	= 	(TH1D*) postRwNoXsecPt.Clone("postRwNoXsecPtOverTarget");
-	TH1D*                                       postRwNoXsecEtaOverTarget 	= 	(TH1D*) postRwNoXsecEta.Clone("postRwNoXsecEtaOverTarget");
-
-	normalizeHist(postRwPtEtaOverTarget, 1000000.);
-	normalizeHist(postRwPtOverTarget, 1000000.);
-	normalizeHist(postRwEtaOverTarget, 1000000.);
-	normalizeHist(postRwNoXsecPtEtaOverTarget, 1000000.);
-	normalizeHist(postRwNoXsecPtOverTarget, 1000000.);
-	normalizeHist(postRwNoXsecEtaOverTarget, 1000000.);
-
-	if(_isSignal){
-		postRwPtEtaOverTarget->Divide(bgPtEta);
-		postRwPtOverTarget->Divide(bgPt);
-		postRwEtaOverTarget->Divide(bgEta);
-		postRwNoXsecPtEtaOverTarget->Divide(bgPtEtaNoXsec);
-		postRwNoXsecPtOverTarget->Divide(bgPtNoXsec);
-		postRwNoXsecEtaOverTarget->Divide(bgEtaNoXsec);
-	} else{
-		postRwPtEtaOverTarget->Divide(signalPtEta);
-		postRwPtOverTarget->Divide(signalPt);
-		postRwEtaOverTarget->Divide(signalEta);
-		postRwNoXsecPtEtaOverTarget->Divide(signalPtEtaNoXsec);
-		postRwNoXsecPtOverTarget->Divide(signalPtNoXsec);
-		postRwNoXsecEtaOverTarget->Divide(signalEtaNoXsec);
-	}
-
-	outFile.cd();
-
-	postRwPtEtaOverTarget->Write();
-	postRwPtOverTarget->Write();
-	postRwEtaOverTarget->Write();
-	postRwNoXsecPtEtaOverTarget->Write();
-	postRwNoXsecPtOverTarget->Write();
-	postRwNoXsecEtaOverTarget->Write();
 
 	outFile.Write();
 	outFile.Close();

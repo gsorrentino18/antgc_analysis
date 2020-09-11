@@ -28,7 +28,7 @@ function resubmit(){
 	fi
 
 	# echo $condorFile
-	# condor_submit $condorFile
+	condor_submit $condorFile
 	jobFiles=${pathName}/${fileName%.*}
 	echo $jobFiles
 }

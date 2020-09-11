@@ -49,7 +49,7 @@ validationY = data[(data.isValidation==1)]['isSignal']
 validationPredY = data[(data.isValidation==1)]['bdtScore']
 validationW = data[(data.isValidation==1)]['bdtWeightF']
 validationAUC = aucW(validationY, validationPredY, validationW)
-print("Train AUC computed!")
+print("Validation AUC computed!")
 
 testY = data[data.isTrain == 0]['isSignal']
 testPredY = data[data.isTrain == 0]['bdtScore']

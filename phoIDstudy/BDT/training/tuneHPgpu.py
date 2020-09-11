@@ -10,16 +10,17 @@
 from argparse import ArgumentParser
 parser = ArgumentParser(
 	description='Photon ID BDT parameter tuning for CMS aNTGC search in Z(->nu nu) + gamma channel')
-parser.add_argument('--inFilePath', type=str, help='Input root file',
-					default='../mergedSamplesShuffled.root', action='store')
-parser.add_argument('--saveDir', type=str, default='../tuning/',
-					help='Save directory', action='store')
-parser.add_argument('--testSize', default=0.2, type=float,
-					help='Fraction of events for testing', action='store')
-parser.add_argument('--validSize', default=0.25, type=float,
-					help='Fraction of events for overtraing reduction', action='store')
-parser.add_argument('--inTreeName', type=str, default='fullEB_Tree',
+parser.add_argument('--featFilePath', type=str, help='Features root file',
+					default='dataV2/mergedSamples.root', action='store')
+parser.add_argument('--featTreeName', type=str, default='fullEBTree',
 					help='Input tree name', action='store')
+parser.add_argument('--indexFilePath', type=str, help='Index root file',
+					default='dataV2/mergedSamplesShuffledIndices.root', action='store')
+parser.add_argument('--indexTreeName', type=str, default='randomized_split',
+					help='Input tree name', action='store')
+parser.add_argument('--saveDir', type=str, default='tuning/',
+					help='Save directory', action='store')
+
 args = parser.parse_args()
 
 from os import system
@@ -32,7 +33,7 @@ else:
 
 import datetime
 now = datetime.datetime.now()
-logFileName = args.saveDir + '/trainLog_' + \
+logFileName = args.saveDir + '/tuneLog_' + \
 	now.strftime("%Y_%m_%d_%H_%M_%S") + ".log"
 
 import sys
@@ -62,13 +63,11 @@ print(now.strftime("%Y-%m-%d %H:%M:%S") +
 scoreLogName = args.saveDir + '/tuneScoreLog_' +now.strftime("%Y_%m_%d_%H_%M_%S") + ".log"
 scoreLogFile = open(scoreLogName, "w")
 
-testSize = args.testSize
-validSize = args.validSize
-print("inFilePath\t=\t" + args.inFilePath)
+print("featFilePath\t=\t" + args.featFilePath)
+print("featTreeName\t=\t" + args.featTreeName)
+print("indexFilePath\t=\t" + args.indexFilePath)
+print("indexTreeName\t=\t" + args.indexTreeName)
 print("saveDir\t\t=\t" + args.saveDir)
-print("inTreeName\t=\t" + args.inTreeName)
-print("testSize\t=\t" + str(testSize))
-print("validSize\t=\t" + str(validSize))
 print("logFile\t\t=\t" + logFileName)
 
 
@@ -83,8 +82,9 @@ from hyperopt.pyll_utils import hp_quniform as quniform
 from hyperopt.pyll_utils import hp_uniformint as uniformint
 import ROOT
 import json
+from random import randint
 
-BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "phoE2ndOEmaxFull5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
+BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "phoE2ndOEmaxFull5x5", "pho2x2OE3x3Full5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
 			"phoEmaxOE3x3Full5x5", "phoE2ndOE3x3Full5x5", "phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
 BDTfeats.sort()
 print("\nBDT input features (" + str(len(BDTfeats)) + ") :")
@@ -95,47 +95,55 @@ space = {
 			'objective': 'binary:logistic',
 			'eval_metric': 'auc',
 			'booster': 'gbtree',
-			'eta': quniform('eta', 0.04, 0.044, 0.002),
-			'gamma': quniform('gamma', 0.0, 0.1, 0.05),
-			'max_depth': uniformint('max_depth', 21,23),
-			'min_child_weight': quniform('min_child_weight', 20., 22., 1.),
-			'subsample': quniform('subsample', 0.5, 0.6, 0.1),
-			'colsample_bytree':	quniform('colsample_bytree', 0.689, 0.96, 0.059),
-			'alpha' : quniform('alpha', 700, 800, 100),
-			# 'lambda' : 0.5,
-			# 'max_bin': 512,
 			'sampling_method': 'gradient_based',
 			'tree_method': 'gpu_hist',
-			'predictor': 'gpu_predictor'
+			'predictor': 'gpu_predictor',
+			'verbosity': 1,
+			'nthread': -1,
+			'seed' : randint(100, 100000),
+
+			'max_depth': hp.choice('max_depth', [6,8,10]),
+			'min_child_weight': quniform('min_child_weight', 0,40,10),
+
+			'alpha' : 0.,
+			'lambda' : 0.,
+			'gamma': 0.,
+						
+			'subsample': 0.6,
+			'colsample_bytree':	0.8,
+
+			'eta': 0.05,
+
+			'scale_pos_weight': 1.
 }
 
 
-Ntune = 1000
-totalData = ROOT.RDataFrame(args.inTreeName, args.inFilePath)
+# Ntune = 1000
+totalData = ROOT.RDataFrame(args.featTreeName, args.featFilePath)
+indexData = ROOT.RDataFrame(args.indexTreeName, args.indexFilePath)
 # totalData = totalData.Range(0, Ntune)
+# indexData = indexData.Range(0, Ntune)
+totalData = pd.DataFrame(totalData.AsNumpy(columns=BDTfeats + ['flatPtEtaRwNoXsec', 'isSignal']))
+totalData['isTrain'] = pd.DataFrame(indexData.AsNumpy(columns=['isTrain'])).isTrain.values
+totalData['isValidation'] = pd.DataFrame(indexData.AsNumpy(columns=['isValidation'])).isValidation.values
 
-totalData = totalData.Define("isSignalB", "int(isSignal)")
-totalData = totalData.Define("isTrainB", "int(isTrain)")
-totalData = totalData.Define("isValidationB", "int(isValidation)")
-totalData = pd.DataFrame(totalData.AsNumpy(columns=BDTfeats + ['PtEtaRwBG', 'xSecW', 'isSignalB', 'isTrainB', 'isValidationB']))
-totalData.rename(columns={'isSignalB': 'isSignal', 'isTrainB': 'isTrain', 'isValidationB': 'isValidation'}, inplace=True)
+del indexData
 
-# set weights : reweight background pT-eta to signal; use normal xsec
-# weights for signal
 print("\nTotal data:")
-totalData['bdtWeight'] = totalData['xSecW'] * totalData['PtEtaRwBG']
 sampleStats(totalData)
 
 print("\nTraining data:")
-trainDF = totalData[(totalData.isTrain == 1) & (totalData.isValidation == 0)]
+trainDF = totalData[(totalData.isTrain == 1)]
+trainDF = trainDF.sample(frac = 1)
 sampleStats(trainDF)
 
 print("\nValidation data:")
-validationDF = totalData[(totalData.isTrain == 1) & (totalData.isValidation == 1)]
+validationDF = totalData[(totalData.isValidation == 1)]
+validationDF = validationDF.sample(frac = 1)
 sampleStats(validationDF)
 
-trainPho = xg.DMatrix(trainDF[BDTfeats].values, label=trainDF['isSignal'].values, weight=trainDF['bdtWeight'].values, feature_names=BDTfeats, nthread=-1)
-validationPho = xg.DMatrix(validationDF[BDTfeats].values, label=validationDF['isSignal'].values, weight=validationDF['bdtWeight'].values, feature_names=BDTfeats, nthread=-1)
+trainPho = xg.DMatrix(trainDF[BDTfeats].values, label=trainDF['isSignal'].values, weight=trainDF['flatPtEtaRwNoXsec'].values, feature_names=BDTfeats, nthread=-1)
+validationPho = xg.DMatrix(validationDF[BDTfeats].values, label=validationDF['isSignal'].values, weight=validationDF['flatPtEtaRwNoXsec'].values, feature_names=BDTfeats, nthread=-1)
 
 del totalData
 del trainDF
@@ -160,14 +168,11 @@ def score(params):
 	phoModel = xg.train(params, dtrain=trainPho, evals=[(trainPho, "train"), (validationPho, "val")], evals_result=accuracyProgress, early_stopping_rounds=20, verbose_eval=True, num_boost_round=10000)
 	theScore = (1. - phoModel.best_score)
 
-	params['bestValScore'] = phoModel.best_score
-	params['bestIteration'] = phoModel.best_iteration
-	params['bestNtreeLimit'] = phoModel.best_ntree_limit
-	params['theScore'] = theScore
+	scoreLogFile.write("\n\n\n\n")
 
-	print("\tbestValScore: " + str(params['bestValScore']))
-	print("\tbestNtreeLimit: " + str(params['bestNtreeLimit']))
-	print("\ttheScore : " + str(params['theScore']))
+	print("\tbestValScore: " + str(phoModel.best_score))
+	print("\tbestNtreeLimit: " + str(phoModel.best_ntree_limit))
+	print("\ttheScore : " + str(theScore))
 
 	scoreLogFile.write(str(params) + "\n")
 	scoreLogFile.write(json.dumps(accuracyProgress, indent=4, sort_keys=True))
@@ -187,6 +192,63 @@ def optimize():
 	scoreLogFile.write(str(best))
 
 optimize()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # space = {
 # 			'objective': 'binary:logistic',
 # 			'eta': 0.3,
@@ -319,51 +381,6 @@ optimize()
 # 6b	|	'lambda']=hp.choice('lambda',[0.1,0.01,0.001,0.0001,0.00001]
 # 		best loss: 0.0017319999999999558
 # 			{'lambda': 0}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

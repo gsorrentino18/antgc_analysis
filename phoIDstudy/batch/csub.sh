@@ -22,7 +22,7 @@ jobsDir=$(readlink -m ${jobsDir})/
 # testmatch    = 3 days
 # nextweek     = 1 week
 jobflavor=workday
-splitfiles=5
+splitfiles=2
 
 
 # className="genPhoMatcher"
@@ -32,12 +32,12 @@ splitfiles=5
 # ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinder.cc"
 
 
-className="fakePhoFinder"
-ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinderV2.cc"
+# className="fakePhoFinder"
+# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinderV2.cc"
 
 
-# className="genPhoMatcher"
-# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcherV3.cc"
+className="genPhoMatcher"
+ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcherV3.cc"
 
 macroTemplate=${workDir}/macroTemplateV2.C
 runScriptTemplate=${workDir}/run_script.sh
@@ -186,7 +186,7 @@ readarray -t jobList < $jobListFile
 		mkdir -p ${jobOutDir}
 
 		nFiles=$(sed -n '=' ${singleJobFileList} | wc -l)
-		echo	-e	"\t# of files in base job = " ${nFiles}
+		echo	-e	"\t# of files in base job = " ${nFiles} "\n\n"
 
 		split -d -a 3 -l ${splitfiles} ${singleJobFileList} "${jobDir}/${jobBaseName}_"
 

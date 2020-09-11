@@ -1,38 +1,0 @@
-************************************************************************************************************************************************
-
-2020-08-19 00:27:08
-Starting photon ID training BDT
-
-inFilePath	=	../mergedSamplesShuffled.root
-saveDir		=	../tuning/
-inTreeName	=	fullEB_Tree
-testSize	=	0.2
-validSize	=	0.25
-logFile		=	../tuning//trainLog_2020_08_19_00_27_08.log
-
-BDT input features (17) :
-['phoE1x3OESCrFull5x5', 'phoE2ndOE3x3Full5x5', 'phoE2ndOESCrFull5x5', 'phoE2ndOEmaxFull5x5', 'phoE2x5OESCrFull5x5', 'phoE5x5OESCrFull5x5', 'phoEmaxOE3x3Full5x5', 'phoEmaxOESCrFull5x5', 'phoEtaWOPhiWFull5x5', 'phoEtaWidth', 'phoPhiWidth', 'phoR9Full5x5', 'phoS4Full5x5', 'phoSieieOSipipFull5x5', 'phoSigmaIEtaIEta', 'phoSigmaIEtaIPhi', 'phoSigmaIPhiIPhi']
-
-
-
-
-Total data:
-Total Events	=	3000000 (B/S= 2508490 / 491510)
-
-Training data:
-Total Events	=	1229829 (B/S= 1028037 / 201792)
-
-Validation data:
-Total Events	=	869831 (B/S= 727504 / 142327)
-Search space:
-{'objective': 'binary:logistic', 'eta': 0.08, 'eval_metric': 'auc', 'booster': 'gbtree', 'verbosity': 1, 'nthread': -1, 'gamma': 0.88, 'max_depth': 21.0, 'min_child_weight': <hyperopt.pyll.base.Apply object at 0x2ab8a015be10>, 'subsample': 0.84, 'colsample_bytree': 0.8, 'alpha': 0.6, 'lambda': 1.08, 'max_bin': 512, 'sampling_method': 'gradient_based', 'grow_policy': 'lossguide', 'tree_method': 'gpu_hist', 'predictor': 'gpu_predictor'}
-
-
-2020-08-19 00:28:07
-Launching tuning module... 
-
-
-  0%|          | 0/200 [00:00<?, ?trial/s, best loss=?]                                                       
-
-Training with params : {'alpha': 0.6, 'booster': 'gbtree', 'colsample_bytree': 0.8, 'eta': 0.08, 'eval_metric': 'auc', 'gamma': 0.88, 'grow_policy': 'lossguide', 'lambda': 1.08, 'max_bin': 512, 'max_depth': 21.0, 'min_child_weight': 17.45, 'nthread': -1, 'objective': 'binary:logistic', 'predictor': 'gpu_predictor', 'sampling_method': 'gradient_based', 'subsample': 0.84, 'tree_method': 'gpu_hist', 'verbosity': 1}
-  0%|          | 0/200 [00:00<?, ?trial/s, best loss=?]  0%|          | 0/200 [00:01<?, ?trial/s, best loss=?]

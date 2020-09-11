@@ -1,0 +1,69 @@
+writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/altSampleChecks/plots/
+xSectionMap								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv
+useSaved 								==		1
+pTbinning								==		200, 220, 250, 300, 350, 400, 500, 600, 800, 1200
+etaRange 								==		0.,1.4442
+ptRange 								==		200,1200
+etaBinning								==		-1.4442, -1.2,-1.,-0.8,-0.5,-0.2,0,0.2,0.5,0.8,1.,1.2,1.4442
+nVtxBinning 							==		80,0.,80.
+idBit									==		3
+
+inTreeName 								==		fullEB/fullEBTree
+
+signalInDir 							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_09_03_Prompt_Validation/merged/
+signalSamples 							==		3288bd:	Z(#rightarrow#nu#bar{#nu})+#gamma : ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8 : ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8;
+												c51b7d:	Z(#rightarrowll)+#gamma : ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8 : ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8;	
+												01665e: W(#rightarrowl#nu)+#gamma : WGToLNuGPtG130TuneCP513TeVamcatnloFXFXpythia8 : WGToLNuGPtG130TuneCP513TeVamcatnloFXFXpythia8;
+												8c510a: #gamma+jets : GJetsHTXToYTuneCP513TeVmadgraphMLMpythia8 : GJetsHT200To400TuneCP513TeVmadgraphMLMpythia8,   GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8,  GJetsHT400To600TuneCP513TeVmadgraphMLMpythia8;
+												fe9929: t#bar{t}+#gamma : TTGJetsTuneCP513TeVamcatnloFXFXmadspinpythia8 : TTGJetsTuneCP513TeVamcatnloFXFXmadspinpythia8;	
+												b2182b:	t+#gamma : TGJetsTuneCP513TeVamcatnlomadspinpythia8 : TGJetsTuneCP513TeVamcatnlomadspinpythia8
+
+backgroundInDir							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/phoID/2020_09_03_Fakes_Validation/merged/
+backgroundSamples 						==		8c510a: #gamma+jets : GJetsHTXToYTuneCP513TeVmadgraphMLMpythia8 : GJetsHT200To400TuneCP513TeVmadgraphMLMpythia8,   GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8,  GJetsHT400To600TuneCP513TeVmadgraphMLMpythia8;
+												e7298a: QCD : QCDHTXtoYTuneCP513TeVmadgraphpythia8 : QCDHT200to300TuneCP513TeVmadgraphpythia8,	QCDHT300to500TuneCP513TeVmadgraphpythia8,	QCDHT500to700TuneCP513TeVmadgraphpythia8,	QCDHT700to1000TuneCP513TeVmadgraphpythia8,	QCDHT1000to1500TuneCP513TeVmadgraphpythia8,	QCDHT1500to2000TuneCP513TeVmadgraphpythia8,   QCDHT2000toInfTuneCP513TeVmadgraphpythia8;
+												fe9929: t#bar{t}+#gamma : TTGJetsTuneCP513TeVamcatnloFXFXmadspinpythia8 : TTGJetsTuneCP513TeVamcatnloFXFXmadspinpythia8;	
+												b2182b:	t+#gamma : TGJetsTuneCP513TeVamcatnlomadspinpythia8 : TGJetsTuneCP513TeVamcatnlomadspinpythia8
+
+signalSamples 							==		3288bd:	Z(#rightarrow#nu#bar{#nu})+#gamma : ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8 : ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8
+
+statOption								==		6
+
+lineStyle								== 1
+lineWidth								== 3
+mkrSize 								==	2.5
+mkrStyle 								== 20
+
+gOpt 									== AP0
+dOpt 									==	AP0
+
+yScaleupSig							==	1.3
+logX 								==	0
+
+canvasX								== 	2000
+canvasY								==	1800
+pad0x1								==	0.
+pad0x2								==	1.
+pad0y1								==	0.
+pad0y2								==	1.
+pad0marginL							==	0.22
+pad0marginR							==	0.05
+pad0marginB							==	0.14
+pad0marginT							==	0.05
+pad0axisLabelSize					==	0.05
+pad0axisTitleSize					==	0.055
+pad0XtitleOffset					==	1.15
+pad0YtitleOffset					==	1.9
+pad0yNdivs							==	510
+pad0xNdivs							==	510
+
+legFillStyle 						== 		1000
+legFillColor 						== 		d9d9d9
+legFillColorAlpha 					== 		0.95
+legW 								==		0.5
+legH 								==		0.18
+legendx1							==		0.4
+legendx2							==		0.945
+legendy1							==		0.75
+legendy2							==		0.948
+legendTextSize						==		0.035
+legendNcols							==		2
