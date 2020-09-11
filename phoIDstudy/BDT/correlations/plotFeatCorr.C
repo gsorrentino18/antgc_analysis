@@ -14,26 +14,6 @@
 std::string 													optionsFile 			=	"plotFeatCorrOptions.txt";
 parseOptions 													options;
 
-// std::vector<std::string>					feats({
-// 	"phoSigmaIEtaIPhi",
-// 	"phoSieieOSipipFull5x5",
-// 	"phoEtaWOPhiWFull5x5",
-// 	"phoE2ndOE3x3Full5x5",
-// 	"phoE5x5OESCrFull5x5",
-// 	"phoEtaWidth",
-// 	"phoE2ndOESCrFull5x5",
-// 	"phoSigmaIEtaIEta",
-// 	"phoPhiWidth",
-// 	"phoE1x3OESCrFull5x5",
-// 	"phoEmaxOE3x3Full5x5",
-// 	"phoSigmaIPhiIPhi",
-// 	"phoE2ndOEmaxFull5x5",
-// 	"phoE2x5OESCrFull5x5",
-// 	"phoR9Full5x5",
-// 	"phoEmaxOESCrFull5x5",
-// 	"phoS4Full5x5"
-// });
-
 std::vector<std::string>					feats;
 
 TH2F* getHist(){
@@ -44,11 +24,12 @@ TH2F* getHist(){
 	Float_t 									etaMax 	= options.getFloatList("etaRange")[1];
 
 	TChain*										fTree 										=	openTChain((std::vector<std::string>){options.get("featsFile")}, options.get("featsTree"));
-	TChain*										bTree 										=	openTChain((std::vector<std::string>){options.get("bdtFile")}, options.get("bdtTree"));
-	fTree->AddFriend(bTree);
+	TChain*										iTree 										=	openTChain((std::vector<std::string>){options.get("indexFile")}, options.get("indexTree"));
+	fTree->AddFriend(iTree);
 	TTreeReader                             	inputTTreeReader(fTree);
 	TTreeReaderAnyValue<Bool_t> 				isSignal 										(inputTTreeReader, "isSignal");
-	TTreeReaderAnyValue<Double_t>				bdtWeight										(inputTTreeReader, "bdtWeightF");
+	TTreeReaderAnyValue<Bool_t> 				isTrain 										(inputTTreeReader, "isTrain");
+	TTreeReaderAnyValue<Double_t>				flatPtEtaRwNoXsec								(inputTTreeReader, "flatPtEtaRwNoXsec");
 	TTreeReaderAnyValue<Float_t>				phoSCeta										(inputTTreeReader, "phoSCeta");
 	TTreeReaderAnyValue<Float_t>				phoPt											(inputTTreeReader, "phoPt");
 	
@@ -60,6 +41,7 @@ TH2F* getHist(){
 	correlationMatix 							fCorr(featBranches.size());
 	
 	while(inputTTreeReader.Next()){
+		if(!isTrain) continue;
 		if(plotSignal != isSignal) continue;
 		if(phoPt < pTmin) continue;
 		if(phoPt >= pTmax) continue;
@@ -71,7 +53,7 @@ TH2F* getHist(){
 			featVals.push_back(iFeatBr->get());
 		}
 		
-		fCorr.addPoint(featVals, bdtWeight);
+		fCorr.addPoint(featVals, flatPtEtaRwNoXsec);
 	}
 	
 	TH2F* 										corrMatHist 								=	fCorr.getCorrelationHist();
@@ -81,7 +63,7 @@ TH2F* getHist(){
 	}
 
 	closeTChain(fTree);
-	closeTChain(bTree);
+	closeTChain(iTree);
 
 	return corrMatHist;
 };
@@ -107,21 +89,10 @@ void plotCorrelations() {
 	};
 
 	if(options.getInt("plotSignal")){
-		feats = std::vector<std::string>({
-			"phoE2ndOEmaxFull5x5", "phoE2ndOESCrFull5x5", "phoEtaWidth",
-			"phoPhiWidth", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5",
-			"phoE5x5OESCrFull5x5", "phoS4Full5x5", "phoR9Full5x5",
-			"phoEtaWOPhiWFull5x5", "phoE2x5OESCrFull5x5", "phoE2ndOE3x3Full5x5",
-			"phoSigmaIEtaIEta", "phoEmaxOESCrFull5x5", "phoEmaxOE3x3Full5x5",
-			"phoE1x3OESCrFull5x5", "phoSigmaIEtaIPhi"});
+		feats = options.getList("sigFeatList");
 
 	} else {
-		feats =	std::vector<std::string>({"phoPhiWidth", "phoSigmaIPhiIPhi", "phoEtaWidth",
-			"phoSigmaIEtaIEta", "phoE2ndOEmaxFull5x5", "phoE2ndOE3x3Full5x5",
-			"phoEmaxOE3x3Full5x5", "phoEmaxOESCrFull5x5", "phoS4Full5x5",
-			"phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoR9Full5x5",
-			"phoE5x5OESCrFull5x5", "phoEtaWOPhiWFull5x5",
-			"phoSieieOSipipFull5x5", "phoE2ndOESCrFull5x5", "phoSigmaIEtaIPhi"});
+		feats = options.getList("bgFeatList");
 	}
 	
 	TH2F* 					corrMatHist;
@@ -193,14 +164,20 @@ void plotCorrelations() {
 
 	corrMatHistAbs->GetXaxis()->SetAlphanumeric();
 	corrMatHistAbs->GetYaxis()->SetAlphanumeric();
+
 	for(UInt_t iBin = 0; iBin < feats.size(); iBin++){
 		std::string binLabel = varPlotInfo[feats[iBin]][0];
 		binLabel = findAndReplaceAll(binLabel, "(GeV)", "");
 		trim(binLabel);
-		corrMatHistAbs->GetXaxis()->SetBinLabel(iBin+1, binLabel.c_str());
 		corrMatHistAbs->GetYaxis()->SetBinLabel(iBin+1, binLabel.c_str());
-		corrMatHistAbs->GetXaxis()->ChangeLabel(iBin+1,options.getFloat("labAngle"), -1.,options.getInt("labAlign"),-1,-1,binLabel);
+		// corrMatHistAbs->GetXaxis()->SetBinLabel(iBin+1, binLabel.c_str());
+		corrMatHistAbs->GetXaxis()->ChangeLabel(iBin+1, options.getFloat("labAngle"), options.getFloat("xlabSize"),options.getInt("labAlign"),-1,-1,binLabel);
 	}
+
+	corrMatHistAbs->GetXaxis()->ChangeLabel(feats.size()+1, options.getFloat("labAngle"), 0.,options.getInt("labAlign"),-1,-1,"");
+
+	corrMatHistAbs->GetXaxis()->CenterLabels();
+
 
 	corrMatHist->SetMarkerColor(options.getTColFromHex("tCol"));
 	corrMatHist->Draw(options.getCSTR("drawOpt2"));

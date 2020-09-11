@@ -117,7 +117,7 @@ space = {
 			'colsample_bytree': 0.66, 
 
 
-			'eta': hp.quniform('learning_rate', 0.01, 0.08, 0.005)
+			'eta': hp.quniform('eta', 0.01, 0.08, 0.005)
 			# 'eta': 0.3
 }
 

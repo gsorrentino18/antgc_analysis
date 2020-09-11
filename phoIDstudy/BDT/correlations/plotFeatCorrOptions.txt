@@ -1,16 +1,20 @@
 writeDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/correlations/plots/
 
-featsFile								==		/hdfs/cms/user/wadud/anTGC/BDTdata/mergedSamplesShuffled.root
-featsTree								==		fullEB_Tree
-bdtFile									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/data/optimizedV1/BDTresults_0.root
-bdtTree									==		fullEB_BDT_Tree
+featsFile								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/training/dataV2/mergedSamples.root
+featsTree								==		fullEBTree
+indexFile 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/training/dataV2/mergedSamplesShuffledIndices.root
+indexTree 								==		randomized_split
 prettyNamesFile 						==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/correlations/varPrettyNames.txt
 
-plotSignal								==		1
+sigFeatList 							==	phoEmaxOE3x3Full5x5, phoEmaxOESCrFull5x5, phoE1x3OESCrFull5x5, phoE2x5OESCrFull5x5, phoS4Full5x5, pho2x2OE3x3Full5x5, phoEtaWOPhiWFull5x5, phoSigmaIEtaIPhi, phoSigmaIEtaIEta, phoR9Full5x5, phoSieieOSipipFull5x5, phoE5x5OESCrFull5x5, phoE2ndOE3x3Full5x5, phoE2ndOESCrFull5x5, phoE2ndOEmaxFull5x5, phoEtaWidth, phoSigmaIPhiIPhi, phoPhiWidth
 
-pTrange 								==		200,1200
+bgFeatList 								==	phoR9Full5x5, phoE2x5OESCrFull5x5, pho2x2OE3x3Full5x5, phoS4Full5x5, phoE5x5OESCrFull5x5, phoEmaxOESCrFull5x5, phoE1x3OESCrFull5x5, phoEmaxOE3x3Full5x5, phoSieieOSipipFull5x5, phoEtaWOPhiWFull5x5, phoSigmaIEtaIPhi, phoSigmaIEtaIEta, phoEtaWidth, phoSigmaIPhiIPhi, phoPhiWidth, phoE2ndOE3x3Full5x5, phoE2ndOEmaxFull5x5, phoE2ndOESCrFull5x5
+
+plotSignal								==		0
+
+pTrange 								==		200,2000
 etaRange 								==		0., 1.4442
-useSaved 								==		1
+useSaved 								==		0
 
 drawOpt1								==		colz 
 drawOpt2								==		TEXT SAME
@@ -20,8 +24,8 @@ colorPalette 							== 		57
 2dNcontours 							== 		1000
 
 logZ 									==		0
-canvasX									==		2500
-canvasY									==		2000
+canvasX									==		3000
+canvasY									==		2500
 
 pad0x1									==		0.
 pad0x2									==		1.
@@ -37,8 +41,9 @@ pad0axisTitleSize						==		0.048
 pad0XtitleOffset						==		1.1
 pad0YtitleOffset						==		1.5
 pad0ZtitleOffset 						==		0.55
-pad0XlabelOffset 						==		0.002
+pad0XlabelOffset 						==		-0.035
+xlabSize								==		0.032
 labAlign								== 		33
-labAngle 								== 		60
-pad0xNdivs								==		520
-pad0yNdivs								==		520
+labAngle 								== 		70
+pad0xNdivs								==		20
+pad0yNdivs								==		20

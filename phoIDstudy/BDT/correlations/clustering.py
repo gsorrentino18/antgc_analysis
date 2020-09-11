@@ -3,10 +3,10 @@ import scipy.cluster.hierarchy as sch
 import pandas as pd 
 
 
-df = pd.read_csv("plots/1_featCorrelations.txt") 
+df = pd.read_csv("plots/0_featCorrelations.txt") 
 df=df.drop(['Unnamed: 0'], axis=1)
 
-cluster_th = 3
+cluster_th = 6
 
 X = df.values
 d = sch.distance.pdist(X)
@@ -37,4 +37,4 @@ for cluster_l1 in set(sorted(ind)):
 	i = j
 df = df.reindex_axis(columns, axis=1) 
 
-print(df.columns)
+print(df.columns.tolist())

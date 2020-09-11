@@ -205,13 +205,6 @@ bool isInteger(const std::string & s);
 Char_t RGB2ColPlt(std::string _CSVFile, Int_t _firstCol);
 TH2* getAbsHist(TH2* _hist);
 
-Float_t foldedPhi(Float_t _phi){
-	if(std::abs(_phi) <= TMath::PiOver2()) return _phi;
-	if(_phi < - TMath::PiOver2()) return -(_phi + TMath::Pi());
-	if(_phi > TMath::PiOver2()) return -(_phi - TMath::Pi());
-	return _phi;
-};
-
 // void setTFileDir(std::vector<TH1*> _hists);
 
 // void setTFileDir(std::vector<TH1&> _hists, TFile & _file, std::string _dir = ""){
@@ -1124,8 +1117,6 @@ struct parseOptions {
 			trim(_optName);
 			if(_optName.empty()) continue;
 			if(match("#*", _optName)) continue;
-			// Add multiline option value functionality
-			// maybe remove all spaces 
 			if((_data[i].size()==1)){
 				optMap[lastOption] += _data[i][0];
 				continue;
@@ -2848,6 +2839,7 @@ UChar_t setPadAtts(T* _pad, std::string _atts, std::string _delimiter){
 	return returnVal;
 };
 
+
 // frame=fill=style,color-alpha;line=style,color-alpha,width
 template<typename T>
 void setFrameAtts(T* _hist, std::string _style, std::string _del1, std::string _del2){
@@ -3363,7 +3355,15 @@ bool isInteger(const std::string & s) {
 	char * p;
 	strtol(s.c_str(), &p, 10);
 	return (*p == 0);
-}
+};
+
+
+Float_t foldedPhi(Float_t _phi){
+	if(std::abs(_phi) <= TMath::PiOver2()) return _phi;
+	if(_phi < - TMath::PiOver2()) return -(_phi + TMath::Pi());
+	if(_phi > TMath::PiOver2()) return -(_phi - TMath::Pi());
+	return _phi;
+};
 
 
 Char_t RGB2ColPlt(std::string _CSVFile, Int_t _firstCol=0){
@@ -3387,6 +3387,7 @@ Char_t RGB2ColPlt(std::string _CSVFile, Int_t _firstCol=0){
 	return 0;
 };
 
+
 TH2* getAbsHist(TH2* _hist){
 	TH2* _clone = (TH2*) _hist->Clone("abs_clone");
 	_clone->Reset();
@@ -3397,12 +3398,6 @@ TH2* getAbsHist(TH2* _hist){
 		}		
 	}
 	return _clone;
-}
-// void redrawBorder(){
-//    gPad->Update();
-//    gPad->RedrawAxis();
-//    TLine l;
-//    l.DrawLine(gPad->GetUxmin(), gPad->GetUymax(), gPad->GetUxmax(), gPad->GetUymax());
-//    l.DrawLine(gPad->GetUxmax(), gPad->GetUymin(), gPad->GetUxmax(), gPad->GetUymax());
-// }
+};
+
 #endif
