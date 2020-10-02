@@ -86,8 +86,8 @@ from random import randint
 import numpy as np
 
 global BDTfeats
-BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "phoE2ndOEmaxFull5x5", "pho2x2OE3x3Full5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
-			"phoEmaxOE3x3Full5x5", "phoE2ndOE3x3Full5x5", "phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
+BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "pho2x2OE3x3Full5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
+			"phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
 BDTfeats.sort()
 print("\nBDT input features (" + str(len(BDTfeats)) + ") :")
 print(BDTfeats)
@@ -104,21 +104,21 @@ space = {
 			'nthread': -1, 
 			'seed': randint(10000,10000000),
 
-			'scale_pos_weight': 0.96,
+			'scale_pos_weight': 1.,
 
-			'max_depth': 6,
-			'min_child_weight': 6521,
+			'max_depth': 4,
+			'min_child_weight': 5140,
 
-			'lambda': 41.6,
-			'gamma': 28.0,
-			'alpha': 546,
+			'lambda': hp.quniform('lambda', 17.8, 18.2, 0.1),
+			'gamma': hp.quniform('gamma', 87.3, 87.5, 0.05),
+			'alpha': hp.quniform('alpha', 572.8, 573.2, 0.1),
 
-			'subsample': 0.29, 
-			'colsample_bytree': 0.66, 
+			# 'subsample': 0.29, 
+			# 'colsample_bytree': 0.66, 
 
 
-			'eta': hp.quniform('eta', 0.01, 0.08, 0.005)
-			# 'eta': 0.3
+			# 'eta': hp.quniform('eta', 0.01, 0.08, 0.005)
+			'eta': 0.3
 }
 
 print("Search space:")
@@ -226,6 +226,150 @@ client=Client(cluster)
 main(client)
 
 optimize()
+
+
+
+# space = {
+# 			'objective': 'binary:logistic',
+# 			'eval_metric': 'auc',
+# 			'booster': 'gbtree',
+# 			'sampling_method': 'gradient_based',
+# 			'tree_method': 'gpu_hist',
+# 			'predictor': 'gpu_predictor',
+# 			'verbosity': 1,
+# 			'nthread': -1, 
+# 			'seed': randint(10000,10000000),
+
+# 			'scale_pos_weight': 1.,
+
+# 			'max_depth': uniformint('max_depth',4,6),
+# 			'min_child_weight': quniform('min_child_weight', 4000,5600,200),
+
+# 			# 'lambda': 41.6,
+# 			# 'gamma': 28.0,
+# 			# 'alpha': 546,
+
+# 			# 'subsample': 0.29, 
+# 			# 'colsample_bytree': 0.66, 
+
+
+# 			# 'eta': hp.quniform('eta', 0.01, 0.08, 0.005)
+# 			'eta': 0.3
+# }
+# Optimum: {'max_depth': 4.0, 'min_child_weight': 5000.0}
+# >>> space['max_depth']=uniformint('max_depth', 4, 8)
+# Optimum: {'max_depth': 4.0, 'min_child_weight': 4600.0}
+# >>> space['min_child_weight'] = quniform('min_child_weight', 4000,5600,100)
+# >>> space['max_depth']=4
+# >>> space['min_child_weight'] = quniform('min_child_weight', 4000,5600,100)
+# Optimum: {'min_child_weight': 5100.0}
+# >>> space['min_child_weight'] = quniform('min_child_weight', 5000,5200,20)
+# Optimum: {'min_child_weight': 5140.0}
+# >>> space['min_child_weight'] = quniform('min_child_weight', 5120,5160,10)
+# Optimum: {'min_child_weight': 5140.0}
+# >>> space['min_child_weight'] = 5140
+# >>> space['max_depth']=uniformint('max_depth', 2, 4)
+# Optimum: {'max_depth': 4.0}
+# >>> space['max_depth']=4
+# >>> space['alpha'] = hp.quniform('alpha', 200, 400., 40)
+# >>> space['gamma'] = hp.quniform('gamma', 10, 50., 10)
+# >>> space['lambda'] = hp.quniform('lambda', 10, 50., 10)
+# Optimum: {'alpha': 400.0, 'gamma': 50.0, 'lambda': 20.0}
+# >>> space['lambda'] = hp.quniform('lambda', 10, 30., 5)
+# >>> space['gamma'] = hp.quniform('gamma', 40, 80., 10)
+# >>> space['alpha'] = hp.quniform('alpha', 400, 600., 50)
+# Optimum: {'alpha': 500.0, 'gamma': 80.0, 'lambda': 15.0}
+# >>> space['lambda'] = hp.quniform('lambda', 12, 18., 2)
+# >>> space['gamma'] = hp.quniform('gamma', 70, 130., 20)
+# >>> space['alpha'] = hp.quniform('alpha', 440, 560., 40)
+# Optimum: {'alpha': 560.0, 'gamma': 80.0, 'lambda': 18.0}
+# >>> space['alpha'] = hp.quniform('alpha', 550, 650., 20)
+# >>> space['gamma'] = hp.quniform('gamma', 60, 90., 10)
+# >>> space['lambda'] = hp.quniform('lambda', 17, 20., 1)
+# Optimum: {'alpha': 620.0, 'gamma': 60.0, 'lambda': 18.0}
+# >>> space['lambda'] = 18.
+# >>> space['gamma'] = hp.quniform('gamma', 50, 90., 10)
+# >>> space['alpha'] = hp.quniform('alpha', 550, 650., 20)
+# Optimum: {'alpha': 580.0, 'gamma': 90.0}
+# >>> space['alpha'] = hp.quniform('alpha', 570, 590., 10)
+# >>> space['gamma'] = hp.quniform('gamma', 80, 110., 10)
+# Optimum: {'alpha': 570.0, 'gamma': 90.0}
+# >>> space['gamma'] = hp.quniform('gamma', 86, 94., 2)
+# >>> space['alpha'] = hp.quniform('alpha', 568, 582., 2)
+# Optimum: {'alpha': 572.0, 'gamma': 88.0}
+# >>> space['alpha'] = hp.quniform('alpha', 569, 575., 1)
+# >>> space['gamma'] = hp.quniform('gamma', 86, 90., 1)
+# Optimum: {'alpha': 573.0, 'gamma': 87.0}
+# >>> space['gamma'] = hp.quniform('gamma', 86.4, 87.6, 0.2)
+# >>> space['alpha'] = hp.quniform('alpha', 571.5, 574.5, 0.5)
+# >>> space['lambda'] = hp.quniform('lambda', 17.5, 19.5, 0.4)
+# Optimum: {'alpha': 573.0, 'gamma': 87.4, 'lambda': 18.400000000000002}
+# >>> space['alpha'] = hp.quniform('alpha', 572.5, 573.5, 0.2)
+# >>> space['lambda'] = hp.quniform('lambda', 18.0, 18.8, 0.2)
+# >>> space['gamma'] = hp.quniform('gamma', 87.2, 87.6, 0.1)
+# Optimum: {'alpha': 573.0, 'gamma': 87.4, 'lambda': 18.0}
+# >>> space['gamma'] = hp.quniform('gamma', 87.3, 87.5, 0.05)
+# >>> space['lambda'] = hp.quniform('lambda', 17.8, 18.2, 0.1)
+# >>> space['alpha'] = hp.quniform('alpha', 572.8, 573.2, 0.1)
+# Optimum: {'alpha': 572.9, 'gamma': 87.45, 'lambda': 18.0}
+# >>> space['alpha'] = 572.9
+# >>> space['gamma'] =87.45
+# >>> space['lambda'] = 18.0
+# >>> space['subsample'] = hp.quniform('subsample', 0.25, 0.35, 0.02)
+# >>> space['colsample_bytree'] = hp.choice('colsample_bytree',[0.47, 0.53, 0.6, 0.67, 0.73])
+# Optimum: {'colsample_bytree': 0.6, 'subsample': 0.32}
+# >>> space['colsample_bytree'] = hp.choice('colsample_bytree',[0.53, 0.58, 0.6, 0.64, 0.67, 0.73])
+# >>> space['subsample'] = hp.quniform('subsample', 0.30, 0.34, 0.01)
+# Optimum: {'colsample_bytree': 67, 'subsample': 0.31}
+# >>> space['colsample_bytree'] = hp.choice('colsample_bytree',[0.64, 0.67, 0.73])
+# >>> space['subsample'] = hp.quniform('subsample', 0.29, 0.32, 0.01)
+# Optimum: {'colsample_bytree': 0.67, 'subsample': 0.29}
+# >>> space['colsample_bytree'] = 0.67
+# >>> space['subsample'] = hp.quniform('subsample', 0.28, 0.32, 0.01)
+# Optimum: {'subsample': 0.28}
+# >>> space['subsample'] = hp.quniform('subsample', 0.26, 0.30, 0.01)
+# Optimum: {'subsample': 0.29}
+# >>> space['eta'] = hp.quniform('eta', 0.01, 0.05, 0.01)
+# Optimum: {'eta': 0.04}
+# >>> space['eta'] = hp.quniform('eta', 0.036, 0.044, 0.001)
+# Optimum: {'eta': 0.041}
+# >>> space['eta'] = hp.quniform('eta', 0.039, 0.042, 0.0001)
+# Optimum: {'eta': 0.0395}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # space = {
 # 			'objective': 'binary:logistic',

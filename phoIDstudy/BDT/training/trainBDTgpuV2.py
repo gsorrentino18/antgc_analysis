@@ -17,7 +17,7 @@ parser.add_argument('--indexFilePath', type=str, help='Index root file',
 					default='dataV2/mergedSamplesShuffledIndices.root', action='store')
 parser.add_argument('--indexTreeName', type=str, default='randomized_split',
 					help='Input tree name', action='store')
-parser.add_argument('--saveDir', type=str, default='training/',
+parser.add_argument('--saveDir', type=str, default='trainingV2/',
 					help='Save directory', action='store')
 
 args = parser.parse_args()
@@ -86,8 +86,8 @@ import ROOT
 import math
 from random import randint
 
-BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "phoE2ndOEmaxFull5x5", "pho2x2OE3x3Full5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
-			"phoEmaxOE3x3Full5x5", "phoE2ndOE3x3Full5x5", "phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
+BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "pho2x2OE3x3Full5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
+			"phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
 BDTfeats.sort()
 print("\nBDT input features (" + str(len(BDTfeats)) + ") :")
 print(BDTfeats)
@@ -103,22 +103,20 @@ params = {
 			'nthread': -1, 
 			'seed': randint(10000,10000000),
 
-			'scale_pos_weight': 0.96,
+			'scale_pos_weight': 1.,
 
-			'max_depth': 6, 
-			'min_child_weight': 6521, 
+			'max_depth': 4, 
+			'min_child_weight': 5140, 
 
-			'alpha': 546, 
-			'lambda': 41.6,
-			'gamma': 28.0,
+			'alpha': 572.9, 
+			'lambda': 18.0,
+			'gamma': 87.45,
 
-			'subsample': 0.29, 
-			'colsample_bytree': 0.66, 
+			'subsample': 0.28, 
+			'colsample_bytree': 0.67, 
 
-			'eta': 0.0466
+			'eta': 0.0395
 }
-
-{'scale_pos_weight': 0.96, 'max_depth': 6, 'min_child_weight': 6521, 'lambda': 41.5, 'gamma': 27.8, 'alpha': 546.2, 'eta': 0.04}
 
 
 print("\nTraining with params:\n" + str(params))
@@ -192,28 +190,19 @@ print(now.strftime("%Y-%m-%d %H:%M:%S") + '\nModel saved as %s.(pkl/model/txt)' 
 print('\nLearning progress saved in %s' % scoreLogName)
 
 
-print("\nFeature importances (" + str(len(phoModel.get_fscore())) + " features) :")
-featImpDumpFilePath=args.saveDir + 'featImps_' + timeStamp+ '.txt'
-featImpDumpFile = open("%s" % featImpDumpFilePath, "w")
-fScoreList = phoModel.get_fscore()
-fScoreList = sorted(fScoreList.items(), key=lambda item: item[1], reverse=True)
-usedFeatures = list()
 
-for iFeat in fScoreList:
-	print("\t\t" + iFeat[0] + "\t->\t" + str(iFeat[1]))
-	featImpDumpFile.write(str(iFeat[0]) + ' , ' + str(iFeat[1]) + '\n')
-	usedFeatures = usedFeatures + [str(iFeat[0])]
+fScores = pd.DataFrame.from_dict(phoModel.get_score(importance_type='weight'), orient='index', columns=['weight'])
+fScores.index.name = 'Feature'
+fScores['gain'] = fScores.index.map(phoModel.get_score(importance_type='gain'))
+fScores['cover'] = fScores.index.map(phoModel.get_score(importance_type='cover'))
+fScores['total_gain'] = fScores.index.map(phoModel.get_score(importance_type='total_gain'))
+fScores['total_cover'] = fScores.index.map(phoModel.get_score(importance_type='total_cover'))
+fScores=fScores.sort_values(by=['gain'], ascending=False)
+featImpDumpFilePath=args.saveDir + 'featImps.txt'
+fScores.to_csv(featImpDumpFilePath, index=True)
 
-zeroImpFeats = list([str(x) for x in BDTfeats if x not in usedFeatures])
-zeroImpFeats.sort()
-
-for iFeat in zeroImpFeats:
-	if iFeat is None:
-		continue
-	print("\t\t" + iFeat + "\t->\t0")
-	featImpDumpFile.write(iFeat + ' , 0' + '\n')
-
-featImpDumpFile.close()
+print("\nFeature importances (" + str(len(fScores.index)) + " features) saved to : %s " % featImpDumpFilePath)
+print(fScores)
 
 
 print('\nGetting predictions @ ' + now.strftime("%Y-%m-%d %H:%M:%S") + "\n")

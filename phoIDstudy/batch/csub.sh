@@ -25,6 +25,7 @@ jobflavor=workday
 splitfiles=2
 
 
+
 # className="genPhoMatcher"
 # ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcher.cc"
 
@@ -32,12 +33,14 @@ splitfiles=2
 # ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinder.cc"
 
 
-# className="fakePhoFinder"
-# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinderV2.cc"
+className="fakePhoFinder"
+ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/fakePhoFinderV2.cc"
 
 
-className="genPhoMatcher"
-ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcherV3.cc"
+# className="genPhoMatcher"
+# ccfilepath="/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/genPhoMatcherV3.cc"
+
+
 
 macroTemplate=${workDir}/macroTemplateV2.C
 runScriptTemplate=${workDir}/run_script.sh

@@ -1,0 +1,63 @@
+vars 									==		 phoHoverE, phoPFClusEcalIsoCorr, phoPFClusHcalIsoCorr, phoTrkSumPtHollowConeDR03Corr, phoR9Full5x5, phoS4Full5x5, phoEmaxOESCrFull5x5, phoE2ndOESCrFull5x5, phoE2ndOEmaxFull5x5, phoE1x3OESCrFull5x5, phoE2x5OESCrFull5x5, phoE5x5OESCrFull5x5, phoEmaxOE3x3Full5x5, phoE2ndOE3x3Full5x5, phoSigmaIEtaIEta, phoSigmaIEtaIPhi, phoSigmaIPhiIPhi, phoSieieOSipipFull5x5, phoEtaWidth, phoPhiWidth, phoEtaWOPhiWFull5x5
+
+
+vars 									==		 phoHoverE, phoR9Full5x5, phoS4Full5x5, phoEmaxOESCrFull5x5, phoE2ndOESCrFull5x5, phoE2ndOEmaxFull5x5, phoE1x3OESCrFull5x5, phoE2x5OESCrFull5x5, phoE5x5OESCrFull5x5, phoEmaxOE3x3Full5x5, phoE2ndOE3x3Full5x5, phoSigmaIEtaIEta, phoSigmaIEtaIPhi, phoSigmaIPhiIPhi, phoSieieOSipipFull5x5, phoEtaWidth, phoPhiWidth, phoEtaWOPhiWFull5x5
+
+vars 									==		 bdtV2Score
+
+etaBins 								==		1.4,1.4442; 1.2,1.4; 1.,1.2;0.5,1;0,0.5
+pTbins 									==		200,250;250,300;300,400;400,600;600,800;800,1200
+pTbins 									==		200,2000
+etaBins 								==		0,1.4442
+
+fFile 									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/training/dataV2/mergedSamples.root
+fTree 									==		fullEBTree
+
+bFile 									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/phoIDstudy/BDT/training/dataV2/trainingV2/BDTresults_2020_09_12_19_08_19.root
+bTree									==		BDTresults
+
+writeDir 								==		plots/feats/subsamples/
+
+prettyNamesFile 							==	varPrettyNames.txt
+
+plotSignal							==	1
+
+lineStyle						== 1
+lineWidth						== 3
+
+testColor 							==	4575b4
+validationColor						==	1b7837
+trainColor 							==	d73027
+
+yTitle 								== a.u.
+yScaleup 							==	1.38
+logX 								==	0
+
+canvasX								== 2000
+canvasY								==1800
+pad0x1								==0.
+pad0x2								==1.
+pad0y1								==0.
+pad0y2								==1.
+pad0marginL							==0.14
+pad0marginR							==0.05
+pad0marginB							==0.14
+pad0marginT							==0.05
+pad0axisLabelSize					==0.05
+pad0axisTitleSize					==0.055
+pad0XtitleOffset					==1.15
+pad0YtitleOffset					==1.3
+pad0yNdivs							==510
+pad0xNdivs							==505
+
+legFillStyle 							== 		1000
+legFillColor 							== 		d9d9d9
+legFillColorAlpha 						== 		0.95
+legW 								==	0.5
+legH 								==	0.18
+legendx1							==0.3
+legendx2							==0.945
+legendy1							==0.75
+legendy2							==0.948
+legendTextSize						==0.04
+legendNcols							==1

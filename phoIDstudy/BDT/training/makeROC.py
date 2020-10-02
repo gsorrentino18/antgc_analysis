@@ -14,11 +14,10 @@ from matplotlib import rcParams
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import pandas as pd
-# from root_pandas.readwrite import read_root
 import ROOT
 
-saveDir='dataV2/training/'
-bdtFile='dataV2/training/BDTresults_2020_09_10_23_04_13.root'
+saveDir='dataV2/trainingV2/'
+bdtFile='dataV2/trainingV2/BDTresults_2020_09_12_19_08_19.root'
 
 columns=['isSignalF', 'isTrainF', 'isValidationF', 'isTestF', 'flatPtEtaRwNoXsecF', 'bdtV2Score']
 data = ROOT.RDataFrame('BDTresults', bdtFile)
@@ -57,7 +56,6 @@ testPredY = data[data.isTestF == 1]['bdtV2Score']
 testW = data[data.isTestF == 1]['flatPtEtaRwNoXsecF']
 testAUC = aucW(testY, testPredY, testW)
 print("Test AUC computed!")
-
 
 print("Making plot!")
 
@@ -101,6 +99,5 @@ plt.ylim(0., 1.05)
 plt.xlim(0., 1.05)
 plt.savefig('%s/ROCfull1.pdf' % saveDir, dpi=600)
 plt.savefig('%s/ROCfull1.png' % saveDir, dpi=600)
-
 
 print("Done!" )

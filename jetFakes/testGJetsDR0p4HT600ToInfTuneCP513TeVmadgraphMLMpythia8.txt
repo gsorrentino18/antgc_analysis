@@ -1,0 +1,1 @@
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8/GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8_000.root

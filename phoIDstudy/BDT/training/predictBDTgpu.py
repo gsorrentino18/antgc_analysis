@@ -7,18 +7,16 @@
 
 # configure options
 from argparse import ArgumentParser
-parser = ArgumentParse
-
-	description='Photon ID BDT Training for CMS aNTGC search in Z(->nu nu) + gamma channel')
+parser = ArgumentParser(description='Photon ID BDT Training for CMS aNTGC search in Z(->nu nu) + gamma channel')
 parser.add_argument('--inFilePath', type=str, help='Input root file',
-					default='/home/rusack/wadud/phoBDT/mergedSamplesShuffled.root', action='store')
+					default='data/2020_09_15_Prompt_AlternateSamples/ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8.root', action='store')
 parser.add_argument('--modelFilePath', type=str, help='BDT model file',
-					default='/home/rusack/wadud/phoBDT/optimizedV0/aNTGC_photon_BDT.pkl', action='store')
-parser.add_argument('--saveDir', type=str, default='/home/rusack/wadud/phoBDT/optimizedV0/',
+					default='/home/rusack/wadud/phoBDT/training/trainingV2/aNTGC_photon_BDT_2020_09_12_19_08_19.pkl', action='store')
+parser.add_argument('--saveDir', type=str, default='data/2020_09_15_Prompt_AlternateSamples/predictions/',
 					help='Save directory', action='store')
-parser.add_argument('--inTreeName', type=str, default='fullEB_Tree',
+parser.add_argument('--inTreeName', type=str, default='fullEB/fullEBTree',
 					help='Input tree name', action='store')
-parser.add_argument('--outTreeName', default='fullEB_BDT_Tree',
+parser.add_argument('--outTreeName', default='BDTresults',
 					type=str, help='Out tree name', action='store')
 
 args = parser.parse_args()
@@ -73,54 +71,46 @@ import matplotlib as mpl
 from matplotlib import rcParams
 from matplotlib import rc
 import matplotlib.pyplot as plt
-from custom_auc import aucW, sampleStats
 import json
 import ROOT
 import math
+import ntpath
 
-
-BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "phoE2ndOEmaxFull5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
-			"phoEmaxOE3x3Full5x5", "phoE2ndOE3x3Full5x5", "phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
+BDTfeats = ["phoR9Full5x5", "phoS4Full5x5", "phoEmaxOESCrFull5x5", "phoE2ndOESCrFull5x5", "pho2x2OE3x3Full5x5", "phoE1x3OESCrFull5x5", "phoE2x5OESCrFull5x5", "phoE5x5OESCrFull5x5",
+			"phoSigmaIEtaIEta", "phoSigmaIEtaIPhi", "phoSigmaIPhiIPhi", "phoSieieOSipipFull5x5", "phoEtaWidth", "phoPhiWidth", "phoEtaWOPhiWFull5x5"]
 BDTfeats.sort()
 print("\nBDT input features (" + str(len(BDTfeats)) + ") :")
 print(BDTfeats)
 
-phoModelIterated = pickle.load(open(args.modelFilePath, "rb"))
+phoModel = pickle.load(open(args.modelFilePath, "rb"))
 
 totalData = ROOT.RDataFrame(args.inTreeName, args.inFilePath)
 print('\nGetting predictions @ ' + now.strftime("%Y-%m-%d %H:%M:%S") + "\n")
 
 
 # totalData =	totalData.Range(0, 1000)
-totalData = pd.DataFrame(totalData.AsNumpy(columns=BDTfeats + ['PtEtaRwBG', 'xSecW', 'isSignal', 'isTrain', 'isValidation', 'splitRand']))
-sampleStats(totalData)
+totalData = pd.DataFrame(totalData.AsNumpy(columns=BDTfeats))
+# sampleStats(totalData)
 
-totalData['bdtWeight'] = totalData['xSecW'] * totalData['PtEtaRwBG']
+totalDataDM = xg.DMatrix(totalData[BDTfeats].values, feature_names=BDTfeats, nthread=-1)
 
-totalDataDM = xg.DMatrix(totalData[BDTfeats].values, label=totalData['isSignal'].values, feature_names=BDTfeats, nthread=-1)
+saveDF = pd.DataFrame()
 
-saveDF = totalData[['isSignal', 'isTrain', 'isValidation', 'bdtWeight', 'splitRand']].copy()
-
-booleanDictionary = {True: 1, False: 0}
-totalData = totalData.replace(booleanDictionary)
-
-saveDF['isTrain'] = saveDF['isTrain'].astype('int')
-saveDF['isSignal'] = saveDF['isSignal'].astype('int')
-saveDF['isValidation'] = saveDF['isValidation'].astype('int')
-saveDF['bdtWeight'] = saveDF['bdtWeight'].astype('int')
-
-saveDF['bdtScore'] = phoModelIterated.predict(totalDataDM)
+saveDF['bdtScore'] = phoModel.predict(totalDataDM)
 
 del totalData
 
-outFileName = args.saveDir + '/' + 'BDTresults' + '.csv'
+outFileName = args.saveDir + ntpath.basename(args.inFilePath)
+outFileName.replace('.root', '.csv')
 saveDF.to_csv(outFileName, encoding='utf-8', index=False)
 print ('Data frame saved in %s' % outFileName)
 
 del saveDF
 
 saveDF = ROOT.RDF.MakeCsvDataFrame(outFileName);
-outFileName = args.saveDir + '/' + 'BDTresults' + '.root'
+
+
+outFileName = args.saveDir + ntpath.basename(args.inFilePath)
 saveDF.Snapshot(args.outTreeName, outFileName)
 print ('Data frame saved in %s' % outFileName)
 

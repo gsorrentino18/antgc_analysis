@@ -51,7 +51,7 @@ public:
 		std::string TKRISO_EFFECTIVE_AREAS="/hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoTrkSumPtHollowConeDR03.txt",
 		std::string PFECALCLUS_PTSCALING="/hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusEcalIso.txt",
 		std::string PFHCALCLUS_PTSCALING="/hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusHcalIso.txt",
-		std::string BDT_PATH="/hdfs/cms/user/wadud/anTGC/BDTdata/optimizedV1/aNTGC_photon_BDT.model");
+		std::string BDT_PATH="/hdfs/cms/user/wadud/anTGC/analysis_data/phoID/trainingV2/aNTGC_photon_BDT_2020_09_12_19_08_19.model");
 
 	~fakePhoFinder(){
 		XGBoosterFree(phoBDT_h);
@@ -773,8 +773,9 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 	phoPFClusIDbits_ 		= 0;
 
 	if(predictBDT){
-		std::vector<Float_t> feats{phoE1x3OESCrFull5x5_, pho2x2OE3x3Full5x5_, phoE2ndOESCrFull5x5_, phoE2ndOEmaxFull5x5_, phoE2x5OESCrFull5x5_, phoE5x5OESCrFull5x5_, phoEmaxOE3x3Full5x5_, phoEmaxOESCrFull5x5_, phoEtaWOPhiWFull5x5_, phoEtaWidth_, phoPhiWidth_, phoR9Full5x5_, phoS4Full5x5_, phoSieieOSipipFull5x5_, phoSigmaIEtaIEta_, phoSigmaIEtaIPhi_, phoSigmaIPhiIPhi_};
-		XGDMatrixCreateFromMat((float*)feats.data(), 1, feats.size(), -1, &dTest);
+		std::vector<Float_t> feats{pho2x2OE3x3Full5x5_, phoE1x3OESCrFull5x5_, phoE2ndOESCrFull5x5_, phoE2x5OESCrFull5x5_, phoE5x5OESCrFull5x5_, phoEmaxOESCrFull5x5_, phoEtaWOPhiWFull5x5_, phoEtaWidth_, phoPhiWidth_, phoR9Full5x5_, phoS4Full5x5_, phoSieieOSipipFull5x5_, phoSigmaIEtaIEta_, phoSigmaIEtaIPhi_, phoSigmaIPhiIPhi_};
+
+		XGDMatrixCreateFromMat((float*)feats.data(), 1, feats.size(), -9999999999, &dTest);
 		bst_ulong out_len;
 		const float *prediction;
 		XGBoosterPredict(phoBDT_h, dTest, 0, 0, 0, &out_len, &prediction);
@@ -782,10 +783,10 @@ Char_t fakePhoFinder::fillPhoVars(Short_t _phoIndex){
 		XGDMatrixFree(dTest);
 		phoBDTpred_ = prediction[0];
 
-		pass95_ = (phoBDTpred_ >= 8.4858950660326768e-02) && (phoHoverE_ < 4.5018283831009365e-02) && (phoPFECALClusIsoCorr_ < 3.4103181645009730e+00) && (phoPFHCALClusIsoCorr_ < 9.2786995496122131e+00) && (phoTkrIsoCorr_ < 4.2117599454665431e+00);
-		pass90_ = (phoBDTpred_ >= 2.0507127927211427e-01) && (phoHoverE_ < 3.6568641101583359e-02) && (phoPFECALClusIsoCorr_ < 4.0163389219598731e+00) && (phoPFHCALClusIsoCorr_ < 5.2111989884892580e+00) && (phoTkrIsoCorr_ < 3.3294343175354939e+00);
-		pass80_ = (phoBDTpred_ >= 3.2887671669257112e-01) && (phoHoverE_ < 4.8717872871108611e-02) && (phoPFECALClusIsoCorr_ < 4.4686313648949589e+00) && (phoPFHCALClusIsoCorr_ < 3.0344907163887740e+00) && (phoTkrIsoCorr_ < 1.4285177877985955e+00);
-		pass70_ = (phoBDTpred_ >= 6.4674869718575889e-01) && (phoHoverE_ < 3.1618057666772573e-02) && (phoPFECALClusIsoCorr_ < 1.5315069640623058e-01) && (phoPFHCALClusIsoCorr_ < 9.2591138752480902e+00) && (phoTkrIsoCorr_ < 1.7539121705839822e+00);
+		pass95_ = (phoBDTpred_ >= 2.1347871547393873e-01) && (phoHoverE_ < 3.1972081872819871e-02) && (phoPFECALClusIsoCorr_ < 5.5702003247919532e+00) && (phoPFHCALClusIsoCorr_ < 1.5870381409324537e+01) && (phoTkrIsoCorr_ < 3.9988330612434098e+00);
+		pass90_ = (phoBDTpred_ >= 4.2242258443976971e-01) && (phoHoverE_ < 4.0873656933608248e-02) && (phoPFECALClusIsoCorr_ < 3.7277726987096962e+00) && (phoPFHCALClusIsoCorr_ < 1.1052528830800725e+01) && (phoTkrIsoCorr_ < 2.8711557036145372e+00);
+		pass80_ = (phoBDTpred_ >= 8.7244571931769122e-01) && (phoHoverE_ < 4.4450510008151485e-02) && (phoPFECALClusIsoCorr_ < 4.7979935544225469e+00) && (phoPFHCALClusIsoCorr_ < 1.0128719656374308e+01) && (phoTkrIsoCorr_ < 4.1483811040263188e+00);
+		pass70_ = (phoBDTpred_ >= 9.5084052145385245e-01) && (phoHoverE_ < 4.8348822338560769e-02) && (phoPFECALClusIsoCorr_ < 3.4110871397501707e+00) && (phoPFHCALClusIsoCorr_ < 1.5238652601828349e+01) && (phoTkrIsoCorr_ < 4.0837764862499419e+00);
 
 		if(pass70_) setBit(phoPFClusIDbits_, 0, 1);
 		if(pass80_) setBit(phoPFClusIDbits_, 1, 1);

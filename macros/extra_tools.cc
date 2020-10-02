@@ -2062,6 +2062,8 @@ TH1D* graph2hist(TGraphAsymmErrors* graph, UInt_t ndivs, Double_t ylow, Double_t
 
 Int_t writeToFile(TObject *_object, std::string _filePath, std::string _mode, Bool_t _verbose){
 
+	mkdir(getDirPath(_filePath));
+
 	TFile _outfile(_filePath.c_str(), _mode.c_str());
 
 	if(_outfile.IsZombie()){

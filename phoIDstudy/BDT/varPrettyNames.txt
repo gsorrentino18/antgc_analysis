@@ -20,7 +20,7 @@ phoTrkSumPtHollowConeDR03Corr				== Corr. I_{TkrH} (GeV) (GeV)											==		168
 phoE5x5OESCrFull5x5 						== 	E_{5#times5}/E_{SC}^{raw}												==		140,0.5,1.2
 phoE2x5OESCrFull5x5 						== 	E_{2#times5}/E_{SC}^{raw}												==		150,0.25,1.
 phoSigmaIEtaIEta 							== 	#sigma_{i#etai#eta}														==		290,0.0055,0.02
-phoE2ndOE3x3Full5x5 						== 	E_{2#times2}/E_{3#times3}												==		200,0.5,1.
+phoE2ndOE3x3Full5x5 						== 	E_{2}/E_{3#times3}														==		160,0.,.8
 phoE1x3OESCrFull5x5 						== 	E_{1#times3}/E_{SC}^{raw}												==		200,0.,1.
 phoEtaWidth 								== 	#sigma_{#eta}															==		160,0.005,0.025
 phoSigmaIPhiIPhi 							== 	#sigma_{i#phii#phi}														==		217,0.006,0.03
@@ -36,4 +36,4 @@ phoEtaWOPhiWFull5x5 						== 	#sigma_{#eta}/#sigma_{#phi}												==		300,0.,
 phoSieieOSipipFull5x5 						== 	#sigma_{i#etai#eta}/#sigma_{i#phii#phi}									==		280,0.3,1.7
 phoE2ndOESCrFull5x5 						== 	E_{2}/E_{SC}^{raw}														==		100,0.,0.5
 
-bdtScore 									==	BDT Score 																==		200.,0.,1.
+bdtV2Score 									==	BDT Score 																==		200.,0.,1.

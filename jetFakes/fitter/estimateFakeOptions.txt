@@ -1,0 +1,84 @@
+
+bdtThres 								==	2.1347871547393873e-01
+pTbins 									==	200-300, 300-400, 400-600, 600-1200
+etaBins 								==	0.-1.4442
+saveDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/jetFakes/fitter/fits/vsPt/
+
+pTbins 									==	200-1200
+etaBins 								==	0.-0.4, 0.4-0.8,0.8-1.
+fakeRatioOutFile 						==		fr.txt
+saveDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/jetFakes/fitter/fits/vsEta/
+
+bdtNbins 								==	100
+
+numDir 									==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/jetFakes/2020_10_01_Num/merged/
+denomDir 								==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/jetFakes/2020_10_01_Denom/merged/
+sidebandDir 							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/jetFakes/2020_10_01_Sideband/merged/
+
+inTreeName 								==		fullEB/fullEBTree
+xSectionMap 							==		/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv
+
+
+
+GJetsBins 								==		GJetsHT200To400TuneCP513TeVmadgraphMLMpythia8.root,  GJetsHT400To600TuneCP513TeVmadgraphMLMpythia8.root,  GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8.root
+dataFile								== 		SinglePhotonRun2017.root
+
+
+dataNumMkrStyle 						==		20
+dataNumMkrSize	 						==		2
+dataNumCol 								==		238b45
+dataDenomCol 							==		8c510a
+mcNumCol								==		6a51a3
+dataSidebandCol							==		4292c6
+fitCol 									==		e31a1c
+
+fracPrecision 							==		1
+fitLegendPrecision1						==		1
+fitLegendPrecision2 					==		4
+fitLineStyle 							==		2
+
+denomPrecision							==		1
+fakeRatioPrecision 						==		2
+
+lineWidth 								==		4.
+
+fitStepSize 							==		0.001
+promptInit 								==		0.1
+
+luminosity 								==		41.53
+
+
+canvasX									==		2800
+canvasY									==		2400
+
+pad0x1									==		0.
+pad0x2									==		1.
+pad0y1									==		0.
+pad0y2									==		1.
+pad0marginL								==		0.18
+pad0marginR								==		0.05
+pad0marginB								==		0.12
+pad0marginT								==		0.05
+pad0axisLabelSize						==		0.05
+pad0ZaxisLabelSize 						==		0.02
+pad0axisTitleSize						==		0.048
+pad0XtitleOffset						==		1.1
+pad0YtitleOffset						==		1.8
+
+pad0xNdivs								==		505
+pad0yNdivs								==		510
+padUwingyNdivs							==		510
+padRwingyNdivs							==		510
+padRwingxNdivs							==		0
+
+legx1									==		0.25
+legx2									==		0.745
+legy1									==		0.75
+legy2									==		0.94
+legTextSize								==		0.027
+legNcols								==		1
+legFillStyle 							== 		1000
+legFillColor 							== 		d9d9d9
+legFillColorAlpha 						== 		0.95
+legBorderWidth 							== 		0.
+legMargin 								==		0.04
