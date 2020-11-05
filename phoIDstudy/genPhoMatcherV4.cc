@@ -97,7 +97,7 @@ private:
         TH1D                deltaPhi{"deltaPhi", "deltaPhi", 100, -5, 5};
         TH1D                deltaEta{"deltaEta", "deltaEta", 100, -5, 5};
         TH1D                deltaRs{"deltaRs", "deltaR", 100, 0, 1};
-        TH1D                deltaPt{"deltaPt", "Invariant egamma mass", 100, -50, 50};
+        TH1D                deltaPt{"deltaPt", "Invariant egamma mass", 100, -100, 100};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////// Input TTree ///////////////////////////////////////////////////////////
@@ -799,77 +799,68 @@ void genPhoMatcher::analyze(){
 
                Short_t tagElectron = -999;
                Short_t probePhoton = -999;
+               Short_t tagEle = -999;
+               Short_t probePho = -999;
                Short_t highestPtEleIndex = -999;
                Short_t highestPt = -999;
+               Double_t eg_mass = 0;
 
                for(UShort_t iEle=0; iEle < _nEle; iEle++){
 
-                  if(_eleCalibPt[iEle] > highestPt){
-                     highestPtEleIndex = iEle;
-                     highestPt = _eleCalibPt[iEle];
+                  UShort_t iHEEP = _eleIDbit[iEle];
+                  if( (_eleCalibPt[iEle] > 60) && (getBit(iHEEP,4)) ) {
+                     if(_eleCalibPt[iEle] > highestPt){
+                        highestPt = _eleCalibPt[iEle];
+                        tagElectron = iEle;
+                     }
                   }
-                  else {
-                     continue;
-                  }
+                  if (tagElectron < 0) continue;
+                  TLorentzVector v_ele(0.,0.,0.,0.);
+                  v_ele.SetPtEtaPhiM(_eleCalibPt[tagElectron], _eleEta[tagElectron], _elePhi[tagElectron], 0.511/1000.);  
 
-                  UShort_t iHEEP = _eleIDbit[highestPtEleIndex];
-                  if( (_eleCalibPt[highestPtEleIndex] > 60) && (getBit(iHEEP,4)) ) {
-
-                     tagElectron = highestPtEleIndex;
-
-                     //Short_t probePhoton = -999;
-                     Short_t highestPtPhoIndex = -999;
-                     Short_t highestPt2 = -999;
+                  //Short_t probePhoton = -999;
+                  Short_t highestPtPhoIndex = -999;
+                  Short_t highestPt2 = -999; 
  
-                     for(UShort_t iPho=0; iPho<_nPho; iPho++){
-
+                  for(UShort_t iPho=0; iPho<_nPho; iPho++){
+                     if( (_phoCalibEt[iPho] > 200 ) && (_phoHoverE[iPho] < 0.05 ) ) {
                         if(_phoCalibEt[iPho] > highestPt2){
-                           highestPtPhoIndex = iPho;
                            highestPt2 = _phoCalibEt[iPho];
+                           probePhoton = iPho;
                         }
-                        else {
-                           continue;
-                        }
-
-                        if( (_phoCalibEt[highestPtPhoIndex] > 200 ) && (_phoHoverE[highestPtPhoIndex] < 0.05 ) ) {
-                           probePhoton = highestPtPhoIndex;
-                        }
+                     }
+                     if (probePhoton < 0) continue;
+                     TLorentzVector v_pho(0.,0.,0.,0.);
+                     v_pho.SetPtEtaPhiM(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], 0);
+                     
+                     eg_mass = (v_ele+v_pho).M();
+                     if ((eg_mass > 80.) && (eg_mass < 110.)) {
+                        tagEle = tagElectron;
+                        probePho = probePhoton;        
                      }
                   }
                }
 
-               if((tagElectron >= 0) && (probePhoton >= 0)) {
+               if((tagEle >= 0) && (probePho >= 0)) {
 
-                  Double_t deltaPhi_ = fabs(_elePhi[tagElectron] - _phoPhi[probePhoton]);
-                  Double_t deltaEta_ = _eleEta[tagElectron] - _phoEta[probePhoton];
+                  Double_t deltaPhi_ = fabs(_elePhi[tagEle] - _phoPhi[probePho]);
+                  Double_t deltaEta_ = _eleEta[tagEle] - _phoEta[probePho];
                   Double_t deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
-                  Double_t deltaPt_ = _eleCalibPt[tagElectron] - _phoCalibEt[probePhoton];
+                  Double_t deltaPt_ = _eleCalibPt[tagEle] - _phoCalibEt[probePho];
                   if (deltaPhi_ > acos(-1)) {
                      deltaPhi_ = 2*acos(-1) - deltaPhi_;
                   }
                   cout << "Tag found: " << tagElectron << std::endl;
-                  std::cout << "Electron pt: "<<_eleCalibPt[tagElectron] <<   std::endl;
+                  std::cout << "Electron pt: "<<_eleCalibPt[tagEle] <<   std::endl;
                   cout << "Probe found: " << probePhoton << std::endl;
-                  std::cout << "Photon pt: "<<_phoCalibEt[probePhoton] << "   phoHoverE: " << _phoHoverE[probePhoton] <<   std::endl;
+                  std::cout << "Photon pt: "<<_phoCalibEt[probePho] << std::endl;
 
-                  TLorentzVector v_ele(0.,0.,0.,0.);
-                  TLorentzVector v_pho(0.,0.,0.,0.);
-
-                  cout << "_phoEta" << _phoEta[probePhoton] << "    _phoCalibE" << _phoCalibE[probePhoton] <<  std::endl;
-
-                  v_ele.SetPtEtaPhiE(_eleCalibPt[tagElectron], _eleEta[tagElectron], _elePhi[tagElectron], _eleCalibEn[tagElectron]);
-                  v_pho.SetPtEtaPhiE(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], _phoCalibE[probePhoton]);
-
-                  Double_t eg_mass = (v_ele+v_pho).M();
-
-                  if ((eg_mass > 80.) && (eg_mass < 110.)) {
-                     invmass.Fill(eg_mass, genWeight_);
-                     deltaPhi.Fill(deltaPhi_, genWeight_);
-                     deltaEta.Fill(deltaEta_, genWeight_);
-                     deltaRs.Fill(deltaR_, genWeight_);
-                     deltaPt.Fill(deltaPt_, genWeight_);
-                  }
-                  invmass2.Fill(eg_mass, genWeight_);
+                  invmass.Fill(eg_mass, genWeight_);
+                  deltaPhi.Fill(deltaPhi_, genWeight_);
+                  deltaEta.Fill(deltaEta_, genWeight_);
+                  deltaRs.Fill(deltaR_, genWeight_);
+                  deltaPt.Fill(deltaPt_, genWeight_);
+                  
                   fillPhoVars(probePhoton, tagElectron);
                   fillEventType(fullEB);
                } //tag and probe > 0 cycle 
