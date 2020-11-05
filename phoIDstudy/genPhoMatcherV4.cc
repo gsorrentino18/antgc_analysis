@@ -92,6 +92,12 @@ private:
 	TH1F                rhoPostweight{"rhoWeighted", "Weighted #rho; #rho", 200, 0., 200.};
 	TH1F                nvtxPreweight{"nvtxUnweighted", "Unweighted # of Vertices; # of Vertices", 200, 0., 200.};
 	TH1F                nvtxPostweight{"nvtxWeighted", "Weighted # of Vertices; # of Vertices", 200, 0., 200.};
+        TH1D                invmass{"invmass", "Invariant egamma mass", 120, 70, 120};
+        TH1D                invmass2{"invmass w/o selection", "Invariant egamma mass", 500, 0, 500};
+        TH1D                deltaPhi{"deltaPhi", "deltaPhi", 100, -5, 5};
+        TH1D                deltaEta{"deltaEta", "deltaEta", 100, -5, 5};
+        TH1D                deltaRs{"deltaRs", "deltaR", 100, 0, 1};
+        TH1D                deltaPt{"deltaPt", "Invariant egamma mass", 100, -50, 50};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////// Input TTree ///////////////////////////////////////////////////////////
@@ -326,6 +332,7 @@ private:
         Double_t                InvMass_;
         Double_t                deltaPhi_;
         Double_t                deltaEta_;
+        Double_t                deltaR_;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////Buffer variables///////////////////////////////////////////////////////
@@ -450,14 +457,14 @@ Short_t genPhoMatcher::electronIsTag(){
 
         for(UShort_t iEle=0; iEle < _nEle; iEle++){
 
-           if (_elePt[iEle] < 60) continue;
+           if (_eleCalibPt[iEle] < 20) continue;
 
            UShort_t iHEEP = _eleIDbit[iEle];
            if(!getBit(iHEEP,4)) continue;
 
-           if(_elePt[iEle] > highestPt){
+           if(_eleCalibPt[iEle] > highestPt){
              highestPtEleIndex = iEle;
-             highestPt = _elePt[iEle];
+             highestPt = _eleCalibPt[iEle];
            }
            eleTag = highestPtEleIndex;  
         }
@@ -473,7 +480,6 @@ Short_t genPhoMatcher::photonIsProbe(){
         Short_t highestPt = -999;
         
         for(UShort_t iPho=0; iPho<_nPho; iPho++){
-           //std::cout << "Index: " << iPho << "   Photon pt: "<<_phoCalibEt[iPho] << "   phoHoverE: " << _phoHoverE[iPho] <<   std::endl;
 
            if(_phoCalibEt[iPho] < 200 ) continue;
            if(_phoHoverE[iPho] > 0.05 ) continue;
@@ -697,30 +703,40 @@ Bool_t genPhoMatcher::selectEvent(){
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
          
-        Short_t tagElectron = electronIsTag();
+        /*Short_t tagElectron = electronIsTag();
         Short_t probePhoton = photonIsProbe();
 
         if((tagElectron < 0) || (probePhoton < 0)) return 0;
 
         if((tagElectron >= 0) && (probePhoton >= 0)) {
            cout << "tagEle" << tagElectron << endl;
+           std::cout << "Electron pt: "<<_eleCalibPt[tagElectron] <<   std::endl;
            cout << "probePho" << probePhoton << endl;
+           std::cout << "Photon pt: "<<_phoCalibEt[probePhoton] << "   phoHoverE: " << _phoHoverE[probePhoton] <<   std::endl;
            TLorentzVector v_ele(0.,0.,0.,0.);
            TLorentzVector v_pho(0.,0.,0.,0.);
-
+           cout << "_phoEta" << _phoEta[probePhoton] << "    _phoCalibE" << _phoCalibE[probePhoton] <<  std::endl;
            v_ele.SetPtEtaPhiE(_eleCalibPt[tagElectron], _eleEta[tagElectron], _elePhi[tagElectron], _eleCalibEn[tagElectron]);
-           v_pho.SetPtEtaPhiE(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], _phoCalibE[probePhoton]);
+           v_pho.SetPtEtaPhiE(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], _phoCalibE[probePhoton]);*/
 
-           Double_t eg_mass = (v_ele+v_pho).M();
-           if ((eg_mass > 80.) && (eg_mass < 110.)) {
-              fillPhoVars(probePhoton, tagElectron);
-              fillEventType(fullEB);
+           /*Double_t deltaPhi_ = fabs(_elePhi[tagElectron] - _phoPhi[probePhoton]);
+           if (deltaPhi_ > acos(-1)) {
+              deltaPhi_ = 2*acos(-1) - deltaPhi_;
+           }
+           Double_t deltaEta_ = _eleEta[tagElectron] - _phoEta[probePhoton];
+           Double_t deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
+
+           if (deltaR_ < 0.3) return 0;*/
+           //Double_t eg_mass = (v_ele+v_pho).M();
+           //if ((eg_mass > 80.) && (eg_mass < 110.)) {
+              //fillPhoVars(probePhoton, tagElectron);
+              //fillEventType(fullEB);
               return 1;
-           }
-           else {
-              return 0;
-           }
-        }
+          // } 
+           //else {
+              //return 0;
+           //}
+        //}
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -733,7 +749,13 @@ Bool_t genPhoMatcher::initEventTypes(){
 	rhoPreweight.SetDirectory(outFile->GetDirectory(""));
 	rhoPostweight.SetDirectory(outFile->GetDirectory(""));
 	nvtxPreweight.SetDirectory(outFile->GetDirectory(""));
-	nvtxPostweight.SetDirectory(outFile->GetDirectory(""));
+ 	nvtxPostweight.SetDirectory(outFile->GetDirectory(""));
+        invmass.SetDirectory(outFile->GetDirectory(""));
+        invmass2.SetDirectory(outFile->GetDirectory(""));
+        deltaPhi.SetDirectory(outFile->GetDirectory(""));
+        deltaEta.SetDirectory(outFile->GetDirectory(""));
+        deltaRs.SetDirectory(outFile->GetDirectory(""));
+        deltaPt.SetDirectory(outFile->GetDirectory(""));
 
 	initEventType(fullEB, "fullEB", "Full ECAL Barrel");
 	return 1;
@@ -775,6 +797,83 @@ void genPhoMatcher::analyze(){
 
 		selectEvent();
 
+               Short_t tagElectron = -999;
+               Short_t probePhoton = -999;
+               Short_t highestPtEleIndex = -999;
+               Short_t highestPt = -999;
+
+               for(UShort_t iEle=0; iEle < _nEle; iEle++){
+
+                  if(_eleCalibPt[iEle] > highestPt){
+                     highestPtEleIndex = iEle;
+                     highestPt = _eleCalibPt[iEle];
+                  }
+                  else {
+                     continue;
+                  }
+
+                  UShort_t iHEEP = _eleIDbit[highestPtEleIndex];
+                  if( (_eleCalibPt[highestPtEleIndex] > 60) && (getBit(iHEEP,4)) ) {
+
+                     tagElectron = highestPtEleIndex;
+
+                     //Short_t probePhoton = -999;
+                     Short_t highestPtPhoIndex = -999;
+                     Short_t highestPt2 = -999;
+ 
+                     for(UShort_t iPho=0; iPho<_nPho; iPho++){
+
+                        if(_phoCalibEt[iPho] > highestPt2){
+                           highestPtPhoIndex = iPho;
+                           highestPt2 = _phoCalibEt[iPho];
+                        }
+                        else {
+                           continue;
+                        }
+
+                        if( (_phoCalibEt[highestPtPhoIndex] > 200 ) && (_phoHoverE[highestPtPhoIndex] < 0.05 ) ) {
+                           probePhoton = highestPtPhoIndex;
+                        }
+                     }
+                  }
+               }
+
+               if((tagElectron >= 0) && (probePhoton >= 0)) {
+
+                  Double_t deltaPhi_ = fabs(_elePhi[tagElectron] - _phoPhi[probePhoton]);
+                  Double_t deltaEta_ = _eleEta[tagElectron] - _phoEta[probePhoton];
+                  Double_t deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
+                  Double_t deltaPt_ = _eleCalibPt[tagElectron] - _phoCalibEt[probePhoton];
+                  if (deltaPhi_ > acos(-1)) {
+                     deltaPhi_ = 2*acos(-1) - deltaPhi_;
+                  }
+                  cout << "Tag found: " << tagElectron << std::endl;
+                  std::cout << "Electron pt: "<<_eleCalibPt[tagElectron] <<   std::endl;
+                  cout << "Probe found: " << probePhoton << std::endl;
+                  std::cout << "Photon pt: "<<_phoCalibEt[probePhoton] << "   phoHoverE: " << _phoHoverE[probePhoton] <<   std::endl;
+
+                  TLorentzVector v_ele(0.,0.,0.,0.);
+                  TLorentzVector v_pho(0.,0.,0.,0.);
+
+                  cout << "_phoEta" << _phoEta[probePhoton] << "    _phoCalibE" << _phoCalibE[probePhoton] <<  std::endl;
+
+                  v_ele.SetPtEtaPhiE(_eleCalibPt[tagElectron], _eleEta[tagElectron], _elePhi[tagElectron], _eleCalibEn[tagElectron]);
+                  v_pho.SetPtEtaPhiE(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], _phoCalibE[probePhoton]);
+
+                  Double_t eg_mass = (v_ele+v_pho).M();
+
+                  if ((eg_mass > 80.) && (eg_mass < 110.)) {
+                     invmass.Fill(eg_mass, genWeight_);
+                     deltaPhi.Fill(deltaPhi_, genWeight_);
+                     deltaEta.Fill(deltaEta_, genWeight_);
+                     deltaRs.Fill(deltaR_, genWeight_);
+                     deltaPt.Fill(deltaPt_, genWeight_);
+                  }
+                  invmass2.Fill(eg_mass, genWeight_);
+                  fillPhoVars(probePhoton, tagElectron);
+                  fillEventType(fullEB);
+               } //tag and probe > 0 cycle 
+     
 		current_entry++; 
 	};
 
@@ -899,6 +998,7 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex, Short_t _eleIndex){
 	}
 
 	phoTrigMatch = matchWithTrigPho(_phoIndex, 0.3, 0.5, 1.5);
+
 	if(phoTrigMatch > -1){
 		deltaRtrg_  = deltaR(phoEta_, phoPhi_, _trgObjPhoEta[phoTrigMatch], _trgObjPhoPhi[phoTrigMatch]);
 		deltaPttrg_ = (_trgObjPhoPt[phoTrigMatch] - phoPt_)/_trgObjPhoPt[phoTrigMatch];
@@ -941,8 +1041,12 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex, Short_t _eleIndex){
         Double_t eg_mass = (v_ele+v_pho).M();
         InvMass_ = eg_mass;
 
-        deltaPhi_ = _elePhi[_eleIndex] - _phoPhi[_phoIndex];
+        deltaPhi_ = fabs(_elePhi[_eleIndex] - _phoPhi[_phoIndex]);
+        if (deltaPhi_ > acos(-1)) {
+           deltaPhi_ = 2*acos(-1) - deltaPhi_;
+        }
         deltaEta_ = _eleEta[_eleIndex] - _phoEta[_phoIndex];
+        deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
 
 	return 1;
 }
