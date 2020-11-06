@@ -79,8 +79,6 @@ private:
 	Short_t 			matchWithRecoPho(Short_t _genIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
         Short_t                         matchWithRecoEle(Short_t _genIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
 	Short_t 			matchWithTrigPho(Short_t _phoIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
-        Short_t                         electronIsTag(); 
-        Short_t				photonIsProbe();
 
 	TFile *             outFile = nullptr;
 
@@ -93,11 +91,11 @@ private:
 	TH1F                nvtxPreweight{"nvtxUnweighted", "Unweighted # of Vertices; # of Vertices", 200, 0., 200.};
 	TH1F                nvtxPostweight{"nvtxWeighted", "Weighted # of Vertices; # of Vertices", 200, 0., 200.};
         TH1D                invmass{"invmass", "Invariant egamma mass", 120, 70, 120};
-        TH1D                invmass2{"invmass w/o selection", "Invariant egamma mass", 500, 0, 500};
         TH1D                deltaPhi{"deltaPhi", "deltaPhi", 100, -5, 5};
         TH1D                deltaEta{"deltaEta", "deltaEta", 100, -5, 5};
         TH1D                deltaRs{"deltaRs", "deltaR", 100, 0, 1};
         TH1D                deltaPt{"deltaPt", "Invariant egamma mass", 100, -100, 100};
+        TH1D                phoBDT{"phoBDT", "phoBDT score", 100, 0, 1};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////// Input TTree ///////////////////////////////////////////////////////////
@@ -448,54 +446,6 @@ genPhoMatcher::genPhoMatcher(std::string FILELIST, std::string OUTFILE, Float_t 
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Short_t genPhoMatcher::electronIsTag(){
-
-        Short_t eleTag = -999;
-        Short_t highestPtEleIndex = -999;
-        Short_t highestPt = -999;
-
-        for(UShort_t iEle=0; iEle < _nEle; iEle++){
-
-           if (_eleCalibPt[iEle] < 20) continue;
-
-           UShort_t iHEEP = _eleIDbit[iEle];
-           if(!getBit(iHEEP,4)) continue;
-
-           if(_eleCalibPt[iEle] > highestPt){
-             highestPtEleIndex = iEle;
-             highestPt = _eleCalibPt[iEle];
-           }
-           eleTag = highestPtEleIndex;  
-        }
-        //std::cout << "eleTag: "<< eleTag << std::endl;
-        return eleTag;
-};
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Short_t genPhoMatcher::photonIsProbe(){
-
-        Short_t phoProbe = -999;
-        Short_t highestPtPhoIndex = -999;
-        Short_t highestPt = -999;
-        
-        for(UShort_t iPho=0; iPho<_nPho; iPho++){
-
-           if(_phoCalibEt[iPho] < 200 ) continue;
-           if(_phoHoverE[iPho] > 0.05 ) continue;
-
-              if(_phoCalibEt[iPho] > highestPt){
-              highestPtPhoIndex = iPho;
-              highestPt = _phoCalibEt[iPho];
-           }
-           phoProbe = highestPtPhoIndex;
-        }
-        //std::cout << "phoProbe: "<< phoProbe << std::endl;
-        return phoProbe;
-};
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Short_t	genPhoMatcher::matchWithRecoPho(Short_t _genIndex, Float_t _deltaRmax, Float_t _relDeltaPtMin, Float_t _relDeltaPtMax){
 
@@ -591,152 +541,9 @@ Bool_t genPhoMatcher::selectEvent(){
 
 	// ULong64_t HLTPho    = (_HLTPho);                //// 9 = HLT_Photon200_v, 11 = HLT_Photon300_NoHE_v, 19 = HLT_Photon135_PFMET100_v, no trigger on 2016 MC
 	// if(!getBit(HLTPho, 9))      return 0;           //// 200 GeV photon trigger
-	// registerAllCutFlow();
+	// registerAllCutFlow();         
+        return 1;
 
-        /*if (isMC) {
-           Short_t highestPtGenIndexPho    = -9999;
-           Float_t highestPtPho            = -999.;
-           Short_t highestPtGenIndexEle    = -9999;
-           Float_t highestPtEle            = -999.;
-           Bool_t	passedPrompt		= 0;
-           Bool_t 	passedGenFidCut		= 0;
-           Bool_t 	passedGenPtCut		= 0;
-           Bool_t 	passedRecoMatchPho	= 0;
-           Bool_t       passedRecoMatchEle      = 0;
-           Bool_t 	passedRecoPtCutPho 	= 0;
-           Bool_t       passedRecoPtCutEle      = 0;
-           Bool_t 	passedRecoFidCut	= 0;
-           Bool_t       passedRecoHoverECut     = 0;
-           // Bool_t 	passedPixelCut 		= 0;
-           Short_t matchedRecoPhoton 	= -999;
-           Short_t matchedRecoElectron    = -999;
-           
-           for(UShort_t iGenP=0; iGenP<_nMC; iGenP++){
-
-              UShort_t iGenPStFl = _mcStatusFlag[iGenP];
-              if(!getBit(iGenPStFl,1)) continue;
-              passedPrompt = 1;
-
-              if(std::abs(_mcEta[iGenP]) > 1.6) continue;
-              passedGenFidCut = 1;
-
-              if(fabs(_mcPID[iGenP]) == 11) {
-
-                 Short_t iGenRecoMatchEle = matchWithRecoEle(iGenP, 0.05, -0.1, 0.1);
-                 if(iGenRecoMatchEle < 0) continue;
-                 passedRecoMatchEle = 1;
-
-                 //if (_mcPt[iGenRecoMatchEle] < 60) continue;
-                 passedRecoPtCutEle = 1;
-
-                 //UShort_t iHEEP = _eleIDbit[iGenRecoMatchEle];
-                 //if(!getBit(iHEEP,4)) continue;
-
-                 if(_mcPt[iGenP] > highestPtEle){
-                    highestPtGenIndexEle = iGenP;
-                    highestPtEle = _mcPt[iGenP];
-                    matchedRecoElectron = iGenRecoMatchEle;
-                 }
-                 //std::cout << "matchedRecoElectron: " << matchedRecoElectron << std::endl;
-              }
-
-              if(_mcPID[iGenP] == 22) {
-
-                 Short_t iGenRecoMatchPho = matchWithRecoPho(iGenP, 0.05, -0.1, 0.1);
-                 if(iGenRecoMatchPho < 0) continue;
-                 passedRecoMatchPho = 1;
-           
-                 //if(std::abs(_ecalSCeta[_phoDirectEcalSCindex[iGenRecoMatchPho]]) > BETRetaMin) continue;
-                 passedRecoFidCut = 1;
-           
-                 //if(_phoCalibEt[iGenRecoMatchPho] < 200.) continue;
-                 passedRecoPtCutPho = 1;
-              
-                 //if(_phoHoverE[iGenRecoMatchPho] > 0.05 ) continue;
-                 passedRecoHoverECut= 1;
-   
-                 // UChar_t iQualityBits = _phoQualityBits[iGenRecoMatch];
-                 // if(getBit(iQualityBits,0)) continue;                             	// 0=has pixel seed, 1=electron veto
-                 // passedPixelCut = 1;
-           
-                 if(_mcPt[iGenP] > highestPtPho){
-                    highestPtGenIndexPho = iGenP;
-                    highestPtPho = _mcPt[iGenP];
-                    matchedRecoPhoton = iGenRecoMatchPho;
-                 }
-                 //std::cout << "matchedRecoPhoton: " << matchedRecoPhoton << std::endl;
-              }
-
-           }
-
-           if(passedPrompt) registerAllCutFlow();
-           if(passedGenFidCut) registerAllCutFlow();
-           if(passedRecoMatchPho) registerAllCutFlow();
-           if(passedRecoMatchEle) registerAllCutFlow();
-           if(passedRecoFidCut) registerAllCutFlow();
-           //if(passedGenPtCut) registerAllCutFlow();
-           if(passedRecoPtCutPho) registerAllCutFlow();
-           if(passedRecoPtCutEle) registerAllCutFlow();
-           if(passedRecoHoverECut)registerAllCutFlow();
-           // if(passedPixelCut) registerAllCutFlow();
-           
-           if((matchedRecoElectron < 0) || (matchedRecoPhoton < 0)) return 0;        
-
-           if((matchedRecoElectron >= 0) && (matchedRecoPhoton >= 0)) {
-              matchedGenPhoIndex = highestPtGenIndexPho;
-
-              TLorentzVector v_ele(0.,0.,0.,0.);
-              TLorentzVector v_pho(0.,0.,0.,0.);
-
-              v_ele.SetPtEtaPhiE(_eleCalibPt[matchedRecoElectron], _eleEta[matchedRecoElectron], _elePhi[matchedRecoElectron], _eleCalibEn[matchedRecoElectron]);
-              v_pho.SetPtEtaPhiE(_phoCalibEt[matchedRecoPhoton], _phoEta[matchedRecoPhoton], _phoPhi[matchedRecoPhoton], _phoCalibE[matchedRecoPhoton]);
-
-              Double_t eg_mass = (v_ele+v_pho).M();
-              if ((eg_mass > 80.) && (eg_mass < 110.)) {
-                 std::cout << "invariant mass: " << eg_mass << std::endl;
-                 fillPhoVars(matchedRecoPhoton, matchedRecoElectron); ////attenzione a questo indice, matchedRecoPhoton in origine
-                 fillEventType(fullEB);
-                 return 1;
-              }
-           }
-        }*/
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-         
-        /*Short_t tagElectron = electronIsTag();
-        Short_t probePhoton = photonIsProbe();
-
-        if((tagElectron < 0) || (probePhoton < 0)) return 0;
-
-        if((tagElectron >= 0) && (probePhoton >= 0)) {
-           cout << "tagEle" << tagElectron << endl;
-           std::cout << "Electron pt: "<<_eleCalibPt[tagElectron] <<   std::endl;
-           cout << "probePho" << probePhoton << endl;
-           std::cout << "Photon pt: "<<_phoCalibEt[probePhoton] << "   phoHoverE: " << _phoHoverE[probePhoton] <<   std::endl;
-           TLorentzVector v_ele(0.,0.,0.,0.);
-           TLorentzVector v_pho(0.,0.,0.,0.);
-           cout << "_phoEta" << _phoEta[probePhoton] << "    _phoCalibE" << _phoCalibE[probePhoton] <<  std::endl;
-           v_ele.SetPtEtaPhiE(_eleCalibPt[tagElectron], _eleEta[tagElectron], _elePhi[tagElectron], _eleCalibEn[tagElectron]);
-           v_pho.SetPtEtaPhiE(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], _phoCalibE[probePhoton]);*/
-
-           /*Double_t deltaPhi_ = fabs(_elePhi[tagElectron] - _phoPhi[probePhoton]);
-           if (deltaPhi_ > acos(-1)) {
-              deltaPhi_ = 2*acos(-1) - deltaPhi_;
-           }
-           Double_t deltaEta_ = _eleEta[tagElectron] - _phoEta[probePhoton];
-           Double_t deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
-
-           if (deltaR_ < 0.3) return 0;*/
-           //Double_t eg_mass = (v_ele+v_pho).M();
-           //if ((eg_mass > 80.) && (eg_mass < 110.)) {
-              //fillPhoVars(probePhoton, tagElectron);
-              //fillEventType(fullEB);
-              return 1;
-          // } 
-           //else {
-              //return 0;
-           //}
-        //}
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -751,11 +558,11 @@ Bool_t genPhoMatcher::initEventTypes(){
 	nvtxPreweight.SetDirectory(outFile->GetDirectory(""));
  	nvtxPostweight.SetDirectory(outFile->GetDirectory(""));
         invmass.SetDirectory(outFile->GetDirectory(""));
-        invmass2.SetDirectory(outFile->GetDirectory(""));
         deltaPhi.SetDirectory(outFile->GetDirectory(""));
         deltaEta.SetDirectory(outFile->GetDirectory(""));
         deltaRs.SetDirectory(outFile->GetDirectory(""));
         deltaPt.SetDirectory(outFile->GetDirectory(""));
+        phoBDT.SetDirectory(outFile->GetDirectory(""));
 
 	initEventType(fullEB, "fullEB", "Full ECAL Barrel");
 	return 1;
@@ -780,11 +587,15 @@ void genPhoMatcher::analyze(){
 		rhoPreweight.Fill(_rho, genWeight_);
 		nvtxPreweight.Fill(_nVtx, genWeight_);
 
+                Float_t weight = 1;
+
 		if(isMC) {  
 			if(doPUreweight){
 				genWeight_ = _genWeight;
 				puWeight_ = puReweighter.weight(_puTrue);
 				Float_t genPUweight = genWeight_ * puWeight_;
+                                cout << "genweight: " << genWeight_ << "puweight: " << puWeight_ << endl; 
+                                weight = genPUweight;
 				pileupPostweight.Fill(_puTrue, genPUweight);
 				rhoPostweight.Fill(_rho, genPUweight);
 				nvtxPostweight.Fill(_nVtx, genPUweight);
@@ -801,71 +612,86 @@ void genPhoMatcher::analyze(){
                Short_t probePhoton = -999;
                Short_t tagEle = -999;
                Short_t probePho = -999;
-               Short_t highestPtEleIndex = -999;
-               Short_t highestPt = -999;
+               Double_t deltaEta_ = 0;
+               Double_t deltaPhi_ = 0;
+               Double_t deltaR_ = 0; 
+               Double_t deltaPt_ = 0;
                Double_t eg_mass = 0;
 
                for(UShort_t iEle=0; iEle < _nEle; iEle++){
 
                   UShort_t iHEEP = _eleIDbit[iEle];
-                  if( (_eleCalibPt[iEle] > 60) && (getBit(iHEEP,4)) ) {
-                     if(_eleCalibPt[iEle] > highestPt){
-                        highestPt = _eleCalibPt[iEle];
-                        tagElectron = iEle;
-                     }
-                  }
-                  if (tagElectron < 0) continue;
-                  TLorentzVector v_ele(0.,0.,0.,0.);
-                  v_ele.SetPtEtaPhiM(_eleCalibPt[tagElectron], _eleEta[tagElectron], _elePhi[tagElectron], 0.511/1000.);  
+		  if( ((_eleCalibPt[iEle] > 60) && (getBit(iHEEP,4))) == false ) continue;
+                  if ( fabs(_eleEta[iEle]) > 2.5 ) continue;
 
-                  //Short_t probePhoton = -999;
-                  Short_t highestPtPhoIndex = -999;
-                  Short_t highestPt2 = -999; 
- 
+                  TLorentzVector v_ele(0.,0.,0.,0.);
+                  v_ele.SetPtEtaPhiM(_eleCalibPt[iEle], _eleEta[iEle], _elePhi[iEle], 0.511/1000.);  
                   for(UShort_t iPho=0; iPho<_nPho; iPho++){
-                     if( (_phoCalibEt[iPho] > 200 ) && (_phoHoverE[iPho] < 0.05 ) ) {
-                        if(_phoCalibEt[iPho] > highestPt2){
-                           highestPt2 = _phoCalibEt[iPho];
-                           probePhoton = iPho;
-                        }
-                     }
-                     if (probePhoton < 0) continue;
+                     if( ((_phoCalibEt[iPho] > 200 ) && (_phoHoverE[iPho] < 0.05 ) ) == false) continue;
+                     if ( fabs(_phoEta[iPho]) > 1.6 ) continue;
+
                      TLorentzVector v_pho(0.,0.,0.,0.);
-                     v_pho.SetPtEtaPhiM(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], 0);
-                     
+                     v_pho.SetPtEtaPhiM(_phoCalibEt[iPho], _phoEta[iPho], _phoPhi[iPho], 0);
+
+                     deltaPhi_ = fabs(_elePhi[iEle] - _phoPhi[iPho]);
+                     deltaEta_ = _eleEta[iEle] - _phoEta[iPho];
+                     deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
+                     deltaPt_ = _eleCalibPt[iEle] - _phoCalibEt[iPho];
+                     if (deltaPhi_ > acos(-1)) {
+                        deltaPhi_ = 2*acos(-1) - deltaPhi_;
+                     } 
+                     if (deltaR_ < 0.3) continue;
                      eg_mass = (v_ele+v_pho).M();
                      if ((eg_mass > 80.) && (eg_mass < 110.)) {
-                        tagEle = tagElectron;
-                        probePho = probePhoton;        
+                        tagElectron = iEle;
+                        probePhoton = iPho;        
                      }
                   }
                }
 
-               if((tagEle >= 0) && (probePho >= 0)) {
+               if((tagElectron >= 0) && (probePhoton >= 0)) {
 
-                  Double_t deltaPhi_ = fabs(_elePhi[tagEle] - _phoPhi[probePho]);
-                  Double_t deltaEta_ = _eleEta[tagEle] - _phoEta[probePho];
-                  Double_t deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
-                  Double_t deltaPt_ = _eleCalibPt[tagEle] - _phoCalibEt[probePho];
-                  if (deltaPhi_ > acos(-1)) {
-                     deltaPhi_ = 2*acos(-1) - deltaPhi_;
-                  }
-                  cout << "Tag found: " << tagElectron << std::endl;
-                  std::cout << "Electron pt: "<<_eleCalibPt[tagEle] <<   std::endl;
-                  cout << "Probe found: " << probePhoton << std::endl;
-                  std::cout << "Photon pt: "<<_phoCalibEt[probePho] << std::endl;
+                  cout << "Tag found: " << tagElectron << "   Electron pt: "<<_eleCalibPt[tagElectron] << std::endl;
+                  cout << "Probe found: " << probePhoton << "   Photon pt: "<<_phoCalibEt[probePhoton] << std::endl;
+                  cout << "Invariant mass: " << eg_mass << endl; 
 
-                  invmass.Fill(eg_mass, genWeight_);
-                  deltaPhi.Fill(deltaPhi_, genWeight_);
-                  deltaEta.Fill(deltaEta_, genWeight_);
-                  deltaRs.Fill(deltaR_, genWeight_);
-                  deltaPt.Fill(deltaPt_, genWeight_);
+                  invmass.Fill(eg_mass, weight);
+                  deltaPhi.Fill(deltaPhi_, weight);
+                  deltaEta.Fill(deltaEta_, weight);
+                  deltaRs.Fill(deltaR_, weight);
+                  deltaPt.Fill(deltaPt_, weight);
                   
                   fillPhoVars(probePhoton, tagElectron);
                   fillEventType(fullEB);
                } //tag and probe > 0 cycle 
+
+
+               if(predictBDT && (tagElectron >= 0) && (probePhoton >= 0)){
+
+                  std::vector<Float_t> feats{pho2x2OE3x3Full5x5_, phoE1x3OESCrFull5x5_, phoE2ndOESCrFull5x5_, phoE2x5OESCrFull5x5_, phoE5x5OESCrFull5x5_, phoEmaxOESCrFull5x5_, phoEtaWOPhiWFull5x5_, phoEtaWidth_, phoPhiWidth_, phoR9Full5x5_, phoS4Full5x5_, phoSieieOSipipFull5x5_, phoSigmaIEtaIEta_, phoSigmaIEtaIPhi_, phoSigmaIPhiIPhi_};
+
+                  XGDMatrixCreateFromMat((float*)feats.data(), 1, feats.size(), -9999999999, &dTest);
+                  bst_ulong out_len;
+                  const float *prediction;
+                  XGBoosterPredict(phoBDT_h, dTest, 0, 0, 0, &out_len, &prediction);
+                  assert(out_len == 1);
+                  XGDMatrixFree(dTest);
+                  phoBDTpred_ = prediction[0];
+                  phoBDT.Fill(prediction[0], weight);
+
+                  pass95_ = (phoBDTpred_ >= 2.1347871547393873e-01) && (phoHoverE_ < 3.1972081872819871e-02) && (phoPFECALClusIsoCorr_ < 5.5702003247919532e+00) && (phoPFHCALClusIsoCorr_ < 1.5870381409324537e+01) && (phoTkrIsoCorr_ < 3.9988330612434098e+00);
+                  pass90_ = (phoBDTpred_ >= 4.2242258443976971e-01) && (phoHoverE_ < 4.0873656933608248e-02) && (phoPFECALClusIsoCorr_ < 3.7277726987096962e+00) && (phoPFHCALClusIsoCorr_ < 1.1052528830800725e+01) && (phoTkrIsoCorr_ < 2.8711557036145372e+00);
+                  pass80_ = (phoBDTpred_ >= 8.7244571931769122e-01) && (phoHoverE_ < 4.4450510008151485e-02) && (phoPFECALClusIsoCorr_ < 4.7979935544225469e+00) && (phoPFHCALClusIsoCorr_ < 1.0128719656374308e+01) && (phoTkrIsoCorr_ < 4.1483811040263188e+00);
+                  pass70_ = (phoBDTpred_ >= 9.5084052145385245e-01) && (phoHoverE_ < 4.8348822338560769e-02) && (phoPFECALClusIsoCorr_ < 3.4110871397501707e+00) && (phoPFHCALClusIsoCorr_ < 1.5238652601828349e+01) && (phoTkrIsoCorr_ < 4.0837764862499419e+00);
+
+                  if(pass70_) setBit(phoPFClusIDbits_, 0, 1);
+                  if(pass80_) setBit(phoPFClusIDbits_, 1, 1);
+                  if(pass90_) setBit(phoPFClusIDbits_, 2, 1);
+                  if(pass95_) setBit(phoPFClusIDbits_, 3, 1);
+               }
      
 		current_entry++; 
+                cout << "Weight: " << weight << endl;
 	};
 
 	std::cout<<"Done analyzing!"<<std::endl<<
@@ -963,84 +789,9 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex, Short_t _eleIndex){
 
 	phoEtaWOPhiWFull5x5_	= phoEtaWidth_/phoPhiWidth_;
 
-	if(isMC){
-		puTrue_			= 	_puTrue;
-		phoGenBits_ 		= 	0;
-		Short_t iPhoGenIndex 	= 	matchedGenPhoIndex;
-
-		if(iPhoGenIndex > -1) {
-			setBit(phoGenBits_,0,1);	
-			genStatusFlag_ 			= 	_mcStatusFlag[iPhoGenIndex];
-			genStatus_ 			=	_mcStatus[iPhoGenIndex];
-			deltaRgenPho_ 			=	deltaR(_mcEta[iPhoGenIndex], _mcPhi[iPhoGenIndex], phoEta_, phoPhi_);
-			relDeltaPtGenPho_ 		=	(_phoCalibEt[_phoIndex] - _mcPt[iPhoGenIndex])/_mcPt[iPhoGenIndex];
-			deltaRPt_ 			= std::sqrt(deltaRgenPho_*deltaRgenPho_ + relDeltaPtGenPho_*relDeltaPtGenPho_);
-			genPDGid_ 			= 	_mcPID[iPhoGenIndex];
-		} else {
-			genStatusFlag_ 			=  9999;
-			genStatus_ 			= -9999;
-			deltaRgenPho_ 			= -9999;
-			relDeltaPtGenPho_ 		= -9999;
-			deltaRPt_ 			= -9999;
-			genPDGid_			= -9999;
-		}
-
-		setBit(phoGenBits_, 1, 1);
-	}
-
-	phoTrigMatch = matchWithTrigPho(_phoIndex, 0.3, 0.5, 1.5);
-
-	if(phoTrigMatch > -1){
-		deltaRtrg_  = deltaR(phoEta_, phoPhi_, _trgObjPhoEta[phoTrigMatch], _trgObjPhoPhi[phoTrigMatch]);
-		deltaPttrg_ = (_trgObjPhoPt[phoTrigMatch] - phoPt_)/_trgObjPhoPt[phoTrigMatch];
-	} else{
-		deltaRtrg_  = - 999;
-		deltaPttrg_ = - 999;
-	}
-
-	phoPFClusIDbits_ 	= 0;
-
-	if(predictBDT){
-
-		std::vector<Float_t> feats{pho2x2OE3x3Full5x5_, phoE1x3OESCrFull5x5_, phoE2ndOESCrFull5x5_, phoE2x5OESCrFull5x5_, phoE5x5OESCrFull5x5_, phoEmaxOESCrFull5x5_, phoEtaWOPhiWFull5x5_, phoEtaWidth_, phoPhiWidth_, phoR9Full5x5_, phoS4Full5x5_, phoSieieOSipipFull5x5_, phoSigmaIEtaIEta_, phoSigmaIEtaIPhi_, phoSigmaIPhiIPhi_};
-
-		XGDMatrixCreateFromMat((float*)feats.data(), 1, feats.size(), -9999999999, &dTest);
-		bst_ulong out_len;
-		const float *prediction;
-		XGBoosterPredict(phoBDT_h, dTest, 0, 0, 0, &out_len, &prediction);
-		assert(out_len == 1);
-		XGDMatrixFree(dTest);
-		phoBDTpred_ = prediction[0];
-
-		pass95_ = (phoBDTpred_ >= 2.1347871547393873e-01) && (phoHoverE_ < 3.1972081872819871e-02) && (phoPFECALClusIsoCorr_ < 5.5702003247919532e+00) && (phoPFHCALClusIsoCorr_ < 1.5870381409324537e+01) && (phoTkrIsoCorr_ < 3.9988330612434098e+00);
-		pass90_ = (phoBDTpred_ >= 4.2242258443976971e-01) && (phoHoverE_ < 4.0873656933608248e-02) && (phoPFECALClusIsoCorr_ < 3.7277726987096962e+00) && (phoPFHCALClusIsoCorr_ < 1.1052528830800725e+01) && (phoTkrIsoCorr_ < 2.8711557036145372e+00);
-		pass80_ = (phoBDTpred_ >= 8.7244571931769122e-01) && (phoHoverE_ < 4.4450510008151485e-02) && (phoPFECALClusIsoCorr_ < 4.7979935544225469e+00) && (phoPFHCALClusIsoCorr_ < 1.0128719656374308e+01) && (phoTkrIsoCorr_ < 4.1483811040263188e+00);
-		pass70_ = (phoBDTpred_ >= 9.5084052145385245e-01) && (phoHoverE_ < 4.8348822338560769e-02) && (phoPFECALClusIsoCorr_ < 3.4110871397501707e+00) && (phoPFHCALClusIsoCorr_ < 1.5238652601828349e+01) && (phoTkrIsoCorr_ < 4.0837764862499419e+00);
-
-		if(pass70_) setBit(phoPFClusIDbits_, 0, 1);
-		if(pass80_) setBit(phoPFClusIDbits_, 1, 1);
-		if(pass90_) setBit(phoPFClusIDbits_, 2, 1);
-		if(pass95_) setBit(phoPFClusIDbits_, 3, 1);
-	}
-
-        TLorentzVector v_ele(0.,0.,0.,0.);
-        TLorentzVector v_pho(0.,0.,0.,0.);
-
-        v_ele.SetPtEtaPhiE(_eleCalibPt[_eleIndex], _eleEta[_eleIndex], _elePhi[_eleIndex], _eleCalibEn[_eleIndex]);
-        v_pho.SetPtEtaPhiE(_phoCalibEt[_phoIndex], _phoEta[_phoIndex], _phoPhi[_phoIndex], _phoCalibE[_phoIndex]);
-
-        Double_t eg_mass = (v_ele+v_pho).M();
-        InvMass_ = eg_mass;
-
-        deltaPhi_ = fabs(_elePhi[_eleIndex] - _phoPhi[_phoIndex]);
-        if (deltaPhi_ > acos(-1)) {
-           deltaPhi_ = 2*acos(-1) - deltaPhi_;
-        }
-        deltaEta_ = _eleEta[_eleIndex] - _phoEta[_phoIndex];
-        deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
-
 	return 1;
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
