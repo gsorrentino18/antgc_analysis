@@ -90,12 +90,17 @@ private:
 	TH1F                rhoPostweight{"rhoWeighted", "Weighted #rho; #rho", 200, 0., 200.};
 	TH1F                nvtxPreweight{"nvtxUnweighted", "Unweighted # of Vertices; # of Vertices", 200, 0., 200.};
 	TH1F                nvtxPostweight{"nvtxWeighted", "Weighted # of Vertices; # of Vertices", 200, 0., 200.};
-        TH1D                invmass{"invmass", "Invariant egamma mass", 120, 70, 120};
-        TH1D                deltaPhi{"deltaPhi", "deltaPhi", 100, -5, 5};
-        TH1D                deltaEta{"deltaEta", "deltaEta", 100, -5, 5};
-        TH1D                deltaRs{"deltaRs", "deltaR", 100, 0, 1};
-        TH1D                deltaPt{"deltaPt", "Invariant egamma mass", 100, -100, 100};
-        TH1D                phoBDT{"phoBDT", "phoBDT score", 100, 0, 1};
+        TH1D                invmass{"invmass", "Invariant egamma mass", 30, 80, 110};
+        TH1D                deltaPhi{"deltaPhi", "deltaPhi", 32, 0, 3.2};
+        TH1D                deltaEta{"deltaEta", "deltaEta", 35, -3.5, 3.5};
+        TH1D                deltaRs{"deltaRs", "deltaR", 25, 0, 1};
+        TH1D                deltaPt{"deltaPt", "deltaPt", 25, -100, 100};
+        TH1D                phoBDT{"phoBDT", "phoBDT score", 50, 0, 1};
+        TH1D                elePt{"elePt", "elePt", 30, 60, 360}; //30, 60, 360
+        TH1D                phoPt{"phoPt", "phoPt", 30, 200, 500};
+        TH1D                PFparticlebasediso{"PFparticlebasediso", "PFparticlebasediso", 15, 0, 150};
+        TH1D                PFclubasediso{"PFclubasediso", "PFclubasediso", 15, 0, 150};
+        TH1D                phoHovE{"phoHovE", "phoHovE", 10, 0, 0.05};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////// Input TTree ///////////////////////////////////////////////////////////
@@ -563,6 +568,11 @@ Bool_t genPhoMatcher::initEventTypes(){
         deltaRs.SetDirectory(outFile->GetDirectory(""));
         deltaPt.SetDirectory(outFile->GetDirectory(""));
         phoBDT.SetDirectory(outFile->GetDirectory(""));
+        phoPt.SetDirectory(outFile->GetDirectory(""));
+        elePt.SetDirectory(outFile->GetDirectory(""));
+        PFparticlebasediso.SetDirectory(outFile->GetDirectory(""));
+        PFclubasediso.SetDirectory(outFile->GetDirectory(""));
+        phoHovE.SetDirectory(outFile->GetDirectory(""));
 
 	initEventType(fullEB, "fullEB", "Full ECAL Barrel");
 	return 1;
@@ -617,56 +627,46 @@ void genPhoMatcher::analyze(){
                Double_t deltaR_ = 0; 
                Double_t deltaPt_ = 0;
                Double_t eg_mass = 0;
+               Bool_t foundPair = false;
+               Double_t TMPmassDiff = 999;
 
                for(UShort_t iEle=0; iEle < _nEle; iEle++){
-
-                  UShort_t iHEEP = _eleIDbit[iEle];
-		  if( ((_eleCalibPt[iEle] > 60) && (getBit(iHEEP,4))) == false ) continue;
+                  UShort_t iID = _eleIDbit[iEle]; 
+		  if( ((_eleCalibPt[iEle] > 60) && (getBit(iID,3))) == false ) continue;
                   if ( fabs(_eleEta[iEle]) > 2.5 ) continue;
 
                   TLorentzVector v_ele(0.,0.,0.,0.);
-                  v_ele.SetPtEtaPhiM(_eleCalibPt[iEle], _eleEta[iEle], _elePhi[iEle], 0.511/1000.);  
+                  v_ele.SetPtEtaPhiM(_eleCalibPt[iEle], _eleEta[iEle], _elePhi[iEle], 0.511/1000.);
+ 
                   for(UShort_t iPho=0; iPho<_nPho; iPho++){
-                     if( ((_phoCalibEt[iPho] > 200 ) && (_phoHoverE[iPho] < 0.05 ) ) == false) continue;
+
+                     if( ((_phoCalibEt[iPho] > 230 ) && (_phoHoverE[iPho] < 0.05 ) ) == false) continue;
                      if ( fabs(_phoEta[iPho]) > 1.6 ) continue;
 
                      TLorentzVector v_pho(0.,0.,0.,0.);
                      v_pho.SetPtEtaPhiM(_phoCalibEt[iPho], _phoEta[iPho], _phoPhi[iPho], 0);
 
                      deltaPhi_ = fabs(_elePhi[iEle] - _phoPhi[iPho]);
-                     deltaEta_ = _eleEta[iEle] - _phoEta[iPho];
-                     deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
-                     deltaPt_ = _eleCalibPt[iEle] - _phoCalibEt[iPho];
                      if (deltaPhi_ > acos(-1)) {
                         deltaPhi_ = 2*acos(-1) - deltaPhi_;
-                     } 
+                     }
+                     deltaEta_ = _eleEta[iEle] - _phoEta[iPho];
+                     deltaPt_ = _eleCalibPt[iEle] - _phoCalibEt[iPho]; 
+                     deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
+
                      if (deltaR_ < 0.3) continue;
                      eg_mass = (v_ele+v_pho).M();
-                     if ((eg_mass > 80.) && (eg_mass < 110.)) {
+                     Double_t  massDiff = fabs(91.18 - eg_mass);
+                     if ((eg_mass > 80.) && (eg_mass < 110.) && (TMPmassDiff > massDiff)) {
                         tagElectron = iEle;
-                        probePhoton = iPho;        
+                        probePhoton = iPho;
+                        TMPmassDiff = massDiff;
                      }
+                     if ((tagElectron >= 0) && (probePhoton >= 0)) foundPair = true;
                   }
                }
 
-               if((tagElectron >= 0) && (probePhoton >= 0)) {
-
-                  cout << "Tag found: " << tagElectron << "   Electron pt: "<<_eleCalibPt[tagElectron] << std::endl;
-                  cout << "Probe found: " << probePhoton << "   Photon pt: "<<_phoCalibEt[probePhoton] << std::endl;
-                  cout << "Invariant mass: " << eg_mass << endl; 
-
-                  invmass.Fill(eg_mass, weight);
-                  deltaPhi.Fill(deltaPhi_, weight);
-                  deltaEta.Fill(deltaEta_, weight);
-                  deltaRs.Fill(deltaR_, weight);
-                  deltaPt.Fill(deltaPt_, weight);
-                  
-                  fillPhoVars(probePhoton, tagElectron);
-                  fillEventType(fullEB);
-               } //tag and probe > 0 cycle 
-
-
-               if(predictBDT && (tagElectron >= 0) && (probePhoton >= 0)){
+               if(predictBDT && (foundPair)){
 
                   std::vector<Float_t> feats{pho2x2OE3x3Full5x5_, phoE1x3OESCrFull5x5_, phoE2ndOESCrFull5x5_, phoE2x5OESCrFull5x5_, phoE5x5OESCrFull5x5_, phoEmaxOESCrFull5x5_, phoEtaWOPhiWFull5x5_, phoEtaWidth_, phoPhiWidth_, phoR9Full5x5_, phoS4Full5x5_, phoSieieOSipipFull5x5_, phoSigmaIEtaIEta_, phoSigmaIEtaIPhi_, phoSigmaIPhiIPhi_};
 
@@ -689,6 +689,41 @@ void genPhoMatcher::analyze(){
                   if(pass90_) setBit(phoPFClusIDbits_, 2, 1);
                   if(pass95_) setBit(phoPFClusIDbits_, 3, 1);
                }
+
+               if(foundPair) {
+                  
+                  Double_t deltaPhi_pair = fabs(_elePhi[tagElectron] - _phoPhi[probePhoton]);
+                  if (deltaPhi_pair > acos(-1)) {
+                     deltaPhi_pair = 2*acos(-1) - deltaPhi_pair;
+                  }
+                  Double_t deltaEta_pair = _eleEta[tagElectron] - _phoEta[probePhoton];
+                  Double_t deltaPt_pair = _eleCalibPt[tagElectron] - _phoCalibEt[probePhoton];
+                  Double_t deltaR_pair = sqrt((deltaPhi_pair*deltaPhi_pair) + (deltaEta_pair*deltaEta_pair));
+
+                  TLorentzVector v_ele(0.,0.,0.,0.);
+                  v_ele.SetPtEtaPhiM(_eleCalibPt[tagElectron], _eleEta[tagElectron], _elePhi[tagElectron], 0.511/1000.);
+                  TLorentzVector v_pho(0.,0.,0.,0.);
+                  v_pho.SetPtEtaPhiM(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], 0);
+                  Double_t eg_mass_pair = (v_ele+v_pho).M();
+
+                  cout << "Tag found: " << tagElectron << "   Electron pt: "<<_eleCalibPt[tagElectron] << std::endl;
+                  cout << "Probe found: " << probePhoton << "   Photon pt: "<<_phoCalibEt[probePhoton] << std::endl;
+                  cout << "Invariant mass: " << eg_mass_pair << endl;
+
+                  invmass.Fill(eg_mass_pair, weight);
+                  deltaPhi.Fill(deltaPhi_pair, weight);
+                  deltaEta.Fill(deltaEta_pair, weight);
+                  deltaRs.Fill(deltaR_pair, weight);
+                  deltaPt.Fill(deltaPt_pair, weight);
+                  elePt.Fill(_eleCalibPt[tagElectron], weight);
+                  phoPt.Fill(_phoCalibEt[probePhoton], weight);
+                  PFparticlebasediso.Fill(_phoPFPhoIso[probePhoton], weight);
+                  PFclubasediso.Fill(_phoPFClusEcalIso[probePhoton], weight);
+                  phoHovE.Fill(_phoHoverE[probePhoton], weight);
+
+                  fillPhoVars(probePhoton, tagElectron);
+                  fillEventType(fullEB);
+               } //tag and probe > 0 cycle 
      
 		current_entry++; 
                 cout << "Weight: " << weight << endl;
