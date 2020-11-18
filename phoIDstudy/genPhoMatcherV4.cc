@@ -96,11 +96,31 @@ private:
         TH1D                deltaRs{"deltaRs", "deltaR", 25, 0, 1};
         TH1D                deltaPt{"deltaPt", "deltaPt", 25, -100, 100};
         TH1D                phoBDT{"phoBDT", "phoBDT score", 50, 0, 1};
-        TH1D                elePt{"elePt", "elePt", 30, 60, 360}; //30, 60, 360
+        TH1D                elePt{"elePt", "elePt", 30, 30, 360}; //30, 60, 360
         TH1D                phoPt{"phoPt", "phoPt", 30, 200, 500};
-        TH1D                PFparticlebasediso{"PFparticlebasediso", "PFparticlebasediso", 15, 0, 150};
-        TH1D                PFclubasediso{"PFclubasediso", "PFclubasediso", 15, 0, 150};
-        TH1D                phoHovE{"phoHovE", "phoHovE", 10, 0, 0.05};
+        TH1D                PFPhoiso{"PFPhoiso", "PFPhoiso", 50, 0, 100}; //15, 0, 150
+        TH1D                PFEcalCluiso{"PFEcalCluiso", "PFEcalCluiso", 50, 0, 100};
+        TH1D	            PFNeiso{"PFNeiso", "PFNeiso", 50, 0, 100};
+        TH1D                PFChiso{"PFChiso", "PFChiso", 50, 0, 100};
+        TH1D                phoR9Full5x5{"phoR9Full5x5", "phoR9Full5x5",100, 0.1, 1.5 };
+        TH1D                phoS4Full5x5{"phoS4Full5x5", "phoS4Full5x5", 100, 0.4, 1.1};
+        TH1D                phoHovE{"phoHovE", "phoHovE", 20, 0, 0.05}; //20, 0, 0.05
+        TH1D                phoIDMVA{"phoIDMVA", "phoIDMVA", 100, 0, 1};
+        TH1D                phoEmaxOESCrFull5x5{"phoEmaxOESCrFull5x5", "phoEmaxOESCrFull5x5", 150, 0, 1};
+        TH1D                phoE2ndOESCrFull5x5{"phoE2ndOESCrFull5x5", "phoE2ndOESCrFull5x5", 150, 0, 0.6};
+        TH1D                phoE2ndOEmaxFull5x5{"phoE2ndOEmaxFull5x5", "phoE2ndOEmaxFull5x5", 150, 0, 1};
+        TH1D                phoE1x3OESCrFull5x5{"phoE1x3OESCrFull5x5", "phoE1x3OESCrFull5x5", 150, 0.2, 1.1};
+        TH1D                phoE2x5OESCrFull5x5{"phoE2x5OESCrFull5x5", "phoE2x5OESCrFull5x5", 150, 0.6, 1.2};
+        TH1D                phoE5x5OESCrFull5x5{"phoE5x5OESCrFull5x5", "phoE5x5OESCrFull5x5", 150, 0.6, 1.2};
+        TH1D                pho2x2OE3x3Full5x5{"pho2x2OE3x3Full5x5", "pho2x2OE3x3Full5x5", 100, 0.5, 1};
+        TH1D                phoSigmaIEtaIEta{"phoSigmaIEtaIEta", "phoSigmaIEtaIEta", 100, 0, 0.04};
+        TH1D                phoSigmaIEtaIPhi{"phoSigmaIEtaIPhi", "phoSigmaIEtaIPhi", 100, -0.001, 0.001};
+        TH1D                phoSigmaIPhiIPhi{"phoSigmaIPhiIPhi", "phoSigmaIPhiIPhi", 100, 0, 0.07};
+        TH1D                phoEtaWidth{"phoEtaWidth", "phoEtaWidth", 100, 0, 0.02};
+        TH1D                phoPhiWidth{"phoPhiWidth", "phoPhiWidth", 100, 0., 0.06};
+        TH1D                phoEtaWOPhiWFull5x5{"phoEtaWOPhiWFull5x5", "phoEtaWOPhiWFull5x5", 150, 0, 1.5};
+        TH1D                phoSieieOSipipFull5x5{"phoSieieOSipipFull5x5", "phoSieieOSipipFull5x5",150, 0, 1.5};
+                             
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////// Input TTree ///////////////////////////////////////////////////////////
@@ -114,6 +134,7 @@ private:
 	TTreeReaderAnyValue<UChar_t>            _nVtx;
 	TTreeReaderAnyValue<Float_t>            _rho;
 	TTreeReaderAnyValue<ULong64_t>          _HLTPho;
+        TTreeReaderAnyValue<ULong64_t>          _HLTEleMuX;
 	TTreeReaderAnyValue<UShort_t>           _beamHaloSummary;
 	TTreeReaderAnyValue<UShort_t>           _metFilters;
 
@@ -139,6 +160,7 @@ private:
 	TTreeReaderVectorValue<UChar_t>         _phoFiducialRegion;
 
 	TTreeReaderVectorValue<UChar_t>         _phoQualityBits;
+        TTreeReaderVectorValue<Float_t>         _phoR9;
 	TTreeReaderVectorValue<Float_t>         _phoR9Full5x5;
 	TTreeReaderVectorValue<Float_t>         _phoSigmaIEtaIEtaFull5x5;
 	TTreeReaderVectorValue<Float_t>         _phoSigmaIEtaIPhiFull5x5;
@@ -190,6 +212,7 @@ private:
 	TTreeReaderVectorValue<Float_t>         _eleCalibPt;
         TTreeReaderVectorValue<Float_t>         _eleCalibEn;
 	TTreeReaderVectorValue<UChar_t>         _eleIDbit;
+        TTreeReaderVectorValue<Float_t>         _eleHoverE;
 
 	TTreeReaderAnyValue<UShort_t>           _nMu;
 	TTreeReaderVectorValue<Float_t>         _muPt;
@@ -570,10 +593,29 @@ Bool_t genPhoMatcher::initEventTypes(){
         phoBDT.SetDirectory(outFile->GetDirectory(""));
         phoPt.SetDirectory(outFile->GetDirectory(""));
         elePt.SetDirectory(outFile->GetDirectory(""));
-        PFparticlebasediso.SetDirectory(outFile->GetDirectory(""));
-        PFclubasediso.SetDirectory(outFile->GetDirectory(""));
+        PFPhoiso.SetDirectory(outFile->GetDirectory(""));
+        PFChiso.SetDirectory(outFile->GetDirectory(""));
+        PFNeiso.SetDirectory(outFile->GetDirectory(""));
+        PFEcalCluiso.SetDirectory(outFile->GetDirectory(""));
         phoHovE.SetDirectory(outFile->GetDirectory(""));
-
+        phoIDMVA.SetDirectory(outFile->GetDirectory(""));
+        phoR9Full5x5.SetDirectory(outFile->GetDirectory(""));
+        phoS4Full5x5.SetDirectory(outFile->GetDirectory(""));
+        phoEmaxOESCrFull5x5.SetDirectory(outFile->GetDirectory(""));
+        phoE2ndOESCrFull5x5.SetDirectory(outFile->GetDirectory(""));
+        phoE2ndOEmaxFull5x5.SetDirectory(outFile->GetDirectory(""));
+        phoE1x3OESCrFull5x5.SetDirectory(outFile->GetDirectory(""));
+        phoE2x5OESCrFull5x5.SetDirectory(outFile->GetDirectory(""));
+        phoE5x5OESCrFull5x5.SetDirectory(outFile->GetDirectory(""));
+        pho2x2OE3x3Full5x5.SetDirectory(outFile->GetDirectory(""));
+        phoSigmaIEtaIEta.SetDirectory(outFile->GetDirectory(""));
+        phoSigmaIEtaIPhi.SetDirectory(outFile->GetDirectory(""));
+        phoSigmaIPhiIPhi.SetDirectory(outFile->GetDirectory(""));
+        phoEtaWidth.SetDirectory(outFile->GetDirectory(""));
+        phoPhiWidth.SetDirectory(outFile->GetDirectory(""));
+        phoEtaWOPhiWFull5x5.SetDirectory(outFile->GetDirectory(""));
+        phoSieieOSipipFull5x5.SetDirectory(outFile->GetDirectory(""));
+        
 	initEventType(fullEB, "fullEB", "Full ECAL Barrel");
 	return 1;
 };
@@ -593,7 +635,13 @@ void genPhoMatcher::analyze(){
 			",\t\tevent\t"<<(_event)<<"\t\tFile " <<inputTree->GetCurrentFile()->GetName() <<std::endl;
 		}
 
-		// if(current_entry > 1000) break;
+                //to be away from the signal region, following Shilpi code
+                if (_pfMET > 150) continue;
+
+                //single electron trigger 
+                bool ispassHLT = _HLTEleMuX>>3&1;
+                if (!ispassHLT) continue;
+
 		rhoPreweight.Fill(_rho, genWeight_);
 		nvtxPreweight.Fill(_nVtx, genWeight_);
 
@@ -632,7 +680,7 @@ void genPhoMatcher::analyze(){
 
                for(UShort_t iEle=0; iEle < _nEle; iEle++){
                   UShort_t iID = _eleIDbit[iEle]; 
-		  if( ((_eleCalibPt[iEle] > 60) && (getBit(iID,3))) == false ) continue;
+		  if( ((_eleCalibPt[iEle] > 37) && (getBit(iID,4))) == false ) continue;
                   if ( fabs(_eleEta[iEle]) > 2.5 ) continue;
 
                   TLorentzVector v_ele(0.,0.,0.,0.);
@@ -640,7 +688,11 @@ void genPhoMatcher::analyze(){
  
                   for(UShort_t iPho=0; iPho<_nPho; iPho++){
 
-                     if( ((_phoCalibEt[iPho] > 230 ) && (_phoHoverE[iPho] < 0.05 ) ) == false) continue;
+                     //Float_t phoAbsSCEta_ = std::abs(_ecalSCeta[iPho]);
+                     //Float_t phoTkrIsoCorr_ = _phoTrkSumPtHollowConeDR03[iPho] - _rho * TkrEffAreas.getEffectiveArea(phoAbsSCEta_);
+
+                     if ( ((_phoCalibEt[iPho] > 230 ) && (_phoHoverE[iPho] < 0.05 ) ) == false) continue;
+                     //if ( phoTkrIsoCorr_ > 5.0 ) continue;
                      if ( fabs(_phoEta[iPho]) > 1.6 ) continue;
 
                      TLorentzVector v_pho(0.,0.,0.,0.);
@@ -664,6 +716,48 @@ void genPhoMatcher::analyze(){
                      }
                      if ((tagElectron >= 0) && (probePhoton >= 0)) foundPair = true;
                   }
+               }
+
+               if (foundPair) {
+               Int_t _phoIndex = probePhoton;
+
+               Short_t phoSCindex      = _phoDirectEcalSCindex[_phoIndex];
+               phoSCeta_               = _ecalSCeta[phoSCindex];
+               Float_t phoAbsSCEta     = std::abs(phoSCeta_);
+
+               phoQualityBits_         = _phoQualityBits[_phoIndex];
+               phoR9Full5x5_           = _phoR9Full5x5[_phoIndex];
+       	       phoS4Full5x5_           = _phoE2x2Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+               phoEmaxOESCrFull5x5_    = _phoMaxEnergyXtal[_phoIndex]/_ecalSCRawEn[phoSCindex];
+               phoE2ndOESCrFull5x5_    = _phoE2ndFull5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+               phoE2ndOEmaxFull5x5_    = _phoE2ndFull5x5[_phoIndex]/_phoMaxEnergyXtal[_phoIndex];
+               phoE1x3OESCrFull5x5_    = _phoE1x3Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+               phoE2x5OESCrFull5x5_    = _phoE2x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+               phoE5x5OESCrFull5x5_    = _phoE5x5Full5x5[_phoIndex]/_ecalSCRawEn[phoSCindex];
+
+
+               phoSigmaIEtaIEta_       = _phoSigmaIEtaIEtaFull5x5[_phoIndex];
+               phoSigmaIEtaIPhi_       = _phoSigmaIEtaIPhiFull5x5[_phoIndex];
+               phoSigmaIPhiIPhi_       = _phoSigmaIPhiIPhiFull5x5[_phoIndex];
+
+               phoE2x2Full5x5_         = _phoE2x2Full5x5[_phoIndex];
+               phoE3x3Full5x5_         = phoR9Full5x5_ * _ecalSCRawEn[phoSCindex];
+               phoE5x5Full5x5_         = _phoE5x5Full5x5[_phoIndex];
+               phoMaxEnergyXtal_       = _phoMaxEnergyXtal[_phoIndex];
+               phoE2ndFull5x5_         = _phoE2ndFull5x5[_phoIndex];
+               phoE1x3Full5x5_         = _phoE1x3Full5x5[_phoIndex];
+               phoE1x5Full5x5_         = _phoE1x5Full5x5[_phoIndex];
+               phoE2x5Full5x5_         = _phoE2x2Full5x5[_phoIndex];
+
+               phoEmaxOE3x3Full5x5_    = phoMaxEnergyXtal_/phoE3x3Full5x5_;
+               phoE2ndOE3x3Full5x5_    = phoE2ndFull5x5_/phoE3x3Full5x5_;
+               pho2x2OE3x3Full5x5_     = phoE2x2Full5x5_/phoE3x3Full5x5_;
+               phoSieieOSipipFull5x5_  = phoSigmaIEtaIEta_/phoSigmaIPhiIPhi_;
+               phoEtaWidth_                    = _ecalSCetaWidth[phoSCindex];
+               phoPhiWidth_                    = _ecalSCphiWidth[phoSCindex];
+
+               phoEtaWOPhiWFull5x5_    = phoEtaWidth_/phoPhiWidth_;
+
                }
 
                if(predictBDT && (foundPair)){
@@ -691,7 +785,7 @@ void genPhoMatcher::analyze(){
                }
 
                if(foundPair) {
-                  
+                 
                   Double_t deltaPhi_pair = fabs(_elePhi[tagElectron] - _phoPhi[probePhoton]);
                   if (deltaPhi_pair > acos(-1)) {
                      deltaPhi_pair = 2*acos(-1) - deltaPhi_pair;
@@ -705,10 +799,14 @@ void genPhoMatcher::analyze(){
                   TLorentzVector v_pho(0.,0.,0.,0.);
                   v_pho.SetPtEtaPhiM(_phoCalibEt[probePhoton], _phoEta[probePhoton], _phoPhi[probePhoton], 0);
                   Double_t eg_mass_pair = (v_ele+v_pho).M();
+   
+                  Float_t phoS4_ = _phoE2x2Full5x5[probePhoton]/_ecalSCRawEn[probePhoton];                  
 
                   cout << "Tag found: " << tagElectron << "   Electron pt: "<<_eleCalibPt[tagElectron] << std::endl;
                   cout << "Probe found: " << probePhoton << "   Photon pt: "<<_phoCalibEt[probePhoton] << std::endl;
                   cout << "Invariant mass: " << eg_mass_pair << endl;
+
+                  Short_t phoSCindex = _phoDirectEcalSCindex[probePhoton];
 
                   invmass.Fill(eg_mass_pair, weight);
                   deltaPhi.Fill(deltaPhi_pair, weight);
@@ -717,9 +815,28 @@ void genPhoMatcher::analyze(){
                   deltaPt.Fill(deltaPt_pair, weight);
                   elePt.Fill(_eleCalibPt[tagElectron], weight);
                   phoPt.Fill(_phoCalibEt[probePhoton], weight);
-                  PFparticlebasediso.Fill(_phoPFPhoIso[probePhoton], weight);
-                  PFclubasediso.Fill(_phoPFClusEcalIso[probePhoton], weight);
+                  PFPhoiso.Fill(_phoPFPhoIso[probePhoton], weight);
+                  PFEcalCluiso.Fill(_phoPFClusEcalIso[probePhoton], weight);
+                  PFNeiso.Fill(_phoPFNeuIso[probePhoton], weight);
+                  PFChiso.Fill(_phoPFChIso[probePhoton], weight);
                   phoHovE.Fill(_phoHoverE[probePhoton], weight);
+                  phoIDMVA.Fill(_phoIDMVA[probePhoton], weight);
+                  phoR9Full5x5.Fill(_phoR9Full5x5[probePhoton], weight);
+                  phoS4Full5x5.Fill(_phoE2x2Full5x5[probePhoton]/_ecalSCRawEn[phoSCindex], weight);
+                  phoEmaxOESCrFull5x5.Fill(_phoMaxEnergyXtal[probePhoton]/_ecalSCRawEn[phoSCindex], weight);
+                  phoE2ndOESCrFull5x5.Fill(_phoE2ndFull5x5[probePhoton]/_ecalSCRawEn[phoSCindex], weight);
+                  //phoE2ndOEmaxFull5x5.Fill(_phoE2ndFull5x5[probePhoton]/_phoMaxEnergyXtal[probePhoton], weight);
+                  pho2x2OE3x3Full5x5.Fill(_phoE2x2Full5x5[probePhoton]/(_phoR9Full5x5[probePhoton]*_ecalSCRawEn[phoSCindex]), weight);
+                  phoE1x3OESCrFull5x5.Fill(_phoE1x3Full5x5[probePhoton]/_ecalSCRawEn[phoSCindex], weight);
+                  phoE2x5OESCrFull5x5.Fill(_phoE2x5Full5x5[probePhoton]/_ecalSCRawEn[phoSCindex], weight);
+                  phoE5x5OESCrFull5x5.Fill(_phoE5x5Full5x5[probePhoton]/_ecalSCRawEn[phoSCindex], weight);
+                  phoSigmaIEtaIEta.Fill(_phoSigmaIEtaIEtaFull5x5[probePhoton], weight);                  
+                  phoSigmaIEtaIPhi.Fill(_phoSigmaIEtaIPhiFull5x5[probePhoton], weight);
+                  phoSigmaIPhiIPhi.Fill(_phoSigmaIPhiIPhiFull5x5[probePhoton], weight); 
+                  phoEtaWidth.Fill(_ecalSCetaWidth[phoSCindex], weight);
+                  phoPhiWidth.Fill(_ecalSCphiWidth[phoSCindex], weight);
+                  phoEtaWOPhiWFull5x5.Fill(_ecalSCetaWidth[phoSCindex]/_ecalSCphiWidth[phoSCindex], weight);                   
+                  phoSieieOSipipFull5x5.Fill(_phoSigmaIEtaIEtaFull5x5[probePhoton]/_phoSigmaIPhiIPhiFull5x5[probePhoton], weight);
 
                   fillPhoVars(probePhoton, tagElectron);
                   fillEventType(fullEB);
@@ -739,7 +856,7 @@ void genPhoMatcher::analyze(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex, Short_t _eleIndex){
 
-	run_ 					= _run;
+	/*run_ 					= _run;
 	event_ 					= _event;
 	lumis_ 					= _lumis;
 	rho_ 					= _rho;
@@ -822,7 +939,7 @@ Char_t genPhoMatcher::fillPhoVars(Short_t _phoIndex, Short_t _eleIndex){
 	phoEtaWidth_ 			= _ecalSCetaWidth[phoSCindex];
 	phoPhiWidth_ 			= _ecalSCphiWidth[phoSCindex];
 
-	phoEtaWOPhiWFull5x5_	= phoEtaWidth_/phoPhiWidth_;
+	phoEtaWOPhiWFull5x5_	= phoEtaWidth_/phoPhiWidth_;*/
 
 	return 1;
 }
@@ -847,6 +964,7 @@ Bool_t genPhoMatcher::initNtuples(std::string FILELIST){
 	_nVtx.set(inputTTreeReader, "nVtx");
 	_rho.set(inputTTreeReader, "rho");
 	_HLTPho.set(inputTTreeReader, "HLTPho");
+        _HLTEleMuX.set(inputTTreeReader, "HLTEleMuX");
 	if(isMC){
 		_puTrue.set(inputTTreeReader, "puTrue");
 		_genWeight.set(inputTTreeReader, "genWeight");
@@ -871,6 +989,7 @@ Bool_t genPhoMatcher::initNtuples(std::string FILELIST){
 	_phoFiducialRegion.set(inputTTreeReader, "phoFiducialRegion");
 
 	_phoQualityBits.set(inputTTreeReader, "phoQualityBits");
+        _phoR9.set(inputTTreeReader, "phoR9");
 	_phoR9Full5x5.set(inputTTreeReader, "phoR9Full5x5");
 	_phoSigmaIEtaIEtaFull5x5.set(inputTTreeReader, "phoSigmaIEtaIEtaFull5x5");
 	_phoSigmaIEtaIPhiFull5x5.set(inputTTreeReader, "phoSigmaIEtaIPhiFull5x5");
@@ -923,6 +1042,7 @@ Bool_t genPhoMatcher::initNtuples(std::string FILELIST){
 	_eleCalibPt.set(inputTTreeReader, "eleCalibPt");
         _eleCalibEn.set(inputTTreeReader, "eleCalibEn");
 	_eleIDbit.set(inputTTreeReader, "eleIDbit");
+        _eleHoverE.set(inputTTreeReader, "eleHoverE");
 
 	_nMu.set(inputTTreeReader, "nMu");
 	_muPt.set(inputTTreeReader, "muPt");
