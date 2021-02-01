@@ -1,0 +1,943 @@
+scorpion11.spa.umn.edu
+Begin script...
+   ------------------------------------------------------------
+  | Welcome to ROOT 6.12/07                http://root.cern.ch |
+  |                               (c) 1995-2017, The ROOT Team |
+  | Built for linuxx8664gcc                                    |
+  | From tag , 9 February 2018                                 |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q' |
+   ------------------------------------------------------------
+
+
+Processing /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/dataB_01FebV2//SinglePhotonRun2017B31Mar2018v1MINIAOD//SinglePhotonRun2017B31Mar2018v1MINIAOD_010.C...
+Mon Feb  1 08:21:52 2021
+Begin root macro...
+*************************************************************************************************************************************************
+Mon Feb  1 08:21:52 2021
+Running egammafakeValidation
+
+
+Input parameters:
+		File list = /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/dataB_01FebV2//SinglePhotonRun2017B31Mar2018v1MINIAOD/SinglePhotonRun2017B31Mar2018v1MINIAOD_010
+		Output file = /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/dataB_01FebV2//SinglePhotonRun2017B31Mar2018v1MINIAOD//SinglePhotonRun2017B31Mar2018v1MINIAOD_010.root
+		Cross section = -1
+		MC pileup histogram = /hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/pileup_2017_data.root
+		Data pileup histogram = /hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/pileup_2017_data.root
+		ECAL PFCLuster Isolation Effective Areas = /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusEcalIso.txt
+		HCAL PFCLuster Isolation Effective Areas = /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusHcalIso.txt
+		Tracker Isolation Effective Areas = /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoTrkSumPtHollowConeDR03.txt
+		ECAL PFCLuster Isolation pT Scaling = /hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusEcalIso.txt
+		HCAL PFCLuster Isolation pT Scaling = /hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusHcalIso.txt
+		BDT model file = /local/cms/user/gsorrent/antgc_analysis/BDTmodel/aNTGC_photon_BDT_2020_12_14_20_11_56.model
+####################################
+1   1
+		Sample is simulation = false
+		Do pileup reweight = false
+
+
+PF ECAL Cluster effective areas:
+	Effective areas loaded from file: /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusEcalIso.txt
+			|eta|		EA:
+			0.5		0.115696
+			1		0.119743
+			1.4442		0.104793
+PF HCAL Cluster effective areas:
+	Effective areas loaded from file: /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusHcalIso.txt
+			|eta|		EA:
+			0.5		0.08782
+			1		0.100092
+			1.4442		0.122949
+Tracker isolation effective areas:
+	Effective areas loaded from file: /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoTrkSumPtHollowConeDR03.txt
+			|eta|		EA:
+			0.5		0.028021
+			1		0.027248
+			1.4442		0.026069
+ECAL pT scaling:
+	Isolation pT scalingsa loaded from file: /hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusEcalIso.txt
+			|eta|			c1:			c2
+			0.5			0.00164102		0
+			1			0.00241793		0
+			1.4442			0.00344032		0
+HCAL pT scaling:
+	Isolation pT scalingsa loaded from file: /hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusHcalIso.txt
+			|eta|			c1:			c2
+			0.5			0.0102666		8.478e-06
+			1			0.00551742		7.3723e-06
+			1.4442			0.00494734		3.5381e-06
+
+Loading BDT model from /local/cms/user/gsorrent/antgc_analysis/BDTmodel/aNTGC_photon_BDT_2020_12_14_20_11_56.model
+
+Creating TChain... 
+	Making TChain with root files listed in /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/dataB_01FebV2//SinglePhotonRun2017B31Mar2018v1MINIAOD/SinglePhotonRun2017B31Mar2018v1MINIAOD_010
+	Making TChain from trees ggNtuplizer/EventTree
+	Added file /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Added file /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_021.root
+	Built TChain!
+**************************************************************************************************************************************************************
+Initializing branches in input ntuples...
+		Initialized branch <int> run
+		Initialized branch <long long> event
+		Initialized branch <unsigned short> lumis
+		Initialized branch <unsigned short> beamHaloSummary
+		Initialized branch <unsigned short> metFilters
+		Initialized branch <unsigned char> nVtx
+		Initialized branch <float> rho
+		Initialized branch <unsigned long long> HLTPho
+		Initialized branch <unsigned long long> HLTEleMuX
+		Initialized branch <unsigned short> nPho
+		Initialized branch <std::vector<float, std::allocator<float> >> phoEt
+		Initialized branch <std::vector<float, std::allocator<float> >> phoCalibEt
+		Initialized branch <std::vector<float, std::allocator<float> >> phoCalibE
+		Initialized branch <std::vector<float, std::allocator<float> >> phoEta
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPhi
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSeedTime
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> phoFiducialRegion
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> phoQualityBits
+		Initialized branch <std::vector<float, std::allocator<float> >> phoR9
+		Initialized branch <std::vector<float, std::allocator<float> >> phoR9Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSigmaIEtaIEtaFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSigmaIEtaIPhiFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSigmaIPhiIPhiFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE2x2Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE5x5Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoMaxEnergyXtal
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE2ndFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE1x3Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE1x5Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE2x5Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFClusEcalIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFClusHcalIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtSolidConeDR04
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtHollowConeDR04
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtSolidConeDR03
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtHollowConeDR03
+		Initialized branch <std::vector<float, std::allocator<float> >> phoECALIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoHCALIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoHoverE
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFChIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFPhoIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFNeuIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFChWorstIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoIDMVA
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> phoIDbit
+		Initialized branch <std::vector<float, std::allocator<float> >> phoMIPTotEnergy
+		Initialized branch <std::vector<short, std::allocator<short> >> phoDirectEcalSCindex
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCeta
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCphi
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCEn
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCRawEn
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCetaWidth
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCphiWidth
+		Initialized branch <unsigned short> metFilters
+		Initialized branch <float> pfMET
+		Initialized branch <float> pfMETPhi
+		Initialized branch <float> pfMET_metSig
+		Initialized branch <float> pfMET_EtSig
+		Initialized branch <unsigned short> nEle
+		Initialized branch <std::vector<float, std::allocator<float> >> elePt
+		Initialized branch <std::vector<float, std::allocator<float> >> eleEta
+		Initialized branch <std::vector<float, std::allocator<float> >> elePhi
+		Initialized branch <std::vector<float, std::allocator<float> >> eleCalibPt
+		Initialized branch <std::vector<float, std::allocator<float> >> eleCalibEn
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> eleIDbit
+		Initialized branch <std::vector<float, std::allocator<float> >> eleHoverE
+		Initialized branch <unsigned short> nMu
+		Initialized branch <std::vector<float, std::allocator<float> >> muPt
+		Initialized branch <std::vector<int, std::allocator<int> >> muIDbit
+		Initialized branch <unsigned short> nAK4CHSJet
+		Initialized branch <std::vector<float, std::allocator<float> >> AK4CHSJet_Pt
+		Initialized branch <std::vector<float, std::allocator<float> >> AK4CHSJet_Eta
+		Initialized branch <std::vector<float, std::allocator<float> >> AK4CHSJet_Phi
+		Initialized branch <std::vector<char, std::allocator<char> >> AK4CHSJet_PUFullID
+		Initialized branch <std::vector<char, std::allocator<char> >> AK4CHSJet_ID
+		Initialized branch <unsigned char> ntrgObjPho
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> trgObjPhoBits
+		Initialized branch <std::vector<float, std::allocator<float> >> trgObjPhoPt
+		Initialized branch <std::vector<float, std::allocator<float> >> trgObjPhoEta
+		Initialized branch <std::vector<float, std::allocator<float> >> trgObjPhoPhi
+Branches initialized!
+**************************************************************************************************************************************************************
+Created output tree:	tnpPhoIDs	Full ECAL Barrel
+
+--------------------------------------------------------------------------------------------------
+Mon Feb  1 08:21:53 2021
+Analyzing events..
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17765305		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18782650		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18464383		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17497749		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17980583		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18034968		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18521586		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18186783		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17619848		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17897750		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17643012		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18687770		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18181243		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17774362		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17376697		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17874073		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17905299		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18706631		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18475444		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18398392		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18747666		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18524615		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18629551		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18246885		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17744361		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18382284		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18012273		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17635165		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17236486		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17915057		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18558043		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18196550		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17702090		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18052565		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17993644		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18143236		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17854214		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18711641		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17264731		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18638683		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17674504		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17343747		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18040555		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17674996		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18615023		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18582794		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17997747		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17404660		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18778671		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17297949		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18216915		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18443945		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17162708		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17168092		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17393263		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17270939		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18057827		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17630738		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17214464		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17650876		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17657048		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17547669		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18049769		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17893030		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17306049		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17190409		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17416265		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17737438		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18562189		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18615566		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18337091		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17194328		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17601934		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17530444		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17879931		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18663805		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17437806		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17157459		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17735824		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17377017		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17943284		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17366443		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18717190		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17741356		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17870257		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17797730		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18408974		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18206127		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17497736		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17909525		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17964952		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18280654		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17301467		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18294190		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17294919		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17425219		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17433335		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18389398		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18776643		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17584879		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18064212		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17342228		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17832537		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17375993		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18353178		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17448436		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18634138		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17756010		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18059711		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17173159		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18378354		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17532537		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18396487		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18134205		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17870346		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17658913		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17867328		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17360383		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18306358		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17181714		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18562176		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18550565		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18488143		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18495691		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17655573		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17158218		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17546818		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18143433		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18181218		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18300495		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18472045		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17953478		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17348338		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18180216		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18643419		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18235927		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18573798		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17617813		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18251195		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18608523		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18360925		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17408884		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17701367		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18444996		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18472548		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18594578		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17833264		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18448011		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18222486		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18212929		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17449650		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18724015		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18221980		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17356035		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18628819		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18156976		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17577459		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17556308		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17372070		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17764288		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17537687		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18177623		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17194919		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17939524		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17942970		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18487739		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17920289		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17343875		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18449448		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18509395		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18466065		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18180641		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18499826		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17798484		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18173101		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18678612		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18385567		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17469781		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18347806		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17347406		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17425970		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18544203		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17571916		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18152496		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18804048		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17639960		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18444469		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18416784		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18027140		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17374137		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18341764		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18274817		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18652829		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17237092		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17152516		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17701192		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17194314		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17195324		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17212952		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18224321		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17367950		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17770651		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18766623		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18139246		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18009862		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18557249		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18161920		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18201183		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18594506		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18444925		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18592995		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18475150		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17670603		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17171759		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17218077		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17199441		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17373592		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17802968		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18143371		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18125268		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17656528		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18150428		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18103136		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17925348		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17838233		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17692740		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17726462		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18009472		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18274782		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18115214		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17485854		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18674089		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17413850		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18385149		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17362011		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17966166		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18650042		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18169086		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17922957		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18686319		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18665146		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17843900		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17209533		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18249246		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18195883		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17744202		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18455638		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17203609		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18457641		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18378607		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18619308		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17180374		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18075998		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18360481		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18631823		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18608661		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18782896		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18380029		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17664114		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18313075		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17717956		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18483271		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17514082		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17222161		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18105704		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18149479		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17308216		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18736569		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17792455		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18028159		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18168306		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17174014		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18724504		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17942210		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17350986		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17594824		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17739784		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17932131		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18604810		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17308901		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17940810		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17583864		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17602876		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18231708		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17857725		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17952397		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17275290		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18640683		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18086875		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18650262		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17817916		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17410567		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18424131		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17603492		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18120096		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17293405		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17458504		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17692589		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17182686		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17980615		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18323950		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17381997		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17923238		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17602549		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17673037		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17378539		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17824976		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17807341		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17941381		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18782245		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17462091		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17417790		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17989738		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17198862		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17452516		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17189289		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18135744		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17359400		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18607125		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17746113		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17396296		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17303657		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17979286		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18393606		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17753667		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18537129		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17478827		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17628852		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18027982		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17906097		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18531941		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17391100		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17637265		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17542100		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18006982		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17581879		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18443190		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17308544		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18290241		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18459907		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18426670		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18336452		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17600400		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17507765		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18708600		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17677521		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17795683		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17633124		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18804270		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17810787		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18488523		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18731767		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17699045		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17943828		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17155991		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18286170		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18659242		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18515728		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17173610		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17705167		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17594422		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18643199		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18777133		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17936772		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17427274		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18083344		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18313366		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17743646		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17161517		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17544582		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17803309		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18451811		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18341051		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17207586		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17431540		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18103207		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18101191		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17212126		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18451552		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17541799		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18574963		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17202045		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18417319		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17784928		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18615239		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17402864		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18327208		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18070479		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17920377		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17342552		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18546256		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18797023		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18506561		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18642933		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18564476		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17366209		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18328813		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17599796		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18024751		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18138019		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17748780		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17611875		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17564547		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18664178		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18426465		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18476341		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17707508		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17490059		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18418420		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17831864		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17474443		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17304819		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17818759		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18392746		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18150107		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17386865		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18725638		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18297090		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18409353		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17566570		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18805189		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17963317		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17925023		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17510550		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18279828		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17530675		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17653029		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17513059		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17709885		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18476196		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17504662		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18503401		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17212590		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18324141		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18354344		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18423255		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18655482		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18680675		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18547159		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18027634		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18199311		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17669646		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18367875		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18420233		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17963611		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17681644		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17235322		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18409650		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18168545		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17689191		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17609829		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17710999		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18010006		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18224561		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17982414		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17397895		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18443564		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17477935		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18148053		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17454262		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18661121		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17723104		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18754778		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18118398		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18324266		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17756321		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17718569		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17794076		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17710013		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17416032		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18010634		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17822776		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18551883		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17363686		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18150252		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17957914		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18654608		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17977057		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18311330		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18167892		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18568659		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17207315		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18326952		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17453437		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17442845		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18393900		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17376924		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17709664		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18048047		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17320542		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17208324		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17698079		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17566546		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17486658		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18117888		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18680447		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17676793		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18100766		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18775434		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18069549		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18278441		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18751268		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18415886		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17154797		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17965312		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17802117		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17693390		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18550364		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18421926		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18707480		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17731244		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17973462		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18271411		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17386341		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17544902		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18016272		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17194171		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18471371		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17563623		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18220657		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17649216		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18192484		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17783597		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18463306		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17602389		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18482963		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17492150		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18791145		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17677901		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18083282		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17155427		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17833480		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18339963		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18024825		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18327415		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17528916		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18549991		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17486129		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18719694		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17778094		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17233455		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18708609		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17364456		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17157082		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17285445		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18592418		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17384089		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17697188		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18198689		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17450013		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18666960		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18351208		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18490702		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17512951		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18090478		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17851558		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17968103		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18102352		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17525341		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17497154		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18091283		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17575681		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18439623		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17266105		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18156201		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18709058		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18469335		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18535318		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17614451		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18085745		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18505614		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18229681		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17518937		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17431691		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18761411		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17688084		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17739920		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18504242		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17504850		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18502732		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18530921		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17465931		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17706705		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17881915		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18263585		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17183718		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17433351		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17729345		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17598486		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18646757		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17308529		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17892450		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18128623		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18765045		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18507228		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17168104		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18642178		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18392901		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17626633		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18443754		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17388533		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18449281		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18294724		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17417113		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17978999		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18204141		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	17747841		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18078707		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+	Mon Feb  1 08:21:53 2021	Analyzing entry	0,		event	18702620		File /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017B31Mar2018v1MINIAOD/Run2017B_020.root
+calcoliamo il BDT...
+calcoliamo il BDT...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+calcoliamo il BDT...
+definiamo le quantità per il fotone trovato...
+Done analyzing!
+Mon Feb  1 08:22:11 2021
+--------------------------------------------------------------------------------------------------
+
+
+Output written to file	/data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/dataB_01FebV2//SinglePhotonRun2017B31Mar2018v1MINIAOD//SinglePhotonRun2017B31Mar2018v1MINIAOD_010.root
+Complete!
+Mon Feb  1 08:22:11 2021
+END @ Mon Feb  1 08:22:11 2021
+*************************************************************************************************************************************************
+End root macro!
+Mon Feb  1 08:22:11 2021
+End script!

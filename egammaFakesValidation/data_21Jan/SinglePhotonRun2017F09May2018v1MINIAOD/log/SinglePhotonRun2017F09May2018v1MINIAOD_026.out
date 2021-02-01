@@ -1,0 +1,138 @@
+scorpion44.spa.umn.edu
+Begin script...
+   ------------------------------------------------------------
+  | Welcome to ROOT 6.12/07                http://root.cern.ch |
+  |                               (c) 1995-2017, The ROOT Team |
+  | Built for linuxx8664gcc                                    |
+  | From tag , 9 February 2018                                 |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q' |
+   ------------------------------------------------------------
+
+
+Processing /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/data_21Jan//SinglePhotonRun2017F09May2018v1MINIAOD//SinglePhotonRun2017F09May2018v1MINIAOD_026.C...
+Thu Jan 21 10:47:47 2021
+Begin root macro...
+*************************************************************************************************************************************************
+Thu Jan 21 10:47:47 2021
+Running egammafakeValidation
+
+
+Input parameters:
+		File list = /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/data_21Jan//SinglePhotonRun2017F09May2018v1MINIAOD/SinglePhotonRun2017F09May2018v1MINIAOD_026
+		Output file = /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/data_21Jan//SinglePhotonRun2017F09May2018v1MINIAOD//SinglePhotonRun2017F09May2018v1MINIAOD_026.root
+		Cross section = -1
+		MC pileup histogram = /hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/pileup_2017_data.root
+		Data pileup histogram = /hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/pileup_2017_data.root
+		ECAL PFCLuster Isolation Effective Areas = /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusEcalIso.txt
+		HCAL PFCLuster Isolation Effective Areas = /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoPFClusHcalIso.txt
+		Tracker Isolation Effective Areas = /hdfs/cms/user/wadud/anTGC/analysis_data/effAreas/90pc/phoTrkSumPtHollowConeDR03.txt
+		ECAL PFCLuster Isolation pT Scaling = /hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusEcalIso.txt
+		HCAL PFCLuster Isolation pT Scaling = /hdfs/cms/user/wadud/anTGC/analysis_data/isoPtScaling/90pc/phoPFClusHcalIso.txt
+		BDT model file = /local/cms/user/gsorrent/antgc_analysis/BDTmodel/aNTGC_photon_BDT_2020_12_14_20_11_56.model
+####################################
+0   0
+		Sample is simulation = false
+		Do pileup reweight = false
+
+
+
+Loading BDT model from /local/cms/user/gsorrent/antgc_analysis/BDTmodel/aNTGC_photon_BDT_2020_12_14_20_11_56.model
+
+Creating TChain... 
+	Making TChain with root files listed in /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/data_21Jan//SinglePhotonRun2017F09May2018v1MINIAOD/SinglePhotonRun2017F09May2018v1MINIAOD_026
+	Making TChain from trees ggNtuplizer/EventTree
+Error! File does not exist /mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/SinglePhotonRun2017F09May2018v1MINIAOD/Run2017F_052.root
+**************************************************************************************************************************************************************
+Initializing branches in input ntuples...
+		Initialized branch <int> run
+		Initialized branch <long long> event
+		Initialized branch <unsigned short> lumis
+		Initialized branch <unsigned short> beamHaloSummary
+		Initialized branch <unsigned short> metFilters
+		Initialized branch <unsigned char> nVtx
+		Initialized branch <float> rho
+		Initialized branch <unsigned long long> HLTPho
+		Initialized branch <unsigned long long> HLTEleMuX
+		Initialized branch <unsigned short> nPho
+		Initialized branch <std::vector<float, std::allocator<float> >> phoEt
+		Initialized branch <std::vector<float, std::allocator<float> >> phoCalibEt
+		Initialized branch <std::vector<float, std::allocator<float> >> phoCalibE
+		Initialized branch <std::vector<float, std::allocator<float> >> phoEta
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPhi
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSeedTime
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> phoFiducialRegion
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> phoQualityBits
+		Initialized branch <std::vector<float, std::allocator<float> >> phoR9
+		Initialized branch <std::vector<float, std::allocator<float> >> phoR9Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSigmaIEtaIEtaFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSigmaIEtaIPhiFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoSigmaIPhiIPhiFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE2x2Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE5x5Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoMaxEnergyXtal
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE2ndFull5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE1x3Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE1x5Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoE2x5Full5x5
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFClusEcalIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFClusHcalIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtSolidConeDR04
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtHollowConeDR04
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtSolidConeDR03
+		Initialized branch <std::vector<float, std::allocator<float> >> phoTrkSumPtHollowConeDR03
+		Initialized branch <std::vector<float, std::allocator<float> >> phoECALIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoHCALIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoHoverE
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFChIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFPhoIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFNeuIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoPFChWorstIso
+		Initialized branch <std::vector<float, std::allocator<float> >> phoIDMVA
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> phoIDbit
+		Initialized branch <std::vector<float, std::allocator<float> >> phoMIPTotEnergy
+		Initialized branch <std::vector<short, std::allocator<short> >> phoDirectEcalSCindex
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCeta
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCphi
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCEn
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCRawEn
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCetaWidth
+		Initialized branch <std::vector<float, std::allocator<float> >> ecalSCphiWidth
+		Initialized branch <unsigned short> metFilters
+		Initialized branch <float> pfMET
+		Initialized branch <float> pfMETPhi
+		Initialized branch <float> pfMET_metSig
+		Initialized branch <float> pfMET_EtSig
+		Initialized branch <unsigned short> nEle
+		Initialized branch <std::vector<float, std::allocator<float> >> elePt
+		Initialized branch <std::vector<float, std::allocator<float> >> eleEta
+		Initialized branch <std::vector<float, std::allocator<float> >> elePhi
+		Initialized branch <std::vector<float, std::allocator<float> >> eleCalibPt
+		Initialized branch <std::vector<float, std::allocator<float> >> eleCalibEn
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> eleIDbit
+		Initialized branch <std::vector<float, std::allocator<float> >> eleHoverE
+		Initialized branch <unsigned short> nMu
+		Initialized branch <std::vector<float, std::allocator<float> >> muPt
+		Initialized branch <std::vector<int, std::allocator<int> >> muIDbit
+		Initialized branch <unsigned short> nAK4CHSJet
+		Initialized branch <std::vector<float, std::allocator<float> >> AK4CHSJet_Pt
+		Initialized branch <std::vector<float, std::allocator<float> >> AK4CHSJet_Eta
+		Initialized branch <std::vector<float, std::allocator<float> >> AK4CHSJet_Phi
+		Initialized branch <std::vector<char, std::allocator<char> >> AK4CHSJet_PUFullID
+		Initialized branch <std::vector<char, std::allocator<char> >> AK4CHSJet_ID
+		Initialized branch <unsigned char> ntrgObjPho
+		Initialized branch <std::vector<unsigned char, std::allocator<unsigned char> >> trgObjPhoBits
+		Initialized branch <std::vector<float, std::allocator<float> >> trgObjPhoPt
+		Initialized branch <std::vector<float, std::allocator<float> >> trgObjPhoEta
+		Initialized branch <std::vector<float, std::allocator<float> >> trgObjPhoPhi
+Branches initialized!
+**************************************************************************************************************************************************************
+Created output tree:	tnpPhoIDs	Full ECAL Barrel
+
+--------------------------------------------------------------------------------------------------
+Thu Jan 21 10:47:47 2021
+Analyzing events..
+Done analyzing!
+Thu Jan 21 10:47:47 2021
+--------------------------------------------------------------------------------------------------
+Error! TChain is null!
+End script!

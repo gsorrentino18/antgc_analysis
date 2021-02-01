@@ -1,0 +1,18 @@
+In file included from input_line_10:1:
+In file included from /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/data_28Jan_bis/SinglePhotonRun2017F09May2018v1MINIAOD/SinglePhotonRun2017F09May2018v1MINIAOD_018.C:1:
+In file included from /data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/data_28Jan_bis//egammafakeValidation.cc:1:
+/local/cms/user/gsorrent/antgc_analysis/macros/extra_tools.cc:2168:67: warning: unknown escape sequence '\.' [-Wunknown-escape-sequence]
+        std::vector<std::string> _fileList = listFilesInDir(_dirPath, ".*\.root", 1);
+                                                                         ^~
+#0  0x00002b498749146c in waitpid () from /lib64/libc.so.6
+#1  0x00002b498740ef62 in do_system () from /lib64/libc.so.6
+#2  0x00002b4986d6eacb in TUnixSystem::StackTrace() () from /cvmfs/cms.cern.ch/slc7_amd64_gcc700/lcg/root/6.12.07-gnimlf7/lib/libCore.so
+#3  0x00002b4988a09745 in cling::MultiplexInterpreterCallbacks::PrintStackTrace() () from /cvmfs/cms.cern.ch/slc7_amd64_gcc700/lcg/root/6.12.07-gnimlf7/lib/libCling.so
+#4  0x00002b4988a091cb in cling_runtime_internal_throwIfInvalidPointer () from /cvmfs/cms.cern.ch/slc7_amd64_gcc700/lcg/root/6.12.07-gnimlf7/lib/libCling.so
+#5  0x00002b49965bbc4e in ?? ()
+#6  0x0000000000000000 in ?? ()
+Error in <HandleInterpreterException>: Trying to dereference null pointer or trying to call routine taking non-null arguments.
+Execution of your code was aborted.
+/local/cms/user/gsorrent/antgc_analysis/macros/extra_tools.cc:1919:16: warning: null passed to a callee that requires a non-null argument [-Wnonnull]
+        TFile *file = _chain->GetCurrentFile();
+                      ^~~~~~

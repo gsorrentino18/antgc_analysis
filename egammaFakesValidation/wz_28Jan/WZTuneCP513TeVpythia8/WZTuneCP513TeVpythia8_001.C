@@ -1,0 +1,15 @@
+#include "/data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/wz_28Jan//egammafakeValidation.cc"
+
+void WZTuneCP513TeVpythia8_001(){
+	std::cout<<getCurrentTime()<<std::endl;
+	std::cout<<"Begin root macro..."<<std::endl;
+	
+	egammafakeValidation("/data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/wz_28Jan//WZTuneCP513TeVpythia8/WZTuneCP513TeVpythia8_001", 
+				"/data/cmszfs1/user/gsorrent/antgc_analysis/egammaFakesValidation/wz_28Jan//WZTuneCP513TeVpythia8//WZTuneCP513TeVpythia8_001.root",
+				27.57,
+				"/hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/WZTuneCP513TeVpythia8.root",
+				"/hdfs/cms/user/wadud/anTGC/analysis_data/METv5_pileup/pileup_2017_data.root");
+
+	std::cout<<"End root macro!"<<std::endl;
+	std::cout<<getCurrentTime()<<std::endl;
+};

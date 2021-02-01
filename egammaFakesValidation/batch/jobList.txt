@@ -1,0 +1,5 @@
+#WWTuneCP513TeVpythia8
+
+ZZTuneCP513TeVpythia8
+#WZTuneCP513TeVpythia8
+#WToENuM100TuneCP513TeVpythia8
