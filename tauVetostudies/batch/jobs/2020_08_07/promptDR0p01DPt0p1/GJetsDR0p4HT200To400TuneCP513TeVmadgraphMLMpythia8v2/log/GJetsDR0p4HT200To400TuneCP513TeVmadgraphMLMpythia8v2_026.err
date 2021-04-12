@@ -1,0 +1,4 @@
+condor_exec.exe: line 2: /cvmfs/cms.cern.ch/cmsset_default.sh: Transport endpoint is not connected
+condor_exec.exe: line 3: scramv1: command not found
+Error: cannot open file "TTreeReader.h"  /local/cms/user/wadud/aNTGCmet/aNTGC_analysis/macros/extra_tools.cc:32:
+*** Interpreter error recovered ***

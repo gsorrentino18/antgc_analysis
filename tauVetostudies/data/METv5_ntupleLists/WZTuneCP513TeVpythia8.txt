@@ -1,0 +1,3 @@
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WZTuneCP513TeVpythia8/WZTuneCP513TeVpythia8_000.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WZTuneCP513TeVpythia8/WZTuneCP513TeVpythia8_001.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WZTuneCP513TeVpythia8/WZTuneCP513TeVpythia8_002.root

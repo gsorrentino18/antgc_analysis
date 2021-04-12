@@ -1,0 +1,2 @@
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt3200toInfTuneCP513TeVpythia8/QCDPt3200toInfTuneCP513TeVpythia8_000.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/QCDPt3200toInfTuneCP513TeVpythia8/QCDPt3200toInfTuneCP513TeVpythia8_001.root

@@ -1,0 +1,3 @@
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/TGJetsTuneCP513TeVamcatnlomadspinpythia8/TGJetsTuneCP513TeVamcatnlomadspinpythia8_000.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/TGJetsTuneCP513TeVamcatnlomadspinpythia8/TGJetsTuneCP513TeVamcatnlomadspinpythia8_001.root
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/TGJetsTuneCP513TeVamcatnlomadspinpythia8/TGJetsTuneCP513TeVamcatnlomadspinpythia8_002.root

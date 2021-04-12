@@ -1,0 +1,5 @@
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/DiPhotonJetsMGG80toInf13TeVamcatnloFXFXpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/DYJetsToEEM50LTbinned400To8005fLO13TeVmadgraphpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/DYJetsToEEM50LTbinned200To4005fLO13TeVmadgraphpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/DYJetsToEEM50LTbinned100To2005fLO13TeVmadgraphpythia8.txt
+/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5_ntupleLists/DYJetsToEEM50LTbinned800To20005fLO13TeVmadgraphpythia8.txt

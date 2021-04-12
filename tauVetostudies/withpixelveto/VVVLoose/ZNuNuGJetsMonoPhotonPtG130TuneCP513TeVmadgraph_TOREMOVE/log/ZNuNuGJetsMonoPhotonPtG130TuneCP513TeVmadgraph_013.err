@@ -1,0 +1,6 @@
+In file included from input_line_10:1:
+In file included from /data/cmszfs1/user/gsorrent/antgc_analysis/tauVetostudies/withpixelveto/VVVLoose/ZNuNuGJetsMonoPhotonPtG130TuneCP513TeVmadgraph/ZNuNuGJetsMonoPhotonPtG130TuneCP513TeVmadgraph_013.C:1:
+In file included from /data/cmszfs1/user/gsorrent/antgc_analysis/tauVetostudies/withpixelveto/VVVLoose//tauVetoV3.cc:1:
+/local/cms/user/gsorrent/antgc_analysis/macros/extra_tools.cc:2168:67: warning: unknown escape sequence '\.' [-Wunknown-escape-sequence]
+        std::vector<std::string> _fileList = listFilesInDir(_dirPath, ".*\.root", 1);
+                                                                         ^~

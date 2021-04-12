@@ -1,0 +1,1 @@
+/mnt/hdfs/phys/cms/user/wadud/anTGC/ntuples/METv5/WToTauNuM100TuneCP513TeVpythia8tauola/WToTauNuM100TuneCP513TeVpythia8tauola_000.root
