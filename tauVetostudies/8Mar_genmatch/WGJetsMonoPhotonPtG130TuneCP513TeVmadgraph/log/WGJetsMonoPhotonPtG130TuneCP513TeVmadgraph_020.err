@@ -1,3 +1,0 @@
-condor_exec.exe: line 2: /cvmfs/cms.cern.ch/cmsset_default.sh: No such file or directory
-condor_exec.exe: line 6: scramv1: command not found
-condor_exec.exe: line 8: root: command not found
