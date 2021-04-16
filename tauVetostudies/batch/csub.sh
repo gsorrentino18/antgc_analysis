@@ -27,7 +27,7 @@ splitfiles=2
 
 
 className="tauVeto"
-ccfilepath="/local/cms/user/gsorrent/antgc_analysis/tauVetostudies/tauVetoV3.cc"
+ccfilepath="/local/cms/user/gsorrent/antgc_analysis/tauVetostudies/tauVeto.cc"
 
 macroTemplate=${workDir}/macroTemplateV2.C
 runScriptTemplate=${workDir}/run_script.sh

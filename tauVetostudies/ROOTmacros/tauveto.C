@@ -12,8 +12,8 @@ using namespace std;
 
 void tauveto(){
 
-   TFile *zgamma_file = new TFile("/local/cms/user/gsorrent/antgc_analysis/tauVetostudies/withpixelveto/Tight_final/zgamma.root");
-   TFile *wgamma_file = new TFile("/local/cms/user/gsorrent/antgc_analysis/tauVetostudies/withpixelveto/Tight_tau/wgamma.root");
+   TFile *zgamma_file = new TFile("/local/cms/user/gsorrent/antgc_analysis/tauVetostudies/withpixelveto/Loose_tau/zgamma.root");
+   TFile *wgamma_file = new TFile("/local/cms/user/gsorrent/antgc_analysis/tauVetostudies/withpixelveto/Loose_tau/wgamma.root");
 
    TTree *zgamma_tree = (TTree*)zgamma_file->Get("tnpPhoIDs/fitter_tree");
    TTree *wgamma_tree = (TTree*)wgamma_file->Get("tnpPhoIDs/fitter_tree");
@@ -88,7 +88,7 @@ void tauveto(){
 
    for (Int_t i=0; i<wgamma_nentries; i++) {
       wgamma_tree->GetEntry(i);
-      //if (!hasPromptTauWG) continue;
+      if (!hasPromptTauWG) continue;
       wgamma++;
       if (lepVetoWG==(char)4) {
         tau_wgamma_loose++;
@@ -138,7 +138,6 @@ void tauveto(){
 
       histwgamma[i]->SetFillColor(kAzure+1);
       histwgamma[i]->SetLineColor(kAzure+1);
-      std::cout << "test" << std::endl;
 
       hs[i]->Add(histzgamma[i]);
       hs[i]->Add(histwgamma[i]);

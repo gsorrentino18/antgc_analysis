@@ -71,7 +71,9 @@ private:
 	Bool_t             photonPassingID(UShort_t phoIndex);
 
         Float_t            deltaR(Float_t eta1, Float_t phi1, Float_t eta2, Float_t phi2);
-        TFile *             outFile = nullptr;
+        Short_t		   photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax);// Float_t _relDeltaPtMin, Float_t _relDeltaPtMax);
+	TFile *             outFile = nullptr;
+
 	/////////////////////////////////////////// Pileup Reweighting /////////////////////////////////////////////////////////
 	PileupReWeighting   puReweighter;
 	TH1F                pileupPreweight{"pileupUnweighted", "Unweighted Pileup; True # of Interactions", 200, 0., 200.};
@@ -101,11 +103,13 @@ private:
 	TTreeReaderAnyValue<UChar_t>            _puTrue;
 	TTreeReaderAnyValue<Float_t>            _genWeight;
 	TTreeReaderAnyValue<UShort_t>		_nMC;
+        TTreeReaderVectorValue<Int_t>           _mcMomPID;
 	TTreeReaderVectorValue<Int_t>           _mcPID;
 	TTreeReaderVectorValue<Float_t>		_mcPt;
 	TTreeReaderVectorValue<Float_t>         _mcEta;
 	TTreeReaderVectorValue<Float_t>         _mcPhi;
 	TTreeReaderVectorValue<UShort_t>        _mcStatusFlag;
+        TTreeReaderVectorValue<Char_t>          _mcPromptStatusType;
 	TTreeReaderVectorValue<Short_t>         _mcStatus;
 	TTreeReaderVectorValue<Short_t>     	_mcIndex;
         //TTreeReaderVectorValue<Short_t>         _pho_gen_index;
@@ -347,11 +351,11 @@ private:
         Float_t                 mt_;
         Int_t                   mcTrue_ = 0;
         Int_t                   tauIsGenMatched_;
+        Int_t                   hasPromptTau_;
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////Buffer variables///////////////////////////////////////////////////////
-	Short_t			phoTrigMatch;
-	Short_t			matchedGenPhoIndex;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////// XGBoost ////////////////////////////////////////////////////////////
@@ -564,7 +568,33 @@ Float_t tauVeto::deltaR(Float_t eta1, Float_t phi1, Float_t eta2, Float_t phi2) 
               return deltaR_;
 
 };
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Short_t	tauVeto::photonIsPrompt(Short_t _phoIndex, Float_t _deltaRmax) { //Float_t _relDeltaPtMin, Float_t _relDeltaPtMax){
 
+	Short_t matchedPromptGenPho = -999;
+	Float_t minDeltaR = 999.;
+
+	for(UShort_t iGenP=0; iGenP < _nMC; iGenP++){
+		if(_mcPID[iGenP] != 22) continue;
+
+		UShort_t iGenPStFl = _mcStatusFlag[iGenP];
+		if(!getBit(iGenPStFl,1)) continue;
+
+		Float_t dRiGenPho = deltaR(_phoEta[_phoIndex], _phoPhi[_phoIndex], _mcEta[iGenP], _mcPhi[iGenP]);
+		if(dRiGenPho > _deltaRmax) continue;
+
+		//Float_t relDeltaPtiGenPho = std::abs(_mcPt[iGenP] - _phoCalibEt[_phoIndex])/_mcPt[iGenP];
+		//if(relDeltaPtiGenPho > _relDeltaPtMax) continue;
+		//if(relDeltaPtiGenPho < _relDeltaPtMin) continue;
+
+		if(dRiGenPho < minDeltaR){
+			minDeltaR = dRiGenPho;
+			matchedPromptGenPho = iGenP;
+		}
+	}
+
+	return matchedPromptGenPho;
+};
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool_t tauVeto::initEventTypes(){
 
@@ -601,7 +631,7 @@ void tauVeto::analyze(){
 		nvtxPreweight.Fill(_nVtx, genWeight_);
 
                 Float_t weight = 1;
-
+                Bool_t isWG = false;
 		if(isMC) {
 
                         std::string Map = "/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/METv5Ntuples_MC_AND_DATASETS.csv";
@@ -609,6 +639,10 @@ void tauVeto::analyze(){
                         std::string sample = findAndReplaceAll(getFileName(filePath), ".root", "");
                         std::string sampleName = sample.substr(0, sample.find("_"));
 
+                        if (sampleName.substr(0,2) == "WG") {
+                           std::cout << sampleName.substr(0,3);
+                           isWG = true;
+                        }
 
                         Double_t xSection = std::stof(vLookup(sampleName, Map, 0, 2));
                         Double_t sumGenWeight = std::stof(vLookup(sampleName, Map, 0, 7));
@@ -636,6 +670,22 @@ void tauVeto::analyze(){
 		}
 
                 //selectEvent();
+                
+
+               //taking only events with a prompt gen tau
+               hasPromptTau_ = 0;
+               for(UShort_t iGenP=0; iGenP<_nMC; iGenP++){
+                 if(std::abs(_mcPID[iGenP]) != 15) continue; //// tau only
+                 if(_mcStatus[iGenP] >= 10) continue;     //// final state    
+                 UShort_t iGenPStFl = _mcStatusFlag[iGenP];
+                 //if(!getBit(iGenPStFl,0)) continue;        //// fromHardProcessFinalState()
+                 if(!getBit(iGenPStFl,2)) continue;       //// isHardProcess()
+                 if(!getBit(iGenPStFl,3)) continue;       ////isLastCopy()
+                 hasPromptTau_ = 1;
+                 break;
+               }
+
+               //if((!hasPromptTau) && (isWG)) continue;
 
                 lepVeto_ = 0;
 	        // Electron rejection
@@ -660,7 +710,7 @@ void tauVeto::analyze(){
                 }
                 // Tau rejection
                 Int_t ntau = 0;
-                tauIsGenMatched_ = 0;
+                tauIsGenMatched_ = 0; 
 
                 for(Int_t i = 0; i < _nTau; i++){
                      if((_tauPt[i]) < 20.) continue;
@@ -668,22 +718,27 @@ void tauVeto::analyze(){
 
                      for(UShort_t iGenP=0; iGenP<_nMC; iGenP++){
 
-                        if(_mcStatus[iGenP] != 1) continue;     // final state (stable)
+                        if(std::abs(_mcPID[iGenP]) != 15) continue; //// tau only
+                        if(_mcStatus[iGenP] >= 10) continue;     //// final state    
+
+                        UShort_t iGenPStFl = _mcStatusFlag[iGenP];
+                        if(!getBit(iGenPStFl,2)) continue;
+                        if(!getBit(iGenPStFl,3)) continue;
                         Float_t dR = deltaR(_mcEta[iGenP], _mcPhi[iGenP], _tauEta[i], _tauPhi[i]);
-                        
-                        if (dR < 0.05) tauIsGenMatched_ = 1;
+
+                        if (dR < 0.1) tauIsGenMatched_ = 1;
                      }
 
                      Int_t tmptauIDbits = _tauIDbits[i]; //old MVA tau algo
                      Int_t tmptauIDbitsDeepTau2017v2p1 = _tauIDbitsDeepTau2017v2p1[i]; //new DNN tau algo
                      //Int_t tmptauIDbitsDeepTau2017v1 = _tauIDbitsDeepTau2017v1[i];
 
-                     if(!getBit(tmptauIDbitsDeepTau2017v2p1, 3)) continue; //byLooseDeepTau2017v2p1VSjet
-                     if(!getBit(tmptauIDbitsDeepTau2017v2p1, 11)) continue; //byLooseDeepTau2017v2p1VSe
-                     if(!getBit(tmptauIDbitsDeepTau2017v2p1, 17)) continue; //byLooseDeepTau2017v2p1VSmu
+                     if(!getBit(tmptauIDbitsDeepTau2017v2p1, 3)) continue;
+                     if(!getBit(tmptauIDbitsDeepTau2017v2p1, 11)) continue;
+                     if(!getBit(tmptauIDbitsDeepTau2017v2p1, 17)) continue;
 
                      std::vector<Char_t> tmptauDMs = _tauDMs[i];
-                     if (tmptauDMs[2]==0) continue; //require decayModeFindingNEW
+                     if (tmptauDMs[2]==0) continue;  //require decayModeFindingNEW
                      if ((tmptauDMs[0]==5) || (tmptauDMs[0]==6)) continue; //veto DM 5 & 6 with decayModeFindingNEW
                      
                      setBit(lepVeto_,2,1);
@@ -697,35 +752,23 @@ void tauVeto::analyze(){
 
                Short_t iPhoton = -999;
                Float_t highestPt = -999;
-               Float_t deltaEta_ = 0;
-               Float_t deltaPhi_ = 0;
-               Float_t deltaR_ = 0; 
-               Float_t deltaPt_ = 0;
                Bool_t foundPho = false;
 
                for(UShort_t iPho=0; iPho<_nPho; iPho++){
 
-                  /*deltaPhi_ = fabs(_elePhi[ele_index] - _phoPhi[iPho]);
-                  if (deltaPhi_ > acos(-1)) {
-                     deltaPhi_ = 2*acos(-1) - deltaPhi_;
-                  }
-                  deltaEta_ = _eleEta[ele_index] - _phoEta[iPho];
-                  deltaPt_ = _eleCalibPt[ele_index] - _phoCalibEt[iPho]; 
-                  deltaR_ = sqrt((deltaPhi_*deltaPhi_) + (deltaEta_*deltaEta_));
-
-                  if (deltaR_ > 0.05) continue;*/
-
-                  if (_phoCalibEt[iPho] < 200) continue;
-                  if (fabs(_phoEta[iPho]) > 1.4442) continue;
-                  if (photonPassingID(iPho) == 0 ) continue;
-
                   if (_phoCalibEt[iPho] > highestPt) {
+
+                     UChar_t phoPixVeto = _phoQualityBits[iPho];
+                     if (phoPixVeto == 0 ) continue;  //if phoPixVeto == 0 -> photon hasPixelSeed
+                     if (_phoCalibEt[iPho] < 200) continue;
+                     if (fabs(_phoEta[iPho]) > 1.4442) continue;
+                     if (photonPassingID(iPho) == 0 ) continue;
                      highestPt = _phoCalibEt[iPho];
                      iPhoton = iPho;
                   }
                }
+
                if (iPhoton >=0) foundPho = true;
-               
 
                if (foundPho) {
 
@@ -848,10 +891,12 @@ Bool_t tauVeto::initNtuples(std::string FILELIST){
 		_genWeight.set(inputTTreeReader, "genWeight");
 		_nMC.set(inputTTreeReader, "nMC");
 		_mcPID.set(inputTTreeReader, "mcPID");
+                _mcMomPID.set(inputTTreeReader, "mcMomPID");
 		_mcPt.set(inputTTreeReader, "mcPt");
 		_mcEta.set(inputTTreeReader, "mcEta");
 		_mcPhi.set(inputTTreeReader, "mcPhi");
 		_mcStatusFlag.set(inputTTreeReader, "mcStatusFlag");
+                _mcPromptStatusType.set(inputTTreeReader, "mcPromptStatusType");
 		_mcStatus.set(inputTTreeReader, "mcStatus");
 		_mcIndex.set(inputTTreeReader, "mcIndex");
                 //_pho_gen_index.set(inputTTreeReader, "pho_gen_index");
@@ -1113,7 +1158,8 @@ void tauVeto::initEventType(eventType & evType, std::string typeName, std::strin
         evType.tree->Branch("mt", &mt_);
         evType.tree->Branch("mcTrue", &mcTrue_);
         evType.tree->Branch("tauIsGenMatched", &tauIsGenMatched_);
-        	
+        evType.tree->Branch("hasPromptTau", &hasPromptTau_);
+
 	std::cout<<"Created output tree:\t"<<typeName<<"\t"<<typeTitle<<std::endl<<std::endl;
 	// evType.tree->Print();
 };
