@@ -1,0 +1,305 @@
+################################################################################################################################################################################################
+useExisting 							==			0
+################################################################################################################################################################################################
+
+
+################################################################################################################################################################################################
+bgBins 									==			DiPhotonJetsMGG80toInf13TeVamcatnloFXFXpythia8.root:#gamma+#gamma:8c6bb1;
+													GJetsHT200To400TuneCP513TeVmadgraphMLMpythia8.root,GJetsHT400To600TuneCP513TeVmadgraphMLMpythia8.root,GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8.root:#gamma+jets:1d91c0;
+													#WToMuNuM100TuneCP513TeVpythia8.root, WToTauNuM100TuneCP513TeVpythia8tauola.root:W(#mu/#tau+#nu):80cdc1;
+													#ZNuNuGJetsMonoPhotonPtG130TuneCP513TeVmadgraph.root:Z(#nu+#bar{#nu})+#gamma:006837;
+													ZLLGJetsMonoPhotonPtG130TuneCP513TeVmadgraphpythia8.root:Z(l+#bar{l})+#gamma:fb9a99;
+													WWTuneCP513TeVpythia8.root,WZTuneCP513TeVpythia8.root:W+W, W+Z, Z+Z:e31a1c;
+													TGJetsTuneCP513TeVamcatnlomadspinpythia8.root,TTGJetsTuneCP513TeVamcatnloFXFXmadspinpythia8.root:t+#gamma, t#bar{t}+#gamma:fdbf6f;
+													#WGJetsMonoPhotonPtG130TuneCP513TeVmadgraph.root:W(l+#bar{#nu})+#gamma:ff7f00	
+                                                                                                        WGToLNuGPtG130TuneCP513TeVamcatnloFXFXpythia8.root:W(l+#bar{#nu})+#gamma:ff7f00
+
+data	 								==			SinglePhotonRun2017.root
+bgBins 									==			DiPhotonJetsMGG80toInf13TeVamcatnloFXFXpythia8.root:#gamma+#gamma:8c6bb1;
+													GJetsHT200To400TuneCP513TeVmadgraphMLMpythia8.root,GJetsHT400To600TuneCP513TeVmadgraphMLMpythia8.root,GJetsHT600ToInfTuneCP513TeVmadgraphMLMpythia8.root:#gamma+jets:1d91c0;
+													#WToMuNuM100TuneCP513TeVpythia8.root, WToTauNuM100TuneCP513TeVpythia8tauola.root:W(#mu/#tau+#nu):80cdc1;
+													ZGTo2NuGPtG130TuneCP513TeVamcatnloFXFXpythia8.root:Z(#nu+#bar{#nu})+#gamma:006837;
+													ZGTo2LGPtG130TuneCP513TeVamcatnloFXFXpythia8.root:Z(l+#bar{l})+#gamma:fb9a99;
+													WWTuneCP513TeVpythia8.root,WZTuneCP513TeVpythia8.root, ZZTuneCP513TeVpythia8.root:W+W, W+Z, Z+Z:e31a1c;
+													TGJetsTuneCP513TeVamcatnlomadspinpythia8.root,TTGJetsTuneCP513TeVamcatnloFXFXmadspinpythia8.root:t+#gamma, t#bar{t}+#gamma:fdbf6f;
+													WGToLNuGPtG130TuneCP513TeVamcatnloFXFXpythia8.root:W(l+#bar{#nu})+#gamma:ff7f00												
+
+
+
+#####												WToENuM100TuneCP513TeVpythia8.root:W(e+#nu):cab2d6;
+################################################################################################################################################################################################
+
+
+########################################################################################## SR ########################################################################################
+
+SRdir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets/merged/
+jet 									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_JetFakesDenom/merged/
+eleFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_EFakes/merged/
+saveDir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/CRstudy/Results/SR/
+legTitle 								==			Z(#rightarrow#nu#bar{#nu})+#gamma (SR)
+cut 									==			(phoPt > 225.) && (deltaPhiMetPho > 1.570796327) && (met>150.) && (phoPtOverMet < 1.29) && (minDeltaPhiMetJet30 > 0.43)
+################################################################################################################################################################################################
+
+
+########################################################################################## Gamma + gets ########################################################################################
+sig 									==			*gammajets*
+SRdir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets/merged/
+jetFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_JetFakesDenom/merged/
+eleFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_EFakes/merged/
+saveDir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/CRstudy/Results/GJets/
+legTitle 								==			#gamma+jets (CR)
+cut 									==			(phoPt > 225.) && (deltaPhiMetPho > 1.51) && (met>150.) && (phoPtOverMet > 1.23) && (minDeltaPhiMetJet30 < 0.81)
+################################################################################################################################################################################################
+
+
+############################################################################################## SR old ##########################################################################################
+sig 									==			*Znubarnugamma*
+SRdir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets/merged/
+jetFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_JetFakesDenom/merged/
+eleFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_EFakes/merged/
+saveDir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/CRstudy/Results/SRold/
+legTitle 								==			Z(#rightarrow#nu#bar{#nu})+#gamma (SR)
+cut 									==			(phoPt > 230.) && (deltaPhiMetPho > 2.) && (met>150.) && (phoPtOverMet < 1.4) && (minDeltaPhiMetJet30 > 0.5)
+################################################################################################################################################################################################
+
+
+############################################################################################### SR #############################################################################################
+
+SRdir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets/merged/
+JetFakesDenom 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_JetFakesDenom/merged/
+eleFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_GJets_EFakes/merged/
+saveDir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/CRstudy/Results/SR/
+legTitle 								==			Z(#rightarrow#nu#bar{#nu})+#gamma (SR)
+eleFakesCut 							==			(phoPt > 230.) && (deltaPhiMetPho > 1.51) && (met>150.) && (phoPtOverMet < 1.23) && (minDeltaPhiMetJet30 > 0.81)
+JetFakesDenomCut						==			(phoPt > 230.) && (deltaPhiMetPho > 1.51) && (met>150.) && (phoPtOverMet < 1.23) && (minDeltaPhiMetJet30 > 0.81)
+dataCut 								==			(phoPt > 230.) && (deltaPhiMetPho > 1.51) && (met>150.) && (phoPtOverMet < 1.23) && (minDeltaPhiMetJet30 > 0.81)
+cut 									==			(phoPt > 230.) && (deltaPhiMetPho > 1.51) && (met>150.) && (phoPtOverMet < 1.23) && (minDeltaPhiMetJet30 > 0.81)
+################################################################################################################################################################################################
+
+
+######################################################################################## ZtoEE + Gamma #######################################################################################
+sig 									==			*Zlbarlgamma*
+SRdir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_ZG_EE_30/merged/
+jetFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_ZG_EE_30_JetFakesDenom/merged/
+eleFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_ZG_EE_30_EFakes/merged/
+saveDir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/CRstudy/Results/ZG_EE/
+legTitle 								==			Z(#rightarrowe#bar{e})+#gamma (CR)
+#### (phoPt > 230.)  && (deltaPhiRecoilPho>1.51) && (lep12RecoilPt>150.)
+cut 									==			(phoPt > 230.)  && (deltaPhiRecoilPho>1.51) && (lep12RecoilPt>150.)
+################################################################################################################################################################################################
+
+######################################################################################## ZtoMuMu + Gamma #######################################################################################
+sig 									==			*Zlbarlgamma*
+SRdir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_ZG_MuMu_30/merged/
+jetFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_ZG_MuMu_30_JetFakesDenom/merged/
+eleFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_04_27_ZG_MuMu_30_EFakes/merged/
+saveDir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/CRstudy/Results/ZG_MuMu/
+legTitle 								==			Z(#rightarrow#mu#bar{#mu})+#gamma (CR)
+cut 									==			(phoPt > 230.)  && (deltaPhiRecoilPho>1.51) && (lep12RecoilPt>150.)
+################################################################################################################################################################################################
+
+ratioRange 								==			0.01,2.62
+
+includeData 							==			1
+
+######################################################################################## WtoMuNu + Gamma #######################################################################################
+sig 									==			*Wlbarnugamma*
+
+SRdir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_05_21_WG_MuNu_v2/merged/
+jetFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_05_21_WG_MuNu_v2_JetFakesDenom/merged/
+eleFakes 								==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis_skim/CRstudy/2021_05_21_WG_MuNu_v2_EFakes/merged/
+saveDir									==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/CRstudy/Results/WG_MuNu/
+
+legTitle 								==			W(#rightarrow#mu#nu)+#gamma (CR)
+
+cut 									==			(nPhoCand < 1.1) && (met>50) && (phoPt > 225.) && (lepMetRecoilPt>200.) && (mTLepMet < 160.)&& ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && !(lepVeto & 0)
+################################################################################################################################################################################################
+
+######################################################################################## WtoMuNu + Gamma ########################################################################################
+sig                                                                     ==                      *Wlbarnugamma*
+SRdir                                                                   ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNu_all
+jetFakes                                                                ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNu_JETfakes
+eleFakes                                                                ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNu_Efakes
+saveDir                                                                 ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNuDir
+
+
+legTitle                                                                ==                      W(#rightarrow#mu#nu)+#gamma (CR)
+
+
+dataCut                                                                 ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+mcCut                                                                   ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+eFakesCut                                                     ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+jetFakesCut                                                     ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+# minDeltaPhiRecoilJet30
+#&& (lepMetRecoilPt>200.)
+################################################################################################################################################################################################
+######################################################################################## WtoMuNu + Gamma ########################################################################################
+sig                                                                     ==                      *Wlbarnugamma*
+SRdir                                                                   ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNu_all
+jetFakes                                                                ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNu_JETfakes
+eleFakes                                                                ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNu_Efakes
+saveDir                                                                 ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WmuNuDir
+
+
+legTitle                                                                ==                      W(#rightarrow#mu#nu)+#gamma (CR)
+
+
+dataCut                                                                 ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+mcCut                                                                   ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+eFakesCut                                                     ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+jetFakesCut                                                     ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 0) && !(lepVeto & 2) && (nPhoCand < 1)
+
+# minDeltaPhiRecoilJet30
+#&& (lepMetRecoilPt>200.)
+
+######################################################################################## WtoENu + Gamma ########################################################################################
+sig                                                                     ==                      *Wlbarnugamma*
+SRdir                                                                   ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies//WeNu_all_OK
+jetFakes                                                                ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies//WeNu_JETfakes_OK
+eleFakes                                                                ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies//WeNu_Efakes_OK2
+saveDir                                                                 ==                      /local/cms/user/gsorrent/antgc_analysis/wgCRstudies/WeNuDir_corrected
+
+
+legTitle                                                                ==                      W(#rightarrowe#nu)+#gamma (CR)
+
+dataCut                                                                 ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 1) && !(lepVeto & 2) && (nPhoCand < 1)
+
+mcCut                                                                   ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 1) && !(lepVeto & 2) && (nPhoCand < 1)
+
+eFakesCut                                                               ==                       (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 1) && !(lepVeto & 2) && (nPhoCand < 1)
+
+jetFakesCut                                                     ==                      (met>50) && (phoPt > 225.) && (mTLepMet < 160.) && ((phoPt/lepMetRecoilPt) < 1.4)  && (deltaPhiRecoilPho > 0.5) && (minDeltaPhiMetJet30>0.5) && (minDeltaPhiMetJet30 != 99999999.) && !(lepVeto & 1) && !(lepVeto & 2) && (nPhoCand < 1)
+
+# minDeltaPhiRecoilJet30
+#&& (lepMetRecoilPt>200.)
+###############################################################################################################################################################################################
+useBaysBlocksBinning 					==			0
+baysBlocksP 							==			1.9
+baysBlocksP 							==			0.000001
+baysBlocksP 							==			0.01
+rebinWithData 							==			0
+
+
+met 									== 			#slash{E}_{T} (GeV); 0,10,20,30,50,100,150,300,1000;50;Events/GeV
+metPhi 									== 			#slash{E}_{T} #phi; 10,-3.141593, 3.141593;50;Events/unit
+mTLepMet								== 			m_{T}(#slash{E}_{T}+l) (GeV);0,20,40,60,80,100,160;50;Events/GeV
+lepMetRecoilPhi							== 			#phi(#slash{E}_{T}+l); 8,-3.141593, 3.141593;50;Events/unitphoEta 									== 			#eta^{#gamma}; 8,-2.5,2.5;50;Events/unit
+phoEta 									== 			#eta^{#gamma}; 8,-2.5,2.5;50;Events/unit
+phoPhi 									== 			#phi^{#gamma}; 8,-3.141593, 3.141593;50;Events/unit
+lepPhi 									== 			#phi^{l}; 8,-3.141593, 3.141593;50;Events/unit
+lepEta									== 			#eta^{l}; 8,-2.5,2.5;50;Events/unit
+lepMetRecoilPt 							== 			p_{T}(#slash{E}_{T}+l) (GeV); 200,250,300,350,400,700;50;Events/GeV
+lepPt 									== 			p_{T}^{l} (GeV); 30,80,150,300,500,1000;50;Events/GeV
+minDeltaPhiMetJet30 					== 			#Delta#phi(Jet^{L}, #slash{E}_{T}); 40,0.,3.15;50;Events/GeV
+phoPt 									==			p_{T}^{#gamma} (GeV); 225,250,300,450,700;50;Events/GeV
+
+Ht30 									==			H_{T} (GeV); 0,5,10,20,80,150,200,300,400,500,600,1000;50;Events/GeV
+nJet30 									==			N#circ Jets; 6,0,6;-10;Events/unit
+
+vars 									==			phoPt, Ht30, met, metPhi, lepMetRecoilPt, lepMetRecoilPhi, lepPt, lepPhi, lepEta, mTLepMet, nJet30, phoEta, phoPhi
+################################################################################################################################################################################################
+
+
+################################################################################################################################################################################################
+jetFakesEqn 							==			322.1e-04*x - 480.3e-01 + 452.4e+02/(x+872.4), 3f007d, 0
+eleFakesEqn 							==			0.0114, ffff99, 1
+################################################################################################################################################################################################
+
+################################################################################# k-factors ####################################################################################################
+applyGJetsKfac 							==			0
+GJetsKfac 								==			1.4
+
+applyQCDkfac 							==			0
+kFacQCDWmLNuG 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/kFactors/WmGamma_k_NNLO_NLO.root, k_NNLO_NLO_central
+kFacQCDWpLNuG 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/kFactors/WpGamma_k_NNLO_NLO.root, k_NNLO_NLO_central
+kFacQCDZNuNuG 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/kFactors/ZnunuGamma_k_NNLO_NLO.root, k_NNLO_NLO_central
+
+applyEWkfac 							==			1
+kFacEWWmLNuG 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/kFactors/WmGamma_EWkfacs.root, centralKfacHist
+kFacEWWpLNuG 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/kFactors/WpGamma_EWkfacs.root, centralKfacHist
+kFacEWZNuNuG 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/kFactors/ZGamma_EWkfacs.root, centralKfacHist
+################################################################################################################################################################################################
+
+################################################################################################################################################################################################
+lumi 									==			41.299713663
+################################################################################################################################################################################################
+
+xSectionMap 							==			/local/cms/user/wadud/aNTGCmet/aNTGC_analysis/data/ntuples_2017_METbugfix.csv
+inTree									==			fullEB/fullEBTree
+cutFlowHist 							== 			fullEB/fullEBcutFlowGenWeight
+cutFlowHistUnWeighted					== 			fullEB/fullEBcutFlowCount
+overFlowInLastXbin 						==			1
+
+###  bright colors FFF700, FFFF66, CCFF00, 66FF66, FD5B78
+statUnc 								==			66FF66, 3653, 1., 2., 0.1, Predicted Total
+dataAtts 								==			20, 3, 3, 000000, Data
+ratioAtts 								==			20, 3, 3, c51b7d, Data/Prediction
+
+showSoSqrtB 							==			1
+
+titleScale 								==		0.65
+sObprec 								==			1
+fracPrec 								==			2
+histAlpha 								==			0.85
+yMinPadding 							==			0.001
+yMaxPadding 							==			0.43
+setMoreLogLabels 						==			5
+
+canvasX									==		2800
+canvasY									==		2400
+pad0x1									==		0.
+pad0x2									==		1.
+pad0y1									==		0.4
+pad0y2									==		1.
+pad0marginL								==		0.18
+pad0marginR								==		0.04
+pad0marginB								==		0.025
+pad0marginT								==		0.07
+pad0axisLabelSize						==		0.06
+pad0ZaxisLabelSize 						==		0.02
+pad0axisTitleSize						==		0.06336
+pad0XtitleOffset						==		1.1
+pad0YtitleOffset						==		1.2
+pad0ZtitleOffset						==		2.
+pad0xNdivs								==		510
+pad0yNdivs								==		510
+
+pad1x1									==		0.
+pad1x2									==		1.
+pad1y1									==		0.
+pad1y2									==		0.4
+
+pad1marginL								==		0.18
+pad1marginR								==		0.04
+pad1marginB								==		0.24
+pad1marginT								==		0.0
+pad1axisLabelSize						==		0.09
+pad1ZaxisLabelSize 						==		0.02
+pad1axisTitleSize						==		0.09504
+pad1XtitleOffset						==		1.0
+pad1YtitleOffset						==		0.78
+pad1ZtitleOffset						==		2.
+pad1xNdivs								==		510
+pad1yNdivs								==		510
+
+legx1									==		0.21
+legx2									==		0.955
+legy1									==		0.565
+legy2									==		0.92
+legTextSize								==		0.035
+legHeadSize 							==		0.045
+legFillStyle 							== 		1000
+legFillColor 							== 		d9d9d9
+legFillColorAlpha 						== 		1.
+legNcols								==		2
+
+yMaxDigits 								==		4
+yExpOffstX 								==		-0.09
+yExpOffstY 								==		0
